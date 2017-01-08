@@ -8,16 +8,14 @@
 (require 'color-theme)
 (load-theme 'wombat t)
 
+(add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . javascript-mode))
 
 (require 'flycheck-flow)
-(setq flycheck-check-syntax-automatically '(mode-enabled new-line))
 (setq flycheck-check-syntax-automatically '(mode-enabled idle-change))
 (setq flycheck-idle-change-delay 0.5)
-;; Check the buffer on enabling and mode and saving
-(setq flycheck-check-syntax-automatically '(mode-enabled save))
 
-(setq flycheck-eslintrc "~/.eslintrc")
+;; (setq flycheck-eslintrc "~/.eslintrc")
 
 (defun my/use-eslint-from-node-modules ()
   (let* ((root (locate-dominating-file
@@ -58,10 +56,10 @@
 (add-to-list 'load-path "~/.emacs.d/rainbow-mode")
 (require 'rainbow-mode)
 
-(add-to-list 'load-path "~/.emacs.d/yasnippet")
+;; (add-to-list 'load-path "~/.emacs.d/yasnippet")
 (require 'yasnippet)
-(yas/load-directory "~/.emacs.d/yasnippets")
-(yas/initialize)
+(yas-initialize)
+(yas-load-directory "~/.emacs.d/snippets")
 
 (add-to-list 'load-path "~/.emacs.d/el-get/wrap-region")
 (require 'wrap-region)
@@ -129,7 +127,7 @@
 (global-set-key (kbd "C-`") (lambda () (interactive) (insert "`")))
 (global-set-key (kbd "C-x m") 'bookmark-set)
 (global-set-key (kbd "C-x l") 'bookmark-bmenu-list)
-(global-set-key (kbd "M-i") 'indent-rigidly)
+(global-set-key (kbd "M-i") (lambda () (interactive) (indent-rigidly (region-beginning) (region-end) 1)))
 (global-set-key (kbd "M-I") (lambda () (interactive) (indent-rigidly (region-beginning) (region-end) -1)))
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "M-s") 'save-buffer)
@@ -285,8 +283,11 @@
 
 (add-hook 'js-mode-hook
   (lambda ()
+    (local-set-key (kbd "C-j")
+      (lambda () (interactive) (newline-and-indent)))
     (auto-complete-mode t)
     (setq js-indent-level 2)
+    (yas-minor-mode t)
     (flycheck-mode t)
     (tern-mode t)
     ;; (eval-after-load 'tern
