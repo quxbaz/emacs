@@ -284,11 +284,14 @@
 (add-hook 'js-mode-hook
   (lambda ()
     (local-set-key (kbd "C-j")
-      (lambda () (interactive) (newline-and-indent)))
+      (lambda () (interactive) (newline)))
+    ;; (local-set-key (kbd "C-j")
+    ;;   (lambda () (interactive) (newline-and-indent)))
     (auto-complete-mode t)
     (setq js-indent-level 2)
     (yas-minor-mode t)
-    (flycheck-mode t)
+    (electric-indent-mode nil)
+    ;; (flycheck-mode t)
     (tern-mode t)
     ;; (eval-after-load 'tern
     ;;   '(progn
