@@ -122,6 +122,7 @@
 (setq-default sgml-basic-offset 2)
 
 ;;; Global key bindings
+(global-set-key (kbd "s-f") 'flycheck-mode)
 (global-set-key (kbd "C-j") 'newline-and-indent)
 (global-set-key (kbd "M-SPC") 'goto-line)
 (global-set-key (kbd "M-F") 'find-file-at-point)
@@ -292,7 +293,7 @@
     (setq js-indent-level 2)
     (yas-minor-mode t)
     (electric-indent-mode nil)
-    ;; (flycheck-mode t)
+    (flycheck-mode t)
     (tern-mode t)
     ;; (eval-after-load 'tern
     ;;   '(progn
