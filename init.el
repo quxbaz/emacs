@@ -284,8 +284,8 @@
 
 (add-hook 'js-mode-hook
   (lambda ()
-    (local-set-key (kbd "C-j")
-      (lambda () (interactive) (newline)))
+    ;; (local-set-key (kbd "C-j")
+    ;;   (lambda () (interactive) (newline)))
     ;; (local-set-key (kbd "C-j")
     ;;   (lambda () (interactive) (newline-and-indent)))
     (auto-complete-mode t)
