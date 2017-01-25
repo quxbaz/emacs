@@ -104,7 +104,7 @@
 ;; (set-face-attribute 'default nil :font "mononoki-10")
 ;; (set-face-attribute 'default nil :font "Hasklig-10")
 ;; (set-face-attribute 'default nil :font "consolas-10")
-(set-face-attribute 'default nil :font "dejavu sans mono-11")
+(set-face-attribute 'default nil :font "dejavu sans mono-10")
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq indent-line-function 'insert-tab)  ;; key an eye on this, might cause problems
