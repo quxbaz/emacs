@@ -36,7 +36,7 @@
       (require 'tern-auto-complete)
       (tern-ac-setup)))
 
-(setq  ac-auto-show-menu 0)
+(setq ac-auto-show-menu 0)
 
 (add-to-list 'load-path "~/.emacs.d/neotree")
 (require 'neotree)
@@ -122,6 +122,7 @@
 (setq-default sgml-basic-offset 2)
 
 ;;; Global key bindings
+(global-set-key (kbd "C-j") 'newline-and-indent)
 (global-set-key (kbd "M-SPC") 'goto-line)
 (global-set-key (kbd "M-F") 'find-file-at-point)
 (global-set-key (kbd "C-`") (lambda () (interactive) (insert "`")))
