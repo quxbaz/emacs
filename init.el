@@ -122,7 +122,6 @@
 (setq-default sgml-basic-offset 2)
 
 ;;; Global key bindings
-(global-set-key (kbd "C-j") 'newline-and-indent)
 (global-set-key (kbd "M-SPC") 'goto-line)
 (global-set-key (kbd "M-F") 'find-file-at-point)
 (global-set-key (kbd "C-`") (lambda () (interactive) (insert "`")))
