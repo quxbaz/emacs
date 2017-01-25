@@ -36,7 +36,7 @@
       (require 'tern-auto-complete)
       (tern-ac-setup)))
 
-(setq  ac-auto-show-menu 0)
+(setq ac-auto-show-menu 0)
 
 (add-to-list 'load-path "~/.emacs.d/neotree")
 (require 'neotree)
