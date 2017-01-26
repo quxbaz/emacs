@@ -46,12 +46,12 @@
   (lambda ()
     (local-set-key (kbd "TAB") 'neotree-enter)))
 
-(autopair-global-mode) ;; enable autopair in all buffers
+;; (autopair-global-mode) ;; enable autopair in all buffers
 
-(add-hook 'autopair-mode-hook
-  #'(lambda ()
-      (push '(?{ . ?})
-            (getf autopair-extra-pairs :code))))
+;; (add-hook 'autopair-mode-hook
+;;   #'(lambda ()
+;;       (push '(?{ . ?})
+;;             (getf autopair-extra-pairs :code))))
 
 (add-to-list 'load-path "~/.emacs.d/rainbow-mode")
 (require 'rainbow-mode)
@@ -122,6 +122,7 @@
 (setq-default sgml-basic-offset 2)
 
 ;;; Global key bindings
+;; (global-set-key (kbd "RET") 'newline)
 (global-set-key (kbd "s-f") 'flycheck-mode)
 (global-set-key (kbd "C-j") 'newline-and-indent)
 (global-set-key (kbd "M-SPC") 'goto-line)
@@ -283,6 +284,8 @@
                              ; (keyboard-quit)
                              ; (cua-selection-mode nil)))))
 
+(when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
+
 (add-hook 'js-mode-hook
   (lambda ()
     ;; (local-set-key (kbd "C-j")
@@ -292,7 +295,7 @@
     (auto-complete-mode t)
     (setq js-indent-level 2)
     (yas-minor-mode t)
-    (electric-indent-mode nil)
+    (electric-indent-mode -1)
     (flycheck-mode t)
     (tern-mode t)
     ;; (eval-after-load 'tern
