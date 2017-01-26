@@ -46,12 +46,12 @@
   (lambda ()
     (local-set-key (kbd "TAB") 'neotree-enter)))
 
-;; (autopair-global-mode) ;; enable autopair in all buffers
+(autopair-global-mode) ;; enable autopair in all buffers
 
-;; (add-hook 'autopair-mode-hook
-;;   #'(lambda ()
-;;       (push '(?{ . ?})
-;;             (getf autopair-extra-pairs :code))))
+(add-hook 'autopair-mode-hook
+  #'(lambda ()
+      (push '(?{ . ?})
+            (getf autopair-extra-pairs :code))))
 
 (add-to-list 'load-path "~/.emacs.d/rainbow-mode")
 (require 'rainbow-mode)
