@@ -1,0 +1,24 @@
+# name: React functional component
+# key: react-fn
+# --
+import css from './style.css'
+import React from 'react'
+import PropTypes from 'react'
+import {connect} from 'react-redux'
+// import classNames from 'classnames'
+
+const $1 = () => {
+  return (
+    <div className={css.$1}>
+      $0
+    </div>
+  )
+}
+
+$1.propTypes = {}
+
+const mapStateToProps = () => ({})
+
+const mapDispatchToProps = () => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)($1)

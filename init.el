@@ -10,6 +10,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx?$" . javascript-mode))
 
 (require 'flycheck-flow)
 (setq flycheck-check-syntax-automatically '(mode-enabled idle-change))
@@ -56,10 +57,11 @@
 (add-to-list 'load-path "~/.emacs.d/rainbow-mode")
 (require 'rainbow-mode)
 
-;; (add-to-list 'load-path "~/.emacs.d/yasnippet")
+(add-to-list 'load-path "~/.emacs.d/yasnippet")
 (require 'yasnippet)
 (yas-initialize)
 (yas-load-directory "~/.emacs.d/snippets")
+(setq yas-indent-line "fixed")
 
 (add-to-list 'load-path "~/.emacs.d/el-get/wrap-region")
 (require 'wrap-region)
@@ -123,10 +125,14 @@
 
 ;;; Global key bindings
 ;; (global-set-key (kbd "RET") 'newline)
+
+ ;; Disable middle mouse to insert text. I keep accidentally hitting
+ ;; it when going for the space bar.
+(global-set-key [mouse-2] 'nil)
+
 (global-set-key (kbd "s-f") 'flycheck-mode)
 (global-set-key (kbd "C-j") 'newline-and-indent)
 (global-set-key (kbd "M-SPC") 'goto-line)
-(global-set-key (kbd "M-F") 'find-file-at-point)
 (global-set-key (kbd "C-`") (lambda () (interactive) (insert "`")))
 (global-set-key (kbd "C-x m") 'bookmark-set)
 (global-set-key (kbd "C-x l") 'bookmark-bmenu-list)
@@ -135,6 +141,7 @@
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "C-c C-o") 'find-file-at-point)
+(global-set-key (kbd "M-F") 'find-file-other-window)
 (global-set-key (kbd "C-.") 'repeat)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "s-b") 'ibuffer)
@@ -156,7 +163,10 @@
 ;; (global-set-key (kbd "s-n") (lambda () (interactive) (other-window 1)))
 (global-set-key (kbd "s-n") (lambda () (interactive) (flycheck-next-error)))
 (global-set-key (kbd "s-p") (lambda () (interactive) (other-window -1)))
-(global-set-key [C-tab] (lambda () (interactive) (other-frame 1)))
+
+;; (global-set-key [C-tab] (lambda () (interactive) (other-frame 1)))
+(global-set-key [C-tab] 'magit-status)
+
 (global-set-key [C-S-iso-lefttab] (lambda () (interactive) (other-frame -1)))
 ;; (global-set-key (kbd "C-x o") 'other-frame)
 (global-set-key [\S-insert] 'clipboard-yank)
@@ -181,7 +191,9 @@
 (global-set-key (kbd "s-i") 'indent-rigidly)
 (global-set-key (kbd "s-t") 'string-rectangle)
 (global-set-key (kbd "`") 'iswitchb-buffer)
-(global-set-key (kbd "M-`") 'magit-status)
+;; (global-set-key (kbd "M-`") 'magit-status)
+(global-set-key (kbd "M-`") 'dired-jump)
+(global-set-key (kbd "M-n") (lambda () (interactive) (setq goal-column nil)))
 
 ;; (global-set-key [C-return]
 ;;                 (lambda ()
@@ -338,12 +350,22 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "4031c1ea0bb235b75a048bd92f3bf3aa984c9f7cc5b408f00f62ed99a6eecc09" default)))
- '(quack-fontify-style (quote emacs))
- '(quack-programs (quote ("mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
- '(safe-local-variable-values (quote ((name . box) (name . list) (name . controls) (name . reset) (name . __here__) (name . screen))))
+ '(custom-safe-themes
+   '("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "1e7e097ec8cb1f8c3a912d7e1e0331caeed49fef6cff220be63bd2a6ba4cc365" "4031c1ea0bb235b75a048bd92f3bf3aa984c9f7cc5b408f00f62ed99a6eecc09" default))
+ '(package-selected-packages
+   '(clojure-mode tide yasnippet wrap-region tern-auto-complete rainbow-mode neotree magit flycheck-flow color-theme autopair))
+ '(quack-fontify-style 'emacs)
+ '(quack-programs
+   '("mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi"))
+ '(safe-local-variable-values
+   '((name . box)
+     (name . list)
+     (name . controls)
+     (name . reset)
+     (name . __here__)
+     (name . screen)))
  '(scss-compile-at-save nil)
- '(send-mail-function (quote mailclient-send-it)))
+ '(send-mail-function 'mailclient-send-it))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,0 +1,15 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("working"
+ (filename . "~/work/webchat/src/webchat-public/index.js")
+ (front-context-string . "\n        } else ")
+ (rear-context-string . "e.window.close()")
+ (position . 17505))
+("DOM adapter"
+ (filename . "~/work/webchat/src/webchat-public/index.js")
+ (front-context-string . "\n\n  /*\n    Pypes")
+ (rear-context-string . "alse)\n    },\n  }")
+ (position . 6072))
+)

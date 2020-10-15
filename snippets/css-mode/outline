@@ -1,0 +1,4 @@
+# name: outline
+# key: o
+# --
+outline: 1px solid red;
