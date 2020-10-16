@@ -3,9 +3,10 @@
 # --
 import css from './style.css'
 import React from 'react'
-import PropTypes from 'react'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 // import classNames from 'classnames'
+import {createApi} from '/api'
 
 const $1 = () => {
   return (
@@ -19,6 +20,9 @@ $1.propTypes = {}
 
 const mapStateToProps = () => ({})
 
-const mapDispatchToProps = () => ({})
+const mapDispatchToProps = (dispatch) => {
+  const api = createApi(dispatch)
+  return {}
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)($1)
