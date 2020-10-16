@@ -1,4 +1,4 @@
 # name: import classnames
-# key: cc
+# key: icn
 # --
 import classNames from 'classnames'
