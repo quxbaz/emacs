@@ -166,6 +166,7 @@
 
 ;; (global-set-key [C-tab] (lambda () (interactive) (other-frame 1)))
 (global-set-key [C-tab] 'magit-status)
+(global-set-key (kbd "<f5>") 'magit-file-checkout)
 
 (global-set-key [C-S-iso-lefttab] (lambda () (interactive) (other-frame -1)))
 ;; (global-set-key (kbd "C-x o") 'other-frame)
@@ -194,12 +195,11 @@
 ;; (global-set-key (kbd "M-`") 'magit-status)
 (global-set-key (kbd "M-`") 'dired-jump)
 (global-set-key (kbd "M-n") (lambda () (interactive) (setq goal-column nil)))
-
-;; (global-set-key [C-return]
-;;                 (lambda ()
-;;                   (interactive)
-;;                   (cua-selection-mode t)
-;;                   (cua-set-rectangle-mark)))
+(global-set-key (kbd "<f3>") 'open-emacs-config)
+(global-set-key (kbd "M-<f3>") (lambda () (interactive) (find-file "./style.css")))
+(global-set-key (kbd "M-C") (lambda () (interactive) (capitalize-word -1)))
+(global-set-key (kbd "M-U") (lambda () (interactive) (upcase-word -1)))
+(global-set-key (kbd "M-l") (lambda () (interactive) (downcase-word -1)))
 
 (defun switch-to-other-buffer ()
   (interactive)
@@ -260,6 +260,10 @@
   (move-beginning-of-line 1)
   (open-line 1)
   (indent-according-to-mode))
+
+(defun open-emacs-config ()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
 
 (add-hook 'less-css-mode-hook
   (lambda ()
