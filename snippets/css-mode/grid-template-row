@@ -1,4 +1,4 @@
 # name: grid-template-row
 # key: gtr
 # --
-grid-template-rows:
+grid-template-rows: $0;
