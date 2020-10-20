@@ -199,7 +199,7 @@
 (global-set-key (kbd "M-<f3>") (lambda () (interactive) (find-file-other-window "./style.css")))
 (global-set-key (kbd "M-C") (lambda () (interactive) (capitalize-word -1)))
 (global-set-key (kbd "M-U") (lambda () (interactive) (upcase-word -1)))
-(global-set-key (kbd "M-l") (lambda () (interactive) (downcase-word -1)))
+(global-set-key (kbd "M-L") (lambda () (interactive) (downcase-word -1)))
 
 (defun switch-to-other-buffer ()
   (interactive)
