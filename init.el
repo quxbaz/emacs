@@ -196,7 +196,7 @@
 (global-set-key (kbd "M-`") 'dired-jump)
 (global-set-key (kbd "M-n") (lambda () (interactive) (setq goal-column nil)))
 (global-set-key (kbd "<f3>") 'open-emacs-config)
-(global-set-key (kbd "M-<f3>") (lambda () (interactive) (find-file "./style.css")))
+(global-set-key (kbd "M-<f3>") (lambda () (interactive) (find-file-other-window "./style.css")))
 (global-set-key (kbd "M-C") (lambda () (interactive) (capitalize-word -1)))
 (global-set-key (kbd "M-U") (lambda () (interactive) (upcase-word -1)))
 (global-set-key (kbd "M-l") (lambda () (interactive) (downcase-word -1)))
