@@ -1,4 +1,4 @@
 # name: grid-row
 # key: gr
 # --
-grid-row
+grid-row: $0;

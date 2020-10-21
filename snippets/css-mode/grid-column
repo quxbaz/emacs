@@ -1,4 +1,4 @@
 # name: grid-column
 # key: gc
 # --
-grid-column
+grid-column: $0;
