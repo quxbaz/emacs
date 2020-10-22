@@ -165,7 +165,8 @@
 (global-set-key (kbd "s-p") (lambda () (interactive) (other-window -1)))
 
 ;; (global-set-key [C-tab] (lambda () (interactive) (other-frame 1)))
-(global-set-key [C-tab] 'magit-status)
+;; (global-set-key [C-tab] 'magit-status)
+(global-set-key (kbd "M-r") 'magit-status)
 (global-set-key (kbd "<f5>") 'magit-file-checkout)
 
 (global-set-key [C-S-iso-lefttab] (lambda () (interactive) (other-frame -1)))
@@ -194,6 +195,7 @@
 (global-set-key (kbd "`") 'iswitchb-buffer)
 ;; (global-set-key (kbd "M-`") 'magit-status)
 (global-set-key (kbd "M-`") 'dired-jump)
+(global-set-key (kbd "M-p") 'eval-region)
 (global-set-key (kbd "M-n") (lambda () (interactive) (setq goal-column nil)))
 (global-set-key (kbd "<f3>") 'open-emacs-config)
 (global-set-key (kbd "M-<f3>") (lambda () (interactive) (find-file-other-window "./style.css")))
@@ -247,6 +249,7 @@
       (error "No word at point" word))))
 
 (defalias 'ff 'find-file)
+(defalias 'er 'eval-region)
 
 ;; (highlight-tags)
 (defun match-paren (arg)
