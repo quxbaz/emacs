@@ -53,6 +53,7 @@
 
 
 ;; git, magit
+(global-set-key (kbd "s-`") 'magit-status)
 (global-set-key (kbd "<f5>") 'magit-file-checkout)
 
 

@@ -19,12 +19,11 @@
 (global-linum-mode t)
 (column-number-mode t)
 (global-hi-lock-mode t)
-(set-face-attribute 'default nil :font "dejavu sans mono-10")
 
 
 ;; Indentation
 (setq-default indent-tabs-mode nil)
-(setq indent-line-function 'insert-tab)  ;; keep an eye on this, might cause problems
+(setq indent-line-function 'insert-tab)  ;; Keep an eye on this, might cause problems.
 (setq-default tab-width 2)
 (setq-default c-basic-offset 2)
 (setq-default sgml-basic-offset 2)
@@ -48,6 +47,10 @@
 (setq backup-directory-alist `(("." . "~/.emacs.backups")))
 
 
+;; Describe, help
+(setq help-window-select t)  ;; Focus describe buffers on load.
+
+
 ;; Misc
 (setq uniquify-buffer-name-style 'forward)
 (setq x-select-enable-clipboard t)  ;; Allows you to copy into the system clipboard.
@@ -58,7 +61,7 @@
 (ido-mode t)
 (show-paren-mode t)
 (wrap-region-global-mode t)
-;; (yas-global-mode t)
+(yas-global-mode t)
 ;; (autopair-global-mode)
 
 
@@ -67,8 +70,8 @@
 
 
 ;; Theme
-(load-theme 'wombat t)
-
+(load-theme 'doom-oceanic-next t)
+(set-face-attribute 'default nil :font "sourcecodepro-10")
 
 ;; Filename patterns
 (add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
