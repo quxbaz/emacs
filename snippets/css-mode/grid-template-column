@@ -1,4 +1,0 @@
-# name: grid-template-column
-# key: gtc
-# --
-grid-template-columns: $0;

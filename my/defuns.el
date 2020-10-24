@@ -99,7 +99,7 @@
 
 (defun my-switch-to-other-buffer ()
   (interactive)
-  (switch-to-bunffer nil))
+  (switch-to-buffer nil))
 
 (defun my-edit-config ()
   (find-file "~/.emacs.d/init.el"))

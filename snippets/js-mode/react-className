@@ -1,4 +1,0 @@
-# name: react className
-# key: r-cn
-# --
-className={css.$1}$0

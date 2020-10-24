@@ -1,4 +1,0 @@
-# name: requestAnimationFrame
-# key: raf
-# --
-requestAnimationFrame($0)

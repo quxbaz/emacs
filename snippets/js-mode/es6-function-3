@@ -1,6 +1,0 @@
-# name: es6 arrow function 3
-# key: <
-# --
-($1) => (
-  $0
-)

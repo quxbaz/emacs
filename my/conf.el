@@ -54,11 +54,12 @@
 
 
 ;; Modes
+(dired-async-mode t)
 (ido-mode t)
-(iswitchb-mode t)
 (show-paren-mode t)
-(yas-global-mode t)
-(autopair-global-mode)
+(wrap-region-global-mode t)
+;; (yas-global-mode t)
+;; (autopair-global-mode)
 
 
 ;; Modes / auto-complete-mode

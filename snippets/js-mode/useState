@@ -1,5 +1,0 @@
-# name: react useState
-# key: ust
-# const [$1, set${1:$(capitalize yas-text)}] = useState($0)
-# --
-const [$1, set$2] = useState($0)

@@ -1,30 +1,34 @@
 ;;; wrap-region-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil "wrap-region" "wrap-region.el" (24467 57297
-;;;;;;  548296 454000))
+;;;### (autoloads nil "wrap-region" "wrap-region.el" (0 0 0 0))
 ;;; Generated autoloads from wrap-region.el
 
 (autoload 'wrap-region-mode "wrap-region" "\
 Wrap region with stuff.
 
+If called interactively, enable Wrap-Region mode if ARG is positive, and
+disable it if ARG is zero or negative.  If called from Lisp,
+also enable the mode if ARG is omitted or nil, and toggle it
+if ARG is `toggle'; disable the mode otherwise.
+
 \(fn &optional ARG)" t nil)
 
 (autoload 'turn-on-wrap-region-mode "wrap-region" "\
-Turn on `wrap-region-mode'.
-
-\(fn)" t nil)
+Turn on `wrap-region-mode'." t nil)
 
 (autoload 'turn-off-wrap-region-mode "wrap-region" "\
-Turn off `wrap-region-mode'.
-
-\(fn)" t nil)
+Turn off `wrap-region-mode'." t nil)
 
 (defvar wrap-region-global-mode nil "\
 Non-nil if Wrap-Region-Global mode is enabled.
-See the command `wrap-region-global-mode' for a description of this minor mode.
+See the `wrap-region-global-mode' command
+for a description of this minor mode.
 Setting this variable directly does not take effect;
 either customize it (see the info node `Easy Customization')
 or call the function `wrap-region-global-mode'.")
@@ -43,10 +47,7 @@ See `wrap-region-mode' for more information on Wrap-Region mode.
 
 \(fn &optional ARG)" t nil)
 
-;;;***
-
-;;;### (autoloads nil nil ("wrap-region-pkg.el") (24467 57297 553313
-;;;;;;  519000))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "wrap-region" '("wrap-region-")))
 
 ;;;***
 
@@ -54,5 +55,6 @@ See `wrap-region-mode' for more information on Wrap-Region mode.
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; wrap-region-autoloads.el ends here
