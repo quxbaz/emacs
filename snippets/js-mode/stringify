@@ -1,0 +1,5 @@
+# expand-env: ((yas/indent-line 'fixed))
+# name: JSON.stringify
+# key: s
+# --
+JSON.stringify($1)

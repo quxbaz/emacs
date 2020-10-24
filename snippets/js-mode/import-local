@@ -1,0 +1,4 @@
+# name: import local
+# key: ii
+# --
+import $1 from './$1'

@@ -1,0 +1,6 @@
+# name: grid
+# key: grid
+# --
+display: grid;
+grid-template-columns: $1;
+grid-template-rows: $2;

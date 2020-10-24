@@ -1,0 +1,4 @@
+# name: import
+# key: i
+# --
+import $1 from '$2'

@@ -1,0 +1,6 @@
+# name: es6 arrow function 2
+# key: >>
+# --
+($1) => ({
+  $0
+})
