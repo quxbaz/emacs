@@ -3,6 +3,7 @@
 ;; - Fix defuns/my-comment-line
 ;; - Go over rest of defuns.
 ;; - defuns/my-delete-in-container
+;; - defuns/my-delete-in-container
 
 (load-file "~/.emacs.d/my/requires.el")
 (load-file "~/.emacs.d/my/conf.el")
