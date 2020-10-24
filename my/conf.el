@@ -1,4 +1,7 @@
-;; Basics
+;; Configuration, variables, global modes
+
+
+;; Startup
 (setq-default inhibit-startup-message t)
 
 
@@ -56,24 +59,24 @@
 (setq x-select-enable-clipboard t)  ;; Allows you to copy into the system clipboard.
 
 
-;; Modes
-(dired-async-mode t)
-(ido-mode t)
-(show-paren-mode t)
-(wrap-region-global-mode t)
-(yas-global-mode t)
-;; (autopair-global-mode)
-
-
-;; Modes / auto-complete-mode
-(setq ac-auto-show-menu 0)
-
-
 ;; Theme
 (load-theme 'doom-oceanic-next t)
 (set-face-attribute 'default nil :font "sourcecodepro-10")
+
 
 ;; Filename patterns
 (add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx?$" . javascript-mode))
+
+
+;; Modes, general settings
+(dired-async-mode t)
+(ido-mode t)
+(show-paren-mode t)
+(electric-pair-mode t)
+(yas-global-mode t)
+
+
+;; Modes / auto-complete-mode
+;; (setq ac-auto-show-menu 0)

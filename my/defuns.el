@@ -1,5 +1,4 @@
-;; NOTES
-;; Use the register '@' for temporary storage.
+;; Reusable function definitions
 
 
 ;; Editing
@@ -24,53 +23,20 @@
     (insert-register '@)
     (move-to-column col)))
 
-((lambda (x) (print x)) 5)
-
-;; ;; ::TODO:: Finish this.
-;; (defun my-comment-line ()
-;;   (interactive)
-;;   ;; (save-excursion
-;;   (progn
-;;     (if (use-region-p)
-
-;;         (progn
-;;           (if (= (point) (region-beginning))
-;;                (beginning-of-line)
-;;             (end-of-line))
-;;           (comment-dwim nil))
-
-;;       (progn
-;;         (beginning-of-line)
-;;         (set-mark-command nil)
-;;         (move-end-of-line nil)
-;;         (comment-dwim nil)))))
-
-;; (defun my-comment-line ()
-;;   (inte:ractive)
-;;   (save-excursion
-;;     (if (use-region-p)
-;;         ((lambda ()
-;;            (end-of-line)
-;;            (comment-region (region-beginning) (region-end))))
-;;       ((lambda ()
-;;          (beginning-of-line)
-;;          (set-mark-command nil)
-;;          (move-end-of-line nil)
-;;          (comment-dwim nil))))))
-
-;; (defun my-comment-line ()
-;;   (interactive)
-;;   (point-to-register '@)
-;;   (beginning-of-line)
-;;   (back-to-indentation)
-;;   (if (use-region-p)
-;;       (comment-region (region-beginning) (line-end-position))
-;;     ((lambda ()
-;;       (set-mark-command nil)
-;;       (move-end-of-line nil)
-;;       (comment-dwim nil)
-;;       (register-to-point '@)
-;;       (pop-mark)))))
+(defun my-comment-line ()
+  (interactive)
+  (save-excursion
+    (if (use-region-p)
+        (progn
+          (if (= (point) (region-beginning))
+              (progn (beginning-of-line) (exchange-point-and-mark) (end-of-line))
+            (progn (end-of-line) (exchange-point-and-mark) (beginning-of-line)))
+          (comment-dwim nil))
+      (progn
+        (beginning-of-line)
+        (set-mark-command nil)
+        (move-end-of-line nil)
+        (comment-dwim nil)))))
 
 (defun my-match-paren ()
   "Move the cursor to the matching parenthesis."
@@ -78,6 +44,7 @@
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))))
 
+;; ::TODO::
 (defun my-mark-current-word ()
   "Selects the current word."
   (interactive)
@@ -94,6 +61,7 @@
         (progn (push-mark (match-end 0) nil t)
                (goto-char (match-beginning 0)))
       (error "No word at point" word))))
+
 
 ;; Other
 

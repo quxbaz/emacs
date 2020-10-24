@@ -5,6 +5,7 @@
 ;; - defuns/my-delete-in-container
 ;; - defuns/my-delete-in-container
 ;; - Bind select line.
+;; - Find good auto-complete minor mode.
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -20,8 +21,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(help-window-select t)
- '(package-selected-packages '(yasnippet wrap-region magit doom-themes autothemer)))
+ '(package-selected-packages '(paredit yasnippet magit doom-themes autothemer)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
