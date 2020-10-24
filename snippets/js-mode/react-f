@@ -4,11 +4,14 @@
 # --
 import css from './style.css'
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const $1 = () => (
   <div className={css.$1}>
     $1
   </div>
 )
+
+$1.propTypes = {}
 
 export default $1
