@@ -7,7 +7,6 @@
 ;; - [ ] Bind select line.
 ;; - [ ] Find good auto-complete minor mode.
 ;; - [ ] Bind C-= to eval line or region.
-;; - [X] Bind C-M-= to eval defun.
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)

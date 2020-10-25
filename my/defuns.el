@@ -73,11 +73,24 @@
   (find-file "~/.emacs.d/init.el"))
 
 (defun my-eval ()
-  "Evals either a defun or region depending if the region is active."
+  "Evals either the current line, defun, or region."
   (interactive)
   (if (use-region-p)
-      (eval-region (region-beginning) (region-end) nil)
-    (eval-defun nil))
+      (progn
+        (eval-region (region-beginning) (region-end) nil)
+        (message "my-eval: Evaluateed the REGION."))
+    (save-excursion
+      (condition-case nil
+          (dotimes (n 99)
+            (paredit-backward-up))
+        (scan-error nil))
+      (let ((s (buffer-substring (+ (point) 1) (+ (point) 6))))
+        (if (string= s "defun")
+            (progn
+              (eval-defun nil)
+              (message " my-eval: Evaluated the FUNCTION."))
+          (eval-region (point-at-bol) (point-at-eol) nil)
+          (message "my-eval: Evaluated the LINE.")))))
   (my-flash-mode-line))
 
 (defun my-flash-mode-line ()
