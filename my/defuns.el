@@ -10,7 +10,7 @@
 (defun my-open-line ()
   "Opens a new line above and indents."
   (interactive)
-  (move-beginning-of-line 1)
+  (beginning-of-line)
   (open-line 1)
   (indent-according-to-mode))
 
@@ -83,7 +83,7 @@
 (defun my-flash-mode-line ()
   "Flash the mode line to communicate an effect."
   (invert-face 'mode-line)
-  (run-with-timer 0.08 nil #'invert-face 'mode-line))
+  (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
 
 ;; paredit, lisp
