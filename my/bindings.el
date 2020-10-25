@@ -3,7 +3,7 @@
 
 ;; Text navigation, selection
 (global-set-key "\C-\\" 'my-match-paren)
-(global-set-key (kbd "M-.") 'my-mark-current-word)
+;; (global-set-key (kbd "M-.") 'my-mark-current-word)
 
 
 ;; Editing
