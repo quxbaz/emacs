@@ -22,9 +22,7 @@
             (setq cssm-indent-level 2)
             (rainbow-mode t)))
 
-;; (add-hook 'emacs-lisp-mode-hook
-;;           (lambda ()
-;;             ))
+;; (add-hook 'emacs-lisp-mode-hook (lambda ()))
 
 (add-hook 'org-mode-hook
           (lambda ()
