@@ -79,7 +79,7 @@
   (if (use-region-p)
       (progn
         (eval-region (region-beginning) (region-end) nil)
-        (message "my-eval: Evaluateed the REGION."))
+        (message "my-eval: Evaluated the REGION."))
     (save-excursion
       (condition-case nil
           (dotimes (n 99)
