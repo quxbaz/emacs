@@ -45,23 +45,17 @@
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))))
 
-;; ::TODO::
 (defun my-mark-current-word ()
-  "Selects the current word."
+  "Selects the current word under the cursor."
   (interactive)
   (let* ((opoint (point))
          (word (current-word))
          (word-length (length word)))
     (if (save-excursion
-          ;; Avoid signaling error when moving beyond buffer.
-          (if (> (point-min) (- (point) word-length))
-              (beginning-of-buffer)
-            (forward-char (- (length word))))
-          (search-forward word (+ opoint (length word))
-                          'noerror))
+          (backward-char word-length)
+          (search-forward word (+ opoint (length word)) t))
         (progn (push-mark (match-end 0) nil t)
-               (goto-char (match-beginning 0)))
-      (error "No word at point" word))))
+               (goto-char (match-beginning 0))))))
 
 
 ;; Other
@@ -70,7 +64,7 @@
   (interactive)
   (switch-to-buffer nil))
 
-(defun my-edit-config ()
+(defun my-config ()
   (find-file "~/.emacs.d/init.el"))
 
 (defun my-eval ()
