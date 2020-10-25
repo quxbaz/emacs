@@ -54,7 +54,7 @@
          (word-length (length word)))
     (if (save-excursion
           ;; Avoid signaling error when moving beyond buffer.
-          (if (> (point-min)  (- (point) word-length))
+          (if (> (point-min) (- (point) word-length))
               (beginning-of-buffer)
             (forward-char (- (length word))))
           (search-forward word (+ opoint (length word))
@@ -77,21 +77,14 @@
   "Evals either the current line, defun, or region."
   (interactive)
   (if (use-region-p)
-      (progn
-        (eval-region (region-beginning) (region-end) nil)
-        (message "my-eval: Evaluated the REGION."))
+      (eval-region (region-beginning) (region-end) nil)
     (save-excursion
       (condition-case nil
-          (dotimes (n 99)
-            (paredit-backward-up))
+          (dotimes (n 99) (paredit-backward-up))
         (scan-error nil))
-      (let ((s (buffer-substring (+ (point) 1) (+ (point) 6))))
-        (if (string= s "defun")
-            (progn
-              (eval-defun nil)
-              (message " my-eval: Evaluated the FUNCTION."))
-          (eval-region (point-at-bol) (point-at-eol) nil)
-          (message "my-eval: Evaluated the LINE.")))))
+      (if (string= (current-word) "defun")
+          (eval-defun nil)
+        (eval-region (point-at-bol) (point-at-eol) nil))))
   (my-flash-mode-line))
 
 (defun my-flash-mode-line ()
