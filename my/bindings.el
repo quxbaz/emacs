@@ -30,7 +30,7 @@
 ;; Search, replace, regexp
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
-(global-set-key (kbd "M-r") 'query-replace-regexp)
+(global-set-key (kbd "M-R") 'query-replace-regexp)
 (global-set-key (kbd "M-S") 'rgrep)
 
 
