@@ -84,3 +84,11 @@
   "Flash the mode line to communicate an effect."
   (invert-face 'mode-line)
   (run-with-timer 0.08 nil #'invert-face 'mode-line))
+
+
+;; smartparens, lisp
+
+(defun my-kill-sexp ()
+  (interactive)
+  (backward-up-list)
+  (sp-kill-sexp))
