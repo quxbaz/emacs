@@ -74,6 +74,7 @@
 (ido-mode t)
 (show-paren-mode t)
 (setq show-paren-delay 0)
+(electric-pair-mode 0)
 (autopair-global-mode t)
 (setq highlight-indent-guides-method 'bitmap)
 (yas-global-mode t)
