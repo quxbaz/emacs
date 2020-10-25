@@ -5,6 +5,7 @@
 ;; - [ ] defuns/my-delete-in-container
 ;; - [ ] defuns/my-delete-in-container
 ;; - [ ] Find good auto-complete minor mode.
+;; - [ ] vim space-like functionality.
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
