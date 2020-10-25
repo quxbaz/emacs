@@ -6,6 +6,7 @@
 ;; - [ ] defuns/my-delete-in-container
 ;; - [ ] Find good auto-complete minor mode.
 ;; - [ ] vim space-like functionality.
+;; - [ ] Map M-; to comment block.
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
