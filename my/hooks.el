@@ -9,6 +9,7 @@
 
 (add-hook 'prog-mode-hook
           (lambda ()
+            (electric-pair-mode 0)
             (highlight-indent-guides-mode t)))
 
 (add-hook 'js-mode-hook
@@ -22,7 +23,12 @@
             (setq cssm-indent-level 2)
             (rainbow-mode t)))
 
-;; (add-hook 'emacs-lisp-mode-hook (lambda ()))
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (autopair-mode 0)
+            (paredit-mode t)
+            (local-set-key (kbd "M-R") 'query-replace-regexp)
+            (local-set-key (kbd "M-k") 'my-kill-sexp)))
 
 (add-hook 'org-mode-hook
           (lambda ()

@@ -86,9 +86,9 @@
   (run-with-timer 0.08 nil #'invert-face 'mode-line))
 
 
-;; smartparens, lisp
+;; paredit, lisp
 
 (defun my-kill-sexp ()
   (interactive)
   (backward-up-list)
-  (sp-kill-sexp))
+  (paredit-kill))
