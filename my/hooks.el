@@ -16,7 +16,8 @@
           (lambda ()
             (setq js-indent-level 2)
             ;; (auto-complete-mode t)
-            ))
+            (lsp)
+            (lsp-mode t)))
 
 (add-hook 'css-mode-hook
           (lambda ()
