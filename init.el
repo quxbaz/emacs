@@ -1,13 +1,13 @@
 ;; TODO
-;; - Highlight all in (), {}, [], '', ""
-;; - Fix defuns/my-comment-line
-;; - Go over rest of defuns.
-;; - defuns/my-delete-in-container
-;; - defuns/my-delete-in-container
-;; - Bind select line.
-;; - Find good auto-complete minor mode.
-;; - Bind C-= to eval line or region.
-;; - Bind C-M-= to eval defun.
+;; - [ ] Highlight all in (), {}, [], '', ""
+;; - [ ] Fix defuns/my-comment-line
+;; - [ ] Go over rest of defuns.
+;; - [ ] defuns/my-delete-in-container
+;; - [ ] defuns/my-delete-in-container
+;; - [ ] Bind select line.
+;; - [ ] Find good auto-complete minor mode.
+;; - [ ] Bind C-= to eval line or region.
+;; - [X] Bind C-M-= to eval defun.
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
