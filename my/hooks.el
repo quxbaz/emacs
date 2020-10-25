@@ -7,6 +7,10 @@
 (add-hook 'eval-expression-minibuffer-setup-hook
           (lambda () (insert-parentheses)))
 
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (highlight-indent-guides-mode t)))
+
 (add-hook 'js-mode-hook
           (lambda ()
             (setq js-indent-level 2)
@@ -18,12 +22,9 @@
             (setq cssm-indent-level 2)
             (rainbow-mode t)))
 
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (electric-pair-mode nil)
-            (paredit-mode t)
-            (local-set-key (kbd "M-3") 'paredit-raise-sexp)
-            (local-set-key (kbd "M-k") 'my-paredit-kill-sexp)))
+;; (add-hook 'emacs-lisp-mode-hook
+;;           (lambda ()
+;;             ))
 
 (add-hook 'org-mode-hook
           (lambda ()

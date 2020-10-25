@@ -34,7 +34,6 @@
 
 ;; Text, formatting, editing
 (setq kill-whole-line t)
-(setq show-paren-delay 0)
 (setq-default fill-column 70)
 (setq-default truncate-lines t)
 (setq case-fold-search t)  ;; Search ignores case by default.
@@ -55,7 +54,6 @@
 
 
 ;; Misc
-(setq uniquify-buffer-name-style 'forward)
 (setq x-select-enable-clipboard t)  ;; Allows you to copy into the system clipboard.
 
 
@@ -70,13 +68,16 @@
 (add-to-list 'auto-mode-alist '("\\.tsx?$" . javascript-mode))
 
 
-;; Modes, general settings
+;; Package modes
+(setq uniquify-buffer-name-style 'forward)
 (dired-async-mode t)
 (ido-mode t)
 (show-paren-mode t)
-(electric-pair-mode t)
+(setq show-paren-delay 0)
+;; (electric-pair-mode nil)
+(setq highlight-indent-guides-method 'bitmap)
+(smartparens-global-mode t)
 (yas-global-mode t)
-
 
 ;; Modes / auto-complete-mode
 ;; (setq ac-auto-show-menu 0)

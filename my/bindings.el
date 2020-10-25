@@ -63,3 +63,9 @@
 
 ;; Misc
 (global-set-key [mouse-2] 'nil) ; Disable middle mouse button.
+
+
+;; smartparens
+(global-set-key (kbd "C-M-b") 'sp-backward-sexp)
+(global-set-key (kbd "C-M-f") 'sp-forward-sexp)
+(global-set-key (kbd "C-M-u") 'sp-backward-up-sexp)
