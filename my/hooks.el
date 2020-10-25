@@ -21,7 +21,9 @@
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (electric-pair-mode nil)
-            (paredit-mode t)))
+            (paredit-mode t)
+            (local-set-key (kbd "M-3") 'paredit-raise-sexp)
+            (local-set-key (kbd "M-k") 'my-paredit-kill-sexp)))
 
 (add-hook 'org-mode-hook
           (lambda ()
