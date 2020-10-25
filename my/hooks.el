@@ -17,7 +17,8 @@
             (setq js-indent-level 2)
             ;; (auto-complete-mode t)
             (lsp)
-            (lsp-mode t)))
+            (lsp-mode t)
+            (local-set-key (kbd "M-.") 'lsp-goto-implementation)))
 
 (add-hook 'css-mode-hook
           (lambda ()
