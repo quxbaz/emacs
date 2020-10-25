@@ -74,7 +74,8 @@
 ;; Package modes
 (setq uniquify-buffer-name-style 'forward)
 (dired-async-mode t)
-(ido-mode t)
+;; (ido-mode t)
+(ivy-mode t)
 (show-paren-mode t)
 (setq show-paren-delay 0)
 (electric-pair-mode 0)
