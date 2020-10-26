@@ -65,6 +65,8 @@
 ;; (set-face-attribute 'default nil :font "dejavu sans mono-10")
 ;; (set-face-attribute 'default nil :font "SFMono-10")
 (set-face-attribute 'default nil :font "sourcecodepro-10")
+(custom-set-faces
+ '(font-lock-comment-face ((t (:foreground "#999")))e))
 
 
 ;; Filename patterns
@@ -92,4 +94,7 @@
 (custom-set-variables
  '(prism-colors '("#1fceff" "#ff6bc4" "#ffc738" "#f95624"))
  '(prism-desaturations '(10 15 20))
- '(prism-lightens '(0 5 10)))
+ '(prism-lightens '(0 5 10))
+ '(prism-comments nil)
+ '(prism-strings nil)
+ '(prism-level-1-strings ((t (:foreground "#999")))))
