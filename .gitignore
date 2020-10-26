@@ -1,3 +1,5 @@
 elpa/archives/
 transient/
 ido.last
+.cache
+.lsp-session*
