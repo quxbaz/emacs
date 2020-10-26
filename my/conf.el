@@ -73,7 +73,7 @@
 (add-to-list 'auto-mode-alist '("\\.tsx?$" . javascript-mode))
 
 
-;; Package modes
+;; Packages, modes
 (setq uniquify-buffer-name-style 'forward)
 (dired-async-mode t)
 (ido-mode t)
@@ -84,6 +84,6 @@
 (setq highlight-indent-guides-method 'bitmap)
 (yas-global-mode t)
 
-;; Modes / auto-complete-mode
+;; Package / auto-complete
 (global-auto-complete-mode t)
 (setq ac-auto-show-menu 0)

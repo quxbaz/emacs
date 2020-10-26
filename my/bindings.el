@@ -23,7 +23,7 @@
 (global-set-key [\S-insert] 'clipboard-yank)
 
 
-;;; Commands
+;; Commands
 (global-set-key (kbd "C-.") 'repeat)
 
 
