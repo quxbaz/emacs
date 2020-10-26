@@ -3,3 +3,4 @@ transient/
 ido.last
 .cache
 .lsp-session*
+/ac-comphist.dat

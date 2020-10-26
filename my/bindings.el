@@ -16,6 +16,7 @@
 (global-set-key (kbd "M-D") 'my-duplicate-line)
 (global-set-key (kbd "M-T") 'transpose-lines)
 (global-set-key (kbd "C-;") 'my-comment-line)
+(global-set-key (kbd "M-;") 'my-comment-block)
 (global-set-key [\S-insert] 'clipboard-yank)
 
 

@@ -39,6 +39,12 @@
         (move-end-of-line nil)
         (comment-dwim nil)))))
 
+(defun my-comment-block ()
+  (interactive)
+  (save-excursion
+    (mark-paragraph)
+    (comment-dwim nil)))
+
 (defun my-match-paren ()
   "Move the cursor to the matching parenthesis."
   (interactive)
