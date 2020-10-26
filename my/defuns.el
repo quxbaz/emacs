@@ -79,7 +79,8 @@
   (switch-to-buffer nil))
 
 (defun my-config ()
-  (find-file "~/.emacs.d/init.el"))
+  (interactive)
+  (find-file "~/.emacs.d/my/"))
 
 (defun my-eval ()
   "Evals either the current line, defun, or region."
