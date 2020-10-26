@@ -83,4 +83,5 @@
 (yas-global-mode t)
 
 ;; Modes / auto-complete-mode
-;; (setq ac-auto-show-menu 0)
+(auto-complete-mode t)
+(setq ac-auto-show-menu 0)
