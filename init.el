@@ -4,7 +4,6 @@
 ;; - [ ] Go over rest of defuns.
 ;; - [ ] defuns/my-delete-in-container
 ;; - [ ] defuns/my-delete-in-container
-;; - [ ] vim space-like functionality.
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
