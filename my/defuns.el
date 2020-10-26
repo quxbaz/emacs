@@ -5,7 +5,10 @@
 
 (defun my-indent-region (n)
   (interactive)
-  (indent-rigidly (region-beginning) (region-end) n))
+  (if (use-region-p)
+      (progn
+        (indent-rigidly (region-beginning) (region-end) n))
+    (my-indent-block)))
 
 (defun my-open-line ()
   "Opens a new line above and indents."
@@ -44,6 +47,12 @@
   (save-excursion
     (mark-paragraph)
     (comment-dwim nil)))
+
+(defun my-indent-block ()
+  (interactive)
+  (save-excursion
+    (mark-paragraph)
+    (indent-for-tab-command)))
 
 (defun my-match-paren ()
   "Move the cursor to the matching parenthesis."
