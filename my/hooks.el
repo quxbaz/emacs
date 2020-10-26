@@ -29,6 +29,7 @@
           (lambda ()
             (autopair-mode 0)
             (paredit-mode t)
+            (prism-mode t)
             (local-set-key (kbd "M-k") 'my-kill-sexp)))
 
 (add-hook 'org-mode-hook
