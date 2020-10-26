@@ -1,10 +1,3 @@
-;; TODO
-;; - [ ] Highlight all in (), {}, [], '', ""
-;; - [ ] Fix defuns/my-comment-line
-;; - [ ] Go over rest of defuns.
-;; - [ ] defuns/my-delete-in-container
-;; - [ ] defuns/my-delete-in-container
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
