@@ -4,7 +4,6 @@
 ;; - [ ] Go over rest of defuns.
 ;; - [ ] defuns/my-delete-in-container
 ;; - [ ] defuns/my-delete-in-container
-;; - [ ] Find good auto-complete minor mode.
 ;; - [ ] vim space-like functionality.
 ;; - [ ] Map M-; to comment block.
 
