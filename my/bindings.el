@@ -10,6 +10,7 @@
 
 
 ;; Editing
+(global-set-key [\S-insert] 'clipboard-yank)
 (global-set-key (kbd "M-i") (lambda () (interactive) (my-indent-region 1)))
 (global-set-key (kbd "M-I") (lambda () (interactive) (my-indent-region -1)))
 (global-set-key (kbd "C-x C-k") 'kill-region)
@@ -20,7 +21,7 @@
 (global-set-key (kbd "M-T") 'transpose-lines)
 (global-set-key (kbd "C-;") 'my-comment-line)
 (global-set-key (kbd "M-;") 'my-comment-block)
-(global-set-key [\S-insert] 'clipboard-yank)
+(global-set-key (kbd "C-<backspace>") 'my-copy-line)
 
 
 ;; Commands

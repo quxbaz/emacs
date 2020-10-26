@@ -52,7 +52,8 @@
   (interactive)
   (save-excursion
     (beginning-of-line-text)
-    (kill-ring-save (point) (point-at-eol))))
+    (kill-ring-save (point) (point-at-eol))
+    (message "Saved current line.")))
 
 (defun my-indent-block ()
   (interactive)
