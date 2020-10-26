@@ -63,6 +63,14 @@
         (progn (push-mark (match-end 0) nil t)
                (goto-char (match-beginning 0))))))
 
+(defun my-swap-points ()
+  (interactive)
+  (if (not (boundp 'next-point))
+      (setq next-point 1))
+  (setq prev-point (point))
+  (goto-char next-point)
+  (setq next-point prev-point))
+
 
 ;; Other
 
