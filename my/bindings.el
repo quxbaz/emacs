@@ -4,8 +4,9 @@
 ;; Text navigation, selection
 (global-set-key "\C-\\" 'my-match-paren)
 ;; (global-set-key (kbd "M-.") 'my-mark-current-word)
-(global-set-key (kbd "C-<tab>") 'my-swap-points)
 ;; (global-set-key (kbd "C-<backspace>") 'my-swap-points)
+;; (global-set-key (kbd "C-<tab>") 'my-swap-points)
+(global-set-key (kbd "M-o") 'my-swap-points)
 
 
 ;; Editing
