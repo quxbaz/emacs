@@ -63,8 +63,8 @@
 ;; (load-theme 'doom-material t)
 ;; (load-theme 'doom-oceanic-next t)
 ;; (set-face-attribute 'default nil :font "dejavu sans mono-10")
-;; (set-face-attribute 'default nil :font "sourcecodepro-10")
-(set-face-attribute 'default nil :font "SFMono-11")
+;; (set-face-attribute 'default nil :font "SFMono-10")
+(set-face-attribute 'default nil :font "sourcecodepro-10")
 
 
 ;; Filename patterns
