@@ -48,6 +48,12 @@
     (mark-paragraph)
     (comment-dwim nil)))
 
+(defun my-copy-line ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line-text)
+    (kill-ring-save (point) (point-at-eol))))
+
 (defun my-indent-block ()
   (interactive)
   (save-excursion
