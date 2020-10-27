@@ -76,6 +76,17 @@
       (insert-register '@)
       (move-to-column col))))
 
+(defun my-transpose-lines (arg)
+  (interactive "p")
+  (dotimes (n arg)
+    (progn
+      (let ((pos (point))
+            (col (current-column)))
+        (transpose-lines 1)
+        (goto-char pos)
+        (previous-line)
+        (move-to-column col)))))
+
 (defun my-comment-line ()
   (interactive)
   (save-excursion
