@@ -1,6 +1,13 @@
 ;; Reusable function definitions
 
 
+;; Utils
+
+(defun my-is-line-empty-p ()
+  "Returns t if the line at point is empty, otherwise nil."
+  (eq (point-at-bol) (point-at-eol)))
+
+
 ;; Text navigation, selection
 
 (defun my-swap-points ()
@@ -12,13 +19,13 @@
   (setq next-point prev-point))
 
 (defun my-match-paren ()
-  "Move the cursor to the matching parenthesis."
+  "Move the point to the matching parenthesis."
   (interactive)
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))))
 
 (defun my-mark-current-word ()
-  "Selects the current word under the cursor."
+  "Selects the current word under the point."
   (interactive)
   (let* ((opoint (point))
          (word (current-word))
@@ -29,9 +36,11 @@
         (progn (push-mark (match-end 0) nil t)
                (goto-char (match-beginning 0))))))
 
-;; (defun my-mark-paragraph (arg)
-;;   (dotimes (n arg)
-;;     ()))
+(defun my-mark-paragraph (arg)
+  (interactive "p")
+  (mark-paragraph arg t)
+  (if (my-is-line-empty-p)
+      (forward-line)))
 
 
 ;; Editing
