@@ -30,7 +30,9 @@
             (autopair-mode 0)
             (paredit-mode t)
             (prism-mode t)
-            (local-set-key (kbd "M-k") 'my-kill-sexp)))
+            (local-set-key (kbd "M-k") 'my-kill-sexp)
+            (local-set-key (kbd "M-0") 'my-next-sexp)
+            (local-set-key (kbd "M-9") 'my-prev-sexp)))
 
 (add-hook 'org-mode-hook
           (lambda ()

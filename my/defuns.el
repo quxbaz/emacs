@@ -136,6 +136,30 @@
 
 ;; Lisp, paredit
 
+(defun my-next-sexp ()
+  (interactive)
+  (if (eq (char-after) (string-to-char "("))
+      (progn
+        (paredit-forward)
+        (paredit-forward)
+        (paredit-backward))
+    (progn
+      (condition-case nil
+          (progn (backward-up-list) (my-next-sexp))
+        (scan-error (progn (search-forward "(") (backward-char)))))))
+
+(defun my-prev-sexp ()
+  (interactive)
+  (if (eq (char-after) (string-to-char "("))
+      (paredit-backward)
+    (progn
+      (condition-case nil
+          (progn
+            (paredit-forward-up)
+            (paredit-backward)
+            (my-prev-sexp))
+        (scan-error (progn (search-backward ")") (my-match-paren)))))))
+
 (defun my-kill-sexp ()
   (interactive)
   (backward-up-list)
