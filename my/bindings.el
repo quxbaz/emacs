@@ -3,21 +3,22 @@
 
 ;; Text navigation, selection
 (global-set-key "\C-\\" 'my-match-paren)
-(global-set-key (kbd "M-h") 'my-mark-paragraph)
 ;; (global-set-key (kbd "M-.") 'my-mark-current-word)
+(global-set-key (kbd "M-h") 'my-mark-paragraph)
 (global-set-key (kbd "M-o") 'my-swap-points)
 
 
 ;; Editing
 (global-set-key [\S-insert] 'clipboard-yank)
-(global-set-key (kbd "M-i") (lambda () (interactive) (my-indent-region 1)))
-(global-set-key (kbd "M-I") (lambda () (interactive) (my-indent-region -1)))
 (global-set-key (kbd "C-x C-k") 'kill-region)
+(key-chord-define-global "qq" 'my-indent-block)
+(global-set-key (kbd "M-i") 'indent-rigidly-right)
+(global-set-key (kbd "M-I") 'indent-rigidly-left)
 (global-set-key (kbd "C-j") 'newline-and-indent)
 (global-set-key (kbd "M-_") 'delete-indentation)
 (global-set-key (kbd "C-o") 'my-open-line)
 (global-set-key (kbd "M-D") 'my-duplicate-line)
-(global-set-key (kbd "M-T") 'transpose-lines)
+(key-chord-define-global "tt" 'transpose-lines)
 (global-set-key (kbd "C-;") 'my-comment-line)
 (global-set-key (kbd "M-;") 'my-comment-block)
 (global-set-key (kbd "C-<backspace>") 'my-copy-line)

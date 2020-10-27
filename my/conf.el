@@ -59,11 +59,11 @@
 
 ;; Theme
 ;; (load-theme 'doom-monokai-pro t)
-(load-theme 'doom-dracula t)
 ;; (load-theme 'doom-material t)
 ;; (load-theme 'doom-oceanic-next t)
 ;; (set-face-attribute 'default nil :font "dejavu sans mono-10")
 ;; (set-face-attribute 'default nil :font "SFMono-10")
+(load-theme 'doom-dracula t)
 (set-face-attribute 'default nil :font "sourcecodepro-10")
 (custom-set-faces
  '(font-lock-comment-face ((t (:foreground "#999"))))
@@ -86,10 +86,11 @@
 (autopair-global-mode t)
 (setq highlight-indent-guides-method 'bitmap)
 (yas-global-mode t)
+(key-chord-mode t)
 
 ;; Package / auto-complete
 (global-auto-complete-mode t)
-(setq ac-auto-show-menu 0)
+(setq ac-auto-show-menu 0.5)
 
 ;; Package / prism
 (custom-set-variables
