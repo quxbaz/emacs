@@ -66,7 +66,8 @@
 ;; (set-face-attribute 'default nil :font "SFMono-10")
 (set-face-attribute 'default nil :font "sourcecodepro-10")
 (custom-set-faces
- '(font-lock-comment-face ((t (:foreground "#999")))e))
+ '(font-lock-comment-face ((t (:foreground "#999"))))
+ '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
 
 
 ;; Filename patterns
