@@ -90,7 +90,7 @@
 (global-auto-complete-mode t)
 (setq ac-auto-show-menu 0)
 
-;; Package/ prism
+;; Package / prism
 (custom-set-variables
  '(prism-colors '("#1fceff" "#ff6bc4" "#ffc738" "#f95624"))
  '(prism-desaturations '(10 15 20))
