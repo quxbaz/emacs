@@ -52,13 +52,6 @@
     (mark-paragraph)
     (indent-for-tab-command)))
 
-(defun my-indent-region (n)
-  (interactive)
-  (if (use-region-p)
-      (progn
-        (indent-rigidly (region-beginning) (region-end) n))
-    (my-indent-block)))
-
 (defun my-copy-line ()
   (interactive)
   (save-excursion
