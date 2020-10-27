@@ -13,11 +13,11 @@
 (defun my-swap-points ()
   (interactive)
   (if (not (boundp 'next-point))
-      (setq next-point 1))
-  (setq prev-point (point))
+      (setq-local next-point 1))
+  (setq-local prev-point (point))
   (goto-char next-point)
   (recenter)
-  (setq next-point prev-point))
+  (setq-local next-point prev-point))
 
 (defun my-match-paren ()
   "Move the point to the matching parenthesis."
