@@ -1,7 +1,46 @@
 ;; Reusable function definitions
 
 
+;; Text navigation, selection
+
+(defun my-swap-points ()
+  (interactive)
+  (if (not (boundp 'next-point))
+      (setq next-point 1))
+  (setq prev-point (point))
+  (goto-char next-point)
+  (setq next-point prev-point))
+
+(defun my-match-paren ()
+  "Move the cursor to the matching parenthesis."
+  (interactive)
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))))
+
+(defun my-mark-current-word ()
+  "Selects the current word under the cursor."
+  (interactive)
+  (let* ((opoint (point))
+         (word (current-word))
+         (word-length (length word)))
+    (if (save-excursion
+          (backward-char word-length)
+          (search-forward word (+ opoint (length word)) t))
+        (progn (push-mark (match-end 0) nil t)
+               (goto-char (match-beginning 0))))))
+
+;; (defun my-mark-paragraph (arg)
+;;   (dotimes (n arg)
+;;     ()))
+
+
 ;; Editing
+
+(defun my-indent-block ()
+  (interactive)
+  (save-excursion
+    (mark-paragraph)
+    (indent-for-tab-command)))
 
 (defun my-indent-region (n)
   (interactive)
@@ -9,6 +48,13 @@
       (progn
         (indent-rigidly (region-beginning) (region-end) n))
     (my-indent-block)))
+
+(defun my-copy-line ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line-text)
+    (kill-ring-save (point) (point-at-eol))
+    (message "Saved current line.")))
 
 (defun my-open-line ()
   "Opens a new line above and indents."
@@ -48,45 +94,6 @@
     (mark-paragraph)
     (comment-dwim nil)))
 
-(defun my-copy-line ()
-  (interactive)
-  (save-excursion
-    (beginning-of-line-text)
-    (kill-ring-save (point) (point-at-eol))
-    (message "Saved current line.")))
-
-(defun my-indent-block ()
-  (interactive)
-  (save-excursion
-    (mark-paragraph)
-    (indent-for-tab-command)))
-
-(defun my-match-paren ()
-  "Move the cursor to the matching parenthesis."
-  (interactive)
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))))
-
-(defun my-mark-current-word ()
-  "Selects the current word under the cursor."
-  (interactive)
-  (let* ((opoint (point))
-         (word (current-word))
-         (word-length (length word)))
-    (if (save-excursion
-          (backward-char word-length)
-          (search-forward word (+ opoint (length word)) t))
-        (progn (push-mark (match-end 0) nil t)
-               (goto-char (match-beginning 0))))))
-
-(defun my-swap-points ()
-  (interactive)
-  (if (not (boundp 'next-point))
-      (setq next-point 1))
-  (setq prev-point (point))
-  (goto-char next-point)
-  (setq next-point prev-point))
-
 
 ;; Other
 
@@ -118,7 +125,7 @@
   (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
 
-;; paredit, lisp
+;; Lisp, paredit
 
 (defun my-kill-sexp ()
   (interactive)
