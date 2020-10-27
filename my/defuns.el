@@ -16,6 +16,7 @@
       (setq next-point 1))
   (setq prev-point (point))
   (goto-char next-point)
+  (recenter)
   (setq next-point prev-point))
 
 (defun my-match-paren ()
