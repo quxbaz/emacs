@@ -74,6 +74,7 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx?$" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
 
 
 ;; Packages, modes
