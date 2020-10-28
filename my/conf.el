@@ -66,6 +66,7 @@
 (load-theme 'doom-dracula t)
 (set-face-attribute 'default nil :font "sourcecodepro-10")
 (custom-set-faces
+ '(default ((t (:background "#1c1e26"))))
  '(font-lock-comment-face ((t (:foreground "#999"))))
  '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
 
