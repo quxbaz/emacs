@@ -50,7 +50,7 @@
   (interactive "p")
   (if (use-region-p)
       (kill-region (region-beginning) (region-end))
-    (kill-line arg)))
+    (if (= arg 1) (kill-line) (kill-line arg))))
 
 (defun my-indent-block ()
   (interactive)
