@@ -44,6 +44,17 @@
       (forward-line)))
 
 
+;; Appearance, themes
+
+(defun my-swap-theme-background ()
+  (interactive)
+  (let* ((background-1 "#282a36")
+         (background-2 "#1c1e26")
+         (current (face-attribute 'default :background))
+         (next (if (equal current background-1) background-2 background-1)))
+    (custom-set-faces `(default ((t (:background ,next)))))))
+
+
 ;; Editing
 
 (defun my-kill-line (arg)

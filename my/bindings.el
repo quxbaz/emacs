@@ -8,6 +8,9 @@
 (global-set-key (kbd "M-o") 'my-swap-points)
 
 
+;; Appearance, themes
+(global-set-key (kbd "s-s") 'my-swap-theme-background)
+
 ;; Editing
 (global-set-key [\S-insert] 'clipboard-yank)
 (global-set-key (kbd "C-k") 'my-kill-line)
@@ -23,6 +26,7 @@
 (global-set-key (kbd "C-;") 'my-comment-line)
 (global-set-key (kbd "M-;") 'my-comment-block)
 (global-set-key (kbd "C-<backspace>") 'my-copy-line)
+(global-set-key (kbd "s-a") 'align-regexp)
 
 
 ;; Commands
