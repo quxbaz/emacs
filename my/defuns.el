@@ -46,6 +46,12 @@
 
 ;; Editing
 
+(defun my-kill-line (arg)
+  (interactive "p")
+  (if (use-region-p)
+      (kill-region (region-beginning) (region-end))
+    (kill-line arg)))
+
 (defun my-indent-block ()
   (interactive)
   (save-excursion
