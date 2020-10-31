@@ -46,7 +46,8 @@
 
 ;; Safety
 (setq confirm-kill-emacs 'yes-or-no-p)
-(setq backup-directory-alist `(("." . "~/.emacs.backups")))
+(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
 
 ;; Describe, help
