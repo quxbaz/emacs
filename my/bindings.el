@@ -44,7 +44,11 @@
 (global-set-key (kbd "C-S-r") 'query-replace-regexp)
 
 
-;;; Buffers
+;; Files
+(global-set-key (kbd "M-F") 'find-file-other-window)
+
+
+;; Buffers
 (global-set-key (kbd "M-SPC") 'ido-switch-buffer)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-`") 'dired-jump)
@@ -52,10 +56,6 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-,") 'my-switch-to-other-buffer)
 (global-set-key (kbd "C-x C-o") 'other-window)
-
-
-;;; Files
-(global-set-key (kbd "M-F") 'find-file-other-window)
 
 
 ;; Windows
