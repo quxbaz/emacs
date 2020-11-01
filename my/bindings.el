@@ -27,6 +27,7 @@
 (global-set-key (kbd "M-;") 'my-comment-block)
 (global-set-key (kbd "C-<backspace>") 'my-copy-line)
 (global-set-key (kbd "s-a") 'align-regexp)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
 
 
 ;; Commands
@@ -41,6 +42,7 @@
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-S-s") 'rgrep)
+(global-set-key (kbd "M-r") 'query-replace-regexp)
 (global-set-key (kbd "M-R") 'query-replace-regexp)
 
 
