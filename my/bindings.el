@@ -27,8 +27,7 @@
 (global-set-key (kbd "M-;") 'my-comment-block)
 (global-set-key (kbd "C-<backspace>") 'my-copy-line)
 (global-set-key (kbd "s-a") 'align-regexp)
-(global-set-key (kbd "M-z") 'zap-up-to-char)
-
+(key-chord-define-global "zz" 'zap-up-to-char)
 
 ;; Commands
 (global-set-key (kbd "C-.") 'repeat)
