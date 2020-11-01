@@ -3,13 +3,13 @@
 
 ;; Text navigation, selection
 (global-set-key "\C-\\" 'my-match-paren)
-;; (global-set-key (kbd "M-.") 'my-mark-current-word)
 (global-set-key (kbd "M-h") 'my-mark-paragraph)
 (global-set-key (kbd "M-o") 'my-swap-points)
 
 
 ;; Appearance, themes
 (global-set-key (kbd "s-s") 'my-swap-theme-background)
+
 
 ;; Editing
 (global-set-key [\S-insert] 'clipboard-yank)
@@ -28,6 +28,7 @@
 (global-set-key (kbd "C-<backspace>") 'my-copy-line)
 (global-set-key (kbd "s-a") 'align-regexp)
 (key-chord-define-global "zz" 'zap-up-to-char)
+
 
 ;; Commands
 (global-set-key (kbd "C-.") 'repeat)
