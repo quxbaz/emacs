@@ -46,18 +46,9 @@
 
 ;; Safety
 (setq confirm-kill-emacs 'yes-or-no-p)
-;; (setq make-backup-files nil)
-;; (setq auto-save-default nil)
-;; (setq aute-save-interval nil)
-;; (setq aute-save-timeout nil)
-;; (setq auto-save-list-file-name nil)
-
-;; (setq backup-directory-alist `(("." . "~/.tmp")))
 (setq backup-directory-alist `((".*" . "~/.tmp")))
-
-;; (setq auto-save-list-file-prefix nil)
-(setq auto-save-list-file-prefix (concat "~/.tmp" ".auto-saves-"))
 (setq auto-save-file-name-transforms `((".*" "~/.tmp" t)))
+(setq auto-save-list-file-prefix (concat "~/.tmp" ".auto-saves-"))
 
 
 ;; Describe, help
