@@ -57,6 +57,12 @@
 
 ;; Editing
 
+(defun my-delete-char (arg)
+  (interactive "p")
+  (if (use-region-p)
+      (delete-rectangle (region-beginning) (region-end))
+    (delete-char arg)))
+
 (defun my-kill-line (arg)
   (interactive "p")
   (if (use-region-p)
