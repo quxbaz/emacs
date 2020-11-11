@@ -127,9 +127,11 @@
 
 (defun my-comment-block ()
   (interactive)
-  (save-excursion
-    (mark-paragraph)
-    (comment-dwim nil)))
+  (if (use-region-p)
+      (comment-dwim nil)
+      (save-excursion
+        (mark-paragraph)
+        (comment-dwim nil))))
 
 
 ;; Other
