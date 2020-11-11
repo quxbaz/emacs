@@ -134,6 +134,14 @@
 
 ;; Other
 
+(defun my-dired ()
+  (interactive)
+  (dired default-directory))
+
+(defun my-dired-other-window ()
+  (interactive)
+  (dired-other-window  default-directory))
+
 (defun my-switch-to-other-buffer ()
   (interactive)
   (switch-to-buffer nil))
