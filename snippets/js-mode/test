@@ -1,5 +1,5 @@
 # name: test
-# key: test
+# key: tt
 # --
 test("$1", () => {
   $0
