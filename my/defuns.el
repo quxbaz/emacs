@@ -69,6 +69,12 @@
       (kill-region (region-beginning) (region-end))
     (if (= arg 1) (kill-line) (kill-line arg))))
 
+(defun my-kill-block (arg)
+  (interactive "p")
+  (save-excursion
+    (mark-paragraph arg)
+    (kill-region (region-beginning) (region-end))))
+
 (defun my-indent-block ()
   (interactive)
   (save-excursion
