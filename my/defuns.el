@@ -99,6 +99,14 @@
       (insert-register '@)
       (move-to-column col))))
 
+(defun my-duplicate-block (arg)
+  (interactive "p")
+  (mark-paragraph)
+  (kill-ring-save (region-beginning) (region-end))
+  (exchange-point-and-mark)
+  (beginning-of-line)
+  (yank))
+
 (defun my-transpose-lines (arg)
   (interactive "p")
   (dotimes (n arg)

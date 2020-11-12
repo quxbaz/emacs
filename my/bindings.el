@@ -23,6 +23,7 @@
 (global-set-key (kbd "M-_") 'delete-indentation)
 (global-set-key (kbd "C-o") 'my-open-line)
 (global-set-key (kbd "M-<return>") 'my-duplicate-line)
+(global-set-key (kbd "M-S-<return>") 'my-duplicate-block)
 (key-chord-define-global "kt" 'my-transpose-lines)
 (global-set-key (kbd "C-;") 'my-comment-line)
 (global-set-key (kbd "M-;") 'my-comment-block)
