@@ -33,6 +33,7 @@
 
 
 ;; Text, formatting, editing
+(setq fill-column 80)
 (setq kill-whole-line t)
 (setq-default fill-column 70)
 (setq-default truncate-lines t)
