@@ -139,12 +139,12 @@
         (move-end-of-line nil)
         (comment-dwim nil)))))
 
-(defun my-comment-block ()
-  (interactive)
+(defun my-comment-block (arg)
+  (interactive "p")
   (if (use-region-p)
       (comment-dwim nil)
       (save-excursion
-        (mark-paragraph)
+        (mark-paragraph arg)
         (comment-dwim nil))))
 
 
