@@ -9,6 +9,7 @@
 
 (add-hook 'prog-mode-hook
           (lambda ()
+            (setq fill-column 80)
             (electric-pair-mode 0)
             (highlight-indent-guides-mode t)))
 
