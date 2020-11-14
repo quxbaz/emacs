@@ -75,15 +75,6 @@
     (mark-paragraph arg)
     (kill-region (region-beginning) (region-end))))
 
-(defun my-kill-code-block ()
-  (interactive)
-  (let ((start (point-at-bol)))
-    (end-of-line)
-    (backward-char)
-    (my-match-paren)
-    (forward-char)
-    (kill-region start (point))))
-
 (defun my-indent-block ()
   (interactive)
   (save-excursion
