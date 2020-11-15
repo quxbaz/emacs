@@ -33,9 +33,7 @@
 
 
 ;; Text, formatting, editing
-(setq fill-column 80)
 (setq kill-whole-line t)
-(setq-default fill-column 70)
 (setq-default truncate-lines t)
 (setq case-fold-search t)  ;; Search ignores case by default.
 (setq-default case-fold-search t)
@@ -99,6 +97,7 @@
 
 ;; Package / prism
 (custom-set-variables
+ '(fill-column 80)
  '(prism-colors '("#1fceff" "#ff6bc4" "#ffc738" "#f95624"))
  '(prism-desaturations '(10 15 20))
  '(prism-lightens '(0 5 10))
