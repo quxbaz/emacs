@@ -3,9 +3,8 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; Insert parentheses automatically when going into eval buffer.
 (add-hook 'eval-expression-minibuffer-setup-hook
-          (lambda () (insert-parentheses)))
+          (lambda () (paredit-mode t)))
 
 (add-hook 'prog-mode-hook
           (lambda ()
