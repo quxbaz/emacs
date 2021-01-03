@@ -31,6 +31,7 @@
 (global-set-key (kbd "C-<backspace>") 'my-copy-line)
 (global-set-key (kbd "s-a") 'align-regexp)
 (key-chord-define-global "zz" 'zap-up-to-char)
+(global-set-key (kbd "s-q") 'my-clear-buffer)
 
 
 ;; Commands
