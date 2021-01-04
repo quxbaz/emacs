@@ -148,7 +148,7 @@
         (comment-dwim nil))))
 
 (defun my-clear-buffer ()
-  interactive
+  (interactive)
   (mark-whole-buffer)
   (kill-region (region-beginning) (region-end)))
 
