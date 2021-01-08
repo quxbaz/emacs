@@ -38,4 +38,6 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (local-set-key (kbd "C-,") 'my-switch-to-other-buffer)
-            (local-set-key (kbd "C-o") 'open-line)))
+            (local-set-key (kbd "C-o") 'open-line)
+            (local-set-key (kbd "M-<return>") 'org-meta-return)
+            (local-set-key (kbd "M-S-<return>") 'org-insert-todo-heading)))
