@@ -107,3 +107,7 @@
  '(prism-comments nil)
  '(prism-strings nil)
  '(prism-level-1-strings ((t (:foreground "#999")))))
+
+
+;; Hardware
+(setq printer-name "HLL2350DW")
