@@ -43,11 +43,14 @@
 (setq-default isearch-lazy-highlight-initial-delay 0)
 
 
-;; Safety
+;; Safety, backups
 (setq confirm-kill-emacs 'yes-or-no-p)
 (setq backup-directory-alist `((".*" . "~/.tmp")))
 (setq auto-save-file-name-transforms `((".*" "~/.tmp" t)))
 (setq auto-save-list-file-prefix (concat "~/.tmp" ".auto-saves-"))
+(setq make-backup-files nil)  ;; Temporary. Using this for work. Causing issues with watchers picking up backup files and crashing.
+(setq auto-save-default nil)  ;; ^^
+(setq create-lockfiles nil)   ;; ^^
 
 
 ;; Describe, help
