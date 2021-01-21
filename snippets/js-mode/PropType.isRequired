@@ -1,4 +1,4 @@
 # name: React PropType isRequired
 # key: pp
 # --
-PropTypes.$1.isRequired,$0
+PropTypes.$0.isRequired
