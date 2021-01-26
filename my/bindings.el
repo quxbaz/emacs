@@ -48,6 +48,7 @@
 (global-set-key (kbd "M-r") 'query-replace-regexp)
 (global-set-key (kbd "M-R") 'query-replace-regexp)
 (global-set-key (kbd "C-S-s") 'rgrep)
+(global-set-key (kbd "C-S-d") 'find-name-dired)
 
 
 ;; Files
