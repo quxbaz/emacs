@@ -19,7 +19,7 @@
 
 
 ;; Screen, buffers, viewport
-(global-linum-mode t)
+;; (global-linum-mode t)
 (column-number-mode t)
 (global-hi-lock-mode t)
 
