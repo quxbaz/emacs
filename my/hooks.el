@@ -9,7 +9,8 @@
 (add-hook 'prog-mode-hook
           (lambda ()
             (electric-pair-mode 0)
-            (highlight-indent-guides-mode t)))
+            (highlight-indent-guides-mode t)
+            (git-gutter-mode t)))
 
 (add-hook 'js-mode-hook
           (lambda ()
