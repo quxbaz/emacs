@@ -23,4 +23,5 @@
      yasnippet
      magit
      doom-themes
-     autothemer)))
+     autothemer
+     )))
