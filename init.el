@@ -24,4 +24,5 @@
      magit
      doom-themes
      autothemer
+     git-gutter
      )))
