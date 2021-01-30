@@ -74,6 +74,7 @@
 ;; git, magit
 (global-set-key (kbd "<home>") 'magit-status)
 (global-set-key (kbd "<f5>") 'magit-file-checkout)
+(global-set-key (kbd "C-c <C-return>") 'magit-file-dispatch)
 
 
 ;; Emacs, elisp
