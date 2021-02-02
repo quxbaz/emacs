@@ -1,0 +1,28 @@
+# name: React functional component
+# expand-env: ((yas-indent-line 'fixed))
+# key: react-fn
+# --
+import css from './style.css'
+import React from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {createApi} from '/api'
+
+const $1 = () => {
+  return (
+    <div className={css.$1}>
+      $1
+    </div>
+  )
+}
+
+$1.propTypes = {}
+
+const mapState = () => ({})
+
+const mapDispatch = (dispatch) => {
+  const api = createApi(dispatch)
+  return {}
+}
+
+export default connect(mapState, mapDispatch)($1)

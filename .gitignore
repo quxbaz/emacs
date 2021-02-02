@@ -1,0 +1,8 @@
+elpa/archives/
+transient/
+ido.last
+.cache
+.lsp-session*
+/ac-comphist.dat
+/.emacs.desktop.lock
+/bookmarks

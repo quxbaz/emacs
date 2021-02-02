@@ -1,0 +1,6 @@
+# name: react useEffect
+# key: uef
+# --
+useEffect(() => {
+  $0
+}, [])

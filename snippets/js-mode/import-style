@@ -1,0 +1,4 @@
+# name: import style
+# key: icss
+# --
+import css from './style.css'

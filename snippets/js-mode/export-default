@@ -1,0 +1,5 @@
+# expand-env: ((yas/indent-line 'fixed))
+# name: export-default
+# key: et
+# --
+export default $1

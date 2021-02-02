@@ -1,0 +1,4 @@
+# name: expect().toBe()
+# key: e
+# --
+expect($1).toBe($2)
