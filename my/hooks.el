@@ -15,11 +15,12 @@
 (add-hook 'js-mode-hook
           (lambda ()
             (setq js-indent-level 2)
-            (lsp)
-            (lsp-mode t)
-            (local-set-key (kbd "M-.") 'lsp-find-definition)
-            (local-set-key (kbd "M-,") 'lsp-find-implementation)
-            (local-set-key (kbd "M-'") 'lsp-rename)))
+            ;; (lsp)
+            ;; (lsp-mode t)
+            ;; (local-set-key (kbd "M-.") 'lsp-find-definition)
+            ;; (local-set-key (kbd "M-,") 'lsp-find-implementation)
+            ;; (local-set-key (kbd "M-'") 'lsp-rename)
+            ))
 
 (add-hook 'css-mode-hook
           (lambda ()
