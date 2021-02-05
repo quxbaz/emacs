@@ -8,7 +8,7 @@
 
 (add-hook 'dired-mode-hook
           (lambda ()
-            (local-set-key (kbd "p") 'dired-up-directory)))
+            (local-set-key (kbd "P") 'dired-up-directory)))
 
 (add-hook 'prog-mode-hook
           (lambda ()
