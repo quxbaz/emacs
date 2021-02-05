@@ -3,6 +3,7 @@
 
 ;; Startup
 (setq-default inhibit-startup-message t)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))  ;; Default to full-screen.
 
 
 ;; Enable commands
