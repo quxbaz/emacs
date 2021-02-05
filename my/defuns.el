@@ -156,6 +156,7 @@
 ;; Other
 
 (defun my-dired ()
+  "Opens dired in the current directory."
   (interactive)
   (dired default-directory))
 
