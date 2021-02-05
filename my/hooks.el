@@ -6,6 +6,10 @@
 (add-hook 'eval-expression-minibuffer-setup-hook
           (lambda () (paredit-mode t)))
 
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (local-set-key (kbd "p") 'dired-up-directory)))
+
 (add-hook 'prog-mode-hook
           (lambda ()
             (electric-pair-mode 0)
