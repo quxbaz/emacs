@@ -8,7 +8,16 @@
 
 (add-hook 'dired-mode-hook
           (lambda ()
-            (local-set-key (kbd "P") 'dired-up-directory)))
+            (local-set-key (kbd "C-c C-c") 'dired-toggle-read-only)
+            (local-set-key (kbd "P") 'dired-up-directory)
+            (local-set-key (kbd "F") 'find-name-dired)
+            (local-set-key (kbd "I") 'dired-do-isearch-regexp)
+            (local-set-key (kbd "M-r") 'dired-do-query-replace-regexp)))
+
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (local-set-key (kbd "I") 'ibuffer-do-isearch-regexp)
+            (local-set-key (kbd "M-r") 'ibuffer-do-query-replace-regexp)))
 
 (add-hook 'prog-mode-hook
           (lambda ()
