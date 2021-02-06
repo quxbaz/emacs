@@ -8,6 +8,7 @@
 
 (add-hook 'dired-mode-hook
           (lambda ()
+            (dired-hide-details-mode t)
             (local-set-key (kbd "C-c C-c") 'dired-toggle-read-only)
             (local-set-key (kbd "P") 'dired-up-directory)
             (local-set-key (kbd "F") 'find-name-dired)
