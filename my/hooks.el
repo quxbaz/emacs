@@ -11,6 +11,7 @@
             (dired-hide-details-mode t)
             (local-set-key (kbd "C-c C-c") 'dired-toggle-read-only)
             (local-set-key (kbd "P") 'dired-up-directory)
+            (local-set-key (kbd "C-+") 'dired-create-empty-file)
             (local-set-key (kbd "F") 'find-name-dired)
             (local-set-key (kbd "I") 'dired-do-isearch-regexp)
             (local-set-key (kbd "M-r") 'dired-do-query-replace-regexp)))
