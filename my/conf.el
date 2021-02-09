@@ -114,3 +114,7 @@
 
 ;; Hardware
 (setq printer-name "HLL2350DW")
+
+
+;; macOS
+(setq mac-command-modifier 'meta)  ;; Bind command key to meta.
