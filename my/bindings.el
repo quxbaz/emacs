@@ -43,13 +43,14 @@
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 
-;; Search, replace, regexp
+;; Search, replace, regexp, occur
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "M-r") 'query-replace-regexp)
 (global-set-key (kbd "M-R") 'query-replace-regexp)
 (global-set-key (kbd "C-S-s") 'rgrep)
 (global-set-key (kbd "C-S-d") 'find-name-dired)
+(global-set-key (kbd "C-c o") 'occur)
 
 
 ;; Files
