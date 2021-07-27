@@ -62,4 +62,6 @@
             (local-set-key (kbd "C-,") 'my-switch-to-other-buffer)
             (local-set-key (kbd "C-o") 'open-line)
             (local-set-key (kbd "M--") 'org-meta-return)
-            (local-set-key (kbd "C-M--") 'org-insert-todo-heading)))
+            (local-set-key (kbd "C-M--") 'org-insert-todo-heading)
+            (local-set-key (kbd "M-p") 'org-previous-visible-heading)
+            (local-set-key (kbd "M-n") 'org-next-visible-heading)))
