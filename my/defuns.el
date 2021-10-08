@@ -152,6 +152,10 @@
   (mark-whole-buffer)
   (kill-region (region-beginning) (region-end)))
 
+(defun my-revert-buffer ()
+  (interactive)
+  (revert-buffer nil t))
+
 
 ;; Other
 
