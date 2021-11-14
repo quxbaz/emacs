@@ -76,3 +76,8 @@
             (local-set-key (kbd "C-M--") 'org-insert-todo-heading)
             (local-set-key (kbd "M-p") 'org-previous-visible-heading)
             (local-set-key (kbd "M-n") 'org-next-visible-heading)))
+
+;; ;; This isn't quite working.
+;; (magit-add-section-hook 'magit-status-sections-hook
+;;                         (lambda ()
+;;                           (local-set-key "S-SPC" 'ido-switch-buffer)))
