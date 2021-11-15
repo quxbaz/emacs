@@ -166,7 +166,7 @@
 
 (defun my-dired-other-window ()
   (interactive)
-  (dired-other-window  default-directory))
+  (dired-other-window default-directory))
 
 (defun my-switch-to-other-buffer ()
   (interactive)
