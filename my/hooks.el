@@ -56,13 +56,15 @@
             (local-set-key (kbd "M-k") 'my-kill-sexp)
             (local-set-key (kbd "M-0") 'my-next-sexp)
             (local-set-key (kbd "M-9") 'my-prev-sexp)
-            (local-set-key (kbd "C-x C-s") 'paredit-splice-sexp)))
+            (local-set-key (kbd "C-c C-s") 'paredit-splice-sexp)
+            (local-set-key (kbd "C-c C-o") 'paredit-raise-sexp)))
 
 ;; You need to do this to override default Paredit bindings due to the
 ;; non-conventional way it does bindings.
 (eval-after-load 'paredit
   '(progn
-     (define-key paredit-mode-map (kbd "M-s") 'save-buffer)))
+     (define-key paredit-mode-map (kbd "M-s") 'save-buffer)
+     (define-key paredit-mode-map (kbd "M-r") 'query-replace-regexp)))
 
 (add-hook 'org-mode-hook
           (lambda ()
