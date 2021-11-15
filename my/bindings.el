@@ -58,7 +58,7 @@
 
 
 ;; Buffers
-(global-set-key (kbd "S-M-SPC") 'ido-switch-buffer)
+(global-set-key (kbd "M-S-SPC") 'ido-switch-buffer)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "C-c C-v") 'my-revert-buffer)
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
