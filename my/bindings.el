@@ -12,7 +12,6 @@
 
 
 ;; Editing
-(global-set-key (kbd "M-SPC") (lambda () (interactive) (insert "-")))
 (global-set-key [\S-insert] 'clipboard-yank)
 (global-set-key (kbd "C-d") 'my-delete-char)
 (global-set-key (kbd "C-k") 'my-kill-line)
@@ -58,7 +57,7 @@
 
 
 ;; Buffers
-(global-set-key (kbd "M-S-SPC") 'ido-switch-buffer)
+(global-set-key (kbd "M-SPC") 'ido-switch-buffer)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "C-c C-v") 'my-revert-buffer)
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)

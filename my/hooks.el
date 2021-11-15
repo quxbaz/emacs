@@ -3,10 +3,6 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(add-hook 'minibuffer-setup-hook
-          (lambda ()
-            (local-set-key (kbd "M-SPC") (lambda () (interactive) (insert "-")))))
-
 (add-hook 'eval-expression-minibuffer-setup-hook
           (lambda () (paredit-mode t)))
 
@@ -76,8 +72,3 @@
             (local-set-key (kbd "C-M--") 'org-insert-todo-heading)
             (local-set-key (kbd "M-p") 'org-previous-visible-heading)
             (local-set-key (kbd "M-n") 'org-next-visible-heading)))
-
-;; ;; This isn't quite working.
-;; (magit-add-section-hook 'magit-status-sections-hook
-;;                         (lambda ()
-;;                           (local-set-key "M-S-SPC" 'ido-switch-buffer)))
