@@ -86,7 +86,7 @@
   (save-excursion
     (beginning-of-line-text)
     (kill-ring-save (point) (point-at-eol))
-    (message "Saved current line.")))
+    (message "Copied current line.")))
 
 (defun my-open-line ()
   "Opens a new line above and indents."
