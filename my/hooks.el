@@ -80,4 +80,4 @@
 ;; ;; This isn't quite working.
 ;; (magit-add-section-hook 'magit-status-sections-hook
 ;;                         (lambda ()
-;;                           (local-set-key "S-SPC" 'ido-switch-buffer)))
+;;                           (local-set-key "S-M-SPC" 'ido-switch-buffer)))
