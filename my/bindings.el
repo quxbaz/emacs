@@ -32,6 +32,7 @@
 (global-set-key (kbd "s-a") 'align-regexp)
 (global-set-key (kbd "s-k") 'my-clear-buffer)
 (global-set-key (kbd "C-M-/") 'undo-only)
+(global-set-key (kbd "C-x r \\") 'delete-whitespace-rectangle)
 
 
 ;; Commands
