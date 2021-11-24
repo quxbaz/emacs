@@ -154,7 +154,7 @@
 
 (defun my-revert-buffer ()
   (interactive)
-  (revert-buffer nil t))
+  (revert-buffer t t))
 
 
 ;; Other
