@@ -5,6 +5,8 @@
 (global-set-key "\C-\\" 'my-match-paren)
 (global-set-key (kbd "M-h") 'my-mark-paragraph)
 (global-set-key (kbd "M-o") 'my-swap-points)
+(global-set-key (kbd "<C-iso-lefttab>") 'my-outline-toggle-all)
+(global-set-key (kbd "C-<tab>") 'outline-toggle-children)
 
 
 ;; Appearance, themes

@@ -43,6 +43,15 @@
   (if (my-is-line-empty-p)
       (forward-line)))
 
+(defun my-outline-toggle-all ()
+  (interactive)
+  (if (not (and (boundp 'outline-minor-mode) outline-minor-mode))
+      (outline-minor-mode t))
+  (if (not (boundp 'show-headings-only))
+      (setq-local show-headings-only nil))
+  (if show-headings-only (outline-show-all) (outline-hide-body))
+  (setq-local show-headings-only (not show-headings-only)))
+
 
 ;; Appearance, themes
 
