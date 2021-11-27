@@ -45,7 +45,7 @@
 
 (defun my-outline-toggle-all ()
   (interactive)
-  (if (not (and (boundp 'outline-minor-mode) outline-minor-mode))
+  (if (not (bound-and-true-p outline-minor-mode))
       (outline-minor-mode t))
   (if (not (boundp 'show-headings-only))
       (setq-local show-headings-only nil))
