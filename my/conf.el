@@ -94,6 +94,8 @@
 (setq highlight-indent-guides-method 'bitmap)
 (yas-global-mode t)
 (key-chord-mode t)
+(add-to-list 'magit-no-confirm 'stage-all-changes)
+(add-to-list 'magit-no-confirm 'unstage-all-changes)
 
 
 ;; Package / auto-complete
