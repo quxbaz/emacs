@@ -61,8 +61,7 @@
             (local-set-key (kbd "C-c C-s") 'paredit-splice-sexp)
             (local-set-key (kbd "C-c C-o") 'paredit-raise-sexp)))
 
-;; You need to do this to override default Paredit bindings due to the
-;; non-conventional way it does bindings.
+;; Paredit binds keys in an unconventional way which necessitates this workaround.
 (eval-after-load 'paredit
   '(progn
      (define-key paredit-mode-map (kbd "M-s") 'save-buffer)
