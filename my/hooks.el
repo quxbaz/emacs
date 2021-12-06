@@ -76,3 +76,8 @@
             (local-set-key (kbd "C-M--") 'org-insert-todo-heading)
             (local-set-key (kbd "M-p") 'org-previous-visible-heading)
             (local-set-key (kbd "M-n") 'org-next-visible-heading)))
+
+(add-hook 'magit-mode-hook
+          (lambda ()
+            (add-to-list 'magit-no-confirm 'stage-all-changes)
+            (add-to-list 'magit-no-confirm 'unstage-all-changes)))
