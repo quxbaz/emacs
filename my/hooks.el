@@ -10,9 +10,9 @@
           (lambda ()
             (dired-hide-details-mode t)
             (put 'dired-find-alternate-file 'disabled nil)
+            ;; (local-set-key (kbd "P") 'dired-up-directory)  ;; This spawns a new buffer each time.
             (define-key dired-mode-map (kbd "P")
               (lambda () (interactive) (find-alternate-file "..")))
-            ;; (local-set-key (kbd "P") 'dired-up-directory)  ;; This spawns a new buffer each time.
             (local-set-key (kbd "C-c C-c") 'dired-toggle-read-only)
             (local-set-key (kbd "C-+") 'dired-create-empty-file)
             (local-set-key (kbd "<return>") 'dired-find-alternate-file)
