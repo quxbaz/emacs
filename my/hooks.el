@@ -38,6 +38,7 @@
 (add-hook 'js-mode-hook
           (lambda ()
             (setq js-indent-level 2)
+            (local-set-key (kbd "C-c /") 'my-close-html-tag)
             ;; (lsp)
             ;; (lsp-mode t)
             ;; (local-set-key (kbd "M-.") 'lsp-find-definition)

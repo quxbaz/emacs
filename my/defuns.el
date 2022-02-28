@@ -156,6 +156,13 @@
         (mark-paragraph arg)
         (comment-dwim nil))))
 
+(defun my-close-html-tag ()
+  (interactive)
+  (my-duplicate-line 1)
+  (back-to-indentation)
+  (forward-char 1)
+  (insert "/"))
+
 (defun my-clear-buffer ()
   (interactive)
   (mark-whole-buffer)
