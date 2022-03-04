@@ -1,6 +1,6 @@
-# name: function() { ... }
+# name: function () { ... }
 # key: fn
 # --
-function $1 () {
+function $1 ($2) {
   $0
 }
