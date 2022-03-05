@@ -7,6 +7,7 @@
 (global-set-key (kbd "M-o") 'my-swap-points)
 (global-set-key (kbd "<C-iso-lefttab>") 'my-outline-toggle-all)
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
+(global-set-key (kbd "C-c C-p") 'find-file-at-point)
 
 
 ;; Appearance, themes
