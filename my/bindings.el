@@ -80,6 +80,9 @@
 ;; Macros
 (global-set-key (kbd "C-c C-0") 'kmacro-cycle-ring-next)
 (global-set-key (kbd "C-c C-9") 'kmacro-cycle-ring-previous)
+(global-set-key (kbd "C-c C-e") 'kmacro-edit-macro)
+(global-set-key (kbd "C-c C-n") 'kmacro-name-last-macro)
+(global-set-key (kbd "C-c C-i") 'insert-kbd-macro)
 
 
 ;; git, magit
