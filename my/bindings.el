@@ -77,6 +77,11 @@
 (global-set-key (kbd "s-x") 'window-swap-states)
 
 
+;; Macros
+(global-set-key (kbd "C-c C-0") 'kmacro-cycle-ring-next)
+(global-set-key (kbd "C-c C-9") 'kmacro-cycle-ring-previous)
+
+
 ;; git, magit
 (global-set-key (kbd "C-M-SPC") 'magit-status)
 ;; (global-set-key (kbd "<home>") 'magit-status)
