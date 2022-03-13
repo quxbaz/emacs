@@ -97,8 +97,8 @@
 
 
 ;; Package / auto-complete
-(global-auto-complete-mode t)
-(setq ac-auto-show-menu 0.5)
+;; (global-auto-complete-mode t)
+;; (setq ac-auto-show-menu 0.5)
 
 
 ;; Package / prism
