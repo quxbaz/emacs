@@ -180,8 +180,22 @@
     (if (and is-empty-line (not (use-region-p)))
         (goto-char (+ (point) 4)))))
 
-;; (defun my-uncomment-jsx (arg)
-;;   (interactive "p"))
+(defun my-uncomment-jsx ()
+  (interactive)
+  (save-excursion
+    (replace-regexp "{/\\* " "" nil (point-at-bol) (point-at-eol))
+    (replace-regexp " \\*/}" "" nil (point-at-bol) (point-at-eol))))
+
+(defun my-toggle-jsx-comment (arg)
+  (interactive "p")
+  (save-excursion
+    (beginning-of-line-text)
+    (if (and (string= (string (char-after (+ (point) 0))) "{")
+             (string= (string (char-after (+ (point) 1))) "/")
+             (string= (string (char-after (+ (point) 2))) "\*")
+             (string= (string (char-after (+ (point) 3))) " "))
+        (my-uncomment-jsx)
+      (my-comment-jsx arg))))
 
 (defun my-close-html-tag ()
   (interactive)
