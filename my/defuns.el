@@ -156,6 +156,33 @@
         (mark-paragraph arg)
         (comment-dwim nil))))
 
+(defun current-line-empty-p ()
+  (save-excursion
+    (beginning-of-line)
+    (looking-at-p "[[:blank:]]*$")))
+
+(defun my-comment-jsx (arg)
+  (interactive "p")
+  (let ((is-empty-line (current-line-empty-p)))
+    (save-excursion
+      (if (use-region-p)
+          (let ((start (region-beginning))
+                (end (region-end)))
+            (goto-char end)
+            (if (not (current-line-empty-p)) (insert " "))
+            (insert "*/}")
+            (goto-char start)
+            (insert "{/* "))
+        (beginning-of-line-text)
+        (insert "{/* ")
+        (end-of-line)
+        (insert " */}")))
+    (if (and is-empty-line (not (use-region-p)))
+        (goto-char (+ (point) 4)))))
+
+;; (defun my-uncomment-jsx (arg)
+;;   (interactive "p"))
+
 (defun my-close-html-tag ()
   (interactive)
   (my-duplicate-line 1)
