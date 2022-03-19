@@ -188,14 +188,16 @@
 
 (defun my-toggle-jsx-comment (arg)
   (interactive "p")
-  (save-excursion
-    (beginning-of-line-text)
-    (if (and (string= (string (char-after (+ (point) 0))) "{")
-             (string= (string (char-after (+ (point) 1))) "/")
-             (string= (string (char-after (+ (point) 2))) "\*")
-             (string= (string (char-after (+ (point) 3))) " "))
-        (my-uncomment-jsx)
-      (my-comment-jsx arg))))
+  (if (use-region-p)
+      (my-comment-jsx arg)
+    (save-excursion
+      (beginning-of-line-text)
+      (if (and (string= (string (char-after (+ (point) 0))) "{")
+               (string= (string (char-after (+ (point) 1))) "/")
+               (string= (string (char-after (+ (point) 2))) "\*")
+               (string= (string (char-after (+ (point) 3))) " "))
+          (my-uncomment-jsx)
+        (my-comment-jsx arg)))))
 
 (defun my-close-html-tag ()
   (interactive)
