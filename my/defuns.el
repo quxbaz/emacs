@@ -53,6 +53,17 @@
   (setq-local show-headings-only (not show-headings-only)))
 
 
+;; Search, replace
+
+(defun my-find-dired ()
+  "Like find-dired, but takes a regex option and defaults to ignoring certain directories."
+  (interactive)
+  (let ((regex (read-from-minibuffer "find . -regex ")))
+    (find-dired "."
+                (concat "! -regex './node_modules/.*' "
+                        "! -regex './.next/.*' "
+                        (concat "-regex '" regex "'")))))
+
 ;; Appearance, themes
 
 (defun my-swap-theme-background ()
