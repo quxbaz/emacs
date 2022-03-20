@@ -54,6 +54,10 @@
 ;; (setq create-lockfiles nil)   ;; ^^
 
 
+;; Dired
+(setq dired-listing-switches "-lXGh --group-directories-first")  ;; Order directories first.
+
+
 ;; Describe, help
 (setq help-window-select t)  ;; Focus describe buffers on load.
 
