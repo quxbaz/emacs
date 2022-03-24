@@ -200,30 +200,33 @@
         (insert " */}")))
     (if (and is-empty-line (not (use-region-p)))
         (goto-char (+ (point) 4))))
-  (message "** Comment JSX. **"))
+  (message "** Comment JSX **"))
 
-
-(defun my-uncomment-jsx ()
-  (interactive)
-  (save-excursion
-    (replace-regexp "{/\\* " "" nil (point-at-bol) (point-at-eol))
-    (replace-regexp " \\*/}" "" nil (point-at-bol) (point-at-eol)))
-  (message "** Uncomment JSX. **"))
-
+(defun my-uncomment-jsx (arg)
+  (interactive "p")
+  (if (use-region-p)
+      (progn
+        (save-excursion
+          (let ((beginning (region-beginning))
+                (end (region-end)))
+            (replace-regexp "{/\\* " "" nil beginning end)
+            (replace-regexp " \?\\*/}" "" nil beginning end))))
+    (save-excursion
+      (replace-regexp "{/\\* " "" nil (point-at-bol) (point-at-eol))
+      (replace-regexp " \\*/}" "" nil (point-at-bol) (point-at-eol))))
+  (message "** Uncomment JSX **"))
 
 (defun my-toggle-jsx-comment (arg)
   (interactive "p")
-  ;; (if (use-region-p)
-  ;;     (my-comment-jsx arg))
-  (save-excursion
-    (if (use-region-p)
-        (goto-char (region-beginning)))
-    (beginning-of-line-text)
-    (if (and (string= (string-at-point 0) "{")
-             (string= (string-at-point 1) "/")
-             (string= (string-at-point 2) "\*")
-             (string= (string-at-point 3) " "))
-        (my-uncomment-jsx)
+  (let ((start-pos (if (use-region-p)
+                       (region-beginning)
+                     (save-excursion
+                       (beginning-of-line-text) (point)))))
+    (if (and (string= (string-at start-pos 0) "{")
+             (string= (string-at start-pos 1) "/")
+             (string= (string-at start-pos 2) "\*")
+             (string= (string-at start-pos 3) " "))
+        (my-uncomment-jsx arg)
       (my-comment-jsx arg))))
 
 (defun my-close-html-tag ()
