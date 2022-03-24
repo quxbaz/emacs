@@ -7,6 +7,11 @@
   "Returns t if the line at point is empty, otherwise nil."
   (eq (point-at-bol) (point-at-eol)))
 
+(defun string-at-point (&optional offset)
+  "Gets the string at point."
+  (let ((offset (or offset 0)))
+    (string (char-after (+ (point) offset)))))
+
 
 ;; Text navigation, selection
 
