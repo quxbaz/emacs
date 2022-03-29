@@ -1,0 +1,4 @@
+# name: align-items
+# key: ai
+# --
+align-items: $0;
