@@ -4,7 +4,6 @@
 ;; Text navigation, selection
 (global-set-key "\C-\\" 'my-match-paren)
 (global-set-key (kbd "M-h") 'my-mark-paragraph)
-(global-set-key (kbd "M-o") 'my-swap-points)
 (global-set-key (kbd "<C-iso-lefttab>") 'my-outline-toggle-all)
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
 (global-set-key (kbd "C-c C-p") 'find-file-at-point)
@@ -70,6 +69,7 @@
 (global-set-key (kbd "M-~") 'my-dired-other-window)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-,") 'my-switch-to-other-buffer)
+(global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x C-o") 'other-window)
 
 
