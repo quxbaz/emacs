@@ -4,7 +4,6 @@
 ;; Text navigation, selection
 (global-set-key "\C-\\" 'my-match-paren)
 (global-set-key (kbd "M-h") 'my-mark-paragraph)
-(global-set-key (kbd "M-o") 'my-swap-points)
 (global-set-key (kbd "<C-iso-lefttab>") 'my-outline-toggle-all)
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
 (global-set-key (kbd "C-c C-p") 'find-file-at-point)
@@ -23,7 +22,7 @@
 (global-set-key (kbd "M-i") 'indent-rigidly-right)
 (global-set-key (kbd "M-I") 'indent-rigidly-left)
 (global-set-key (kbd "C-j") 'newline-and-indent)
-(global-set-key (kbd "M-_") 'delete-indentation)
+(global-set-key (kbd "C--") 'delete-indentation)
 (global-set-key (kbd "C-o") 'my-open-line)
 (global-set-key (kbd "M-<return>") 'my-duplicate-line)
 (global-set-key (kbd "M-S-<return>") 'my-duplicate-block)
@@ -70,12 +69,16 @@
 (global-set-key (kbd "M-~") 'my-dired-other-window)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-,") 'my-switch-to-other-buffer)
+(global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x C-o") 'other-window)
 
 
 ;; Windows
 (global-set-key (kbd "M-0") 'delete-window)
-(global-set-key (kbd "M-1") 'delete-other-windows)
+(global-set-key (kbd "M-1") (lambda () (interactive) (jump-to-register (string-to-char "1"))))
+(global-set-key (kbd "M-2") (lambda () (interactive) (jump-to-register (string-to-char "2"))))
+(global-set-key (kbd "M-3") (lambda () (interactive) (jump-to-register (string-to-char "3"))))
+(global-set-key (kbd "M-4") (lambda () (interactive) (jump-to-register (string-to-char "4"))))
 (global-set-key (kbd "s-x") 'window-swap-states)
 
 

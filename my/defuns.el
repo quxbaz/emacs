@@ -7,6 +7,16 @@
   "Returns t if the line at point is empty, otherwise nil."
   (eq (point-at-bol) (point-at-eol)))
 
+(defun string-at (pos &optional offset)
+  "Gets the string at a specified point."
+  (let ((offset (or offset 0)))
+    (string (char-after (+ pos offset)))))
+
+(defun string-at-point (&optional offset)
+  "Gets the string at point."
+  (let ((offset (or offset 0)))
+    (string (char-after (+ (point) offset)))))
+
 
 ;; Text navigation, selection
 
@@ -51,6 +61,25 @@
       (setq-local show-headings-only nil))
   (if show-headings-only (outline-show-all) (outline-hide-body))
   (setq-local show-headings-only (not show-headings-only)))
+
+
+;; Search, replace
+
+(defun my-find-dired ()
+  "Like find-dired, but takes a regex option and defaults to ignoring certain directories."
+  (interactive)
+  (let ((regex (read-from-minibuffer "find . -regex ")))
+    (find-dired "."
+                (concat "! -regex './node_modules/.*' "
+                        "! -regex './.next/.*' "
+                        (concat "-regex '" regex "'")))))
+
+(defun my-find-jsx ()
+  "Finds all js[x] files starting from the current directory."
+  (interactive)
+  (find-dired "." (concat "! -regex './node_modules/.*' "
+                          "! -regex './.next/.*' "
+                          "-regex './.*.jsx?'")))
 
 
 ;; Appearance, themes
@@ -155,6 +184,58 @@
       (save-excursion
         (mark-paragraph arg)
         (comment-dwim nil))))
+
+(defun current-line-empty-p ()
+  (save-excursion
+    (beginning-of-line)
+    (looking-at-p "[[:blank:]]*$")))
+
+(defun my-comment-jsx (arg)
+  (interactive "p")
+  (let ((is-empty-line (current-line-empty-p)))
+    (save-excursion
+      (if (use-region-p)
+          (let ((start (region-beginning))
+                (end (region-end)))
+            (goto-char end)
+            (if (not (current-line-empty-p)) (insert " "))
+            (insert "*/}")
+            (goto-char start)
+            (insert "{/* "))
+        (beginning-of-line-text)
+        (insert "{/* ")
+        (end-of-line)
+        (insert " */}")))
+    (if (and is-empty-line (not (use-region-p)))
+        (goto-char (+ (point) 4))))
+  (message "** Comment JSX **"))
+
+(defun my-uncomment-jsx (arg)
+  (interactive "p")
+  (if (use-region-p)
+      (progn
+        (save-excursion
+          (let ((beginning (region-beginning))
+                (end (region-end)))
+            (replace-regexp "{/\\* " "" nil beginning end)
+            (replace-regexp " \?\\*/}" "" nil beginning end))))
+    (save-excursion
+      (replace-regexp "{/\\* " "" nil (point-at-bol) (point-at-eol))
+      (replace-regexp " \\*/}" "" nil (point-at-bol) (point-at-eol))))
+  (message "** Uncomment JSX **"))
+
+(defun my-toggle-jsx-comment (arg)
+  (interactive "p")
+  (let ((start-pos (if (use-region-p)
+                       (region-beginning)
+                     (save-excursion
+                       (beginning-of-line-text) (point)))))
+    (if (and (string= (string-at start-pos 0) "{")
+             (string= (string-at start-pos 1) "/")
+             (string= (string-at start-pos 2) "\*")
+             (string= (string-at start-pos 3) " "))
+        (my-uncomment-jsx arg)
+      (my-comment-jsx arg))))
 
 (defun my-close-html-tag ()
   (interactive)

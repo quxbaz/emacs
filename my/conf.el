@@ -54,6 +54,10 @@
 ;; (setq create-lockfiles nil)   ;; ^^
 
 
+;; Dired
+(setq dired-listing-switches "-lXGh --group-directories-first")  ;; Order directories first.
+
+
 ;; Describe, help
 (setq help-window-select t)  ;; Focus describe buffers on load.
 
@@ -97,8 +101,8 @@
 
 
 ;; Package / auto-complete
-(global-auto-complete-mode t)
-(setq ac-auto-show-menu 0.5)
+;; (global-auto-complete-mode t)
+;; (setq ac-auto-show-menu 0.5)
 
 
 ;; Package / prism
