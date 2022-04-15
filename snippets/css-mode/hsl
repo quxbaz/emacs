@@ -1,4 +1,4 @@
-# name: hsl(...)
+# name: hsl
 # key: h
 # --
-hsl(0deg 0% 100%)$0
+hsl(0deg 0% 100%)
