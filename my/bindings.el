@@ -16,7 +16,6 @@
 ;; Editing
 (global-set-key [\S-insert] 'clipboard-yank)
 (global-set-key (kbd "C-d") 'my-delete-char)
-(global-set-key (kbd "C-k") 'my-kill-line)
 (global-set-key (kbd "M-k") 'my-kill-block)
 (global-set-key (kbd "C-x C-k") 'kill-region)
 (global-set-key (kbd "M-i") 'indent-rigidly-right)
