@@ -1,4 +1,4 @@
 # name: Space
-# key: Sp
+# key: sp
 # --
 <Space height={$1} />$0
