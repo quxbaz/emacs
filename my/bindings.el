@@ -18,6 +18,7 @@
 (global-set-key (kbd "C-d") 'my-delete-char)
 (global-set-key (kbd "M-k") 'my-kill-block)
 (global-set-key (kbd "C-x C-k") 'kill-region)
+(global-set-key (kbd "M-q") 'my-indent-block)
 (global-set-key (kbd "M-i") 'indent-rigidly-right)
 (global-set-key (kbd "M-I") 'indent-rigidly-left)
 (global-set-key (kbd "C-j") 'newline-and-indent)
