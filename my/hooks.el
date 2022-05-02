@@ -81,5 +81,6 @@
 
 (add-hook 'magit-mode-hook
           (lambda ()
+            (setq magit-save-repository-buffers nil)
             (add-to-list 'magit-no-confirm 'stage-all-changes)
             (add-to-list 'magit-no-confirm 'unstage-all-changes)))
