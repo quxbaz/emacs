@@ -27,6 +27,11 @@
             (local-set-key (kbd "I") 'ibuffer-do-isearch-regexp)
             (local-set-key (kbd "M-r") 'ibuffer-do-query-replace-regexp)))
 
+(add-hook 'occur-mode-hook
+          (lambda ()
+            (local-set-key (kbd "n") 'occur-next)
+            (local-set-key (kbd "p") 'occur-prev)))
+
 (add-hook 'prog-mode-hook
           (lambda ()
             (electric-pair-mode 0)
