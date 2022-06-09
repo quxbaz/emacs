@@ -18,6 +18,7 @@
             (local-set-key (kbd "C-+") 'dired-create-empty-file)
             (local-set-key (kbd "<return>") 'dired-find-alternate-file)
             (local-set-key (kbd "F") 'my-find-dired)
+            (local-set-key (kbd "V") 'my-find-string-dired)
             (local-set-key (kbd "J") 'my-find-jsx)
             (local-set-key (kbd "I") 'dired-do-isearch-regexp)
             (local-set-key (kbd "M-r") 'dired-do-query-replace-regexp)))
