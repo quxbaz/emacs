@@ -58,8 +58,7 @@
 (add-hook 'css-mode-hook
           (lambda ()
             (setq css-indent-offset 2)
-            (setq cssm-indent-level 2)
-            (rainbow-mode t)))
+            (setq cssm-indent-level 2)))
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
