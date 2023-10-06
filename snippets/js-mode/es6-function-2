@@ -1,5 +1,5 @@
 # name: es6 arrow function 2
-# key: >>
+# key: <<
 # --
 ($1) => ({
   $0
