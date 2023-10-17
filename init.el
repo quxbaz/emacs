@@ -26,4 +26,5 @@
      doom-themes
      autothemer
      git-gutter
+     php-mode
      )))
