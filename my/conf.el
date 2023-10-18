@@ -101,6 +101,11 @@
 (key-chord-mode t)
 
 
+;; TRAMP
+;; Not exactly sure what this is, but it enables me to actually use Tramp.
+(setq tramp-terminal-type "tramp")
+
+
 ;; Package / auto-complete
 ;; (global-auto-complete-mode t)
 ;; (setq ac-auto-show-menu 0.5)
