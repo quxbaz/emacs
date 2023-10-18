@@ -62,6 +62,10 @@
             (setq css-indent-offset 2)
             (setq cssm-indent-level 2)))
 
+(add-hook 'web-mode-hook
+          (lambda ()
+            (setq web-mode-markup-indent-offset 2)))
+
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (autopair-mode 0)
