@@ -102,8 +102,10 @@
 
 
 ;; TRAMP
-;; Not exactly sure what this is, but it enables me to actually use Tramp.
+;; Not exactly sure what this is, but it enables me to actually use TRAMP.
 (setq tramp-terminal-type "tramp")
+;; This line also needs to be in the REMOTE .zshrc file.
+;; [[ $TERM == "tramp" ]] && unsetopt zle && PS1='$ ' && return
 
 
 ;; Package / auto-complete
