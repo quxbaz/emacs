@@ -86,6 +86,7 @@
 (add-to-list 'auto-mode-alist '("\\.tsx?$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
 (add-to-list 'auto-mode-alist '("\\rc$" . shell-script-mode))
+(add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
 
 
 ;; Packages, modes
