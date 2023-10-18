@@ -27,4 +27,5 @@
      autothemer
      git-gutter
      php-mode
+     web-mode
      )))
