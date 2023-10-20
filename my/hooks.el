@@ -90,7 +90,8 @@
             (local-set-key (kbd "M--") 'org-meta-return)
             (local-set-key (kbd "C-M--") 'org-insert-todo-heading)
             (local-set-key (kbd "M-p") 'org-previous-visible-heading)
-            (local-set-key (kbd "M-n") 'org-next-visible-heading)))
+            (local-set-key (kbd "M-n") 'org-next-visible-heading)
+            (outline-show-all)))
 
 (add-hook 'magit-mode-hook
           (lambda ()
