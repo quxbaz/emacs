@@ -55,7 +55,7 @@
 
 
 ;; Dired
-(setq dired-listing-switches "-lXGh --group-directories-first")  ;; Order directories first.
+(setq dired-listing-switches "-laXGh --group-directories-first")  ;; Order directories first.
 
 
 ;; Describe, help
