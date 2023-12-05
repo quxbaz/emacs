@@ -1,0 +1,4 @@
+# name: short-echo-tag
+# key: e
+# --
+<?= $0 ?>
