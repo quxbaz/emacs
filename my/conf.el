@@ -40,6 +40,10 @@
 (setq-default case-fold-search t)
 
 
+;; Visuals
+(highlight-indent-guides-mode t)
+
+
 ;; Search
 (setq-default isearch-lazy-highlight-initial-delay 0)
 
