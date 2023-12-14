@@ -39,7 +39,6 @@
 (add-hook 'prog-mode-hook
           (lambda ()
             (electric-pair-mode 0)
-            (highlight-indent-guides-mode t)
             (git-gutter-mode t)
             (key-chord-define-local "kt" 'my-transpose-lines)
             (key-chord-define-local "qq" 'fill-paragraph)
