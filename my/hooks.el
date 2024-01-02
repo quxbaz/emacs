@@ -85,6 +85,7 @@
 
 (add-hook 'org-mode-hook
           (lambda ()
+            (local-set-key (kbd "M-q") 'fill-paragraph)
             (local-set-key (kbd "C-,") 'my-switch-to-other-buffer)
             (local-set-key (kbd "C-o") 'open-line)
             (local-set-key (kbd "M--") 'org-meta-return)
