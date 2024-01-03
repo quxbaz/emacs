@@ -88,10 +88,10 @@
             (local-set-key (kbd "M-q") 'fill-paragraph)
             (local-set-key (kbd "C-,") 'my-switch-to-other-buffer)
             (local-set-key (kbd "C-o") 'open-line)
+            (local-set-key (kbd "M--") 'org-meta-return)
+            (local-set-key (kbd "C-M--") 'org-insert-todo-heading)
             (local-set-key (kbd "M-p") 'org-previous-visible-heading)
             (local-set-key (kbd "M-n") 'org-next-visible-heading)
-            (local-set-key (kbd "M--") 'org-insert-heading-respect-content)  ;; Insert heading.
-            (local-set-key (kbd "<C-return>") 'org-insert-todo-heading)  ;; Insert checkbox item.
             (outline-show-all)))
 
 (add-hook 'magit-mode-hook
