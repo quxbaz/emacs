@@ -93,6 +93,7 @@
             (local-set-key (kbd "C-M--") 'org-insert-todo-heading)
             (local-set-key (kbd "M-p") 'org-previous-visible-heading)
             (local-set-key (kbd "M-n") 'org-next-visible-heading)
+            (local-set-key (kbd "M-<return>") 'my-duplicate-line)
             (outline-show-all)))
 
 (add-hook 'magit-mode-hook
