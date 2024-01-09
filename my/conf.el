@@ -4,6 +4,7 @@
 ;; Startup
 (setq-default inhibit-startup-message t)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))  ;; Default to full-screen.
+(setq diary-file "~/personal/log")
 
 
 ;; Enable commands
