@@ -1,6 +1,11 @@
 ;; KEYBINDINGS
 
 
+;; MacOS
+(setq mac-command-modifier 'meta)  ; Map Command key as Meta.
+(setq mac-option-modifier 'super)  ; make Option  key as Super.
+
+
 ;; Text navigation, selection
 (global-set-key "\C-\\" 'my-match-paren)
 (global-set-key (kbd "M-h") 'my-mark-paragraph)
