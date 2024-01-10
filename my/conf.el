@@ -60,7 +60,8 @@
 
 
 ;; Dired
-(setq dired-listing-switches "-laXGh --group-directories-first")  ;; Order directories first.
+;; (setq dired-listing-switches "-laXGh --group-directories-first")  ;; Order directories first.
+(setq dired-use-ls-dired nil)
 
 
 ;; Describe, help
@@ -80,7 +81,7 @@
 ;; (set-face-attribute 'default nil :font "dejavu sans mono-10")
 ;; (set-face-attribute 'default nil :font "SFMono-10")
 ;; (set-face-attribute 'default nil :font "sourcecodepro-10")
-(set-frame-font "sourcecodepro-10:pixelsize=14")
+;; (set-frame-font "sourcecodepro-10:pixelsize=14")
 (custom-set-faces
  '(font-lock-comment-face ((t (:foreground "#999"))))
  '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
