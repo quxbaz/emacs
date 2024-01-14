@@ -14,8 +14,7 @@
  ;; If there is more than one, they won't work right.
  '(fill-column 80)
  '(package-selected-packages
-   '(key-chord
-     prism
+   '(prism
      auto-complete
      lsp-mode
      autopair

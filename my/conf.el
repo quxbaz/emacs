@@ -104,7 +104,6 @@
 (autopair-global-mode t)
 (setq highlight-indent-guides-method 'bitmap)
 (yas-global-mode t)
-(key-chord-mode t)
 
 
 ;; TRAMP
