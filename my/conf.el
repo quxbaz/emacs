@@ -3,6 +3,7 @@
 
 ;; Startup
 (setq-default inhibit-startup-message t)
+(setq warning-minimum-level :emergency)  ;; Don't bombard me with plugin warnings and hijack focus.
 (add-to-list 'default-frame-alist '(fullscreen . maximized))  ;; Default to full-screen.
 (setq diary-file "~/personal/log")
 
