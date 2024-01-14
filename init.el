@@ -18,6 +18,7 @@
      auto-complete
      autopair
      autothemer
+     deadgrep
      doom-themes
      git-gutter
      highlight-indent-guides
