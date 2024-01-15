@@ -97,4 +97,5 @@
           (lambda ()
             (setq magit-save-repository-buffers nil)
             (add-to-list 'magit-no-confirm 'stage-all-changes)
-            (add-to-list 'magit-no-confirm 'unstage-all-changes)))
+            (add-to-list 'magit-no-confirm 'unstage-all-changes)
+            (local-set-key (kbd "C-o") 'magit-diff-visit-file-other-window)))
