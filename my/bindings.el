@@ -57,7 +57,7 @@
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "M-r") 'query-replace-regexp)
 (global-set-key (kbd "M-R") 'query-replace-regexp)
-(global-set-key (kbd "C-S-s") 'rgrep)
+(global-set-key (kbd "C-S-s") 'deadgrep)
 (global-set-key (kbd "C-S-f") 'find-name-dired)
 (global-set-key (kbd "C-c o") 'occur)
 
@@ -93,7 +93,7 @@
 (global-set-key (kbd "C-c C-9") 'kmacro-cycle-ring-previous)
 (global-set-key (kbd "C-c C-e") 'kmacro-edit-macro)
 (global-set-key (kbd "C-c C-a") 'kmacro-step-edit-macro)
-(global-set-key (kbd "C-c C-n") 'kmacro-name-last-macro)
+;; (global-set-key (kbd "C-c C-n") 'kmacro-name-last-macro)
 (global-set-key (kbd "C-c C-i") 'insert-kbd-macro)
 
 
@@ -104,6 +104,8 @@
 (global-set-key (kbd "<f5>") 'magit-file-checkout)
 (global-set-key (kbd "C-c C-l") 'magit-file-dispatch)
 (global-set-key (kbd "C-c C-b") 'magit-blob-mode)
+(global-set-key (kbd "C-c C-p") 'git-gutter:previous-hunk)
+(global-set-key (kbd "C-c C-n") 'git-gutter:next-hunk)
 
 
 ;; Emacs, elisp

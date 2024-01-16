@@ -40,10 +40,7 @@
 (add-hook 'prog-mode-hook
           (lambda ()
             (electric-pair-mode 0)
-            (git-gutter-mode t)
-            (key-chord-define-local "kt" 'my-transpose-lines)
-            (key-chord-define-local "qq" 'fill-paragraph)
-            (key-chord-define-local "zz" 'zap-up-to-char)))
+            (git-gutter-mode t)))
 
 (add-hook 'js-mode-hook
           (lambda ()
@@ -101,4 +98,11 @@
           (lambda ()
             (setq magit-save-repository-buffers nil)
             (add-to-list 'magit-no-confirm 'stage-all-changes)
-            (add-to-list 'magit-no-confirm 'unstage-all-changes)))
+            (add-to-list 'magit-no-confirm 'unstage-all-changes)
+            (local-set-key (kbd "C-o") 'magit-diff-visit-file-other-window)))
+
+(add-hook 'calendar-mode-hook
+          (lambda ()
+            (local-set-key (kbd "n") 'calendar-forward-week)
+            (local-set-key (kbd "p") 'calendar-backward-week)
+            (diary-mark-entries)))

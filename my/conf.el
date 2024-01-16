@@ -3,8 +3,9 @@
 
 ;; Startup
 (setq-default inhibit-startup-message t)
+(setq warning-minimum-level :emergency)  ;; Don't bombard me with plugin warnings and hijack focus.
 (add-to-list 'default-frame-alist '(fullscreen . maximized))  ;; Default to full-screen.
-(setq diary-file "~/personal/log")
+(setq diary-file "~/personal/diary")
 
 
 ;; Enable commands
@@ -47,6 +48,9 @@
 
 ;; Search
 (setq-default isearch-lazy-highlight-initial-delay 0)
+;; Makes deadgrep start the search form the current directory instead of the project base.
+(defun my-get-current-dir () default-directory)
+(setq deadgrep-project-root-function #'my-get-current-dir)
 
 
 ;; Safety, backups
@@ -80,7 +84,7 @@
 (load-theme 'doom-dracula t)
 ;; (set-face-attribute 'default nil :font "dejavu sans mono-10")
 ;; (set-face-attribute 'default nil :font "SFMono-10")
-;; (set-face-attribute 'default nil :font "sourcecodepro-12")
+(set-face-attribute 'default nil :font "sourcecodepro-10:pixelsize=14")
 ;; (set-frame-font "sourcecodepro-10:pixelsize=14")
 (custom-set-faces
  '(font-lock-comment-face ((t (:foreground "#999"))))
@@ -105,7 +109,6 @@
 (autopair-global-mode t)
 (setq highlight-indent-guides-method 'bitmap)
 (yas-global-mode t)
-(key-chord-mode t)
 
 
 ;; TRAMP

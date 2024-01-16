@@ -6,3 +6,5 @@ ido.last
 /ac-comphist.dat
 /.emacs.desktop.lock
 /bookmarks
+/eln-cache
+/eshell/history

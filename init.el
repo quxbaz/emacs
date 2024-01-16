@@ -14,18 +14,19 @@
  ;; If there is more than one, they won't work right.
  '(fill-column 80)
  '(package-selected-packages
-   '(key-chord
-     prism
+   '(
      auto-complete
-     lsp-mode
      autopair
-     paredit
-     highlight-indent-guides
-     yasnippet
-     magit
-     doom-themes
      autothemer
+     deadgrep
+     doom-themes
      git-gutter
+     highlight-indent-guides
+     lsp-mode
+     magit
+     paredit
      php-mode
+     prism
      web-mode
+     yasnippet
      )))
