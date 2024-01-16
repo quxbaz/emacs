@@ -99,3 +99,9 @@
             (add-to-list 'magit-no-confirm 'stage-all-changes)
             (add-to-list 'magit-no-confirm 'unstage-all-changes)
             (local-set-key (kbd "C-o") 'magit-diff-visit-file-other-window)))
+
+(add-hook 'calendar-mode-hook
+          (lambda ()
+            (local-set-key (kbd "n") 'calendar-forward-week)
+            (local-set-key (kbd "p") 'calendar-backward-week)
+            (diary-mark-entries)))
