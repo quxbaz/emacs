@@ -65,7 +65,7 @@
             (setq web-mode-enable-auto-indentation nil)
             (setq web-mode-markup-indent-offset 2)
             (setq web-mode-code-indent-offset 2)
-            (web-mode-css-indent-offset 2)))
+            (setq web-mode-css-indent-offset 2)))
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
