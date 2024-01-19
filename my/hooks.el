@@ -86,6 +86,8 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (git-gutter-mode t)
+            (local-set-key (kbd "<return>") 'org-newline-and-indent)
+            (local-set-key (kbd "C-j") 'org-newline-and-indent)
             (local-set-key (kbd "M-q") 'fill-paragraph)
             (local-set-key (kbd "C-,") 'my-switch-to-other-buffer)
             (local-set-key (kbd "C-o") 'open-line)
