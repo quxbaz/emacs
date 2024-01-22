@@ -1,7 +1,7 @@
 ;; KEYBINDINGS
 
 
-;; Text navigation, selection
+;; Text navigation, selection, files
 (global-set-key "\C-\\" 'my-match-paren)
 (global-set-key (kbd "M-h") 'my-mark-paragraph)
 (global-set-key (kbd "<C-iso-lefttab>") 'my-outline-toggle-all)
