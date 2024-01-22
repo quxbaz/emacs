@@ -88,7 +88,7 @@
 ;; (set-frame-font "sourcecodepro-10:pixelsize=14")
 (setq-default line-spacing nil)
 (custom-set-faces
- `(default ((t (:background "#00242a"))))
+ ;; `(default ((t (:background "#00242a"))))
  '(font-lock-comment-face ((t (:foreground "#999"))))
  '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
 
