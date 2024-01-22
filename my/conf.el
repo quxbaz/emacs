@@ -78,9 +78,9 @@
 ;; Theme
 ;; (load-theme 'doom-monokai-pro t)
 ;; (load-theme 'doom-material t)
-;; (load-theme 'doom-oceanic-next t)
+(load-theme 'doom-oceanic-next t)
 ;; (load-theme 'doom-tomorrow-day t)
-(load-theme 'doom-dracula t)
+;; (load-theme 'doom-dracula t)
 ;; (set-face-attribute 'default nil :font "dejavu sans mono-10")
 ;; (set-face-attribute 'default nil :font "SFMono-10")
 (set-face-attribute 'default nil :font "sourcecodepro-10:pixelsize=14")
