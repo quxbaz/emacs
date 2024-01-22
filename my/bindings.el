@@ -6,12 +6,12 @@
 (setq mac-option-modifier 'super)  ; make Option  key as Super.
 
 
-;; Text navigation, selection
+;; Text navigation, selection, files
 (global-set-key "\C-\\" 'my-match-paren)
 (global-set-key (kbd "M-h") 'my-mark-paragraph)
 (global-set-key (kbd "<C-iso-lefttab>") 'my-outline-toggle-all)
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
-(global-set-key (kbd "C-c C-p") 'find-file-at-point)
+(global-set-key (kbd "C-c p") 'find-file-at-point)
 
 
 ;; Appearance, themes
