@@ -41,6 +41,13 @@
             (electric-pair-mode 0)
             (git-gutter-mode t)))
 
+(add-hook 'sh-mode-hook
+          (lambda ()
+            (setq-local my-local-map (make-sparse-keymap))
+            (define-key my-local-map (kbd "M-a") 'backward-sentence)
+            (define-key my-local-map (kbd "M-e") 'forward-sentence)
+            (use-local-map my-local-map)))
+
 (add-hook 'js-mode-hook
           (lambda ()
             (setq-local require-final-newline nil)
