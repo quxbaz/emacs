@@ -115,3 +115,7 @@
 (global-set-key (kbd "M-<down-mouse-3>") 'nil)
 (global-set-key (kbd "M-<drag-mouse-3>") 'nil)
 (global-set-key [mouse-2] 'nil) ; Disable middle mouse button.
+
+
+;; Mini-apps
+(global-set-key (kbd "s-d") 'calendar)
