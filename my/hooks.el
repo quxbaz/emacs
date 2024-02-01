@@ -116,4 +116,5 @@
           (lambda ()
             (local-set-key (kbd "n") 'calendar-forward-week)
             (local-set-key (kbd "p") 'calendar-backward-week)
+            (local-set-key (kbd "s") (lambda () (interactive) (find-file-other-window diary-file)))
             (diary-mark-entries)))
