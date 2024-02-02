@@ -42,6 +42,13 @@
             (electric-pair-mode 0)
             (git-gutter-mode t)))
 
+(add-hook 'sh-mode-hook
+          (lambda ()
+            (setq-local my-local-map (make-sparse-keymap))
+            (define-key my-local-map (kbd "M-a") 'backward-sentence)
+            (define-key my-local-map (kbd "M-e") 'forward-sentence)
+            (use-local-map my-local-map)))
+
 (add-hook 'js-mode-hook
           (lambda ()
             (setq-local require-final-newline nil)
@@ -96,6 +103,7 @@
             (local-set-key (kbd "M-p") 'org-previous-visible-heading)
             (local-set-key (kbd "M-n") 'org-next-visible-heading)
             (local-set-key (kbd "M-<return>") 'my-duplicate-line)
+            (local-set-key (kbd "M-.") 'org-cycle-list-bullet)
             (outline-show-all)))
 
 (add-hook 'magit-mode-hook
@@ -109,4 +117,5 @@
           (lambda ()
             (local-set-key (kbd "n") 'calendar-forward-week)
             (local-set-key (kbd "p") 'calendar-backward-week)
+            (local-set-key (kbd "s") (lambda () (interactive) (find-file-other-window diary-file)))
             (diary-mark-entries)))
