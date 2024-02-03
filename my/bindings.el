@@ -1,4 +1,4 @@
-;; KEYBINDINGS
+;; Global keybindings
 
 
 ;; Text navigation, selection, files
