@@ -10,6 +10,8 @@
           (lambda ()
             (dired-hide-details-mode t)
             (put 'dired-find-alternate-file 'disabled nil)
+            (when (file-remote-p default-directory)
+              (setq dired-listing-switches "-l"))
             ;; (local-set-key (kbd "P") 'dired-up-directory)  ;; This spawns a new buffer each time.
             (define-key dired-mode-map (kbd "P")
               (lambda () (interactive) (find-alternate-file "..")))
@@ -23,8 +25,6 @@
             (local-set-key (kbd "J") 'my-find-jsx)
             (local-set-key (kbd "I") 'dired-do-isearch-regexp)
             (local-set-key (kbd "M-r") 'dired-do-query-replace-regexp)
-            (when (file-remote-p default-directory)
-              (setq dired-listing-switches "-l"))))
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()
