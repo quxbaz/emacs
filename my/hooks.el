@@ -13,8 +13,7 @@
             (when (file-remote-p default-directory)
               (setq dired-listing-switches "-l"))
             ;; (local-set-key (kbd "P") 'dired-up-directory)  ;; This spawns a new buffer each time.
-            (define-key dired-mode-map (kbd "P")
-              (lambda () (interactive) (find-alternate-file "..")))
+            (define-key dired-mode-map (kbd "P") (lambda () (interactive) (find-alternate-file "..")))
             (local-set-key (kbd "/") 'isearch-forward-regexp)
             (local-set-key (kbd "M") 'dired-mark-files-regexp)
             (local-set-key (kbd "C-c C-c") 'dired-toggle-read-only)
