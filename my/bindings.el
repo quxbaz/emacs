@@ -35,6 +35,7 @@
 (global-set-key (kbd "C-M-/") 'undo-only)
 (global-set-key (kbd "C-x r \\") 'delete-whitespace-rectangle)
 (global-set-key (kbd "C-q") 'view-mode)
+(global-set-key (kbd "M-T") 'transpose-regions)
 
 
 ;; Commands
