@@ -26,6 +26,10 @@
             (local-set-key (kbd "I") 'dired-do-isearch-regexp)
             (local-set-key (kbd "M-r") 'dired-do-query-replace-regexp)))
 
+(add-hook 'wdired-mode-hook
+          (lambda ()
+            (local-set-key (kbd "M-m") (lambda () (interactive) (move-to-column 2)))))
+
 (add-hook 'ibuffer-mode-hook
           (lambda ()
             (local-set-key (kbd "I") 'ibuffer-do-isearch-regexp)
