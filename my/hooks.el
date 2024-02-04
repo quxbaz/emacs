@@ -114,7 +114,9 @@
 
 (add-hook 'calendar-mode-hook
           (lambda ()
-            (local-set-key (kbd "n") 'calendar-forward-week)
-            (local-set-key (kbd "p") 'calendar-backward-week)
-            (local-set-key (kbd "s") (lambda () (interactive) (find-file-other-window diary-file)))
-            (diary-mark-entries)))
+            (diary-mark-entries)
+            (local-set-key (kbd "s-d") 'calendar-exit)
+            (local-set-key (kbd "l") 'calendar-forward-day)
+            (local-set-key (kbd "h") 'calendar-backward-day)
+            (local-set-key (kbd "j") 'calendar-forward-week)
+            (local-set-key (kbd "k") 'calendar-backward-week)))
