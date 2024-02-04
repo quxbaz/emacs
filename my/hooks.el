@@ -106,7 +106,6 @@
             (local-set-key (kbd "M-p") 'org-previous-visible-heading)
             (local-set-key (kbd "M-n") 'org-next-visible-heading)
             (local-set-key (kbd "M-<return>") 'my-duplicate-line)
-            (local-set-key (kbd "M-.") 'org-cycle-list-bullet)
             (outline-show-all)))
 
 (add-hook 'magit-mode-hook
