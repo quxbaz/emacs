@@ -67,8 +67,7 @@
 
 (add-hook 'css-mode-hook
           (lambda ()
-            (setq css-indent-offset 2)
-            (setq cssm-indent-level 2)))
+            (setq css-indent-offset 2)))
 
 (add-hook 'html-mode-hook
           (lambda ()
