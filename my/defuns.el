@@ -38,12 +38,12 @@
 (defun my/mark-current-word ()
   "Selects the current word under the point."
   (interactive)
-  (let* ((opoint (point))
+  (let* ((start-point (point))
          (word (current-word))
          (word-length (length word)))
     (if (save-excursion
           (backward-char word-length)
-          (search-forward word (+ opoint (length word)) t))
+          (search-forward word (+ start-point (length word)) t))
         (progn (push-mark (match-end 0) nil t)
                (goto-char (match-beginning 0))))))
 
