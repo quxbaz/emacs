@@ -18,25 +18,28 @@
 
 ;; Editing
 (global-set-key [\S-insert] 'clipboard-yank)
+(global-set-key (kbd "C-M-/") 'undo-only)
 (global-set-key (kbd "C-d") 'my/delete-char)
+(global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-k") 'my/kill-block)
 (global-set-key (kbd "C-x C-k") 'kill-region)
-(global-set-key (kbd "M-q") 'my/indent-block)
-(global-set-key (kbd "M-i") 'indent-rigidly-right)
-(global-set-key (kbd "M-I") 'indent-rigidly-left)
-(global-set-key (kbd "C-j") 'newline-and-indent)
-(global-set-key (kbd "C--") 'delete-indentation)
 (global-set-key (kbd "C-o") 'my/open-line)
 (global-set-key (kbd "M-<return>") 'my/duplicate-line)
 (global-set-key (kbd "M-S-<return>") 'my/duplicate-block)
 (global-set-key (kbd "C-;") 'my/comment-line)
 (global-set-key (kbd "M-;") 'my/comment-block)
-(global-set-key (kbd "M-z") 'zap-up-to-char)
-(global-set-key (kbd "s-a") 'align-regexp)
-(global-set-key (kbd "s-k") 'my/clear-buffer)
-(global-set-key (kbd "C-M-/") 'undo-only)
 (global-set-key (kbd "C-x r \\") 'delete-whitespace-rectangle)
+(global-set-key (kbd "s-a") 'align-regexp)
 (global-set-key (kbd "M-T") 'transpose-regions)
+(global-set-key (kbd "s-k") 'my/clear-buffer)
+
+
+;; Indentation
+(global-set-key (kbd "M-q") 'my/indent-block)
+(global-set-key (kbd "M-I") 'indent-rigidly-left)
+(global-set-key (kbd "M-i") 'indent-rigidly-right)
+(global-set-key (kbd "C--") 'delete-indentation)
+(global-set-key (kbd "C-j") 'newline-and-indent)
 
 
 ;; Commands
