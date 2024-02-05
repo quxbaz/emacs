@@ -9,6 +9,10 @@
 (global-set-key [mouse-2] 'nil) ; Disable middle mouse button.
 
 
+;; Mini-apps
+(global-set-key (kbd "s-d") 'calendar)
+
+
 ;; Appearance, themes
 (global-set-key (kbd "s-s") 'my/swap-theme-background)
 
@@ -118,7 +122,3 @@
 ;; Emacs, elisp
 (global-set-key (kbd "C-=") 'my/eval)
 ;; (global-set-key (kbd "S-SPC") 'mark-sexp)
-
-
-;; Mini-apps
-(global-set-key (kbd "s-d") 'calendar)
