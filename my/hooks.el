@@ -71,9 +71,7 @@
 
 (add-hook 'html-mode-hook
           (lambda ()
-            (setq-local my-local-map (make-sparse-keymap))
-            (define-key my-local-map (kbd "M-o") 'other-window)
-            (use-local-map my-local-map)))
+            (local-set-key (kbd "M-o") 'other-window)))
 
 (add-hook 'web-mode-hook
           (lambda ()
