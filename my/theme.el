@@ -24,6 +24,7 @@
 ;; (set-face-attribute 'default nil :font "NotoSansMono-10")      ;; Good.
 ;; (set-face-attribute 'default nil :font "SFMono-10")            ;; Very Cool. Love it.
 ;; (set-face-attribute 'default nil :font "SourceCodePro-10")     ;; Excellent.
+;; (set-face-attribute 'default nil :font "Terminus-12")          ;; Actually not bad.
 ;; (set-face-attribute 'default nil :font "UbuntuMono-12")        ;; Weird.
 
 ;; Alternate ways of setting font.
