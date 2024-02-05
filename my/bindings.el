@@ -7,6 +7,7 @@
 
 ;; Text navigation, selection, files
 (global-set-key "\C-\\" 'my/match-paren)
+(global-set-key (kbd "M-.") 'my/mark-current-word)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
 (global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
