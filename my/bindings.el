@@ -6,11 +6,13 @@
 
 
 ;; Text navigation, selection, files
+(global-set-key (kbd "C-q") 'view-mode)
 (global-set-key "\C-\\" 'my/match-paren)
 (global-set-key (kbd "M-.") 'my/mark-current-word)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
-(global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
+(global-set-key (kbd "C-<backspace>") 'my/copy-line)
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
+(global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
 (global-set-key (kbd "C-c p") 'find-file-at-point)
 
 
@@ -29,13 +31,11 @@
 (global-set-key (kbd "M-S-<return>") 'my/duplicate-block)
 (global-set-key (kbd "C-;") 'my/comment-line)
 (global-set-key (kbd "M-;") 'my/comment-block)
-(global-set-key (kbd "C-<backspace>") 'my/copy-line)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "s-a") 'align-regexp)
 (global-set-key (kbd "s-k") 'my/clear-buffer)
 (global-set-key (kbd "C-M-/") 'undo-only)
 (global-set-key (kbd "C-x r \\") 'delete-whitespace-rectangle)
-(global-set-key (kbd "C-q") 'view-mode)
 (global-set-key (kbd "M-T") 'transpose-regions)
 
 
