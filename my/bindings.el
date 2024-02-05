@@ -1,5 +1,13 @@
 ;; Global keybindings
 
+;; Mouse config
+(global-set-key (kbd "M-<down-mouse-1>") 'nil)
+(global-set-key (kbd "M-<drag-mouse-1>") 'nil)
+(global-set-key (kbd "<mouse-3>") 'nil)
+(global-set-key (kbd "M-<down-mouse-3>") 'nil)
+(global-set-key (kbd "M-<drag-mouse-3>") 'nil)
+(global-set-key [mouse-2] 'nil) ; Disable middle mouse button.
+
 
 ;; Appearance, themes
 (global-set-key (kbd "s-s") 'my/swap-theme-background)
@@ -110,15 +118,6 @@
 ;; Emacs, elisp
 (global-set-key (kbd "C-=") 'my/eval)
 ;; (global-set-key (kbd "S-SPC") 'mark-sexp)
-
-
-;; Mouse
-(global-set-key (kbd "M-<down-mouse-1>") 'nil)
-(global-set-key (kbd "M-<drag-mouse-1>") 'nil)
-(global-set-key (kbd "<mouse-3>") 'nil)
-(global-set-key (kbd "M-<down-mouse-3>") 'nil)
-(global-set-key (kbd "M-<drag-mouse-3>") 'nil)
-(global-set-key [mouse-2] 'nil) ; Disable middle mouse button.
 
 
 ;; Mini-apps
