@@ -49,8 +49,8 @@
 ;; Search
 (setq-default isearch-lazy-highlight-initial-delay 0)
 ;; Makes deadgrep start the search form the current directory instead of the project base.
-(defun my-get-current-dir () default-directory)
-(setq deadgrep-project-root-function #'my-get-current-dir)
+(defun my/get-current-dir () default-directory)
+(setq deadgrep-project-root-function #'my/get-current-dir)
 
 
 ;; Safety, backups

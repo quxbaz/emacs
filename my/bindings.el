@@ -2,36 +2,36 @@
 
 
 ;; Text navigation, selection, files
-(global-set-key "\C-\\" 'my-match-paren)
-(global-set-key (kbd "M-h") 'my-mark-paragraph)
-(global-set-key (kbd "<C-iso-lefttab>") 'my-outline-toggle-all)
+(global-set-key "\C-\\" 'my/match-paren)
+(global-set-key (kbd "M-h") 'my/mark-paragraph)
+(global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
 (global-set-key (kbd "C-c p") 'find-file-at-point)
 
 
 ;; Appearance, themes
-(global-set-key (kbd "s-s") 'my-swap-theme-background)
+(global-set-key (kbd "s-s") 'my/swap-theme-background)
 
 
 ;; Editing
 (global-set-key [\S-insert] 'clipboard-yank)
-(global-set-key (kbd "C-d") 'my-delete-char)
-(global-set-key (kbd "M-k") 'my-kill-block)
+(global-set-key (kbd "C-d") 'my/delete-char)
+(global-set-key (kbd "M-k") 'my/kill-block)
 (global-set-key (kbd "C-x C-k") 'kill-region)
-(global-set-key (kbd "M-q") 'my-indent-block)
+(global-set-key (kbd "M-q") 'my/indent-block)
 (global-set-key (kbd "M-i") 'indent-rigidly-right)
 (global-set-key (kbd "M-I") 'indent-rigidly-left)
 (global-set-key (kbd "C-j") 'newline-and-indent)
 (global-set-key (kbd "C--") 'delete-indentation)
-(global-set-key (kbd "C-o") 'my-open-line)
-(global-set-key (kbd "M-<return>") 'my-duplicate-line)
-(global-set-key (kbd "M-S-<return>") 'my-duplicate-block)
-(global-set-key (kbd "C-;") 'my-comment-line)
-(global-set-key (kbd "M-;") 'my-comment-block)
-(global-set-key (kbd "C-<backspace>") 'my-copy-line)
+(global-set-key (kbd "C-o") 'my/open-line)
+(global-set-key (kbd "M-<return>") 'my/duplicate-line)
+(global-set-key (kbd "M-S-<return>") 'my/duplicate-block)
+(global-set-key (kbd "C-;") 'my/comment-line)
+(global-set-key (kbd "M-;") 'my/comment-block)
+(global-set-key (kbd "C-<backspace>") 'my/copy-line)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "s-a") 'align-regexp)
-(global-set-key (kbd "s-k") 'my-clear-buffer)
+(global-set-key (kbd "s-k") 'my/clear-buffer)
 (global-set-key (kbd "C-M-/") 'undo-only)
 (global-set-key (kbd "C-x r \\") 'delete-whitespace-rectangle)
 (global-set-key (kbd "C-q") 'view-mode)
@@ -65,12 +65,12 @@
 ;; Buffers
 (global-set-key (kbd "M-SPC") 'ido-switch-buffer)
 (global-set-key (kbd "M-s") 'save-buffer)
-(global-set-key (kbd "C-c C-v") 'my-revert-buffer)
+(global-set-key (kbd "C-c C-v") 'my/revert-buffer)
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
-(global-set-key (kbd "M-`") 'my-dired)
-(global-set-key (kbd "M-~") 'my-dired-other-window)
+(global-set-key (kbd "M-`") 'my/dired)
+(global-set-key (kbd "M-~") 'my/dired-other-window)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-,") 'my-switch-to-other-buffer)
+(global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x C-o") 'other-window)
 
@@ -106,7 +106,7 @@
 
 
 ;; Emacs, elisp
-(global-set-key (kbd "C-=") 'my-eval)
+(global-set-key (kbd "C-=") 'my/eval)
 ;; (global-set-key (kbd "S-SPC") 'mark-sexp)
 
 
