@@ -13,7 +13,6 @@
 (global-set-key (kbd "C-<backspace>") 'my/copy-line)
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
 (global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
-(global-set-key (kbd "C-c p") 'find-file-at-point)
 
 
 ;; Editing
@@ -64,19 +63,20 @@
 
 ;; Files
 (global-set-key (kbd "M-F") 'find-file-other-window)
+(global-set-key (kbd "C-c p") 'find-file-at-point)
 
 
-;; Buffers
+;; Buffers, dired
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "M-SPC") 'ido-switch-buffer)
+(global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "C-x C-o") 'other-window)
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
 (global-set-key (kbd "M-`") 'my/dired)
 (global-set-key (kbd "M-~") 'my/dired-other-window)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
-(global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "C-x C-o") 'other-window)
 
 
 ;; Windows
