@@ -70,6 +70,12 @@
             (setq css-indent-offset 2)
             (setq cssm-indent-level 2)))
 
+(add-hook 'html-mode-hook
+          (lambda ()
+            (setq-local my-local-map (make-sparse-keymap))
+            (define-key my-local-map (kbd "M-o") 'other-window)
+            (use-local-map my-local-map)))
+
 (add-hook 'web-mode-hook
           (lambda ()
             (setq web-mode-enable-auto-indentation nil)
