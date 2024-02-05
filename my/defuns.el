@@ -44,8 +44,8 @@
     (if (save-excursion
           (backward-char word-length)
           (search-forward word (+ start-point (length word)) t))
-        (progn (push-mark (match-end 0) nil t)
-               (goto-char (match-beginning 0))))))
+        (progn (push-mark (match-beginning 0) nil t)
+               (goto-char (match-end 0))))))
 
 (defun my/mark-paragraph (arg)
   (interactive "p")
