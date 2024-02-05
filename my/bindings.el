@@ -5,7 +5,7 @@
 (global-set-key (kbd "s-s") 'my/swap-theme-background)
 
 
-;; Text navigation, selection, files
+;; Text navigation, selection
 (global-set-key (kbd "C-q") 'view-mode)
 (global-set-key "\C-\\" 'my/match-paren)
 (global-set-key (kbd "M-.") 'my/mark-current-word)
