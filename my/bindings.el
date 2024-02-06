@@ -27,23 +27,29 @@
 
 
 ;; Editing
+;; Kill ring, clipboard, undo
 (global-set-key [\S-insert] 'clipboard-yank)
 (global-set-key (kbd "C-M-/") 'undo-only)
+;; Creation, duplication, opening
+(global-set-key (kbd "C-o") 'my/open-line)
+(global-set-key (kbd "M-<return>") 'my/duplicate-line)
+(global-set-key (kbd "M-S-<return>") 'my/duplicate-block)
+;; Deletion, clearing
 (global-set-key (kbd "C-d") 'my/delete-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-k") 'my/kill-block)
 (global-set-key (kbd "C-x C-k") 'kill-region)
-(global-set-key (kbd "C-o") 'my/open-line)
-(global-set-key (kbd "M-<return>") 'my/duplicate-line)
-(global-set-key (kbd "M-S-<return>") 'my/duplicate-block)
+(global-set-key (kbd "C-M-k") 'my/clear-buffer)
+(global-set-key (kbd "C-x r \\") 'delete-whitespace-rectangle)
+;; Commenting
 (global-set-key (kbd "C-;") 'my/comment-line)
 (global-set-key (kbd "M-;") 'my/comment-block)
-(global-set-key (kbd "C-x r \\") 'delete-whitespace-rectangle)
-(global-set-key (kbd "s-a") 'align-regexp)
+;; Movement, transposing
 (global-set-key (kbd "M-<up>") 'my/transpose-line)
 (global-set-key (kbd "M-<down>") (lambda () (interactive) (my/transpose-line t)))
 (global-set-key (kbd "M-T") 'transpose-regions)
-(global-set-key (kbd "C-M-k") 'my/clear-buffer)
+;; Sorting, alignment
+(global-set-key (kbd "s-a") 'align-regexp)
 
 
 ;; Indentation
