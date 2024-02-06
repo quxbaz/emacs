@@ -339,3 +339,8 @@ RETURN nil"
   (interactive)
   (backward-up-list)
   (paredit-kill))
+
+(defun my/open-new-round ()
+  (interactive)
+  (paredit-close-round-and-newline)
+  (paredit-open-round))
