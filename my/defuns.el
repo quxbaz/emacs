@@ -36,15 +36,30 @@
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))))
 
 (defun my/mark-current-word ()
-  "Selects the current word under the point."
+  "Mark the current word under point. Toggle point between start/end of word
+when command is repeated."
   (interactive)
-  (let* ((start-point (point))
-         (word (current-word)))
-    (if (save-excursion
-          (backward-char (length word))
-          (search-forward word (+ start-point (length word)) t))
-        (progn (push-mark (match-beginning 0) nil t)
-               (goto-char (match-end 0))))))
+  (let ((is-region-active? (use-region-p))
+        (origin-point (point.))
+        (word (current-word)))
+    (cond
+     ;; Exit early if the current word cannot be effectively marked.
+     ((not (save-excursion
+             (backward-char (length word))
+             (search-forward word (+ origin-point (length word)) t)))
+      nil)
+     ;; If region is active and point is at START of word, move to END of word.
+     ((and is-region-active? (eq (point) (match-beginning 0)))
+      (push-mark (match-beginning 0) nil t)
+      (goto-char (match-end 0)))
+     ;; If region is active and point is at END of word, move to START of word.
+     ((and is-region-active? (eq (point) (match-end 0)))
+      (push-mark (match-end 0) nil t)
+      (goto-char (match-beginning 0)))
+     ;; Mark the current word.
+     (t
+      (push-mark (match-beginning 0) nil t)
+      (goto-char (match-end 0))))))
 
 (defun my/mark-paragraph (arg)
   (interactive "p")
