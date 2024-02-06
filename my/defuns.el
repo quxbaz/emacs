@@ -338,7 +338,7 @@ RETURN nil"
 (defun my/kill-sexp ()
   (interactive)
   (backward-up-list)
-  (paredit-kill))
+  (kill-sexp))
 
 (defun my/open-new-round ()
   (interactive)
