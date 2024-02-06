@@ -351,6 +351,9 @@ RETURN nil"
 
 (defun my/kill-sexp ()
   (interactive)
+  ;; Kill the sexp, not the parent sexp when point is on a (.
+  (if (eq (char-after (point)) ?\()
+      (forward-char))
   (backward-up-list)
   (kill-sexp))
 
