@@ -1,6 +1,13 @@
 ;; Reusable function definitions
 
 
+;; Macros
+
+(defmacro comment (&rest body)
+  "Comment out one or more s-expressions."
+  nil)
+
+
 ;; Utils
 
 (defun my/is-line-empty-p ()
