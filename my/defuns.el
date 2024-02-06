@@ -39,10 +39,9 @@
   "Selects the current word under the point."
   (interactive)
   (let* ((start-point (point))
-         (word (current-word))
-         (word-length (length word)))
+         (word (current-word)))
     (if (save-excursion
-          (backward-char word-length)
+          (backward-char (length word))
           (search-forward word (+ start-point (length word)) t))
         (progn (push-mark (match-beginning 0) nil t)
                (goto-char (match-end 0))))))
