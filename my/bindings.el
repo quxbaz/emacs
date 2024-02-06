@@ -43,7 +43,7 @@
 (global-set-key (kbd "M-<up>") 'my/transpose-line)
 (global-set-key (kbd "M-<down>") (lambda () (interactive) (my/transpose-line t)))
 (global-set-key (kbd "M-T") 'transpose-regions)
-(global-set-key (kbd "s-k") 'my/clear-buffer)
+(global-set-key (kbd "C-M-k") 'my/clear-buffer)
 
 
 ;; Indentation
