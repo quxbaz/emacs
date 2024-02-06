@@ -40,7 +40,7 @@
 when command is repeated."
   (interactive)
   (let ((is-region-active? (use-region-p))
-        (origin-point (point.))
+        (origin-point (point))
         (word (current-word)))
     (cond
      ;; Exit early if the current word cannot be effectively marked.
