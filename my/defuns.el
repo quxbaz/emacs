@@ -333,10 +333,9 @@ RETURN nil"
         (paredit-forward)
         (paredit-forward)
         (paredit-backward))
-    (progn
-      (condition-case nil
-          (progn (backward-up-list) (my/next-sexp))
-        (scan-error (progn (search-forward "(") (backward-char)))))))
+    (condition-case nil
+        (progn (backward-up-list) (my/next-sexp))
+      (scan-error (progn (search-forward "(") (backward-char))))))
 
 (defun my/prev-sexp ()
   (interactive)
