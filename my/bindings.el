@@ -22,7 +22,6 @@
 (global-set-key "\C-\\" 'my/match-paren)
 (global-set-key (kbd "M-.") 'my/mark-current-word)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
-(global-set-key (kbd "C-<backspace>") 'my/copy-line)
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
 (global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
 
@@ -49,7 +48,7 @@
 (global-set-key (kbd "M-q") 'my/indent-block)
 (global-set-key (kbd "M-I") 'indent-rigidly-left)
 (global-set-key (kbd "M-i") 'indent-rigidly-right)
-(global-set-key (kbd "C--") 'delete-indentation)
+(global-set-key (kbd "C-<backspace>") 'delete-indentation)
 (global-set-key (kbd "C-j") 'newline-and-indent)
 
 
