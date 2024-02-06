@@ -160,16 +160,24 @@
       (copy-to-register '@ (region-beginning) (region-end))
       (insert-register '@))))
 
-(defun my/transpose-lines (arg)
-  (interactive "p")
-  (dotimes (n arg)
-    (progn
-      (let ((pos (point))
-            (col (current-column)))
-        (transpose-lines 1)
-        (goto-char pos)
-        (previous-line)
-        (move-to-column col)))))
+(defun my/transpose-line (&optional down?)
+  "Moves a line up or down.
+
+ARGUMENTS
+down? [bool] [default = t]    If true, transposes the line downwards.
+
+RETURN nil"
+  (interactive)
+  (let ((pos (point))
+        (col (current-column)))
+    (if down?
+        (progn
+          (next-line)
+          (transpose-lines 1)
+          (previous-line))
+      (transpose-lines 1)
+      (previous-line 2))
+    (move-to-column col)))
 
 (defun my/comment-line ()
   (interactive)
