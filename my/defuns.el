@@ -178,7 +178,7 @@ when command is repeated."
   "Moves a line up or down.
 
 ARGUMENTS
-down? [bool] [default = t]    If true, transposes the line downwards.
+DOWN? [bool] [default = t]    If true, transposes the line downwards.
 
 RETURN nil"
   (interactive)
