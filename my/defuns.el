@@ -361,3 +361,12 @@ RETURN nil"
   (interactive)
   (paredit-close-round-and-newline)
   (paredit-open-round))
+
+
+;; org-mode
+
+(defun my-org-table/mark-field ()
+  (interactive)
+  (org-table-beginning-of-field 0)
+  (set-mark-command nil)
+  (org-table-end-of-field 0))
