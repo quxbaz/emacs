@@ -71,7 +71,7 @@
 
 
 ;; Colors
-;; (custom-set-faces
-;;  `(default ((t (:background "#00242a"))))
-;;  '(font-lock-comment-face ((t (:foreground "#999"))))
-;;  '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
+(custom-set-faces
+ ;; `(default ((t (:background "#00242a"))))
+ ;; '(font-lock-comment-face ((t (:foreground "#999"))))
+ '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
