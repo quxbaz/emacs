@@ -69,8 +69,6 @@
 
 
 ;; Search, replace, regexp, occur
-(global-set-key (kbd "C-c C-.") 'search-forward-regexp)
-(global-set-key (kbd "C-c C-,") 'search-backward-regexp)
 ;; Search
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
