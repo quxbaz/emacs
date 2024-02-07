@@ -71,10 +71,13 @@
 ;; Search, replace, regexp, occur
 (global-set-key (kbd "C-c C-.") 'search-forward-regexp)
 (global-set-key (kbd "C-c C-,") 'search-backward-regexp)
+;; Search
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
+;; Replace
 (global-set-key (kbd "M-r") 'query-replace-regexp)
 (global-set-key (kbd "M-R") 'query-replace-regexp)
+;; Grep, find, occur
 (global-set-key (kbd "C-S-s") 'deadgrep)
 (global-set-key (kbd "C-S-f") 'find-name-dired)
 (global-set-key (kbd "C-c o") 'occur)
