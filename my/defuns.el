@@ -91,7 +91,7 @@ when command is repeated."
 (defun my/find-string-dired ()
   "Finds an occurrence of a string. Like my/find-string-dired, but surrounds the regex with .*"
   (interactive)
-  (let ((regex (read-from-minibuffer "find -regex '.*[REGEX].*' >> ")))
+  (let ((regex (read-from-minibuffer "find -regex '.*[REGEX].*'  |  [REGEX] = ")))
     (find-dired "."
                 (concat "! -regex './node_modules/.*' "
                         "! -regex './.next/.*' "
