@@ -79,7 +79,6 @@
 (global-set-key (kbd "M-R") 'query-replace-regexp)
 ;; Grep, find, occur
 (global-set-key (kbd "C-S-s") 'deadgrep)
-(global-set-key (kbd "C-S-f") 'find-name-dired)
 (global-set-key (kbd "C-c o") 'occur)
 
 
