@@ -1,5 +1,9 @@
 ;; Theme, appearance, typography, colors
 
+;; Disables the current theme before loading the next one to avoid overlapping styles.
+(defun my/switch-theme (theme)
+  (disable-theme (car custom-enabled-themes))
+  (load-theme theme t))
 
 ;; Theme
 (load-theme 'doom-dracula t)
