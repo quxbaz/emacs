@@ -367,6 +367,8 @@ RETURN nil"
 
 (defun my-org-table/mark-field ()
   (interactive)
-  (org-table-beginning-of-field 0)
+  (if (not (looking-back "|[[:blank:]]"))
+      (org-table-beginning-of-field 0))
   (set-mark-command nil)
-  (org-table-end-of-field 0))
+  (org-table-end-of-field 0)
+  (exchange-point-and-mark))
