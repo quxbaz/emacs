@@ -76,4 +76,5 @@
  ;; '(font-lock-comment-face ((t (:foreground "#999"))))
  '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
 ;; Line background color in hl-line-mode.
-(set-face-background 'hl-line "#404080")
+;; (set-face-background 'hl-line "#404080")
+;; (set-face-background 'hl-line "#0000a0")
