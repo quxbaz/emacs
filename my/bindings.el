@@ -97,8 +97,6 @@
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
-(global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "C-x C-o") 'other-window)
 ;; Dired
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
 (global-set-key (kbd "M-`") 'my/dired)
@@ -111,6 +109,8 @@
 
 
 ;; Windows
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "C-x C-o") 'other-window)
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-1") 'delete-other-windows)
 (global-set-key (kbd "s-x") 'window-swap-states)
