@@ -93,7 +93,7 @@
             (local-set-key (kbd "C-c C-s") 'paredit-splice-sexp)
             (local-set-key (kbd "C-c C-o") 'paredit-raise-sexp)))
 
-;; Paredit binds keys in an unconventional way which necessitates this workaround.
+;; Paredit binds keys in an unconventional way which necessitates the use of define-key.
 (eval-after-load 'paredit
   '(progn
      (define-key paredit-mode-map (kbd "M-s") 'save-buffer)
