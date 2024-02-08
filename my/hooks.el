@@ -81,7 +81,7 @@
             (setq web-mode-code-indent-offset 2)
             (setq web-mode-css-indent-offset 2)))
 
-(add-hook 'lisp-mode-hook
+(add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (autopair-mode 0)
             (paredit-mode t)
