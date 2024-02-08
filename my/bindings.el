@@ -14,7 +14,7 @@
 
 
 ;; Appearance, themes
-(global-set-key (kbd "s-s") 'my/swap-theme-background)
+;;
 
 
 ;; Text navigation, selection
