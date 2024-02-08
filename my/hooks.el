@@ -86,6 +86,7 @@
             (autopair-mode 0)
             (paredit-mode t)
             (prism-mode t)
+            (local-set-key (kbd "M-/") 'dabbrev-expand)
             (local-set-key (kbd "C-c C-c") 'my/eval)
             (local-set-key (kbd "M-k") 'my/kill-sexp)
             (local-set-key (kbd "M-0") 'my/next-sexp)
