@@ -93,6 +93,7 @@
 
 
 ;; Buffers, dired
+;; Buffers
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "M-SPC") 'ido-switch-buffer)
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
@@ -100,6 +101,7 @@
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x C-o") 'other-window)
+;; Dired
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
 (global-set-key (kbd "M-`") 'my/dired)
 (global-set-key (kbd "M-~") 'my/dired-other-window)
