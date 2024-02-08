@@ -22,8 +22,6 @@
 (global-set-key "\C-\\" 'my/match-paren)
 (global-set-key (kbd "M-.") 'my/mark-current-word)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
-(global-set-key (kbd "C-<tab>") 'outline-toggle-children)
-(global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
 
 
 ;; Jumping
@@ -105,6 +103,11 @@
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
 (global-set-key (kbd "M-`") 'my/dired)
 (global-set-key (kbd "M-~") 'my/dired-other-window)
+
+
+;; Viewing, narrowing, filtering
+(global-set-key (kbd "C-<tab>") 'outline-toggle-children)
+(global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
 
 
 ;; Windows
