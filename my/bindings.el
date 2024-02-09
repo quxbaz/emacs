@@ -9,6 +9,10 @@
 (global-set-key [mouse-2] 'nil) ; Disable middle mouse button.
 
 
+;; Help, info
+(global-set-key (kbd "C-h C-f") 'find-library)
+
+
 ;; Mini-apps
 (global-set-key (kbd "s-d") 'calendar)
 
