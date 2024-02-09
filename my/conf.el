@@ -71,7 +71,7 @@
 (setq help-window-select t)  ;; Focus describe buffers on load.
 
 
-;; Misc
+;; System clipboard
 (setq x-select-enable-clipboard t)  ;; Allows you to copy into the system clipboard.
 
 
