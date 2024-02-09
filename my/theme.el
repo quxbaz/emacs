@@ -74,7 +74,10 @@
 (custom-set-faces
  ;; `(default ((t (:background "#00242a"))))
  ;; '(font-lock-comment-face ((t (:foreground "#999"))))
+ ;; For certain themes which need a higher contrast line-nubmer.
+ ;; '(line-number ((t (:inherit default :foreground "#999999" :strike-through nil :underline nil :slant normal :weight normal))))
  '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
-;; Line background color in hl-line-mode.
+
+;; Row background color in hl-line-mode.
 ;; (set-face-background 'hl-line "#404080")
 ;; (set-face-background 'hl-line "#0000a0")
