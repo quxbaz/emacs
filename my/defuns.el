@@ -294,7 +294,7 @@ RETURN nil"
   (interactive)
   (find-file "~/.emacs.d/my/"))
 
-(defun my/eval ()
+(defun my/eval-dwim ()
   "Evals either the current line, defun, or region."
   (interactive)
   (if (use-region-p)

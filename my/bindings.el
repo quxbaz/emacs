@@ -139,5 +139,5 @@
 
 
 ;; Emacs, elisp
-(global-set-key (kbd "C-=") 'my/eval)
+;; (global-set-key (kbd "C-=") 'my/eval-dwim)
 ;; (global-set-key (kbd "S-SPC") 'mark-sexp)
