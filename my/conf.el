@@ -73,6 +73,7 @@
 
 ;; System clipboard
 (setq x-select-enable-clipboard t)  ;; Allows you to copy into the system clipboard.
+(setq save-interprogram-paste-before-kill t)  ;; Save system clipboard to kill ring.
 
 
 ;; Filename patterns
