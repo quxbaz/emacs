@@ -64,6 +64,7 @@
 
 
 ;; Dired
+(setq wdired-allow-to-change-permissions t)  ;; Allow editing file modes.
 (setq dired-listing-switches "-laXGh --group-directories-first")  ;; Order directories first.
 
 
