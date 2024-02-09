@@ -115,7 +115,7 @@
             (local-set-key (kbd "M-p") 'org-previous-visible-heading)
             (local-set-key (kbd "M-n") 'org-next-visible-heading)
             (local-set-key (kbd "C-M--") 'org-insert-todo-heading)
-            (local-set-key (kbd "C-M-.") 'my-org-table/mark-field)
+            (local-set-key (kbd "C-M-.") 'my/org-table-mark-field)
             (outline-show-all)))
 
 (add-hook 'magit-mode-hook

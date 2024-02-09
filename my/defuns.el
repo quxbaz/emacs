@@ -355,7 +355,7 @@ RETURN nil"
 
 ;; org-mode
 
-(defun my-org-table/mark-field ()
+(defun my/org-table-mark-field ()
   (interactive)
   (if (not (looking-back "|[[:blank:]]"))
       (org-table-beginning-of-field 0))
