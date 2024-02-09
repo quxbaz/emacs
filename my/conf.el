@@ -107,15 +107,9 @@
 ;; (setq ac-auto-show-menu 0.5)
 
 
-;; Package / prism
+;; Variables
 (custom-set-variables
- '(fill-column 80)
- '(prism-colors '("#1fceff" "#ff6bc4" "#ffc738" "#f95624"))
- '(prism-desaturations '(10 15 20))
- '(prism-lightens '(0 5 10))
- '(prism-comments nil)
- '(prism-strings nil)
- '(prism-level-1-strings ((t (:foreground "#999")))))
+ '(fill-column 80))
 
 
 ;; Hardware
