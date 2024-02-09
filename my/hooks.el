@@ -112,6 +112,7 @@
             (local-set-key (kbd "M-<return>") 'my/duplicate-line)
             (local-set-key (kbd "M-q") 'fill-paragraph)
             (local-set-key (kbd "C-,") 'my/switch-to-other-buffer)
+            (local-set-key (kbd "C-c C-v") 'my/revert-buffer)
             (local-set-key (kbd "M-p") 'org-previous-visible-heading)
             (local-set-key (kbd "M-n") 'org-next-visible-heading)
             (local-set-key (kbd "C-M--") 'org-insert-todo-heading)
