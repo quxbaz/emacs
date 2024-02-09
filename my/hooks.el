@@ -24,10 +24,7 @@
             (local-set-key (kbd "V") 'my/find-string-dired)
             (local-set-key (kbd "J") 'my/find-jsx)
             (local-set-key (kbd "I") 'dired-do-isearch-regexp)
-            (local-set-key (kbd "M-r") 'dired-do-query-replace-regexp)
-            ;; (when (file-remote-p default-directory)
-            ;;   (setq dired-listing-switches "-l"))
-            ))
+            (local-set-key (kbd "M-r") 'dired-do-query-replace-regexp)))
 
 (add-hook 'wdired-mode-hook
           (lambda ()
