@@ -3,16 +3,16 @@
 
 ;; Utils
 
-(defun my-is-line-empty-p ()
+(defun my/is-line-empty? ()
   "Returns t if the line at point is empty, otherwise nil."
   (eq (point-at-bol) (point-at-eol)))
 
-(defun string-at (pos &optional offset)
+(defun my/string-at (pos &optional offset)
   "Gets the string at a specified point."
   (let ((offset (or offset 0)))
     (string (char-after (+ pos offset)))))
 
-(defun string-at-point (&optional offset)
+(defun my/string-at-point (&optional offset)
   "Gets the string at point."
   (let ((offset (or offset 0)))
     (string (char-after (+ (point) offset)))))
@@ -20,7 +20,7 @@
 
 ;; Text navigation, selection
 
-(defun my-swap-points ()
+(defun my/swap-points ()
   (interactive)
   (if (not (boundp 'next-point))
       (setq-local next-point 1))
@@ -29,31 +29,45 @@
   (recenter)
   (setq-local next-point prev-point))
 
-(defun my-match-paren ()
+(defun my/match-paren ()
   "Move the point to the matching parenthesis."
   (interactive)
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))))
 
-(defun my-mark-current-word ()
-  "Selects the current word under the point."
+(defun my/mark-current-word ()
+  "Mark the current word under point. Toggle point between start/end of word
+when command is repeated."
   (interactive)
-  (let* ((opoint (point))
-         (word (current-word))
-         (word-length (length word)))
-    (if (save-excursion
-          (backward-char word-length)
-          (search-forward word (+ opoint (length word)) t))
-        (progn (push-mark (match-end 0) nil t)
-               (goto-char (match-beginning 0))))))
+  (let ((is-region-active? (use-region-p))
+        (origin-point (point))
+        (word (current-word)))
+    (cond
+     ;; Exit early if the current word cannot be effectively marked.
+     ((not (save-excursion
+             (backward-char (length word))
+             (search-forward word (+ origin-point (length word)) t)))
+      nil)
+     ;; If region is active and point is at START of word, move to END of word.
+     ((and is-region-active? (eq (point) (match-beginning 0)))
+      (push-mark (match-beginning 0) nil t)
+      (goto-char (match-end 0)))
+     ;; If region is active and point is at END of word, move to START of word.
+     ((and is-region-active? (eq (point) (match-end 0)))
+      (push-mark (match-end 0) nil t)
+      (goto-char (match-beginning 0)))
+     ;; Mark the current word.
+     (t
+      (push-mark (match-beginning 0) nil t)
+      (goto-char (match-end 0))))))
 
-(defun my-mark-paragraph (arg)
+(defun my/mark-paragraph (arg)
   (interactive "p")
   (mark-paragraph arg t)
-  (if (my-is-line-empty-p)
+  (if (my/is-line-empty?)
       (forward-line)))
 
-(defun my-outline-toggle-all ()
+(defun my/outline-toggle-all ()
   (interactive)
   (if (not (bound-and-true-p outline-minor-mode))
       (outline-minor-mode t))
@@ -65,7 +79,7 @@
 
 ;; Search, replace
 
-(defun my-find-dired ()
+(defun my/find-dired ()
   "Like find-dired, but takes a regex option and defaults to ignoring certain directories."
   (interactive)
   (let ((regex (read-from-minibuffer "find . -regex ")))
@@ -74,16 +88,16 @@
                         "! -regex './.next/.*' "
                         (concat "-regex '" regex "'")))))
 
-(defun my-find-string-dired ()
-  "Finds an occurrence of a string. Like my-find-string-dired, but surrounds the regex with .*"
+(defun my/find-string-dired ()
+  "Finds an occurrence of a string. Like my/find-string-dired, but surrounds the regex with .*"
   (interactive)
-  (let ((regex (read-from-minibuffer "find -regex '.*[REGEX].*' >> ")))
+  (let ((regex (read-from-minibuffer "find -regex '.*[REGEX].*'  |  [REGEX] = ")))
     (find-dired "."
                 (concat "! -regex './node_modules/.*' "
                         "! -regex './.next/.*' "
                         (concat "-regex '.*" regex ".*'")))))
 
-(defun my-find-jsx ()
+(defun my/find-jsx ()
   "Finds all js[x] files starting from the current directory."
   (interactive)
   (find-dired "." (concat "! -regex './node_modules/.*' "
@@ -91,58 +105,48 @@
                           "-regex './.*.jsx?'")))
 
 
-;; Appearance, themes
-
-(defun my-swap-theme-background ()
-  (interactive)
-  (let* ((background-1 "#282a36")
-         (background-2 "#1c1e26")
-         (current (face-attribute 'default :background))
-         (next (if (equal current background-1) background-2 background-1)))
-    (custom-set-faces `(default ((t (:background ,next)))))))
-
 
 ;; Editing
 
-(defun my-delete-char (arg)
+(defun my/delete-char (arg)
   (interactive "p")
   (if (use-region-p)
       (delete-rectangle (region-beginning) (region-end))
     (delete-char arg)))
 
-(defun my-kill-line (arg)
+(defun my/kill-line (arg)
   (interactive "p")
   (if (use-region-p)
       (kill-region (region-beginning) (region-end))
     (if (= arg 1) (kill-line) (kill-line arg))))
 
-(defun my-kill-block (arg)
+(defun my/kill-block (arg)
   (interactive "p")
   (save-excursion
     (mark-paragraph arg)
     (kill-region (region-beginning) (region-end))))
 
-(defun my-indent-block ()
+(defun my/indent-block ()
   (interactive)
   (save-excursion
     (mark-paragraph)
     (indent-for-tab-command)))
 
-(defun my-copy-line ()
+(defun my/copy-line ()
   (interactive)
   (save-excursion
     (beginning-of-line-text)
     (kill-ring-save (point) (point-at-eol))
     (message "Copied current line.")))
 
-(defun my-open-line ()
+(defun my/open-line ()
   "Opens a new line above and indents."
   (interactive)
   (beginning-of-line)
   (open-line 1)
   (indent-according-to-mode))
 
-(defun my-duplicate-line (arg)
+(defun my/duplicate-line (arg)
   (interactive "p")
   (dotimes (n arg)
     (let ((col (current-column)))
@@ -152,7 +156,7 @@
       (insert-register '@)
       (move-to-column col))))
 
-(defun my-duplicate-block (arg)
+(defun my/duplicate-block (arg)
   (interactive "p")
   (save-excursion
     (dotimes (n arg)
@@ -160,18 +164,26 @@
       (copy-to-register '@ (region-beginning) (region-end))
       (insert-register '@))))
 
-(defun my-transpose-lines (arg)
-  (interactive "p")
-  (dotimes (n arg)
-    (progn
-      (let ((pos (point))
-            (col (current-column)))
-        (transpose-lines 1)
-        (goto-char pos)
-        (previous-line)
-        (move-to-column col)))))
+(defun my/transpose-line (&optional down?)
+  "Moves a line up or down.
 
-(defun my-comment-line ()
+ARGUMENTS
+DOWN? [bool] [default = t]    If true, transposes the line downwards.
+
+RETURN nil"
+  (interactive)
+  (let ((pos (point))
+        (col (current-column)))
+    (if down?
+        (progn
+          (next-line)
+          (transpose-lines 1)
+          (previous-line))
+      (transpose-lines 1)
+      (previous-line 2))
+    (move-to-column col)))
+
+(defun my/comment-line ()
   (interactive)
   (save-excursion
     (if (use-region-p)
@@ -186,7 +198,7 @@
         (move-end-of-line nil)
         (comment-dwim nil)))))
 
-(defun my-comment-block (arg)
+(defun my/comment-block (arg)
   (interactive "p")
   (if (use-region-p)
       (comment-dwim nil)
@@ -194,20 +206,20 @@
         (mark-paragraph arg)
         (comment-dwim nil))))
 
-(defun current-line-empty-p ()
+(defun my/is-current-line-empty? ()
   (save-excursion
     (beginning-of-line)
     (looking-at-p "[[:blank:]]*$")))
 
-(defun my-comment-jsx (arg)
+(defun my/comment-jsx (arg)
   (interactive "p")
-  (let ((is-empty-line (current-line-empty-p)))
+  (let ((is-empty-line (my/is-current-line-empty?)))
     (save-excursion
       (if (use-region-p)
           (let ((start (region-beginning))
                 (end (region-end)))
             (goto-char end)
-            (if (not (current-line-empty-p)) (insert " "))
+            (if (not (my/is-current-line-empty?)) (insert " "))
             (insert "*/}")
             (goto-char start)
             (insert "{/* "))
@@ -219,7 +231,7 @@
         (goto-char (+ (point) 4))))
   (message "** Comment JSX **"))
 
-(defun my-uncomment-jsx (arg)
+(defun my/uncomment-jsx (arg)
   (interactive "p")
   (if (use-region-p)
       (progn
@@ -233,56 +245,56 @@
       (replace-regexp " \\*/}" "" nil (point-at-bol) (point-at-eol))))
   (message "** Uncomment JSX **"))
 
-(defun my-toggle-jsx-comment (arg)
+(defun my/toggle-jsx-comment (arg)
   (interactive "p")
   (let ((start-pos (if (use-region-p)
                        (region-beginning)
                      (save-excursion
                        (beginning-of-line-text) (point)))))
-    (if (and (string= (string-at start-pos 0) "{")
-             (string= (string-at start-pos 1) "/")
-             (string= (string-at start-pos 2) "\*")
-             (string= (string-at start-pos 3) " "))
-        (my-uncomment-jsx arg)
-      (my-comment-jsx arg))))
+    (if (and (string= (my/string-at start-pos 0) "{")
+             (string= (my/string-at start-pos 1) "/")
+             (string= (my/string-at start-pos 2) "\*")
+             (string= (my/string-at start-pos 3) " "))
+        (my/uncomment-jsx arg)
+      (my/comment-jsx arg))))
 
-(defun my-close-html-tag ()
+(defun my/close-html-tag ()
   (interactive)
-  (my-duplicate-line 1)
+  (my/duplicate-line 1)
   (back-to-indentation)
   (forward-char 1)
   (insert "/"))
 
-(defun my-clear-buffer ()
+(defun my/clear-buffer ()
   (interactive)
   (mark-whole-buffer)
   (kill-region (region-beginning) (region-end)))
 
-(defun my-revert-buffer ()
+(defun my/revert-buffer ()
   (interactive)
   (revert-buffer t t))
 
 
 ;; Other
 
-(defun my-dired ()
+(defun my/dired ()
   "Opens dired in the current directory."
   (interactive)
   (dired default-directory))
 
-(defun my-dired-other-window ()
+(defun my/dired-other-window ()
   (interactive)
   (dired-other-window default-directory))
 
-(defun my-switch-to-other-buffer ()
+(defun my/switch-to-other-buffer ()
   (interactive)
   (switch-to-buffer nil))
 
-(defun my-config ()
+(defun my/config ()
   (interactive)
   (find-file "~/.emacs.d/my/"))
 
-(defun my-eval ()
+(defun my/eval-dwim ()
   "Evals either the current line, defun, or region."
   (interactive)
   (if (use-region-p)
@@ -294,9 +306,9 @@
       (if (or (string= (current-word) "defun") (string= (current-word) "add-hook"))
           (eval-defun nil)
         (eval-region (point-at-bol) (point-at-eol) nil))))
-  (my-flash-mode-line))
+  (my/flash-mode-line))
 
-(defun my-flash-mode-line ()
+(defun my/flash-mode-line ()
   "Flash the mode line to communicate an effect."
   (invert-face 'mode-line)
   (run-with-timer 0.1 nil #'invert-face 'mode-line))
@@ -304,19 +316,18 @@
 
 ;; Lisp, paredit
 
-(defun my-next-sexp ()
+(defun my/next-sexp ()
   (interactive)
   (if (eq (char-after) (string-to-char "("))
       (progn
         (paredit-forward)
         (paredit-forward)
         (paredit-backward))
-    (progn
-      (condition-case nil
-          (progn (backward-up-list) (my-next-sexp))
-        (scan-error (progn (search-forward "(") (backward-char)))))))
+    (condition-case nil
+        (progn (backward-up-list) (my/next-sexp))
+      (scan-error (progn (search-forward "(") (backward-char))))))
 
-(defun my-prev-sexp ()
+(defun my/prev-sexp ()
   (interactive)
   (if (eq (char-after) (string-to-char "("))
       (paredit-backward)
@@ -325,10 +336,43 @@
           (progn
             (paredit-forward-up)
             (paredit-backward)
-            (my-prev-sexp))
-        (scan-error (progn (search-backward ")") (my-match-paren)))))))
+            (my/prev-sexp))
+        (scan-error (progn (search-backward ")") (my/match-paren)))))))
 
-(defun my-kill-sexp ()
+(defun my/kill-sexp ()
   (interactive)
+  ;; Kill the sexp, not the parent sexp when point is on a (.
+  (if (eq (char-after (point)) ?\()
+      (forward-char))
   (backward-up-list)
-  (paredit-kill))
+  (kill-sexp))
+
+(defun my/open-new-round ()
+  (interactive)
+  (paredit-close-round-and-newline)
+  (paredit-open-round))
+
+
+;; org-mode
+
+(defun my/org-table-mark-field ()
+  (interactive)
+  (if (not (looking-back "|[[:blank:]]"))
+      (org-table-beginning-of-field 0))
+  (set-mark-command nil)
+  (org-table-end-of-field 0)
+  (exchange-point-and-mark))
+
+
+;; org-table
+
+;; Bind this as needed.
+;; (local-set-key (kbd "M-w") 'my/org-table-save-field)
+(defun my/org-table-save-field ()
+  (interactive)
+  (if (use-region-p)
+      (kill-ring-save (region-beginning) (region-end))
+    (save-excursion
+      (my/org-table-mark-field)
+      (kill-ring-save (region-beginning) (region-end)))
+    (message (format "Saved: %s" (car kill-ring)))))

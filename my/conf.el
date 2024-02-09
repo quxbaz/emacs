@@ -49,8 +49,8 @@
 ;; Search
 (setq-default isearch-lazy-highlight-initial-delay 0)
 ;; Makes deadgrep start the search form the current directory instead of the project base.
-(defun my-get-current-dir () default-directory)
-(setq deadgrep-project-root-function #'my-get-current-dir)
+(defun my/get-current-dir () default-directory)
+(setq deadgrep-project-root-function #'my/get-current-dir)
 
 
 ;; Safety, backups
@@ -70,10 +70,12 @@
 
 ;; Describe, help
 (setq help-window-select t)  ;; Focus describe buffers on load.
+(setq list-command-history-max 200)
 
 
-;; Misc
+;; System clipboard
 (setq x-select-enable-clipboard t)  ;; Allows you to copy into the system clipboard.
+(setq save-interprogram-paste-before-kill t)  ;; Save system clipboard to kill ring.
 
 
 ;; Theme
@@ -125,15 +127,9 @@
 ;; (setq ac-auto-show-menu 0.5)
 
 
-;; Package / prism
+;; Variables
 (custom-set-variables
- '(fill-column 80)
- '(prism-colors '("#1fceff" "#ff6bc4" "#ffc738" "#f95624"))
- '(prism-desaturations '(10 15 20))
- '(prism-lightens '(0 5 10))
- '(prism-comments nil)
- '(prism-strings nil)
- '(prism-level-1-strings ((t (:foreground "#999")))))
+ '(fill-column 80))
 
 
 ;; Hardware

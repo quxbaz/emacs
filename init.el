@@ -3,6 +3,8 @@
 (package-initialize)
 
 (load-file "~/.emacs.d/my/conf.el")
+(load-file "~/.emacs.d/my/theme.el")
+(load-file "~/.emacs.d/my/macros.el")
 (load-file "~/.emacs.d/my/defuns.el")
 (load-file "~/.emacs.d/my/bindings.el")
 (load-file "~/.emacs.d/my/hooks.el")
