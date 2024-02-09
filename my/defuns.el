@@ -362,3 +362,17 @@ RETURN nil"
   (set-mark-command nil)
   (org-table-end-of-field 0)
   (exchange-point-and-mark))
+
+
+;; org-table
+
+;; Bind this as needed.
+;; (local-set-key (kbd "M-w") 'my/org-table-save-field)
+(defun my/org-table-save-field ()
+  (interactive)
+  (if (use-region-p)
+      (kill-ring-save (region-beginning) (region-end))
+    (save-excursion
+      (my/org-table-mark-field)
+      (kill-ring-save (region-beginning) (region-end)))
+    (message (format "Saved: %s" (car kill-ring)))))
