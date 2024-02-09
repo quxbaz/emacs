@@ -102,8 +102,8 @@
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
 ;; Dired
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
-(global-set-key (kbd "M-`") 'my/dired)
-(global-set-key (kbd "M-~") 'my/dired-other-window)
+(global-set-key (kbd "M-`") 'dired-jump)
+(global-set-key (kbd "M-~") 'dired-jump-other-window)
 
 
 ;; Modes, viewing, narrowing, filtering

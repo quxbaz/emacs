@@ -277,15 +277,6 @@ RETURN nil"
 
 ;; Other
 
-(defun my/dired ()
-  "Opens dired in the current directory."
-  (interactive)
-  (dired default-directory))
-
-(defun my/dired-other-window ()
-  (interactive)
-  (dired-other-window default-directory))
-
 (defun my/switch-to-other-buffer ()
   (interactive)
   (switch-to-buffer nil))
