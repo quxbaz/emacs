@@ -3,16 +3,16 @@
 
 ;; Utils
 
-(defun my/is-line-empty-p ()
+(defun my/is-line-empty? ()
   "Returns t if the line at point is empty, otherwise nil."
   (eq (point-at-bol) (point-at-eol)))
 
-(defun string-at (pos &optional offset)
+(defun my/string-at (pos &optional offset)
   "Gets the string at a specified point."
   (let ((offset (or offset 0)))
     (string (char-after (+ pos offset)))))
 
-(defun string-at-point (&optional offset)
+(defun my/string-at-point (&optional offset)
   "Gets the string at point."
   (let ((offset (or offset 0)))
     (string (char-after (+ (point) offset)))))
@@ -64,7 +64,7 @@ when command is repeated."
 (defun my/mark-paragraph (arg)
   (interactive "p")
   (mark-paragraph arg t)
-  (if (my/is-line-empty-p)
+  (if (my/is-line-empty?)
       (forward-line)))
 
 (defun my/outline-toggle-all ()
@@ -206,20 +206,20 @@ RETURN nil"
         (mark-paragraph arg)
         (comment-dwim nil))))
 
-(defun current-line-empty-p ()
+(defun my/is-current-line-empty? ()
   (save-excursion
     (beginning-of-line)
     (looking-at-p "[[:blank:]]*$")))
 
 (defun my/comment-jsx (arg)
   (interactive "p")
-  (let ((is-empty-line (current-line-empty-p)))
+  (let ((is-empty-line (my/is-current-line-empty?)))
     (save-excursion
       (if (use-region-p)
           (let ((start (region-beginning))
                 (end (region-end)))
             (goto-char end)
-            (if (not (current-line-empty-p)) (insert " "))
+            (if (not (my/is-current-line-empty?)) (insert " "))
             (insert "*/}")
             (goto-char start)
             (insert "{/* "))
@@ -251,10 +251,10 @@ RETURN nil"
                        (region-beginning)
                      (save-excursion
                        (beginning-of-line-text) (point)))))
-    (if (and (string= (string-at start-pos 0) "{")
-             (string= (string-at start-pos 1) "/")
-             (string= (string-at start-pos 2) "\*")
-             (string= (string-at start-pos 3) " "))
+    (if (and (string= (my/string-at start-pos 0) "{")
+             (string= (my/string-at start-pos 1) "/")
+             (string= (my/string-at start-pos 2) "\*")
+             (string= (my/string-at start-pos 3) " "))
         (my/uncomment-jsx arg)
       (my/comment-jsx arg))))
 
