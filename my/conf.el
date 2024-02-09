@@ -69,6 +69,7 @@
 
 ;; Describe, help
 (setq help-window-select t)  ;; Focus describe buffers on load.
+(setq list-command-history-max 200)
 
 
 ;; System clipboard
