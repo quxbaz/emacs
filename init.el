@@ -8,6 +8,7 @@
 (load-file "~/.emacs.d/my/defuns.el")
 (load-file "~/.emacs.d/my/bindings.el")
 (load-file "~/.emacs.d/my/hooks.el")
+(load-file "~/.emacs.d/my/macos.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

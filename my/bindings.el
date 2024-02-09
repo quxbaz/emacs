@@ -1,10 +1,5 @@
 ;; Global keybindings
 
-;; MacOS
-(setq mac-command-modifier 'meta)  ; Map Command key as Meta.
-(setq mac-option-modifier 'super)  ; make Option  key as Super.
-
-
 ;; Mouse config
 (global-set-key (kbd "M-<down-mouse-1>") 'nil)
 (global-set-key (kbd "M-<drag-mouse-1>") 'nil)

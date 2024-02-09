@@ -64,8 +64,7 @@
 
 
 ;; Dired
-;; (setq dired-listing-switches "-laXGh --group-directories-first")  ;; Order directories first.
-(setq dired-use-ls-dired nil)
+(setq dired-listing-switches "-laXGh --group-directories-first")  ;; Order directories first.
 
 
 ;; Describe, help
@@ -76,23 +75,6 @@
 ;; System clipboard
 (setq x-select-enable-clipboard t)  ;; Allows you to copy into the system clipboard.
 (setq save-interprogram-paste-before-kill t)  ;; Save system clipboard to kill ring.
-
-
-;; Theme
-;; (load-theme 'doom-monokai-pro t)
-;; (load-theme 'doom-material t)
-;; (load-theme 'doom-oceanic-next t)
-;; (load-theme 'doom-tomorrow-day t)
-(load-theme 'doom-dracula t)
-;; (set-face-attribute 'default nil :font "dejavu sans mono-10")
-;; (set-face-attribute 'default nil :font "SF Mono-10")
-(set-face-attribute 'default nil :font "source code pro-10:pixelsize=10")
-;; (set-frame-font "sourcecodepro-10:pixelsize=14")
-(setq-default line-spacing nil)
-(custom-set-faces
- ;; `(default ((t (:background "#00242a"))))
- '(font-lock-comment-face ((t (:foreground "#999"))))
- '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
 
 
 ;; Filename patterns
@@ -134,7 +116,3 @@
 
 ;; Hardware
 (setq printer-name "HLL2350DW")
-
-
-;; macOS
-(setq mac-command-modifier 'meta)  ;; Bind command key to meta.
