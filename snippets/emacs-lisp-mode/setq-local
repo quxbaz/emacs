@@ -1,0 +1,4 @@
+# name: setq-local
+# key: sl
+# --
+(setq-local $0)
