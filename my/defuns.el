@@ -287,7 +287,7 @@ RETURN nil"
 
 ;; TODO: If the point is after a final closing parens, eval the parent sexp.
 (defun my/eval-dwim ()
-  "Evals either the current region, line, [cl-]defun, or hook"
+  "Evals either the current region, block, or line - in that order."
   (interactive)
   (if (use-region-p)
       (eval-region (region-beginning) (region-end) t)
