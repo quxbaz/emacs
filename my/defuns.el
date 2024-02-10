@@ -294,7 +294,9 @@ RETURN nil"
       (condition-case nil
           (dotimes (n 99) (paredit-backward-up))
         (scan-error nil))
-      (if (or (string= (current-word) "defun") (string= (current-word) "add-hook"))
+      (if (or (string= (current-word) "defun")
+              (string= (current-word) "cl-defun")
+              (string= (current-word) "add-hook"))
           (eval-defun nil)
         (eval-region (point-at-bol) (point-at-eol) nil))))
   (my/flash-mode-line))
