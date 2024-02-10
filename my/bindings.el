@@ -10,6 +10,7 @@
 
 
 ;; Help, info
+(global-set-key (kbd "C-h C-a") 'apropos)
 (global-set-key (kbd "C-h C-f") 'find-library)
 
 
