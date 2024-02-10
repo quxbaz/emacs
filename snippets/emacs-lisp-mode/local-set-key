@@ -1,0 +1,4 @@
+# name: local-set-key
+# key: lsk
+# --
+(local-set-key (kbd "$1") '$0)
