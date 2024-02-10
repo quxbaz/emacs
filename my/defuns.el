@@ -299,7 +299,7 @@ RETURN nil"
               (string= (current-word) "cl-defun")
               (string= (current-word) "add-hook"))
           (eval-defun nil)
-        (eval-region (point-at-bol) (point-at-eol) nil))))
+        (eval-region (point-at-bol) (point-at-eol) t))))
   (my/flash-mode-line))
 
 (defun my/flash-mode-line ()
