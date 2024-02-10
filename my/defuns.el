@@ -289,7 +289,7 @@ RETURN nil"
   "Evals either the current line, defun, or region."
   (interactive)
   (if (use-region-p)
-      (eval-region (region-beginning) (region-end) nil)
+      (eval-region (region-beginning) (region-end) t)
     (save-excursion
       (condition-case nil
           (dotimes (n 99) (paredit-backward-up))
