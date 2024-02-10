@@ -115,56 +115,56 @@ Nil disables brace highlighting."
 ;; Faces for highlighting blocks by nested level:
 (defface rainbow-blocks-depth-1-face
   '((((background light)) (:foreground "#707183"))
-    (((background dark)) (:foreground "grey55")))
+    (((background dark)) (:foreground "#1fceff")))
   "Nested blocks face, depth 1 - outermost set."
   :tag "Rainbow Blocks Depth 1 Face -- OUTERMOST"
   :group 'rainbow-blocks-faces)
 
 (defface rainbow-blocks-depth-2-face
   '((((background light)) (:foreground "#7388d6"))
-    (((background dark)) (:foreground "#93a8c6")))
+    (((background dark)) (:foreground "#ff6bc4")))
   "Nested blocks face, depth 2."
   :group 'rainbow-blocks-faces)
 
 (defface rainbow-blocks-depth-3-face
   '((((background light)) (:foreground "#909183"))
-    (((background dark)) (:foreground "#b0b1a3")))
+    (((background dark)) (:foreground "#ffc738")))
   "Nested blocks face, depth 3."
   :group 'rainbow-blocks-faces)
 
 (defface rainbow-blocks-depth-4-face
   '((((background light)) (:foreground "#709870"))
-    (((background dark)) (:foreground "#97b098")))
+    (((background dark)) (:foreground "#f95624")))
   "Nested blocks face, depth 4."
   :group 'rainbow-blocks-faces)
 
 (defface rainbow-blocks-depth-5-face
   '((((background light)) (:foreground "#907373"))
-    (((background dark)) (:foreground "#aebed8")))
+    (((background dark)) (:foreground "#1fceff")))
   "Nested blocks face, depth 5."
   :group 'rainbow-blocks-faces)
 
 (defface rainbow-blocks-depth-6-face
   '((((background light)) (:foreground "#6276ba"))
-    (((background dark)) (:foreground "#b0b0b3")))
+    (((background dark)) (:foreground "#ff6bc4")))
   "Nested blocks face, depth 6."
   :group 'rainbow-blocks-faces)
 
 (defface rainbow-blocks-depth-7-face
   '((((background light)) (:foreground "#858580"))
-    (((background dark)) (:foreground "#90a890")))
+    (((background dark)) (:foreground "#ffc738")))
   "Nested blocks face, depth 7."
   :group 'rainbow-blocks-faces)
 
 (defface rainbow-blocks-depth-8-face
   '((((background light)) (:foreground "#80a880"))
-    (((background dark)) (:foreground "#a2b6da")))
+    (((background dark)) (:foreground "#f95624")))
   "Nested blocks face, depth 8."
   :group 'rainbow-blocks-faces)
 
 (defface rainbow-blocks-depth-9-face
   '((((background light)) (:foreground "#887070"))
-    (((background dark)) (:foreground "#9cb6ad")))
+    (((background dark)) (:foreground "#1fceff")))
   "Nested blocks face, depth 9."
   :group 'rainbow-blocks-faces)
 
