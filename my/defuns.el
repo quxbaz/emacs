@@ -293,7 +293,7 @@ RETURN nil"
     (save-excursion
       ;; Move to top-most (root) parent sexp.
       (condition-case nil
-          (dotimes (n 99) (paredit-backward-up))
+          (dotimes (n 100) (paredit-backward-up))
         (scan-error nil))
       (if (or (string= (current-word) "defun")
               (string= (current-word) "cl-defun")
