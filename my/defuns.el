@@ -298,7 +298,7 @@ RETURN nil"
         (scan-error nil))
       ;; IF the point is at an opening parens then eval that sexp.
       ;; ELSE, eval the non-sexp (ie, value) at the current line.
-      (if (eq (char-after (point)) ?\()
+      (if (eq (char-after) ?\()
           (progn
             (back-to-indentation) (push-mark (point) t nil) (forward-sexp)
             (eval-region (region-beginning) (point) t))
@@ -339,7 +339,7 @@ RETURN nil"
 (defun my/kill-sexp ()
   (interactive)
   ;; Kill the sexp, not the parent sexp when point is on a (.
-  (if (eq (char-after (point)) ?\()
+  (if (eq (char-after) ?\()
       (forward-char))
   (backward-up-list)
   (kill-sexp))
