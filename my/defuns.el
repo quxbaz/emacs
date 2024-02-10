@@ -286,11 +286,12 @@ RETURN nil"
   (find-file "~/.emacs.d/my/"))
 
 (defun my/eval-dwim ()
-  "Evals either the current line, defun, or region."
+  "Evals either the current region, line, [cl-]defun, or hook"
   (interactive)
   (if (use-region-p)
       (eval-region (region-beginning) (region-end) t)
     (save-excursion
+      ;; Move to top-most (root) parent sexp.
       (condition-case nil
           (dotimes (n 99) (paredit-backward-up))
         (scan-error nil))
