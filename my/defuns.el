@@ -285,6 +285,7 @@ RETURN nil"
   (interactive)
   (find-file "~/.emacs.d/my/"))
 
+;; TODO: If the point is after a final closing parens, eval the parent sexp.
 (defun my/eval-dwim ()
   "Evals either the current region, line, [cl-]defun, or hook"
   (interactive)
@@ -295,10 +296,12 @@ RETURN nil"
       (condition-case nil
           (dotimes (n 100) (paredit-backward-up))
         (scan-error nil))
-      (if (or (string= (current-word) "defun")
-              (string= (current-word) "cl-defun")
-              (string= (current-word) "add-hook"))
-          (eval-defun nil)
+      ;; IF the point is at an opening parens then eval that sexp.
+      ;; ELSE, eval the non-sexp (ie, value) at the current line.
+      (if (eq (char-after (point)) ?\()
+          (progn
+            (back-to-indentation) (push-mark (point) t nil) (forward-sexp)
+            (eval-region (region-beginning) (point) t))
         (eval-region (point-at-bol) (point-at-eol) t))))
   (my/flash-mode-line))
 
