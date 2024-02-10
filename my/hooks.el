@@ -37,8 +37,8 @@
 
 (add-hook 'occur-mode-hook
           (lambda ()
-            (local-set-key (kbd "n") 'occur-next)
-            (local-set-key (kbd "p") 'occur-prev)))
+            (local-set-key (kbd "p") (lambda () (interactive) (occur-prev) (occur-mode-display-occurrence)))
+            (local-set-key (kbd "n") (lambda () (interactive) (occur-next) (occur-mode-display-occurrence)))))
 
 (add-hook 'prog-mode-hook
           (lambda ()
