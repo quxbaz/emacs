@@ -43,32 +43,6 @@
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (backward-up-list 1 t t))))
 
-(defun my/mark-current-word ()
-  "Mark the current word under point. Toggle point between start/end of word
-when command is repeated."
-  (interactive)
-  (let ((is-region-active? (use-region-p))
-        (origin-point (point))
-        (word (current-word)))
-    (cond
-     ;; Exit early if the current word cannot be effectively marked.
-     ((not (save-excursion
-             (backward-char (length word))
-             (search-forward word (+ origin-point (length word)) t)))
-      nil)
-     ;; If region is active and point is at START of word, move to END of word.
-     ((and is-region-active? (eq (point) (match-beginning 0)))
-      (push-mark (match-beginning 0) nil t)
-      (goto-char (match-end 0)))
-     ;; If region is active and point is at END of word, move to START of word.
-     ((and is-region-active? (eq (point) (match-end 0)))
-      (push-mark (match-end 0) nil t)
-      (goto-char (match-beginning 0)))
-     ;; Mark the current word.
-     (t
-      (push-mark (match-beginning 0) nil t)
-      (goto-char (match-end 0))))))
-
 ;; The Logic needed here is trickier than it would appear on the surface.
 ;; TODO: Mark current word -> larger current-word -> include parens/brackets/quotes.
 ;; TODO: Handle case where region is active, but does not even match the short word.
