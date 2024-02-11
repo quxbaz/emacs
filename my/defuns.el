@@ -217,9 +217,7 @@ Typically, repeated invocations will go like this:
   "Moves a line up or down.
 
 ARGUMENTS
-DOWN? [bool] [default = t]    If true, transposes the line downwards.
-
-RETURN nil"
+DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (interactive)
   (let ((pos (point))
         (col (current-column)))
