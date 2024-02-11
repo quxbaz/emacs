@@ -18,8 +18,10 @@
     (string (char-after (+ (point) offset)))))
 
 (defun my/region-text ()
-  "Gets text within the region."
-  (buffer-substring-no-properties (region-beginning) (region-end)))
+  "Gets text within the region. If region is inactive, return nil."
+  (if (use-region-p)
+      (buffer-substring-no-properties (region-beginning) (region-end))
+    nil))
 
 
 ;; Text navigation, selection
