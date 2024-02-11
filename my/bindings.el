@@ -73,7 +73,7 @@
 
 ;; Commands
 (global-set-key (kbd "C-.") 'repeat)
-(global-set-key (kbd "C-x C-c") 'my/execute-last-mx-command)
+(global-set-key (kbd "C-@") 'my/execute-last-mx-command)
 
 
 ;; Auto-complete
