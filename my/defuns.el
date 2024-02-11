@@ -66,8 +66,8 @@ Typically, repeated invocations will go like this:
                (save-excursion
                  (backward-char (length short-word))
                  (search-forward short-word (+ origin (length short-word)) t))))
-      (push-mark (match-beginning 0) nil t)
-      (goto-char (match-end 0)))
+      (push-mark (match-end 0) nil t)
+      (goto-char (match-beginning 0)))
      ;; If region is active and long word is already marked, mark sexp.
      ;; OR, if region is active and point is at (, mark parent sexp.
      ((and (use-region-p)
@@ -82,16 +82,16 @@ Typically, repeated invocations will go like this:
            (string= (my/region-text) short-word))
       (backward-char (length long-word))
       (search-forward long-word (+ origin (length long-word)) t)
-      (push-mark (match-beginning 0) nil t)
-      (goto-char (match-end 0)))
+      (push-mark (match-end 0) nil t)
+      (goto-char (match-beginning 0)))
      ;; If region is active and short word is NOT marked, mark short word.
      ((and (use-region-p)
            (not (string= (my/region-text) short-word))
            (save-excursion
              (backward-char (length short-word))
              (search-forward short-word (+ origin (length short-word)) t)))
-      (push-mark (match-beginning 0) nil t)
-      (goto-char (match-end 0))))))
+      (push-mark (match-end 0) nil t)
+      (goto-char (match-beginning 0))))))
 
 (defun my/mark-paragraph (arg)
   (interactive "p")
