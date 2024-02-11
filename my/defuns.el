@@ -338,13 +338,14 @@ RETURN nil"
             (my/prev-sexp))
         (scan-error (progn (search-backward ")") (my/match-paren)))))))
 
-(defun my/kill-sexp ()
-  (interactive)
+(defun my/kill-sexp (arg)
+  (interactive "p")
   ;; Kill the sexp, not the parent sexp when point is on a (.
   (if (eq (char-after) ?\()
       (forward-char))
-  (backward-up-list)
-  (kill-sexp))
+  (condition-case nil
+      (progn (backward-up-list) (kill-sexp))
+    (scan-error (my/kill-block arg))))
 
 (defun my/open-new-round ()
   (interactive)
