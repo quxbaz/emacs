@@ -78,7 +78,7 @@
 
 ;; Search, replace, regexp, occur
 ;; Search
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-s") 'my/isearch-forward-dwim)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 ;; Replace
 (global-set-key (kbd "M-r") 'query-replace-regexp)
