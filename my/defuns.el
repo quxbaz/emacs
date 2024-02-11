@@ -38,6 +38,7 @@
 (defun my/match-paren ()
   "Move point to the matching parens. Falls back to moving to the parent parens."
   (interactive)
+  ;; \s( and \s) represent the opening/closing delimiter character groups.
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (backward-up-list 1 t t))))
