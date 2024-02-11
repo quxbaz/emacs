@@ -1,5 +1,6 @@
 ;; Global keybindings
 
+
 ;; Mouse config
 (global-set-key (kbd "M-<down-mouse-1>") 'nil)
 (global-set-key (kbd "M-<drag-mouse-1>") 'nil)
