@@ -331,7 +331,7 @@ RETURN nil"
 
 ;; Lisp, paredit
 
-(defun my/lisp-kill-ring-save ()
+(defun my/lisp-kill-ring-save-dwim ()
   (interactive)
   (if (use-region-p)
       (kill-ring-save nil nil t)
