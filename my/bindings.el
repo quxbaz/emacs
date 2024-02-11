@@ -73,6 +73,7 @@
 
 ;; Commands
 (global-set-key (kbd "C-.") 'repeat)
+(global-set-key (kbd "C-x C-c") 'my/execute-prev-mx-command)
 
 
 ;; Auto-complete
