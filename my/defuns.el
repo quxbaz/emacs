@@ -17,6 +17,10 @@
   (let ((offset (or offset 0)))
     (string (char-after (+ (point) offset)))))
 
+(defun my/region-text ()
+  "Gets text within the region."
+  (buffer-substring-no-properties (region-beginning) (region-end)))
+
 
 ;; Text navigation, selection
 
