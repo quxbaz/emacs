@@ -323,6 +323,26 @@ RETURN nil"
 
 ;; Lisp, paredit
 
+(defun my/lisp-kill-ring-save ()
+  (interactive)
+  (if (use-region-p)
+      (kill-ring-save nil nil t)
+    (save-excursion
+      (let ((n 0))
+        (while (and (< n 20)
+                    (not (eq (char-after) ?\()))
+          (condition-case nil
+              (backward-up-list 1 t)
+            (scan-error (if (looking-back ")")
+                            (backward-char))))
+          (setq n (+ n 1))))
+      (push-mark (point) t t)
+      (forward-list 1 t)
+      (kill-ring-save nil nil t)))
+  (message (car kill-ring)))
+
+(local-set-key (kbd "M-w") 'my/lisp-kill-ring-save)
+
 (defun my/next-sexp ()
   (interactive)
   (if (eq (char-after) (string-to-char "("))
