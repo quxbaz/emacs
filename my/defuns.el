@@ -69,6 +69,39 @@ when command is repeated."
       (push-mark (match-beginning 0) nil t)
       (goto-char (match-end 0))))))
 
+;; The Logic needed here is trickier than it would appear on the surface.
+;; TODO: Mark current word -> larger current-word -> include parens/brackets/quotes.
+;; TODO: Handle case where region is active, but does not even match the short word.
+(defun my/mark-current-word ()
+  "Marks the current word using the following (lambda () )ogic:
+1. If region is inactive, mark short word.
+2. If region is active, try to mark short word.
+3. If region is active and short word is already marked, mark long word.
+4. If region is active and long word is already marked, mark short word."
+  (interactive)
+  (let ((origin (point))
+        (short-word (current-word nil t))
+        (long-word (current-word nil nil)))
+    (cond
+     ((and (not (use-region-p))
+           (save-excursion
+             (backward-char (length short-word))
+             (search-forward short-word (+ origin (length short-word)) t)))
+      (push-mark (match-beginning 0) nil t)
+      (goto-char (match-end 0)))
+     ((and (use-region-p)
+           (string= (my/region-text) long-word))
+      (backward-up-list 1 t t)
+      (push-mark (point))
+      (forward-list 1)
+      (exchange-point-and-mark))
+     ((and (use-region-p)
+           (string= (my/region-text) short-word))
+      (backward-char (length long-word))
+      (search-forward long-word (+ origin (length long-word)) t)
+      (push-mark (match-beginning 0) nil t)
+      (goto-char (match-end 0))))))
+
 (defun my/mark-paragraph (arg)
   (interactive "p")
   (mark-paragraph arg t)
