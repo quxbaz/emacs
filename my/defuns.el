@@ -111,22 +111,27 @@ Typically, repeated invocations will go like this:
 
 ;; Search, replace
 
-;; TODO
-;; - Also defun/bind my/isearch-backard-dwim
-(defun my/isearch-forward-dwim ()
-  "[TODO]"
+(defun my/isearch-dwim (&optional reverse?)
+  "Searches for a string. If region matches (current-word), search for that.
+
+ARGUMENTS
+REVERSE? [optional] [bool] [default = nil]    If true, search backwards."
   (interactive)
-  ;; If region text is short word or long word, search for that, otherwise perform regular isearch-forward-regexp.
-  (let ((short-word (current-word nil t))
+  (let ((search-fn        (if reverse? #'isearch-backward        #'isearch-forward))
+        (search-regexp-fn (if reverse? #'isearch-backward-regexp #'isearch-forward-regexp))
+        (short-word (current-word nil t))
         (long-word (current-word nil nil)))
     (if (and (use-region-p)
              (or (string= (my/region-text) short-word)
                  (string= (my/region-text) long-word)))
         (let* ((text (my/region-text)))
           (deactivate-mark)
-          (isearch-forward nil t)
+          (funcall search-fn nil t)
           (isearch-yank-string text))
-      (isearch-forward-regexp))))
+      (funcall search-regexp-fn))))
+
+(defun my/isearch-forward-dwim () (interactive) (my/isearch-dwim))
+(defun my/isearch-backward-dwim () (interactive) (my/isearch-dwim t))
 
 (defun my/find-dired ()
   "Like find-dired, but takes a regex option and defaults to ignoring certain directories."
