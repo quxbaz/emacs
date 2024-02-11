@@ -323,14 +323,6 @@ RETURN nil"
           (eval-region (point-at-bol) (point-at-eol) t)))))
   (my/flash-mode-line))
 
-(defun my/flash-mode-line ()
-  "Flash the mode line to communicate an effect."
-  (invert-face 'mode-line)
-  (run-with-timer 0.1 nil #'invert-face 'mode-line))
-
-
-;; Lisp, paredit
-
 (defun my/lisp-kill-ring-save-dwim ()
   (interactive)
   (if (use-region-p)
