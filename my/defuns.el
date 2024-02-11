@@ -44,35 +44,52 @@
         (t (backward-up-list 1 t t))))
 
 ;; The Logic needed here is trickier than it would appear on the surface.
-;; TODO: Mark current word -> larger current-word -> include parens/brackets/quotes.
-;; TODO: Handle case where region is active, but does not even match the short word.
 (defun my/mark-current-word ()
-  "Marks the current word using the following (lambda () )ogic:
-1. If region is inactive, mark short word.
-2. If region is active, try to mark short word.
-3. If region is active and short word is already marked, mark long word.
-4. If region is active and long word is already marked, mark short word."
+  "Marks the current word using the following logic:
+
+    1. If region is inactive, mark short word.
+    2. If region is active and long word is already marked, mark sexp.
+    3. If region is active and point is at (, mark parent sexp.
+    4. If region is active and short word is already marked, mark long word.
+    5. If region is active and short word is NOT marked, mark short word.
+
+Typically, repeated invocations will go like this:
+
+    short-word -> long-word -> sexp -> parent sexp"
   (interactive)
   (let ((origin (point))
         (short-word (current-word nil t))
         (long-word (current-word nil nil)))
     (cond
-     ((and (not (use-region-p))
-           (save-excursion
-             (backward-char (length short-word))
-             (search-forward short-word (+ origin (length short-word)) t)))
+     ;; If region is inactive, mark short word.
+     ((or (and (not (use-region-p))
+               (save-excursion
+                 (backward-char (length short-word))
+                 (search-forward short-word (+ origin (length short-word)) t))))
       (push-mark (match-beginning 0) nil t)
       (goto-char (match-end 0)))
+     ;; If region is active and long word is already marked, mark sexp.
+     ;; OR, if region is active and point is at (, mark parent sexp.
      ((and (use-region-p)
-           (string= (my/region-text) long-word))
+           (or (string= (my/region-text) long-word)
+               (eq (char-after) ?\()))
       (backward-up-list 1 t t)
       (push-mark (point))
       (forward-list 1)
       (exchange-point-and-mark))
+     ;; If region is active and short word is already marked, mark long word.
      ((and (use-region-p)
            (string= (my/region-text) short-word))
       (backward-char (length long-word))
       (search-forward long-word (+ origin (length long-word)) t)
+      (push-mark (match-beginning 0) nil t)
+      (goto-char (match-end 0)))
+     ;; If region is active and short word is NOT marked, mark short word.
+     ((and (use-region-p)
+           (not (string= (my/region-text) short-word))
+           (save-excursion
+             (backward-char (length short-word))
+             (search-forward short-word (+ origin (length short-word)) t)))
       (push-mark (match-beginning 0) nil t)
       (goto-char (match-end 0))))))
 
