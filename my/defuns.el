@@ -117,18 +117,17 @@ Typically, repeated invocations will go like this:
 ARGUMENTS
 REVERSE? [optional] [bool] [default = nil]    If true, search backwards."
   (interactive)
-  (let ((search-fn        (if reverse? #'isearch-backward        #'isearch-forward))
-        (search-regexp-fn (if reverse? #'isearch-backward-regexp #'isearch-forward-regexp))
+  (let ((search-fn (if reverse? #'isearch-backward-regexp #'isearch-forward-regexp))
         (short-word (current-word nil t))
-        (long-word (current-word nil nil)))
+        (long-word  (current-word nil nil)))
     (if (and (use-region-p)
              (or (string= (my/region-text) short-word)
                  (string= (my/region-text) long-word)))
-        (let* ((text (my/region-text)))
+        (let ((text (my/region-text)))
           (deactivate-mark)
           (funcall search-fn nil t)
           (isearch-yank-string text))
-      (funcall search-regexp-fn))))
+      (funcall search-fn))))
 
 (defun my/isearch-forward-dwim () (interactive) (my/isearch-dwim))
 (defun my/isearch-backward-dwim () (interactive) (my/isearch-dwim t))
