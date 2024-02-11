@@ -293,6 +293,14 @@ RETURN nil"
   (interactive)
   (find-file "~/.emacs.d/my/"))
 
+(defun my/flash-mode-line ()
+  "Flash the mode line to communicate an effect."
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil #'invert-face 'mode-line))
+
+
+;; Lisp, paredit
+
 (defun my/eval-dwim ()
   "Evals either the current region, block, or line - in that order."
   (interactive)
