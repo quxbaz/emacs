@@ -349,8 +349,6 @@ RETURN nil"
       (kill-ring-save nil nil t)))
   (message (car kill-ring)))
 
-(local-set-key (kbd "M-w") 'my/lisp-kill-ring-save)
-
 (defun my/next-sexp ()
   (interactive)
   (if (eq (char-after) (string-to-char "("))
