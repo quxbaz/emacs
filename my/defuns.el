@@ -36,10 +36,11 @@
   (setq-local next-point prev-point))
 
 (defun my/match-paren ()
-  "Move the point to the matching parenthesis."
+  "Move point to the matching parens. Falls back to moving to the parent parens."
   (interactive)
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (backward-up-list 1 t t))))
 
 (defun my/mark-current-word ()
   "Mark the current word under point. Toggle point between start/end of word
