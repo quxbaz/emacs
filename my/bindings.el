@@ -80,7 +80,8 @@
 (global-set-key (kbd "C-s") 'my/isearch-forward-dwim)
 (global-set-key (kbd "C-r") 'my/isearch-backward-dwim)
 ;; Replace
-(global-set-key (kbd "M-r") 'query-replace-regexp)
+(global-set-key (kbd "M-r") 'my/query-replace-dwim)
+(global-set-key (kbd "M-R") 'my/query-replace-buffer-dwim)
 ;; Grep, find, occur
 (global-set-key (kbd "C-S-s") 'deadgrep)
 (global-set-key (kbd "C-c o") 'occur)

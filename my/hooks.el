@@ -101,7 +101,7 @@
 (eval-after-load 'paredit
   '(progn
      (define-key paredit-mode-map (kbd "M-s") 'save-buffer)
-     (define-key paredit-mode-map (kbd "M-r") 'query-replace-regexp)
+     (define-key paredit-mode-map (kbd "M-r") 'my/query-replace-dwim)
      (define-key paredit-mode-map (kbd "M-<up>") 'my/transpose-line)
      (define-key paredit-mode-map (kbd "M-<down>") (lambda () (interactive) (my/transpose-line t)))
      (define-key paredit-mode-map (kbd "M-)") 'my/open-new-round)))
