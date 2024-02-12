@@ -366,6 +366,12 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
           (eval-region (point-at-bol) (point-at-eol) t)))))
   (my/flash-mode-line))
 
+(defun my/mark-sexp ()
+  (interactive)
+  (if (/= (char-after) ?\()
+      (backward-up-list))
+  (mark-sexp))
+
 (defun my/lisp-kill-ring-save-dwim ()
   (interactive)
   (if (use-region-p)
