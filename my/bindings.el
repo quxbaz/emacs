@@ -51,6 +51,7 @@
 (global-set-key (kbd "M-k") 'my/kill-block)
 (global-set-key (kbd "C-x C-k") 'kill-region)
 (global-set-key (kbd "C-M-k") 'my/clear-buffer)
+;; Whitespace
 (global-set-key (kbd "C-x r \\") 'delete-whitespace-rectangle)
 ;; Commenting
 (global-set-key (kbd "C-;") 'my/comment-line)
