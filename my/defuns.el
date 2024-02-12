@@ -45,7 +45,7 @@
 
 ;; The Logic needed here is trickier than it would appear on the surface.
 (defun my/mark-context ()
-  "Marks the current word using the following logic:
+  "Marks the current context using the following logic:
 
     1. If region is inactive and point is on (, mark sexp.
     2. If region is inactive and point is on ), mark sexp.
