@@ -63,6 +63,11 @@ Typically, repeated invocations will go like this:
         (short-word (current-word nil t))
         (long-word (current-word nil nil)))
     (cond
+     ;; If point is at end of line, mark line back to first textual char.
+     ((= (point) (line-end-position))
+      (beginning-of-line-text)
+      (push-mark (point) nil t)
+      (end-of-line))
      ;; If region is inactive and point is on (, mark sexp.
      ((and (not (use-region-p))
            (= (char-after) ?\())
