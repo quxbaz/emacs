@@ -438,6 +438,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (interactive)
   (save-excursion
     (my/mark-sexp)
+    (exchange-point-and-mark)
     (eval-region (region-beginning) (region-end) t)
     (deactivate-mark)))
 
