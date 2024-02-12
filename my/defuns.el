@@ -372,6 +372,13 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (backward-up-list))
   (mark-sexp))
 
+(defun my/eval-here ()
+  (interactive)
+  (save-excursion
+    (my/mark-sexp)
+    (eval-region (region-beginning) (region-end) t)
+    (deactivate-mark)))
+
 (defun my/lisp-kill-ring-save-dwim ()
   (interactive)
   (if (use-region-p)
