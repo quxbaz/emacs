@@ -28,6 +28,7 @@
 
 (add-hook 'wdired-mode-hook
           (lambda ()
+            (local-set-key (kbd "C-a") (lambda () (interactive) (move-to-column 2)))
             (local-set-key (kbd "M-m") (lambda () (interactive) (move-to-column 2)))))
 
 (add-hook 'ibuffer-mode-hook
