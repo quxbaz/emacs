@@ -1,6 +1,12 @@
 ;; Global keybindings
 
 
+;; Guidelines:
+;; * Prefer `M` bindings for non-destructive actions.
+;; * Prefer `M` bindings for frequently-used actions.
+;; * Prefer `C` bindings for destructive commands.
+
+
 ;; Mouse config
 (global-set-key (kbd "M-<down-mouse-1>") 'nil)
 (global-set-key (kbd "M-<drag-mouse-1>") 'nil)
