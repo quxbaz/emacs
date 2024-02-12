@@ -132,6 +132,38 @@ REVERSE? [optional] [bool] [default = nil]    If true, search backwards."
 (defun my/isearch-forward-dwim () (interactive) (my/isearch-dwim))
 (defun my/isearch-backward-dwim () (interactive) (my/isearch-dwim t))
 
+(defun my/query-replace-dwim (&optional buffer?)
+  "Performs an interactive search & replace. If region matches (current-word),
+and point is at beginning of region, use region as the search string.
+
+ARGUMENTS
+buffer [optional] [bool] [default = nil]    If true, start replace at beginning of buffer."
+  (interactive)
+  (let ((short-word (current-word nil t))
+        (long-word  (current-word nil nil)))
+    (if (and (use-region-p)
+             (= (point) (region-beginning))
+             (or (string= (my/region-text) short-word)
+                 (string= (my/region-text) long-word)))
+        (let* ((text (my/region-text))
+               (prompt (format "Query replace regexp (default %s  → [REGEX])" text))
+               (regex (read-regexp prompt)))
+          (deactivate-mark)
+          (if buffer?
+              (query-replace-regexp text regex nil 1 (buffer-size))
+            (query-replace-regexp text regex)))
+      (call-interactively #'query-replace-regexp))))
+
+(defun my/query-replace-buffer-dwim ()
+  "Performs an interactive search & replace from the beginning of the buffer.
+If region matches (current-word), and point is at beginning of region, use
+region as the search string."
+  (interactive)
+  (if (use-region-p)
+      (my/query-replace-dwim t)
+    (beginning-of-buffer)
+    (call-interactively #'query-replace-regexp)))
+
 (defun my/find-dired ()
   "Like find-dired, but takes a regex option and defaults to ignoring certain directories."
   (interactive)
