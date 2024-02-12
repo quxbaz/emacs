@@ -47,11 +47,13 @@
 (defun my/mark-current-word ()
   "Marks the current word using the following logic:
 
-    1. If region is inactive, mark short word.
-    2. If region is active and long word is already marked, mark sexp.
-    3. If region is active and point is at (, mark parent sexp.
-    4. If region is active and short word is already marked, mark long word.
-    5. If region is active and short word is NOT marked, mark short word.
+    1. If region is inactive and point is on (, mark sexp.
+    2. If region is inactive and point is on ), mark sexp.
+    3. If region is inactive, mark short word.
+    4. If region is active and long word is already marked, mark sexp.
+    5. If region is active and point is at (, mark parent sexp.
+    6. If region is active and short word is already marked, mark long word.
+    7. If region is active and short word is NOT marked, mark short word.
 
 Typically, repeated invocations will go like this:
 
@@ -61,6 +63,17 @@ Typically, repeated invocations will go like this:
         (short-word (current-word nil t))
         (long-word (current-word nil nil)))
     (cond
+     ;; If region is inactive and point is on (, mark sexp.
+     ((and (not (use-region-p))
+           (= (char-after) ?\())
+      (push-mark (point) nil t)
+      (forward-sexp)
+      (exchange-point-and-mark))
+     ;; If region is inactive and point is on ), mark sexp.
+     ((and (not (use-region-p))
+           (= (char-after) ?\)))
+      (push-mark (+ (point) 1) nil t)
+      (backward-up-list))
      ;; If region is inactive, mark short word.
      ((or (and (not (use-region-p))
                (save-excursion
