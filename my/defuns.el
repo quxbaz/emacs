@@ -139,7 +139,7 @@ Typically, repeated invocations will go like this:
   (setq-local show-headings-only (not show-headings-only)))
 
 
-;; Search, replace
+;; Search, replace, occur
 
 (defun my/isearch-dwim (&optional reverse?)
   "Searches for a string. If region matches (current-word), search for that.
