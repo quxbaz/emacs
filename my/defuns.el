@@ -229,8 +229,7 @@ region as the search string."
         (let ((text (my/region-text)))
           (deactivate-mark)
           (occur text))
-      (call-interactively 'occur))
-    ()))
+      (call-interactively 'occur))))
 
 
 ;; Editing
