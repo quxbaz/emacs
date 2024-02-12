@@ -407,7 +407,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 ;; Lisp, paredit
 
 (defun my/eval-dwim ()
-  "Evals either the current region, block, or line - in that order."
+  "Evals either the current region, block, or line - in that order of preference."
   (interactive)
   (if (use-region-p)
       (eval-region (region-beginning) (region-end) t)
