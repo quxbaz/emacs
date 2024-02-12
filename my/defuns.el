@@ -220,7 +220,6 @@ region as the search string."
                           "-regex './.*.jsx?'")))
 
 
-
 ;; Editing
 
 (defun my/delete-char (arg)
