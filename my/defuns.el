@@ -44,7 +44,7 @@
         (t (backward-up-list 1 t t))))
 
 ;; The Logic needed here is trickier than it would appear on the surface.
-(defun my/mark-current-word ()
+(defun my/mark-context ()
   "Marks the current word using the following logic:
 
     1. If region is inactive and point is on (, mark sexp.

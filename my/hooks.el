@@ -56,7 +56,7 @@
           (lambda ()
             (setq js-indent-level 2)
             (setq-local require-final-newline nil)
-            (local-set-key (kbd "M-.") 'my/mark-current-word)
+            (local-set-key (kbd "M-.") 'my/mark-context)
             (local-set-key (kbd "C-c C-/") 'my/toggle-jsx-comment)
             (local-set-key (kbd "C-c /") 'my/close-html-tag)
             ;; (lsp)

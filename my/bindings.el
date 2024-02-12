@@ -25,7 +25,7 @@
 
 ;; Text navigation, marking
 (global-set-key "\C-\\" 'my/match-paren)
-(global-set-key (kbd "M-.") 'my/mark-current-word)
+(global-set-key (kbd "M-.") 'my/mark-context)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
 
 
