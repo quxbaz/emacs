@@ -37,6 +37,7 @@
 
 (add-hook 'occur-mode-hook
           (lambda ()
+            (switch-to-buffer-other-window "*Occur*")
             (local-set-key (kbd "p") (lambda () (interactive) (occur-prev) (occur-mode-display-occurrence)))
             (local-set-key (kbd "n") (lambda () (interactive) (occur-next) (occur-mode-display-occurrence)))))
 
