@@ -89,6 +89,7 @@
             (rainbow-blocks-mode t)
             (local-set-key (kbd "M-/") 'dabbrev-expand)
             (local-set-key (kbd "C-c C-c") 'my/eval-dwim)
+            (local-set-key (kbd "C-c C-.") 'my/eval-here)
             (local-set-key (kbd "M-w") 'my/lisp-kill-ring-save-dwim)
             (local-set-key (kbd "M-9") 'my/prev-sexp)
             (local-set-key (kbd "M-0") 'my/next-sexp)
