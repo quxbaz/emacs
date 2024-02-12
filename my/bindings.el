@@ -84,7 +84,7 @@
 (global-set-key (kbd "M-R") 'my/query-replace-buffer-dwim)
 ;; Grep, find, occur
 (global-set-key (kbd "C-S-s") 'deadgrep)
-(global-set-key (kbd "C-c o") 'occur)
+(global-set-key (kbd "C-c o") 'my/occur-dwim)
 
 
 ;; Files
