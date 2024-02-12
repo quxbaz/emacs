@@ -219,6 +219,19 @@ region as the search string."
                           "! -regex './.next/.*' "
                           "-regex './.*.jsx?'")))
 
+(defun my/occur-dwim ()
+  (interactive)
+  (let ((short-word (current-word nil t))
+        (long-word  (current-word nil nil)))
+    (if (and (use-region-p)
+             (or (string= (my/region-text) short-word)
+                 (string= (my/region-text) long-word)))
+        (let ((text (my/region-text)))
+          (deactivate-mark)
+          (occur text))
+      (call-interactively 'occur))
+    ()))
+
 
 ;; Editing
 
