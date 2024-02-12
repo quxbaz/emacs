@@ -444,4 +444,4 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (save-excursion
       (my/org-table-mark-field)
       (kill-ring-save (region-beginning) (region-end)))
-    (message (format "Saved: %s" (car kill-ring)))))
+    (message "Saved: %s" (car kill-ring))))
