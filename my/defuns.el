@@ -47,13 +47,16 @@
 (defun my/mark-context ()
   "Marks the current context using the following logic:
 
-    1. If region is inactive and point is on (, mark sexp.
-    2. If region is inactive and point is on ), mark sexp.
-    3. If region is inactive, mark short word.
-    4. If region is active and long word is already marked, mark sexp.
-    5. If region is active and point is at (, mark parent sexp.
-    6. If region is active and short word is already marked, mark long word.
-    7. If region is active and short word is NOT marked, mark short word.
+    1. If region is active, and point is at end of line, and start of region is
+       at indentation, mark entire line.
+    2. If point is at end of line, mark line back to first textual char.
+    3. If region is inactive and point is on (, mark sexp.
+    4. If region is inactive and point is on ), mark sexp.
+    5. If region is inactive, mark short word.
+    6. If region is active and long word is already marked, mark sexp.
+    7. If region is active and point is at (, mark parent sexp.
+    8. If region is active and short word is already marked, mark long word.
+    9. If region is active and short word is NOT marked, mark short word.
 
 Typically, repeated invocations will go like this:
 
@@ -63,6 +66,15 @@ Typically, repeated invocations will go like this:
         (short-word (current-word nil t))
         (long-word (current-word nil nil)))
     (cond
+     ;; If region is active, and point is at end of line, and start of region is
+     ;; at indentation, mark entire line.
+     ((and (use-region-p)
+           (= (point) (line-end-position))
+           (= (region-beginning) (+ (line-beginning-position) (current-indentation)))
+           (= (region-end) (line-end-position)))
+      (beginning-of-line)
+      (push-mark (point) nil t)
+      (end-of-line))
      ;; If point is at end of line, mark line back to first textual char.
      ((= (point) (line-end-position))
       (beginning-of-line-text)
