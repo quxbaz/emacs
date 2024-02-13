@@ -214,6 +214,12 @@ region as the search string."
     (beginning-of-buffer)
     (call-interactively #'query-replace-regexp)))
 
+(defun my/dired-to-emacs-d ()
+  "Invokes a dired buffer to the user's emacs directory."
+  (interactive)
+  (kill-buffer (current-buffer))  ;; Kill current dired buffer.
+  (dired user-emacs-directory))
+
 (defun my/find-dired ()
   "Like find-dired, but takes a regex option and defaults to ignoring certain directories."
   (interactive)
