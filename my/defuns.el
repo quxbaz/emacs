@@ -433,7 +433,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 (defun my/config ()
   (interactive)
-  (find-file "~/.emacs.d/my/"))
+  (find-file (concat (file-name-as-directory user-emacs-directory) "my/")))
 
 (defun my/flash-mode-line ()
   "Flash the mode line to communicate an effect."
