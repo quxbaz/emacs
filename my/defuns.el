@@ -436,7 +436,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (save-excursion
       ;; Move to top-most (root) parent sexp.
       (condition-case nil
-          (dotimes (n 100) (paredit-backward-up))
+          (dotimes (n 100) (backward-up-list))
         (scan-error nil))
       ;; IF the point is at an opening parens then eval that sexp.
       (if (eq (char-after) ?\()
