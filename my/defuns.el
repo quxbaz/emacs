@@ -459,11 +459,14 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 (defun my/eval-here ()
   "Evaluates the inner-most sexp at point."
   (interactive)
-  (save-excursion
-    (my/mark-sexp)
-    (exchange-point-and-mark)
-    (eval-region (region-beginning) (region-end) t)
-    (deactivate-mark)))
+  (let ((start nil)
+        (end nil))
+    (save-excursion
+      (my/mark-sexp)
+      (setq start (region-beginning))
+      (setq end (region-end))
+      (deactivate-mark))
+    (eval-region start end t)))
 
 (defun my/lisp-kill-ring-save-dwim ()
   (interactive)
