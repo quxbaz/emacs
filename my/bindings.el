@@ -30,7 +30,7 @@
 
 
 ;; Text navigation, marking
-(global-set-key (kbd "M-\\") 'my/match-paren)
+(global-set-key (kbd "C-\\") 'my/match-paren)
 (global-set-key (kbd "M-.") 'my/mark-context)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
 
@@ -58,7 +58,7 @@
 (global-set-key (kbd "C-x C-k") 'kill-region)
 (global-set-key (kbd "C-M-k") 'my/clear-buffer)
 ;; Whitespace
-(global-set-key (kbd "C-\\") 'delete-horizontal-space)
+(global-set-key (kbd "M-\\") 'delete-horizontal-space)
 (global-set-key (kbd "C-x r \\") 'delete-whitespace-rectangle)
 ;; Commenting
 (global-set-key (kbd "C-;") 'my/comment-line)
