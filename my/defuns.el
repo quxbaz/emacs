@@ -26,9 +26,10 @@
 (defun my/goto-root-list (&optional max-depth)
   "Moves point to opening parens of root list."
   (interactive)
-  (message "%s" (eq nil max-depth))
+  (if (eq max-depth nil)
+      (setq max-depth 100))
   (condition-case nil
-      (dotimes (n 100) (backward-up-list))
+      (dotimes (n max-depth) (backward-up-list))
     (scan-error nil)))
 
 
