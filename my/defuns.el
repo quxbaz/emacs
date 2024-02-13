@@ -443,10 +443,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (if (use-region-p)
       (eval-region (region-beginning) (region-end) t)
     (save-excursion
-      ;; Move to root parent list.
-      (condition-case nil
-          (dotimes (n 100) (backward-up-list))
-        (scan-error nil))
+      (my/goto-root-list)
       ;; If the point is at an opening parens, then eval that sexp.
       (if (eq (char-after) ?\()
           (progn
