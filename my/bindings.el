@@ -36,10 +36,10 @@
 
 
 ;; Jumping
-(global-set-key (kbd "M-1") (lambda () (interactive) (jump-to-register (string-to-char "1"))))
-(global-set-key (kbd "M-2") (lambda () (interactive) (jump-to-register (string-to-char "2"))))
-(global-set-key (kbd "M-3") (lambda () (interactive) (jump-to-register (string-to-char "3"))))
-(global-set-key (kbd "M-4") (lambda () (interactive) (jump-to-register (string-to-char "4"))))
+(global-set-key (kbd "M-1") (lambda () (interactive) (jump-to-register ?1)))
+(global-set-key (kbd "M-2") (lambda () (interactive) (jump-to-register ?2)))
+(global-set-key (kbd "M-3") (lambda () (interactive) (jump-to-register ?3)))
+(global-set-key (kbd "M-4") (lambda () (interactive) (jump-to-register ?4)))
 (global-set-key (kbd "M-'") 'xref-find-definitions)
 
 
