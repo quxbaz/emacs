@@ -155,6 +155,10 @@ REVERSE? [optional] [bool] [default = nil]    If true, search backwards."
                  (string= (my/region-text) long-word)))
         (let ((text (my/region-text)))
           (deactivate-mark)
+          ;; Move point to avoid superfluous matching on current word.
+          (if reverse?
+              (goto-char (- (region-beginning) 1))
+            (goto-char (region-end)))
           (funcall search-fn nil t)
           (isearch-yank-string text))
       (funcall search-fn))))
