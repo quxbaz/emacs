@@ -457,7 +457,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (mark-sexp))
 
 (defun my/eval-here ()
-  "Evaluates the inner-most expression at point."
+  "Evaluates the inner-most sexp at point."
   (interactive)
   (save-excursion
     (my/mark-sexp)
