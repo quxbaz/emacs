@@ -88,6 +88,10 @@
 (add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
 
 
+;; org-mode
+(setq org-cycle-separator-lines -1)  ;; Preserve newline between folded headings.
+
+
 ;; Packages, modes
 (setq uniquify-buffer-name-style 'forward)
 (ido-mode t)
