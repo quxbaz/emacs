@@ -23,6 +23,14 @@
       (buffer-substring-no-properties (region-beginning) (region-end))
     nil))
 
+(defun my/goto-root-list (&optional max-depth)
+  "Moves point to opening parens of root list."
+  (interactive)
+  (message "%s" (eq nil max-depth))
+  (condition-case nil
+      (dotimes (n 100) (backward-up-list))
+    (scan-error nil)))
+
 
 ;; Text navigation, selection
 
