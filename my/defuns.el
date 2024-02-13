@@ -434,7 +434,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (if (use-region-p)
       (eval-region (region-beginning) (region-end) t)
     (save-excursion
-      ;; Move to top-most (root) parent sexp.
+      ;; Move to root parent list.
       (condition-case nil
           (dotimes (n 100) (backward-up-list))
         (scan-error nil))
