@@ -11,6 +11,12 @@
 (add-hook 'eval-expression-minibuffer-setup-hook
           (lambda () (paredit-mode t)))
 
+(add-hook 'lisp-interaction-mode-hook
+          (lambda ()
+            (when (string= (buffer-name) "*scratch*")
+              (eros-mode t)
+              (local-set-key (kbd "C-c C-c") 'eros-eval-last-sexp))))
+
 (add-hook 'dired-mode-hook
           (lambda ()
             (dired-hide-details-mode t)
