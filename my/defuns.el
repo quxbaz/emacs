@@ -438,13 +438,13 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (condition-case nil
           (dotimes (n 100) (backward-up-list))
         (scan-error nil))
-      ;; IF the point is at an opening parens then eval that sexp.
+      ;; If the point is at an opening parens, then eval that sexp.
       (if (eq (char-after) ?\()
           (progn
             (back-to-indentation) (push-mark (point) t nil) (forward-sexp)
             (eval-region (region-beginning) (point) t))
-        ;; IF point is one character outside the sexp, eval the sexp.
-        ;; ELSE eval the line.
+        ;; If point is one character outside the sexp, eval the sexp.
+        ;; Else eval the line.
         (if (eq (char-before) ?\))
             (eval-last-sexp nil)
           (eval-region (point-at-bol) (point-at-eol) t)))))
