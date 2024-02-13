@@ -23,6 +23,7 @@
      autothemer
      deadgrep
      doom-themes
+     eros
      git-gutter
      highlight-indent-guides
      lsp-mode
