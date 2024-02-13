@@ -3,6 +3,11 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(add-hook 'help-mode-hook
+          (lambda ()
+            (global-set-key [mouse-8] 'help-go-back)
+            (global-set-key [mouse-9] 'help-go-forward)))
+
 (add-hook 'eval-expression-minibuffer-setup-hook
           (lambda () (paredit-mode t)))
 
