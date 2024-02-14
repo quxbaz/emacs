@@ -134,6 +134,7 @@
 
 
 ;; Keyboard Macros
+(global-set-key (kbd "M-,") 'kmacro-end-and-call-macro)
 (global-set-key (kbd "C-c C-9") 'kmacro-cycle-ring-previous)
 (global-set-key (kbd "C-c C-0") 'kmacro-cycle-ring-next)
 (global-set-key (kbd "C-c C-e") 'kmacro-edit-macro)
