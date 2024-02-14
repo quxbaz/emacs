@@ -439,6 +439,12 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 ;; Lisp, paredit
 
+(defun my/mark-sexp ()
+  (interactive)
+  (if (/= (char-after) ?\()
+      (backward-up-list))
+  (mark-sexp))
+
 (defun my/eval-dwim ()
   "Evals either the current region, block, or line - in that order of preference."
   (interactive)
@@ -457,12 +463,6 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
             (eval-last-sexp nil)
           (eval-region (point-at-bol) (point-at-eol) t)))))
   (my/flash-mode-line))
-
-(defun my/mark-sexp ()
-  (interactive)
-  (if (/= (char-after) ?\()
-      (backward-up-list))
-  (mark-sexp))
 
 (defun my/eval-here ()
   "Evaluates the inner-most sexp at point."
