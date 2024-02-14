@@ -5,6 +5,7 @@
 ;; * Prefer `M` bindings for non-destructive actions.
 ;; * Prefer `M` bindings for frequently-used actions.
 ;; * Prefer `C` bindings for destructive commands.
+;; * Generally, Emacs convention suggests `M` for larger actions and `C` for smaller ones.
 
 
 ;; Mouse config
