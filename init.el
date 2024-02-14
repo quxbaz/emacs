@@ -28,6 +28,7 @@
      highlight-indent-guides
      lsp-mode
      magit
+     modus-themes
      paredit
      php-mode
      prism
