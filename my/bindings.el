@@ -40,10 +40,6 @@
 
 
 ;; Jumping
-(global-set-key (kbd "M-1") (lambda () (interactive) (jump-to-register ?1)))
-(global-set-key (kbd "M-2") (lambda () (interactive) (jump-to-register ?2)))
-(global-set-key (kbd "M-3") (lambda () (interactive) (jump-to-register ?3)))
-(global-set-key (kbd "M-4") (lambda () (interactive) (jump-to-register ?4)))
 (global-set-key (kbd "M-'") 'xref-find-definitions)
 
 
@@ -119,6 +115,13 @@
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
 (global-set-key (kbd "M-`") 'dired-jump)
 (global-set-key (kbd "M-~") 'dired-jump-other-window)
+
+
+;; Registers
+(global-set-key (kbd "M-1") (lambda () (interactive) (jump-to-register ?1)))
+(global-set-key (kbd "M-2") (lambda () (interactive) (jump-to-register ?2)))
+(global-set-key (kbd "M-3") (lambda () (interactive) (jump-to-register ?3)))
+(global-set-key (kbd "M-4") (lambda () (interactive) (jump-to-register ?4)))
 
 
 ;; Modes, viewing, narrowing, filtering
