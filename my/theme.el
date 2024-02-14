@@ -3,8 +3,8 @@
 
 ;; Actual theme and font setting.
 ;; (load-theme 'doom-oceanic-next t)
-(load-theme 'modus-operandi-tinted t)
-;; (load-theme 'modus-vivendi t)
+;; (load-theme 'modus-operandi-tinted t)
+(load-theme 'modus-vivendi t)
 (set-face-attribute 'default nil :font "Monaco-10")
 
 
