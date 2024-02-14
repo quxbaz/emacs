@@ -334,15 +334,17 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (previous-line 2))
     (move-to-column col)))
 
-(defun my/yank-to-special-register (&optional register)
-  "Yanks region to point stored in register `@`"
+(defun my/move-line-to-register (&optional register)
+  "Moves line to point stored in register `@`"
   (interactive)
   (when (eq register nil)
     (setq register ?@))
-  (let ((text (my/region-text)))
-    (save-mark-and-excursion
+  (save-excursion
+    (kill-whole-line)
+    (let ((text (car kill-ring)))
       (jump-to-register register)
-      (insert text))))
+      (yank)
+      (message (concat "Yanked" text)))))
 
 (defun my/comment-line ()
   (interactive)
