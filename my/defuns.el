@@ -464,6 +464,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
           (eval-region (point-at-bol) (point-at-eol) t)))))
   (my/flash-mode-line))
 
+;; TODO: Should restore mark state.
 (defun my/eval-here ()
   "Evaluates the inner-most sexp at point."
   (interactive)
