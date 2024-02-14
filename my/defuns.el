@@ -23,8 +23,7 @@
 
 (defun my/region-text ()
   "Gets text within the region. If region is inactive, return nil."
-  (when (use-region-p)
-    (buffer-substring-no-properties (region-beginning) (region-end))))
+  (buffer-substring-no-properties (region-beginning) (region-end)))
 
 (defun my/goto-root-list (&optional max-depth)
   "Moves point to opening parens of root list."
