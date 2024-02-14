@@ -341,10 +341,14 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (setq register ?@))
   (save-excursion
     (kill-whole-line)
-    (let ((text (car kill-ring)))
+    (let (((buffer (buffer-name))
+           (text (car kill-ring))))
       (jump-to-register register)
       (yank)
-      (message (concat "Yanked" text)))))
+      ;; If register is in another buffer, switch back to current buffer.
+      (if (not (string= (buffer-name) buffer))
+          (switch-to-buffer buffer))
+      (message (concat "Yanked: " text)))))
 
 (defun my/comment-line ()
   (interactive)
