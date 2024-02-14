@@ -17,6 +17,9 @@
   (let ((offset (or offset 0)))
     (string (char-after (+ (point) offset)))))
 
+(defun my/line-text ()
+  (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+
 (defun my/region-text ()
   "Gets text within the region. If region is inactive, return nil."
   (if (use-region-p)
