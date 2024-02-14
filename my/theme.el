@@ -2,7 +2,8 @@
 
 
 ;; Actual theme and font setting.
-(load-theme 'doom-oceanic-next t)
+;; (load-theme 'doom-oceanic-next t)
+(load-theme 'modus-operandi-tinted t)
 (set-face-attribute 'default nil :font "Monaco-10")
 
 
