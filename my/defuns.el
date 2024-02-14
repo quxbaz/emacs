@@ -334,6 +334,16 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (previous-line 2))
     (move-to-column col)))
 
+(defun my/yank-to-special-register (&optional register)
+  "Yanks region to point stored in register `@`"
+  (interactive)
+  (when (eq register nil)
+    (setq register ?@))
+  (let ((text (my/region-text)))
+    (save-mark-and-excursion
+      (jump-to-register register)
+      (insert text))))
+
 (defun my/comment-line ()
   (interactive)
   (save-excursion
