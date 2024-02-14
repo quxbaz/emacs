@@ -18,6 +18,7 @@
     (string (char-after (+ (point) offset)))))
 
 (defun my/line-text ()
+  "Gets text string at the current line."
   (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
 
 (defun my/region-text ()
@@ -358,20 +359,15 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
         (mark-paragraph arg)
         (comment-dwim nil))))
 
-(defun my/is-current-line-empty? ()
-  (save-excursion
-    (beginning-of-line)
-    (looking-at-p "[[:blank:]]*$")))
-
 (defun my/comment-jsx (arg)
   (interactive "p")
-  (let ((is-empty-line (my/is-current-line-empty?)))
+  (let ((is-empty-line (my/is-line-empty??)))
     (save-excursion
       (if (use-region-p)
           (let ((start (region-beginning))
                 (end (region-end)))
             (goto-char end)
-            (if (not (my/is-current-line-empty?)) (insert " "))
+            (if (not (my/is-line-empty??)) (insert " "))
             (insert "*/}")
             (goto-char start)
             (insert "{/* "))
