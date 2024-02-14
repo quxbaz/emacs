@@ -133,7 +133,7 @@
 (global-set-key (kbd "C-x C-s") 'window-swap-states)
 
 
-;; Macros
+;; Keyboard Macros
 (global-set-key (kbd "C-c C-9") 'kmacro-cycle-ring-previous)
 (global-set-key (kbd "C-c C-0") 'kmacro-cycle-ring-next)
 (global-set-key (kbd "C-c C-e") 'kmacro-edit-macro)
