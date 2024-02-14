@@ -26,6 +26,7 @@
 ;; (my/switch-theme 'doom-outrun-electric)
 ;; (my/switch-theme 'doom-snazzy)
 ;; (my/switch-theme 'doom-vibrant)
+
 ;; - Neutral (neutral background, medium contrast)
 ;; (my/switch-theme 'doom-ephemeral)
 ;; (my/switch-theme 'doom-gruvbox)
@@ -37,6 +38,7 @@
 ;; (my/switch-theme 'doom-peacock)
 ;; (my/switch-theme 'doom-wilmersdorf)
 ;; (my/switch-theme 'doom-zenburn)
+
 ;; - Light (light background, high contrast)
 ;; (my/switch-theme 'doom-acario-light)
 ;; (my/switch-theme 'doom-nord-light)
