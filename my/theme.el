@@ -26,6 +26,10 @@
 ;; (my/switch-theme 'doom-outrun-electric)
 ;; (my/switch-theme 'doom-snazzy)
 ;; (my/switch-theme 'doom-vibrant)
+;; (my/switch-theme 'modus-operandi)
+;; (my/switch-theme 'modus-operandi-deuteranopia)
+;; (my/switch-theme 'modus-operandi-tinted)
+;; (my/switch-theme 'modus-operandi-tritanopia)
 
 ;; - Neutral (neutral background, medium contrast)
 ;; (my/switch-theme 'doom-ephemeral)
@@ -44,6 +48,10 @@
 ;; (my/switch-theme 'doom-nord-light)
 ;; (my/switch-theme 'doom-one-light)
 ;; (my/switch-theme 'doom-tomorrow-day)
+;; (my/switch-theme 'modus-vivendi)
+;; (my/switch-theme 'modus-vivendi-deuteranopia)
+;; (my/switch-theme 'modus-vivendi-tinted)
+;; (my/switch-theme 'modus-vivendi-tritanopia)
 
 
 ;; Fonts
