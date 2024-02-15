@@ -481,17 +481,12 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
           (eval-region (point-at-bol) (point-at-eol) t)))))
   (my/flash-mode-line))
 
-;; TODO: Should restore mark state.
+;; BUG: This does not work inside strings.
 (defun my/eval-here ()
-  "Evaluates the inner-most sexp at point."
+  "Evaluates the most immediate list at point."
   (interactive)
-  (let ((start nil)
-        (end nil))
-    (save-excursion
-      (my/mark-sexp)
-      (setq start (region-beginning))
-      (setq end (region-end))
-      (deactivate-mark))
+  (let ((start (scan-lists (point) -1 1))
+        (end (scan-lists (point) 1 1)))
     (eval-region start end t)))
 
 (defun my/lisp-kill-ring-save-dwim ()
