@@ -348,7 +348,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       ;; If register is in another buffer, switch back to current buffer.
       (if (not (string= (buffer-name) buffer))
           (switch-to-buffer buffer))
-      (message (concat "Yanked: " text)))))
+      (message (concat "Yanked: " (string-trim (string-chop-newline text)))))))
 
 (defun my/comment-line ()
   (interactive)
