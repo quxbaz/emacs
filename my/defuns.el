@@ -32,7 +32,8 @@
       (setq max-depth 100))
   (condition-case nil
       (backward-up-list max-depth t t)
-    (scan-error nil)))
+    (scan-error nil)
+    (user-error nil)))
 
 
 ;; Text navigation, selection
