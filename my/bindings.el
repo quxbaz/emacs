@@ -6,6 +6,9 @@
 ;; * Prefer `M` bindings for frequently-used actions.
 ;; * Prefer `C` bindings for destructive commands.
 ;; * Generally, Emacs convention suggests `M` for larger actions and `C` for smaller ones.
+;;
+;; Notes:
+;; - Available prefixes: C-q, C-z
 
 
 ;; Mouse config
