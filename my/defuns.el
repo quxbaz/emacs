@@ -459,7 +459,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 (defun my/mark-sexp ()
   (interactive)
   (if (/= (char-after) ?\()
-      (backward-up-list))
+      (backward-up-list 1 t t))
   (mark-sexp))
 
 (defun my/eval-dwim ()
