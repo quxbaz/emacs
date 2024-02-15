@@ -135,6 +135,8 @@
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x C-o") 'other-window)
 (global-set-key (kbd "C-x C-s") 'window-swap-states)
+(global-set-key (kbd "<escape> 0") 'delete-window)
+(global-set-key (kbd "<escape> 1") 'delete-other-windows)
 
 
 ;; Keyboard Macros
