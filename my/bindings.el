@@ -126,7 +126,6 @@
 
 
 ;; Modes, viewing, narrowing, filtering
-(global-set-key (kbd "C-q") 'view-mode)
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
 (global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
 
