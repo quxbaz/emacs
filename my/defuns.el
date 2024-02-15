@@ -470,12 +470,12 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (save-excursion
       (my/goto-root-list)
       ;; If the point is at an opening parens, then eval that sexp.
+      ;; Else if point is one character outside the sexp, eval the sexp.
+      ;; Else eval the line.
       (if (eq (char-after) ?\()
           (progn
             (back-to-indentation) (push-mark (point) t nil) (forward-sexp)
             (eval-region (region-beginning) (point) t))
-        ;; If point is one character outside the sexp, eval the sexp.
-        ;; Else eval the line.
         (if (eq (char-before) ?\))
             (eval-last-sexp nil)
           (eval-region (point-at-bol) (point-at-eol) t)))))
