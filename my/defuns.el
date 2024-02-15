@@ -108,7 +108,7 @@ Typically, repeated invocations will go like this:
      ((and (not (use-region-p))
            (= (char-after) ?\)))
       (push-mark (+ (point) 1) nil t)
-      (backward-up-list))
+      (backward-up-list 1 t t))
      ;; If region is inactive, mark short word.
      ((or (and (not (use-region-p))
                (save-excursion
