@@ -31,7 +31,7 @@
   (if (eq max-depth nil)
       (setq max-depth 100))
   (condition-case nil
-      (up-list (* max-depth -1) t)
+      (backward-up-list max-depth t t)
     (scan-error nil)))
 
 
