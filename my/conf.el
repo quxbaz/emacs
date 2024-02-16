@@ -99,6 +99,10 @@
 (yas-global-mode t)
 
 
+;; org-mode
+(setq org-todo-keywords '((sequence "TODO" "WAITING" "DONE")))
+
+
 ;; TRAMP
 ;; Not exactly sure what this is, but it enables me to actually use TRAMP.
 (setq tramp-terminal-type "tramp")
