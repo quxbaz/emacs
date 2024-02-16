@@ -32,6 +32,17 @@
   "Gets text within the region. If region is inactive, return nil."
   (buffer-substring-no-properties (region-beginning) (region-end)))
 
+(defun my/root-list-position (&optional max-depth)
+  "Gets the position of the root list starting from point."
+  (if (eq max-depth nil)
+      (setq max-depth 100))
+  (let ((current-point (point)))
+    (condition-case nil
+        (dotimes (n max-depth)
+          (setq current-point (scan-lists current-point -1 1)))
+      (scan-error nil))
+    current-point))
+
 (defun my/goto-root-list (&optional max-depth)
   "Moves point to opening parens of root list."
   (interactive)
