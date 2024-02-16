@@ -105,8 +105,6 @@
             (local-set-key (kbd "M-/") 'dabbrev-expand)
             (local-set-key (kbd "M-n") 'forward-sexp)
             (local-set-key (kbd "M-p") 'backward-sexp)
-            (local-set-key (kbd "M-0") 'my/next-list)
-            (local-set-key (kbd "M-9") 'my/prev-list)
             (local-set-key (kbd "M-k") 'my/kill-list)
             (local-set-key (kbd "C-c C-c") 'my/eval-dwim)
             (local-set-key (kbd "C-c C-.") 'my/eval-here)
