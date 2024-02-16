@@ -524,29 +524,6 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (kill-ring-save nil nil t)))
   (message (car kill-ring)))
 
-(defun my/next-list ()
-  (interactive)
-  (if (eq (char-after) (string-to-char "("))
-      (progn
-        (paredit-forward)
-        (paredit-forward)
-        (paredit-backward))
-    (condition-case nil
-        (progn (backward-up-list) (my/next-list))
-      (scan-error (progn (search-forward "(") (backward-char))))))
-
-(defun my/prev-list ()
-  (interactive)
-  (if (eq (char-after) (string-to-char "("))
-      (paredit-backward)
-    (progn
-      (condition-case nil
-          (progn
-            (paredit-forward-up)
-            (paredit-backward)
-            (my/prev-list))
-        (scan-error (progn (search-backward ")") (my/match-paren)))))))
-
 (defun my/kill-list (arg)
   (interactive "p")
   ;; Kill the sexp, not the parent sexp when point is on a (.
