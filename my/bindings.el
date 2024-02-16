@@ -17,12 +17,12 @@
 
 
 ;; Mouse config
-(global-set-key (kbd "M-<down-mouse-1>") 'nil)
-(global-set-key (kbd "M-<drag-mouse-1>") 'nil)
-(global-set-key (kbd "<mouse-3>") 'nil)
-(global-set-key (kbd "M-<down-mouse-3>") 'nil)
-(global-set-key (kbd "M-<drag-mouse-3>") 'nil)
-(global-set-key [mouse-2] 'nil)  ;; Disable middle mouse button.
+(global-set-key (kbd "M-<down-mouse-1>") nil)
+(global-set-key (kbd "M-<drag-mouse-1>") nil)
+(global-set-key (kbd "<mouse-3>") nil)
+(global-set-key (kbd "M-<down-mouse-3>") nil)
+(global-set-key (kbd "M-<drag-mouse-3>") nil)
+(global-set-key [mouse-2] nil)  ;; Disable middle mouse button.
 (global-set-key [mouse-8] 'switch-to-prev-buffer)  ;; Bind to back button.
 (global-set-key [mouse-9] 'switch-to-next-buffer)  ;; Bind to next button.
 
