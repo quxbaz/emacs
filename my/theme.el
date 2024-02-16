@@ -101,3 +101,7 @@
  '(prism-comments nil)
  '(prism-strings nil)
  '(prism-level-1-strings ((t (:foreground "#999")))))
+
+(setq org-todo-keyword-faces '(("IN-PROGRESS" . "magenta")
+                               ("WAITING" . "orange")
+                               ("DONE" . "green")))
