@@ -11,6 +11,11 @@
 ;; - Available prefixes: C-q, C-z
 
 
+;; Disabled keys
+(global-set-key (kbd "C-q") nil)
+(global-set-key (kbd "C-z") nil)
+
+
 ;; Mouse config
 (global-set-key (kbd "M-<down-mouse-1>") 'nil)
 (global-set-key (kbd "M-<drag-mouse-1>") 'nil)
