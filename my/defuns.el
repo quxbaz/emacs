@@ -470,7 +470,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (save-excursion
       (my/goto-root-list)
       ;; If the point is at an opening parens, then eval that sexp.
-      ;; Else if point is one character outside the sexp, eval the sexp.
+      ;; Else-if point is one character outside the sexp, eval the sexp.
       ;; Else eval the line.
       (if (eq (char-after) ?\()
           (progn
