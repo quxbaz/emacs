@@ -27,9 +27,8 @@
  '(prism-strings nil)
  '(prism-level-1-strings ((t (:foreground "#999")))))
 
-(setq org-todo-keyword-faces '(("IN-PROGRESS" . "magenta")
-                               ("WAITING" . "orange")
-                               ("DONE" . "green")))
+(setq org-todo-keyword-faces '(("IN-PROGRESS" . "yellow")
+                               ("WAITING" . "orange")))
 
 ;; Favorites
 ;; (my/switch-theme 'doom-oceanic-next t)
