@@ -3,8 +3,8 @@
 
 ;; Utils
 
-(defun my/print-to-scratch (obj &optional buffer-name)
-  "Prints an object to the *scratch* buffer."
+(defun print-to-buffer (obj &optional buffer-name)
+  "Prints OBJ to a buffer. If BUFFER-NAME is nil, print to *scratch* buffer."
   (let* ((buffer-name (or buffer-name "*scratch*"))
          (buffer (get-buffer buffer-name)))
     (princ obj buffer)
