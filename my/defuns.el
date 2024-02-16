@@ -487,16 +487,15 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (eval-region (region-beginning) (region-end) t)
     (save-excursion
       (my/goto-root-list)
-      ;; If the point is at an opening parens, then eval that sexp.
-      ;; Else-if point is one character outside the sexp, eval the sexp.
+      ;; If the point is at an opening parens, eval the list.
+      ;; Else-if point is to the right of a closing parens, eval the list.
       ;; Else eval the line.
-      (if (eq (char-after) ?\()
-          (progn
-            (back-to-indentation) (push-mark (point) t nil) (forward-sexp)
-            (eval-region (region-beginning) (point) t))
-        (if (eq (char-before) ?\))
-            (eval-last-sexp nil)
-          (eval-region (point-at-bol) (point-at-eol) t)))))
+      (cond ((looking-at "(")
+             (eval-region (point) (scan-lists (point) 1 0) t))
+            ((looking-back ")")
+             (eval-last-sexp nil))
+            (t
+             (eval-region (point-at-bol) (point-at-eol) t)))))
   (my/flash-mode-line))
 
 ;; BUG: This does not work inside strings.
