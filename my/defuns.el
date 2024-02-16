@@ -3,6 +3,12 @@
 
 ;; Utils
 
+(defun my/print-to-scratch (obj)
+  "Prints an object to the *scratch* buffer."
+  (let ((buffer (get-buffer "*scratch*")))
+    (princ obj buffer)
+    (princ "\n" buffer))))
+
 (defun my/is-line-empty? ()
   "Returns t if the line at point is empty, otherwise nil."
   (eq (point-at-bol) (point-at-eol)))
