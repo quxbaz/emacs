@@ -14,6 +14,10 @@
 ;; Disabled keys
 (global-set-key (kbd "C-q") nil)
 (global-set-key (kbd "C-z") nil)
+;; Disable these to force yourself to use your custom bindings.
+(global-unset-key (kbd "C-x ("))
+(global-unset-key (kbd "C-x )"))
+(global-unset-key (kbd "C-x e"))
 
 
 ;; Mouse config
