@@ -474,7 +474,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 ;; Lisp, paredit
 
-(defun my/mark-sexp ()
+(defun my/mark-list ()
   (interactive)
   (if (/= (char-after) ?\()
       (backward-up-list 1 t t))
@@ -524,7 +524,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (kill-ring-save nil nil t)))
   (message (car kill-ring)))
 
-(defun my/next-sexp ()
+(defun my/next-list ()
   (interactive)
   (if (eq (char-after) (string-to-char "("))
       (progn
@@ -532,10 +532,10 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
         (paredit-forward)
         (paredit-backward))
     (condition-case nil
-        (progn (backward-up-list) (my/next-sexp))
+        (progn (backward-up-list) (my/next-list))
       (scan-error (progn (search-forward "(") (backward-char))))))
 
-(defun my/prev-sexp ()
+(defun my/prev-list ()
   (interactive)
   (if (eq (char-after) (string-to-char "("))
       (paredit-backward)
@@ -544,10 +544,10 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
           (progn
             (paredit-forward-up)
             (paredit-backward)
-            (my/prev-sexp))
+            (my/prev-list))
         (scan-error (progn (search-backward ")") (my/match-paren)))))))
 
-(defun my/kill-sexp (arg)
+(defun my/kill-list (arg)
   (interactive "p")
   ;; Kill the sexp, not the parent sexp when point is on a (.
   (if (eq (char-after) ?\()
