@@ -1,4 +1,6 @@
 ;; Reusable function definitions
+;;
+;; Mostly interactive and meant to be bound.
 
 
 ;; # Text navigation, selection
