@@ -1,7 +1,7 @@
 ;; Reusable function definitions
 
 
-;; Utils
+;; # Utils
 
 (defun my/print-to-buffer (obj &optional buffer-name)
   "Prints OBJ to a buffer. If BUFFER-NAME is nil, print to *scratch* buffer."
@@ -54,7 +54,7 @@
     (user-error nil)))
 
 
-;; Text navigation, selection
+;; # Text navigation, selection
 
 (defun my/swap-points ()
   (interactive)
@@ -176,7 +176,7 @@ Typically, repeated invocations will go like this:
   (setq-local show-headings-only (not show-headings-only)))
 
 
-;; Search, replace, occur
+;; # Search, replace, occur
 
 (defun my/isearch-dwim (&optional reverse?)
   "Searches for a string. If region matches (current-word), search for that.
@@ -279,7 +279,7 @@ region as the search string."
       (call-interactively 'occur))))
 
 
-;; Editing
+;; # Editing
 
 (defun my/delete-char (arg)
   (interactive "p")
@@ -456,7 +456,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (revert-buffer t t))
 
 
-;; Other
+;; # Other
 
 (defun my/switch-to-other-buffer ()
   (interactive)
@@ -472,7 +472,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
 
-;; Lisp, paredit
+;; # Lisp, paredit
 
 (defun my/mark-list ()
   (interactive)
@@ -539,7 +539,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (paredit-open-round))
 
 
-;; org-mode
+;; # org-mode
 
 (defun my/org-table-mark-field ()
   (interactive)
@@ -550,7 +550,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (exchange-point-and-mark))
 
 
-;; org-table
+;; # org-table
 
 ;; Bind this as needed.
 ;; (local-set-key (kbd "M-w") 'my/org-table-save-field)
