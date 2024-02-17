@@ -5,15 +5,6 @@
 
 ;; # Text navigation, selection
 
-(defun my/swap-points ()
-  (interactive)
-  (if (not (boundp 'next-point))
-      (setq-local next-point 1))
-  (setq-local prev-point (point))
-  (goto-char next-point)
-  (recenter)
-  (setq-local next-point prev-point))
-
 (defun my/match-paren ()
   "Move point to the matching parens. Falls back to moving to the parent parens."
   (interactive)
