@@ -245,13 +245,6 @@ region as the search string."
     (mark-paragraph)
     (indent-for-tab-command)))
 
-(defun my/copy-line ()
-  (interactive)
-  (save-excursion
-    (beginning-of-line-text)
-    (kill-ring-save (point) (point-at-eol))
-    (message "Copied current line.")))
-
 (defun my/open-line ()
   "Opens a new line above and indents."
   (interactive)
