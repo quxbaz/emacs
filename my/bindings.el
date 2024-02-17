@@ -38,7 +38,7 @@
 
 
 ;; # Mini-apps
-(global-set-key (kbd "s-d") 'calendar)
+(global-set-key (kbd "<f12>") 'calendar)
 
 
 ;; # Appearance, themes
