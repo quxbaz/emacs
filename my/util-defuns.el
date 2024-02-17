@@ -1,4 +1,6 @@
-;; Utility; mostly non-interactive functions
+;; Utility functions
+;;
+;; Mostly non-interactive definitions.
 
 
 (defun my/print-to-buffer (obj &optional buffer-name)
