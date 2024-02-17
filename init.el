@@ -6,6 +6,7 @@
 (load-file "~/.emacs.d/my/theme.el")
 (load-file "~/.emacs.d/my/macros.el")
 (load-file "~/.emacs.d/my/defuns.el")
+(load-file "~/.emacs.d/my/lisp-defuns.el")
 (load-file "~/.emacs.d/my/bindings.el")
 (load-file "~/.emacs.d/my/kmacros.el")
 (load-file "~/.emacs.d/my/hooks.el")
