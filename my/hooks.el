@@ -107,7 +107,7 @@
             (local-set-key (kbd "M-p") 'backward-sexp)
             (local-set-key (kbd "M-k") 'my/kill-list)
             (local-set-key (kbd "C-c C-c") 'my/eval-dwim)
-            (local-set-key (kbd "C-c C-.") 'my/eval-here)
+            (local-set-key (kbd "C-c .") 'my/eval-here)
             (local-set-key (kbd "M-w") 'my/lisp-kill-ring-save-dwim)
             (local-set-key (kbd "C-c C-s") 'paredit-splice-sexp)
             (local-set-key (kbd "C-c C-o") 'paredit-raise-sexp)))
