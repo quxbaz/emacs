@@ -16,7 +16,7 @@
             (when (string= (buffer-name) "*scratch*")
               (eros-mode t)
               (local-set-key (kbd "C-c C-c") 'eros-eval-defun)
-              (local-set-key (kbd "C-c C-.") 'eros-eval-last-sexp))))
+              (local-set-key (kbd "C-c .") 'eros-eval-last-sexp))))
 
 (add-hook 'dired-mode-hook
           (lambda ()
