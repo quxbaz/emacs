@@ -42,6 +42,10 @@
 (setq-default case-fold-search t)
 
 
+;; Parens
+(setq show-paren-delay 0)
+
+
 ;; Visuals
 (highlight-indent-guides-mode t)
 
