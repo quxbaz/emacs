@@ -99,7 +99,6 @@
 (autopair-global-mode t)
 (setq highlight-indent-guides-method 'bitmap)
 (yas-global-mode t)
-(global-corfu-mode t)
 
 
 ;; # org-mode
