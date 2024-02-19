@@ -20,7 +20,6 @@
  '(fill-column 80)
  '(package-selected-packages
    '(
-     auto-complete
      autopair
      autothemer
      deadgrep
