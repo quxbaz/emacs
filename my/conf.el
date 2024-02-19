@@ -112,11 +112,6 @@
 ;; [[ $TERM == "tramp" ]] && unsetopt zle && PS1='$ ' && return
 
 
-;; # Package / auto-complete
-;; (global-auto-complete-mode t)
-;; (setq ac-auto-show-menu 0.5)
-
-
 ;; # Variables
 (custom-set-variables
  '(fill-column 80))

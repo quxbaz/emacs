@@ -149,6 +149,7 @@
           (lambda ()
             (diary-mark-entries)
             (local-set-key (kbd "s-d") 'calendar-exit)
+            (local-set-key (kbd "<f12>") 'calendar-exit)
             (local-set-key (kbd "l") 'calendar-forward-day)
             (local-set-key (kbd "h") 'calendar-backward-day)
             (local-set-key (kbd "j") 'calendar-forward-week)

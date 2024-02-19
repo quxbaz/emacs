@@ -41,6 +41,7 @@
 
 
 ;; # Mini-apps
+(global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
 
 
@@ -100,6 +101,7 @@
 
 ;; # Auto-complete
 (global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-M-i") 'completion-at-point)
 
 
 ;; # Search, replace, regexp, occur
