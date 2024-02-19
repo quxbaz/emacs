@@ -100,7 +100,7 @@
 
 ;; # Auto-complete
 (global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-M-i") 'completion-at-point)  ;; Triggers corfu.
+(global-set-key (kbd "C-M-i") 'completion-at-point)
 
 
 ;; # Search, replace, regexp, occur
