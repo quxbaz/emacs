@@ -11,6 +11,7 @@
 (load-file "~/.emacs.d/my/bindings.el")
 (load-file "~/.emacs.d/my/kmacros.el")
 (load-file "~/.emacs.d/my/hooks.el")
+(load-file "~/.emacs.d/my/terminal.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
