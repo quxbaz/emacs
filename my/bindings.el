@@ -41,6 +41,7 @@
 
 
 ;; # Mini-apps
+(global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
 
 
