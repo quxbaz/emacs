@@ -105,10 +105,11 @@
             (local-set-key (kbd "M-/") 'dabbrev-expand)
             (local-set-key (kbd "M-n") 'forward-sexp)
             (local-set-key (kbd "M-p") 'backward-sexp)
-            (local-set-key (kbd "M-k") 'my/kill-list)
             (local-set-key (kbd "C-c C-c") 'my/eval-dwim)
             (local-set-key (kbd "C-c .") 'my/eval-here)
             (local-set-key (kbd "M-w") 'my/lisp-kill-ring-save-dwim)
+            (local-set-key (kbd "C-k") 'my/lisp-kill-dwim)
+            (local-set-key (kbd "M-k") 'my/kill-list)
             (local-set-key (kbd "C-c C-s") 'paredit-splice-sexp)
             (local-set-key (kbd "C-c C-o") 'paredit-raise-sexp)))
 
@@ -120,6 +121,7 @@
      (define-key paredit-mode-map (kbd "M-;") 'my/comment-block)
      (define-key paredit-mode-map (kbd "M-<up>") 'my/transpose-line)
      (define-key paredit-mode-map (kbd "M-<down>") (lambda () (interactive) (my/transpose-line t)))
+     (define-key paredit-mode-map (kbd "C-k") 'my/lisp-kill-dwim)
      (define-key paredit-mode-map (kbd "M-)") 'my/open-new-round)))
 
 (add-hook 'org-mode-hook
