@@ -70,8 +70,8 @@
 (global-set-key (kbd "M-S-<return>") 'my/duplicate-block)
 ;; ## Deletion, clearing
 (global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "C-k") 'my/kill-dwim)
 (global-set-key (kbd "M-k") 'my/kill-block)
-(global-set-key (kbd "C-x C-k") 'kill-region)
 (global-set-key (kbd "C-M-k") 'my/clear-buffer)
 ;; ## Whitespace
 (global-set-key (kbd "M-\\") 'delete-horizontal-space)
