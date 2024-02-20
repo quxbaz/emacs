@@ -54,7 +54,7 @@
 (set-face-attribute 'default nil :font "IosevkaComfyFixed-10")  ;; A little nicer to look at.
 (set-face-attribute 'default nil :font "JetBrainsMono-10")      ;; Kinda quirky.
 (set-face-attribute 'default nil :font "Monaco-10")             ;; Stylish.
-(set-face-attribute 'default nil :font "Mononoki-11")           ;; Too condensed.
+(set-face-attribute 'default nil :font "Mononoki-11")           ;; Not bad.
 (set-face-attribute 'default nil :font "NotoSansMono-10")       ;; Good.
 (set-face-attribute 'default nil :font "SFMono-10")             ;; Very Cool. Love it.
 (set-face-attribute 'default nil :font "SourceCodePro-10")      ;; Excellent.
