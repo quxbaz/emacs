@@ -100,7 +100,6 @@
           (lambda ()
             (autopair-mode 0)
             (paredit-mode t)
-            ;; (prism-mode t)
             (rainbow-blocks-mode t)
             (local-set-key (kbd "M-/") 'dabbrev-expand)
             (local-set-key (kbd "M-n") 'forward-sexp)

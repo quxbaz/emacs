@@ -32,7 +32,6 @@
      modus-themes
      paredit
      php-mode
-     prism
      rainbow-blocks
      web-mode
      yasnippet

@@ -9,14 +9,6 @@
 ;; # Colors
 ;; ## magit
 (custom-set-faces '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
-;; ## prism-mode
-(custom-set-variables
- '(prism-colors '("#1fceff" "#ff6bc4" "#ffc738" "#f95624"))
- '(prism-desaturations '(10 15 20))
- '(prism-lightens '(0 5 10))
- '(prism-comments nil)
- '(prism-strings nil)
- '(prism-level-1-strings ((t (:foreground "#999")))))
 ;; ## org-mode
 (setq org-todo-keyword-faces '(("TODO" . "yellow")
                                ("IN-PROGRESS" . "cyan1")
