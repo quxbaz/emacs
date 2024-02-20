@@ -51,6 +51,13 @@
       (kill-ring-save nil nil t)))
   (message (car kill-ring)))
 
+(defun my/lisp-kill-dwim (arg)
+  (interactive "p")
+  (if (use-region-p)
+      (paredit-kill-region (region-beginning) (region-end))
+    (if (= arg 1) (paredit-kill) (paredit-kill arg))))
+
+
 (defun my/kill-list (arg)
   (interactive "p")
   ;; Kill the sexp, not the parent sexp when point is on a (.
