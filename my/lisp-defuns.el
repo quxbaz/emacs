@@ -1,4 +1,4 @@
-;; Like defuns.el, but for lisp-related stuff.
+;; Like defuns.el, but for lisp-related stuff
 
 
 (defun my/mark-list ()
