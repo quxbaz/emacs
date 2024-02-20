@@ -68,7 +68,6 @@
 (global-set-key (kbd "M-<return>") 'my/duplicate-line)
 (global-set-key (kbd "M-S-<return>") 'my/duplicate-block)
 ;; ## Deletion, clearing
-(global-set-key (kbd "C-d") 'my/delete-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-k") 'my/kill-block)
 (global-set-key (kbd "C-x C-k") 'kill-region)
