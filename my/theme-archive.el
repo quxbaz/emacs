@@ -1,9 +1,9 @@
-;; Other theme settings you like. Don't load this file.
+;; Other theme settings you like. Keep this file around, but don't load it.
 
 
 ;; Favorites
-(my/switch-theme 'doom-oceanic-next t)
-(my/switch-theme 'modus-operandi-tinted t)
+(my/switch-theme 'doom-oceanic-next)
+(my/switch-theme 'modus-operandi-tinted)
 
 ;; - Dark (dark background, high contrast)
 (my/switch-theme 'doom-challenger-deep)
