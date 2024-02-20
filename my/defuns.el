@@ -221,7 +221,7 @@ region as the search string."
 
 ;; # Editing
 
-(defun my/kill-line (arg)
+(defun my/kill-dwim (arg)
   (interactive "p")
   (if (use-region-p)
       (kill-region (region-beginning) (region-end))
