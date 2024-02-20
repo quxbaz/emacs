@@ -18,7 +18,11 @@
  '(prism-strings nil)
  '(prism-level-1-strings ((t (:foreground "#999")))))
 ;; ## org-mode
-(setq org-todo-keyword-faces '(("IN-PROGRESS" . "yellow") ("WAITING" . "orange")))
+(setq org-todo-keyword-faces '(("TODO" . "yellow")
+                               ("IN-PROGRESS" . "cyan1")
+                               ("WAITING" . "orange")
+                               ("DONE" . "green")
+                               ("FAILED" . "DeepPink")))
 
 
 ;; # Defuns
