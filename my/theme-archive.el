@@ -2,10 +2,10 @@
 
 
 ;; Favorites
-(my/switch-theme 'doom-oceanic-next)
-(my/switch-theme 'modus-operandi-tinted)
+(my/switch-theme 'doom-oceanic-next)  ;; Good evening font.
+(my/switch-theme 'modus-operandi-)
 
-;; - Dark (dark background, high contrast)
+;; Dark (dark background, high contrast)
 (my/switch-theme 'doom-challenger-deep)
 (my/switch-theme 'doom-dracula)
 (my/switch-theme 'doom-henna)
@@ -16,12 +16,12 @@
 (my/switch-theme 'doom-outrun-electric)
 (my/switch-theme 'doom-snazzy)
 (my/switch-theme 'doom-vibrant)
-(my/switch-theme 'modus-operandi)
-(my/switch-theme 'modus-operandi-deuteranopia)
-(my/switch-theme 'modus-operandi-tinted)
-(my/switch-theme 'modus-operandi-tritanopia)
+(my/switch-theme 'modus-vivendi)
+(my/switch-theme 'modus-vivendi-deuteranopia)
+(my/switch-theme 'modus-vivendi-tinted)
+(my/switch-theme 'modus-vivendi-tritanopia)
 
-;; - Neutral (neutral background, medium contrast)
+;; Neutral (neutral background, medium contrast)
 (my/switch-theme 'doom-ephemeral)
 (my/switch-theme 'doom-gruvbox)
 (my/switch-theme 'doom-material)
@@ -33,15 +33,15 @@
 (my/switch-theme 'doom-wilmersdorf)
 (my/switch-theme 'doom-zenburn)
 
-;; - Light (light background, high contrast)
+;; Light (light background, high contrast)
 (my/switch-theme 'doom-acario-light)
 (my/switch-theme 'doom-nord-light)
 (my/switch-theme 'doom-one-light)
 (my/switch-theme 'doom-tomorrow-day)
-(my/switch-theme 'modus-vivendi)
-(my/switch-theme 'modus-vivendi-deuteranopia)
-(my/switch-theme 'modus-vivendi-tinted)
-(my/switch-theme 'modus-vivendi-tritanopia)
+(my/switch-theme 'modus-operandi)
+(my/switch-theme 'modus-operandi-deuteranopia)
+(my/switch-theme 'modus-operandi-tinted)
+(my/switch-theme 'modus-operandi-tritanopia)
 
 ;; Fonts
 (set-face-attribute 'default nil :font "CascadiaCode-10")      ;; Nice, but small.
