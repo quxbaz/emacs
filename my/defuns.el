@@ -395,11 +395,6 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (interactive)
   (switch-to-buffer nil))
 
-(defun my/flash-mode-line ()
-  "Flash the mode line to communicate an effect."
-  (invert-face 'mode-line)
-  (run-with-timer 0.1 nil #'invert-face 'mode-line))
-
 
 ;; # org-mode
 
