@@ -41,6 +41,7 @@
 
 
 ;; # Mini-apps
+(global-set-key (kbd "<f1>") 'ispell)
 (global-set-key (kbd "<f10>") 'calc)
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
