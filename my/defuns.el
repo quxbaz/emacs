@@ -157,7 +157,7 @@ buffer [optional] [bool] [default = nil]    If true, start replace at beginning 
              (or (string= (my/region-text) short-word)
                  (string= (my/region-text) long-word)))
         (let* ((text (my/region-text))
-               (prompt (format "Query replace regexp (default %s  → [REGEX])" text))
+               (prompt (format "Query replace regexp (default %s → [REGEX])" text))
                (regex (read-regexp prompt)))
           (deactivate-mark)
           (if buffer?
