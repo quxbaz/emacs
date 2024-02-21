@@ -181,4 +181,4 @@
 
 
 ;; # org-mode
-(global-set-key (kbd "M-S-SPC") 'org-switchb)
+;;
