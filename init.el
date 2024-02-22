@@ -27,6 +27,7 @@
      eros
      git-gutter
      highlight-indent-guides
+     ivy
      lsp-mode
      magit
      modus-themes
