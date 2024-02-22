@@ -3,12 +3,22 @@
 ;; Mostly non-interactive definitions.
 
 
+;; # Debug
+
+(defun my/flash-mode-line ()
+  "Flash the mode line to communicate an effect."
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil #'invert-face 'mode-line))
+
 (defun my/print-to-buffer (obj &optional buffer-name)
   "Prints OBJ to a buffer. If BUFFER-NAME is nil, print to *scratch* buffer."
   (let* ((buffer-name (or buffer-name "*scratch*"))
          (buffer (get-buffer buffer-name)))
     (princ obj buffer)
     (princ "\n" buffer)))
+
+
+;; # Util
 
 (defun my/is-line-empty? ()
   "Returns t if the line at point is empty, otherwise nil."

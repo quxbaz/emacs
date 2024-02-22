@@ -41,8 +41,12 @@
 
 
 ;; # Mini-apps
+(global-set-key (kbd "<f1>") 'ispell)
+(global-set-key (kbd "<f9>") 'calc)
+(global-set-key (kbd "<f10>") (lambda () (interactive) (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
+(global-set-key (kbd "<escape> \\") 'my/open-scratch-buffer)
 
 
 ;; # Appearance, themes
@@ -68,10 +72,9 @@
 (global-set-key (kbd "M-<return>") 'my/duplicate-line)
 (global-set-key (kbd "M-S-<return>") 'my/duplicate-block)
 ;; ## Deletion, clearing
-(global-set-key (kbd "C-d") 'my/delete-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "C-k") 'my/kill-dwim)
 (global-set-key (kbd "M-k") 'my/kill-block)
-(global-set-key (kbd "C-x C-k") 'kill-region)
 (global-set-key (kbd "C-M-k") 'my/clear-buffer)
 ;; ## Whitespace
 (global-set-key (kbd "M-\\") 'delete-horizontal-space)
@@ -159,6 +162,7 @@
 (global-set-key (kbd "<escape> [") 'kmacro-start-macro)
 (global-set-key (kbd "<escape> ]") 'kmacro-end-macro)
 (global-set-key (kbd "M-,") 'kmacro-end-and-call-macro)
+(global-set-key (kbd "M-,") 'my/call-macro-dwim)  ;; TODO: apply-macro-to-region-lines
 (setq kmacro-call-repeat-key ?,)
 (global-set-key (kbd "C-c C-9") 'kmacro-cycle-ring-previous)
 (global-set-key (kbd "C-c C-0") 'kmacro-cycle-ring-next)
@@ -178,4 +182,4 @@
 
 
 ;; # org-mode
-(global-set-key (kbd "M-S-SPC") 'org-switchb)
+;;

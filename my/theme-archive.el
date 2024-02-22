@@ -3,7 +3,7 @@
 
 ;; Favorites
 (my/switch-theme 'doom-oceanic-next)  ;; Good evening font.
-(my/switch-theme 'modus-operandi-)
+(my/switch-theme 'modus-vivendi)
 
 ;; Dark (dark background, high contrast)
 (my/switch-theme 'doom-challenger-deep)

@@ -157,7 +157,7 @@ buffer [optional] [bool] [default = nil]    If true, start replace at beginning 
              (or (string= (my/region-text) short-word)
                  (string= (my/region-text) long-word)))
         (let* ((text (my/region-text))
-               (prompt (format "Query replace regexp (default %s  → [REGEX])" text))
+               (prompt (format "Query replace regexp (default %s → [REGEX])" text))
                (regex (read-regexp prompt)))
           (deactivate-mark)
           (if buffer?
@@ -221,13 +221,7 @@ region as the search string."
 
 ;; # Editing
 
-(defun my/delete-char (arg)
-  (interactive "p")
-  (if (use-region-p)
-      (delete-rectangle (region-beginning) (region-end))
-    (delete-char arg)))
-
-(defun my/kill-line (arg)
+(defun my/kill-dwim (arg)
   (interactive "p")
   (if (use-region-p)
       (kill-region (region-beginning) (region-end))
@@ -389,16 +383,26 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (revert-buffer t t))
 
 
+;; # Keyboard Macros
+
+(defun my/call-macro-dwim (arg)
+  "Calls a kmacro. If region is active, apply kmacro to each line."
+  (interactive "p")
+    (if (use-region-p)
+        (apply-macro-to-region-lines (region-beginning) (region-end))
+      (kmacro-end-and-call-macro arg)))
+
+
 ;; # Other
 
 (defun my/switch-to-other-buffer ()
   (interactive)
   (switch-to-buffer nil))
 
-(defun my/flash-mode-line ()
-  "Flash the mode line to communicate an effect."
-  (invert-face 'mode-line)
-  (run-with-timer 0.1 nil #'invert-face 'mode-line))
+(defun my/open-scratch-buffer ()
+  "Opens custom scratch buffer in other window."
+  (interactive)
+  (find-file-other-window "~/tmp/scratch.el"))
 
 
 ;; # org-mode
