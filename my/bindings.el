@@ -21,6 +21,7 @@
 (global-unset-key (kbd "C-x 1"))
 (global-unset-key (kbd "C-x 0"))
 (global-unset-key (kbd "C-x r d"))
+(global-unset-key (kbd "C-x C-b"))
 
 
 ;; # Mouse config
@@ -130,7 +131,7 @@
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-SPC") 'ivy-switch-buffer)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "<escape> b") 'ibuffer)
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
 ;; ## Dired
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
