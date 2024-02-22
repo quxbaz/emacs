@@ -92,7 +92,7 @@
 
 ;; # Packages, modes
 (setq uniquify-buffer-name-style 'forward)
-(ido-mode t)
+(ivy-mode t)
 (show-paren-mode t)
 (setq show-paren-delay 0)
 (electric-pair-mode 0)
