@@ -399,6 +399,11 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (interactive)
   (switch-to-buffer nil))
 
+(defun my/open-scratch-buffer ()
+  "Opens custom scratch buffer in other window."
+  (interactive)
+  (find-file-other-window "~/tmp/scratch.el"))
+
 
 ;; # org-mode
 
