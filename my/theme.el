@@ -14,7 +14,8 @@
                                ("IN-PROGRESS" . "cyan1")
                                ("WAITING" . "orange")
                                ("DONE" . "green")
-                               ("FAILED" . "DeepPink")))
+                               ("FAILED" . "DeepPink")
+                               ("QUESTION" . "grey50")))
 
 
 ;; # Defuns

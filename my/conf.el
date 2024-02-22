@@ -104,7 +104,7 @@
 
 
 ;; # org-mode
-(setq org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "WAITING" "FAILED" "DONE")))
+(setq org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "WAITING" "FAILED" "QUESTION" "DONE")))
 
 
 ;; # TRAMP
