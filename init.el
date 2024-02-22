@@ -22,6 +22,7 @@
    '(
      autopair
      autothemer
+     corfu
      deadgrep
      doom-themes
      eros
