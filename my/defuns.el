@@ -190,15 +190,6 @@ region as the search string."
                         "! -regex './.next/.*' "
                         (concat "-regex '" regex "'")))))
 
-(defun my/find-string-dired ()
-  "Finds an occurrence of a string. Like my/find-string-dired, but surrounds the regex with .*"
-  (interactive)
-  (let ((regex (read-from-minibuffer "find -regex '.*[REGEX].*'  |  [REGEX] = ")))
-    (find-dired "."
-                (concat "! -regex './node_modules/.*' "
-                        "! -regex './.next/.*' "
-                        (concat "-regex '.*" regex ".*'")))))
-
 (defun my/find-jsx ()
   "Finds all js[x] files starting from the current directory."
   (interactive)
