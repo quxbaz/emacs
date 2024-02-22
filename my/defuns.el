@@ -181,7 +181,7 @@ region as the search string."
   (kill-buffer (current-buffer))  ;; Kill current dired buffer.
   (dired user-emacs-directory))
 
-(defun my/find-dired ()
+(defun my/find-regex-dired ()
   "Like find-dired, but takes a regex option and defaults to ignoring certain directories."
   (interactive)
   (let ((regex (read-from-minibuffer "find . -regex ")))
