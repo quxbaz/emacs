@@ -1,5 +1,13 @@
 ;; Mode hooks
 
+(add-hook 'after-init-hook
+          (lambda ()
+            (find-file-noselect user-init-file t)
+            (find-file-noselect (expand-file-name "my/*" user-emacs-directory) nil nil t)
+            (find-file-noselect "~/personal/main.org")
+            (find-file-noselect "~/personal/linux/emacs.org")
+            (find-file-noselect "~/personal/linux/emacs-log.org")
+            (find-file-noselect "~/work/wnmu/Todo.org")))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
