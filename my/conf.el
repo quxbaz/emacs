@@ -92,6 +92,7 @@
 
 ;; # Packages, modes
 (setq uniquify-buffer-name-style 'forward)
+(setq ivy-do-completion-in-region nil)
 (ivy-mode t)
 (show-paren-mode t)
 (setq show-paren-delay 0)
