@@ -131,7 +131,7 @@
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-SPC") 'ivy-switch-buffer)
-(global-set-key (kbd "<escape> b") 'ibuffer)
+(global-set-key (kbd "<escape> SPC") 'ibuffer)
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
 ;; ## Dired
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
