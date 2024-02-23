@@ -391,11 +391,14 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   "Increment next number on line by N."
   (interactive)
   (if (eq n nil) (setq n 1))
-  (while (looking-back "[0-9-\.]")
-    (backward-char))
-  (search-forward-regexp "-?[0-9]\+" (line-end-position) t)
-  (replace-match (number-to-string (+ (string-to-number (match-string 0)) n)))
-  (goto-char (match-beginning 0)))
+  (let ((pos (point)))
+    (while (looking-back "[0-9-\.]")
+      (backward-char))
+    (if (search-forward-regexp "-?[0-9]\+" (line-end-position) t)
+        (progn
+          (replace-match (number-to-string (+ (string-to-number (match-string 0)) n)))
+          (goto-char (match-beginning 0)))
+      (goto-char pos))))
 
 (defun my/decrement ()
   (interactive)
