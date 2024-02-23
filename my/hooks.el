@@ -153,8 +153,7 @@
             (setq magit-save-repository-buffers nil)
             (add-to-list 'magit-no-confirm 'stage-all-changes)
             (add-to-list 'magit-no-confirm 'unstage-all-changes)
-            (local-set-key (kbd "C-o") 'magit-diff-visit-file-other-window)
-            (local-set-key (kbd "M-/") 'completion-at-point)))
+            (local-set-key (kbd "C-o") 'magit-diff-visit-file-other-window)))
 
 (add-hook 'text-mode-hook
           (lambda ()
