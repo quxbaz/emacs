@@ -105,8 +105,8 @@
 
 
 ;; # Auto-complete
-(global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-M-i") 'completion-at-point)
+(global-set-key (kbd "M-/") 'completion-at-point)
+(global-set-key (kbd "C-M-i") 'hippie-expand)
 
 
 ;; # Search, replace, regexp, occur
