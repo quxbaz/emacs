@@ -164,6 +164,11 @@
 (global-set-key (kbd "<escape> 0") 'delete-window)
 
 
+;; # Math, numbers
+(global-set-key (kbd "C-M-=") 'my/increment)
+(global-set-key (kbd "C-M--") 'my/decrement)
+
+
 ;; # Keyboard Macros
 (global-set-key (kbd "<escape> [") 'kmacro-start-macro)
 (global-set-key (kbd "<escape> ]") 'kmacro-end-macro)

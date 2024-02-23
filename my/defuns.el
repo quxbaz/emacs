@@ -385,6 +385,23 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (revert-buffer t t))
 
 
+;; # Math, numbers
+
+(defun my/increment (&optional n)
+  "Increment next number on line by N."
+  (interactive)
+  (if (eq n nil) (setq n 1))
+  (while (looking-back "[0-9-\.]")
+    (backward-char))
+  (search-forward-regexp "-?[0-9]\+" (line-end-position) t)
+  (replace-match (number-to-string (+ (string-to-number (match-string 0)) n)))
+  (goto-char (match-beginning 0)))
+
+(defun my/decrement ()
+  (interactive)
+  (my/increment -1))
+
+
 ;; # Keyboard Macros
 
 (defun my/call-macro-dwim (arg)
