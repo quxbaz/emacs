@@ -4,3 +4,7 @@
 (define-key my/scratch-mode-map (kbd "C-c .") 'eros-eval-last-sexp)
 (my/scratch-mode t)
 ;;
+(define-key my/scratch-mode-map (kbd "C-c C-c") 'my/eval-dwim)
+(define-key my/scratch-mode-map (kbd "C-c .") 'my/eval-here)
+;;
+
