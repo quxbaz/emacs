@@ -210,13 +210,24 @@ region as the search string."
       (call-interactively 'occur))))
 
 
-;; # Editing
+;; # dwim region commands
 
-(defun my/kill-dwim (arg)
-  (interactive "p")
+(defun my/set-mark-command ()
+  "Toggles between regular and rectangular region."
+  (interactive)
   (if (use-region-p)
-      (kill-region (region-beginning) (region-end))
-    (if (= arg 1) (kill-line) (kill-line arg))))
+      (call-interactively 'rectangle-mark-mode)
+    (call-interactively 'set-mark-command)))
+
+(defun my/key-k ()
+  "Inserts `k` normally. If region is active, kill region instead."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'kill-region)
+    (call-interactively 'self-insert-command)))
+
+
+;; # Editing
 
 (defun my/kill-block (arg)
   (interactive "p")

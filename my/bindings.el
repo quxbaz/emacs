@@ -61,6 +61,11 @@
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
 
 
+;; dwim region commands
+(global-set-key (kbd "C-SPC") 'my/set-mark-command)
+(global-set-key (kbd "k") 'my/key-k)
+
+
 ;; # Jumping
 (global-set-key (kbd "M-'") 'xref-find-definitions)
 
@@ -75,7 +80,6 @@
 (global-set-key (kbd "M-S-<return>") 'my/duplicate-block)
 ;; ## Deletion, clearing
 (global-set-key (kbd "M-z") 'zap-up-to-char)
-(global-set-key (kbd "C-k") 'my/kill-dwim)
 (global-set-key (kbd "M-k") 'my/kill-block)
 (global-set-key (kbd "C-M-k") 'my/clear-buffer)
 ;; ## Whitespace
