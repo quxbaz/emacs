@@ -58,13 +58,11 @@
     (if (= arg 1) (paredit-kill) (paredit-kill arg))))
 
 (defun my/kill-list (arg)
+  "Kills a list or string from inside of it."
   (interactive "p")
-  ;; Kill the sexp, not the parent sexp when point is on a (.
-  (if (eq (char-after) ?\()
-      (forward-char))
   (condition-case nil
-      (progn (backward-up-list) (kill-sexp))
-    (scan-error (my/kill-block arg))))
+      (progn (backward-up-list 1 t t) (kill-sexp))
+    (scan-error nil)))
 
 (defun my/open-new-round ()
   (interactive)
