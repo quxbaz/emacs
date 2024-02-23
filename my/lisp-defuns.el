@@ -25,13 +25,17 @@
              (eval-region (point-at-bol) (point-at-eol) t)))))
   (my/flash-mode-line))
 
-;; BUG: This does not work inside strings.
 (defun my/eval-here ()
   "Evaluates the most immediate list at point."
   (interactive)
-  (let ((start (scan-lists (point) -1 1))
-        (end (scan-lists (point) 1 1)))
-    (eval-region start end t)))
+  (let ((eval (lambda () (eval-region (scan-lists (point) -1 1) (scan-lists (point) 1 1) t))))
+    (condition-case nil
+        (funcall eval)
+      (scan-error (save-excursion
+                    ;; Potential bug here. We're moving point before evaluating
+                    ;; the expression, which can change the result in some cases.
+                    (backward-up-list nil t t)
+                    (funcall eval))))))
 
 (defun my/lisp-kill-ring-save-dwim ()
   (interactive)
