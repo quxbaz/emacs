@@ -155,6 +155,10 @@
             (add-to-list 'magit-no-confirm 'unstage-all-changes)
             (local-set-key (kbd "C-o") 'magit-diff-visit-file-other-window)))
 
+(add-hook 'text-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-M-i") 'dabbrev-expand)))
+
 (add-hook 'calendar-mode-hook
           (lambda ()
             (diary-mark-entries)
