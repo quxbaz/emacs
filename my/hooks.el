@@ -6,6 +6,7 @@
             (find-file-noselect (expand-file-name "my/*" user-emacs-directory) nil nil t)
             (find-file-noselect "~/personal/diary")
             (find-file-noselect "~/personal/main.org")
+            (find-file-noselect "~/personal/food.org")
             (find-file-noselect "~/personal/promise.org")
             (find-file-noselect "~/personal/linux/emacs.org")
             (find-file-noselect "~/personal/linux/emacs-log.org")
