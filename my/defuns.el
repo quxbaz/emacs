@@ -418,7 +418,9 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   "Calls a kmacro. If region is active, apply kmacro to each line."
   (interactive "p")
   (if (use-region-p)
-      (apply-macro-to-region-lines (region-beginning) (region-end))
+      (progn
+        (apply-macro-to-region-lines (region-beginning) (region-end))
+        (deactivate-mark))
     (kmacro-end-and-call-macro arg)))
 
 
