@@ -282,6 +282,10 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (previous-line 2))
     (move-to-column col)))
 
+(defun my/transpose-line-down ()
+  (interactive)
+  (my/transpose-line t))
+
 (defun my/move-line-to-register (&optional register)
   "Moves line to point stored in register `@`"
   (interactive)
