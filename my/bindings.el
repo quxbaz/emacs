@@ -151,7 +151,7 @@
 (global-set-key (kbd "C-M-m") 'my/move-line-to-register)
 
 
-;; # Modes, viewing, narrowing, filtering
+;; # Viewing, narrowing, filtering
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
 (global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
 
