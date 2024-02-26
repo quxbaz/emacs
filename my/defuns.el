@@ -220,9 +220,12 @@ region as the search string."
 (defun my/set-mark-command ()
   "Toggles between regular and rectangular region."
   (interactive)
-  (if (use-region-p)
-      (call-interactively 'rectangle-mark-mode)
-    (call-interactively 'set-mark-command)))
+  (cond
+   ((use-region-p)
+    (call-interactively 'rectangle-mark-mode))
+   ((= (mark) (point))
+    (deactivate-mark))
+   (t (call-interactively 'set-mark-command))))
 
 (defun my/key-k ()
   "Inserts `k` normally. If region is active, kill region instead."
