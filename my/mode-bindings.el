@@ -42,7 +42,7 @@
 
 (keymap-set emacs-lisp-mode-map "M-/" 'completion-at-point)
 (keymap-set emacs-lisp-mode-map "C-M-i" 'dabbrev-expand)
-(keymap-set emacs-lisp-mode-map "M-n" 'forward-sexp)
+(keymap-set emacs-lisp-mode-map "M-n" 'my/lisp-forward-sexp)
 (keymap-set emacs-lisp-mode-map "M-p" 'backward-sexp)
 (keymap-set emacs-lisp-mode-map "C-c C-c" 'my/eval-dwim)
 (keymap-set emacs-lisp-mode-map "C-c ." 'my/eval-here)

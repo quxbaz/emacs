@@ -37,6 +37,13 @@
                     (backward-up-list nil t t)
                     (funcall eval))))))
 
+(defun my/lisp-forward-sexp ()
+  "Like forward-sexp, but moves point to the first character of the sexp."
+  (interactive)
+  (condition-case nil (forward-sexp) (scan-error nil))
+  (condition-case nil (forward-sexp) (scan-error nil))
+  (condition-case nil (backward-sexp) (scan-error nil)))
+
 (defun my/lisp-kill-ring-save-dwim ()
   (interactive)
   (if (use-region-p)
