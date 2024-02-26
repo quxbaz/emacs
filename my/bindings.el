@@ -190,7 +190,3 @@
 (global-set-key (kbd "C-c C-b") 'magit-blob-mode)
 (global-set-key (kbd "C-c C-p") 'git-gutter:previous-hunk)
 (global-set-key (kbd "C-c C-n") 'git-gutter:next-hunk)
-
-
-;; # org-mode
-;;
