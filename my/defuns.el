@@ -223,7 +223,7 @@ region as the search string."
   (cond
    ((use-region-p)
     (call-interactively 'rectangle-mark-mode))
-   ((= (mark) (point))
+   ((eq (mark) (point))
     (deactivate-mark))
    (t (call-interactively 'set-mark-command))))
 
