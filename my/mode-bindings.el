@@ -92,3 +92,8 @@
             (define-key my/sh-mode-map (kbd "M-a") 'backward-sentence)
             (define-key my/sh-mode-map (kbd "M-e") 'forward-sentence)
             (use-local-map my/sh-mode-map)))
+
+(add-hook 'web-mode-hook
+          (lambda ()
+            (keymap-set web-mode-map "M-/" 'hippie-expand)
+            (keymap-set web-mode-map "C-M-i" 'completion-at-point)))
