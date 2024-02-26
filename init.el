@@ -21,6 +21,7 @@
  '(fill-column 80)
  '(package-selected-packages
    '(
+     aggressive-indent
      autopair
      autothemer
      corfu
