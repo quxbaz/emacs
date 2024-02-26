@@ -96,6 +96,10 @@
 (global-set-key (kbd "C-c C-\\") 'align-regexp)
 
 
+;; # Rectangles
+(global-set-key (kbd "<escape> i") 'string-rectangle)
+
+
 ;; # Indentation
 (global-set-key (kbd "M-q") 'my/indent-block)
 (global-set-key (kbd "M-I") 'indent-rigidly-left)
