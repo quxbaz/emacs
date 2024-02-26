@@ -92,7 +92,7 @@
 (global-set-key (kbd "M-<down>") (lambda () (interactive) (my/transpose-line t)))
 (global-set-key (kbd "M-T") 'transpose-regions)
 ;; ## Sorting, alignment
-(global-set-key (kbd "C-c C-\\") 'align-regexp)
+(global-set-key (kbd "C-c \\") 'align-regexp)
 
 
 ;; # Rectangles
