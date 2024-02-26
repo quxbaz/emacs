@@ -62,7 +62,6 @@
 
 
 ;; dwim region commands
-(global-set-key (kbd "C-SPC") 'my/set-mark-command)
 (global-set-key (kbd "k") 'my/key-k)
 
 
