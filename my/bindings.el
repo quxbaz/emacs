@@ -21,6 +21,7 @@
 (global-unset-key (kbd "C-x 1"))
 (global-unset-key (kbd "C-x 0"))
 (global-unset-key (kbd "C-x r d"))
+(global-unset-key (kbd "C-x r t"))
 (global-unset-key (kbd "C-x C-b"))
 
 
