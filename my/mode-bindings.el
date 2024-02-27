@@ -49,6 +49,7 @@
 (keymap-set emacs-lisp-mode-map "M-w" 'my/lisp-kill-ring-save-dwim)
 (keymap-set emacs-lisp-mode-map "C-k" 'my/lisp-kill-dwim)
 (keymap-set emacs-lisp-mode-map "M-k" 'my/kill-list)
+(keymap-set emacs-lisp-mode-map "M-0" 'my/append-new-round)
 (keymap-set emacs-lisp-mode-map "C-c C-s" 'paredit-splice-sexp)
 (keymap-set emacs-lisp-mode-map "C-c C-o" 'paredit-raise-sexp)
 
