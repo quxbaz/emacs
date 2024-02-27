@@ -281,7 +281,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (interactive)
   (my/transpose-line t))
 
-(defun my/move-line-to-register (&optional register)
+(defun my/relocate-line-to-@ (&optional register)
   "Moves line to point stored in register `@`"
   (interactive)
   (when (eq register nil)
