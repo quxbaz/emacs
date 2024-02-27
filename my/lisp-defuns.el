@@ -81,6 +81,12 @@
   (up-list 1 t t)
   (paredit-open-round))
 
+(defun my/insert-new-round ()
+  "Creates a sibling round behind point."
+  (interactive)
+  (up-list -1 t t)
+  (paredit-open-round))
+
 (defun my/open-new-round ()
   (interactive)
   (paredit-close-round-and-newline)
