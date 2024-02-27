@@ -75,6 +75,12 @@
       (progn (backward-up-list 1 t t) (kill-sexp))
     (scan-error nil)))
 
+(defun my/append-new-round ()
+  "Creates a sibling round."
+  (interactive)
+  (up-list 1 t t)
+  (paredit-open-round))
+
 (defun my/open-new-round ()
   (interactive)
   (paredit-close-round-and-newline)
