@@ -13,9 +13,10 @@
 (setq org-todo-keyword-faces '(("TODO" . "yellow")
                                ("IN-PROGRESS" . "cyan1")
                                ("WAITING" . "orange")
-                               ("DONE" . "green")
                                ("FAILED" . "DeepPink")
-                               ("QUESTION" . "grey50")))
+                               ("QUESTION" . "grey50")
+                               ("REVIEW" . "orchid")
+                               ("DONE" . "green")))
 
 
 ;; # Defuns
