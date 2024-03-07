@@ -160,6 +160,7 @@
 
 
 ;; # Windows
+(global-set-key (kbd "<escape> <escape>") 'other-window)
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x C-o") 'other-window)
 (global-set-key (kbd "<escape> -") 'window-swap-states)
