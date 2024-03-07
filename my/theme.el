@@ -16,6 +16,7 @@
                                ("FAILED" . "DeepPink")
                                ("QUESTION" . "grey50")
                                ("REVIEW" . "orchid")
+                               ("BACKLOG" . "grey50")
                                ("DONE" . "green")))
 
 
