@@ -18,6 +18,7 @@
 (global-unset-key (kbd "C-x ("))
 (global-unset-key (kbd "C-x )"))
 (global-unset-key (kbd "C-x e"))
+(global-unset-key (kbd "C-x C-f"))
 (global-unset-key (kbd "C-x 1"))
 (global-unset-key (kbd "C-x 0"))
 (global-unset-key (kbd "C-x r d"))
@@ -129,6 +130,7 @@
 
 
 ;; # Files
+(global-set-key (kbd "<escape> f") 'find-file)
 (global-set-key (kbd "M-F") 'find-file-other-window)
 (global-set-key (kbd "C-c p") 'find-file-at-point)
 
