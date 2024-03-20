@@ -68,6 +68,7 @@
 
 
 ;; # Dired
+(setq dired-dwim-target t)  ;; Use other dired window as default copy/move path.
 (setq wdired-allow-to-change-permissions t)  ;; Allow editing file modes.
 (setq dired-listing-switches "-laXGh --group-directories-first")  ;; Order directories first.
 
