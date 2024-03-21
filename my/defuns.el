@@ -213,7 +213,6 @@ region as the search string."
 
 ;; # dwim region commands
 
-
 (defun my/key-k ()
   "Inserts `k` normally. If region is active, kill region instead."
   (interactive)
