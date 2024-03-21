@@ -221,6 +221,13 @@ region as the search string."
       (call-interactively 'kill-region)
     (call-interactively 'self-insert-command)))
 
+(defun my/key-w ()
+  "Inserts `w` normally. If region is active, save region to kill-ring instead."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'kill-ring-save)
+    (call-interactively 'self-insert-command)))
+
 
 ;; # Editing
 
