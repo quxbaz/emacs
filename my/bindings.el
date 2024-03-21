@@ -65,6 +65,7 @@
 
 ;; dwim region commands
 (global-set-key (kbd "k") 'my/key-k)
+(global-set-key (kbd "w") 'my/key-w)
 
 
 ;; # Jumping
