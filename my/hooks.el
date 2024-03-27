@@ -22,6 +22,7 @@
             (find-file-noselect "~/personal/exercise/exercises.org")
             (find-file-noselect "~/personal/exercise/records.org")
             (find-file-noselect "~/personal/exercise/routines.org")
+            (find-file-noselect "~/conf/i3/config")
             (find-file-noselect "~/work/wnmu/Todo.org")
             (find-file-noselect "~/work/wnmu/huddle-notes.org")
             (find-file-noselect "~/work/wnmu/records/creds.org")))
