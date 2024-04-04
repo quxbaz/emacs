@@ -227,6 +227,13 @@ region as the search string."
       (call-interactively 'kill-ring-save)
     (call-interactively 'self-insert-command)))
 
+(defun my/key-x ()
+  "Inserts `x` normally. If region is active, exchange point and mark instead."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'exchange-point-and-mark)
+    (call-interactively 'self-insert-command)))
+
 
 ;; # Editing
 
