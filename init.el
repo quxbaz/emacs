@@ -5,8 +5,12 @@
 (load-file "~/.emacs.d/my/conf.el")
 (load-file "~/.emacs.d/my/theme.el")
 (load-file "~/.emacs.d/my/macros.el")
+(load-file "~/.emacs.d/my/util-defuns.el")
 (load-file "~/.emacs.d/my/defuns.el")
+(load-file "~/.emacs.d/my/lisp-defuns.el")
 (load-file "~/.emacs.d/my/bindings.el")
+(load-file "~/.emacs.d/my/mode-bindings.el")
+(load-file "~/.emacs.d/my/kmacros.el")
 (load-file "~/.emacs.d/my/hooks.el")
 (load-file "~/.emacs.d/my/macos.el")
 
@@ -18,18 +22,22 @@
  '(fill-column 80)
  '(package-selected-packages
    '(
-     auto-complete
+     aggressive-indent
      autopair
      autothemer
+     corfu
      deadgrep
      doom-themes
+     eros
      git-gutter
      highlight-indent-guides
+     ivy
      lsp-mode
      magit
+     modus-themes
      paredit
      php-mode
-     prism
+     rainbow-blocks
      web-mode
      yasnippet
      )))

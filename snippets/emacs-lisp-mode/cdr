@@ -1,4 +1,4 @@
-# name: interative
+# name: cdr
 # key: r
 # --
-(cdr $0)
+cdr$0
