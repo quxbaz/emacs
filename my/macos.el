@@ -1,5 +1,6 @@
 ;; Keybindings
 
+(global-unset-key (kbd "<f2> <f2>"))
 (setq mac-command-modifier 'meta)    ;; Map Command key as Meta.
 (setq mac-option-modifier 'super)    ;; Treat Option key as Super.
 (setq dired-use-ls-dired nil)        ;; Dired won't work otherwise.
