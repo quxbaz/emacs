@@ -213,6 +213,13 @@ region as the search string."
 
 ;; # dwim region commands
 
+(defun my/key-spc ()
+  "Inserts `SPC` normally. If region is active, deactivate region mode instead."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'keyboard-quit)
+    (call-interactively 'self-insert-command)))
+
 (defun my/key-k ()
   "Inserts `k` normally. If region is active, kill region instead."
   (interactive)
