@@ -103,7 +103,7 @@ Typically, repeated invocations will go like this:
 (defun my/mark-paragraph (arg)
   (interactive "p")
   (mark-paragraph arg t)
-  (if (my/is-line-empty?)
+  (if (my/is-line-empty)
       (forward-line)))
 
 (defun my/outline-toggle-all ()
@@ -118,13 +118,13 @@ Typically, repeated invocations will go like this:
 
 ;; # Search, replace, occur
 
-(defun my/isearch-dwim (&optional reverse?)
+(defun my/isearch-dwim (&optional is-reverse)
   "Searches for a string. If region matches (current-word), search for that.
 
 ARGUMENTS
-REVERSE? [optional] [bool] [default = nil]    If true, search backwards."
+IS-REVERSE [optional] [bool] [default = nil]    If true, search backwards."
   (interactive)
-  (let ((search-fn (if reverse? #'isearch-backward-regexp #'isearch-forward-regexp))
+  (let ((search-fn (if is-reverse #'isearch-backward-regexp #'isearch-forward-regexp))
         (short-word (current-word nil t))
         (long-word  (current-word nil nil)))
     (if (and (use-region-p)
@@ -133,7 +133,7 @@ REVERSE? [optional] [bool] [default = nil]    If true, search backwards."
         (let ((text (my/region-text)))
           (deactivate-mark)
           ;; Move point to avoid superfluous matching on current word.
-          (if reverse?
+          (if is-reverse
               (goto-char (- (region-beginning) 1))
             (goto-char (region-end)))
           (funcall search-fn nil t)
@@ -143,12 +143,12 @@ REVERSE? [optional] [bool] [default = nil]    If true, search backwards."
 (defun my/isearch-forward-dwim () (interactive) (my/isearch-dwim))
 (defun my/isearch-backward-dwim () (interactive) (my/isearch-dwim t))
 
-(defun my/query-replace-dwim (&optional buffer?)
+(defun my/query-replace-dwim (&optional start-at-beginning)
   "Performs an interactive search & replace. If region matches (current-word),
 and point is at beginning of region, use region as the search string.
 
 ARGUMENTS
-buffer [optional] [bool] [default = nil]    If true, start replace at beginning of buffer."
+start-at-beginning [optional] [bool] [default = nil]    If true, start replace at beginning of buffer."
   (interactive)
   (let ((short-word (current-word nil t))
         (long-word  (current-word nil nil)))
@@ -160,7 +160,7 @@ buffer [optional] [bool] [default = nil]    If true, start replace at beginning 
                (prompt (format "Query replace regexp (default %s → [REGEX])" text))
                (regex (read-regexp prompt)))
           (deactivate-mark)
-          (if buffer?
+          (if start-at-beginning
               (query-replace-regexp text regex nil 1 (buffer-size))
             (query-replace-regexp text regex)))
       (call-interactively #'query-replace-regexp))))
@@ -350,13 +350,13 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 (defun my/comment-jsx (arg)
   (interactive "p")
-  (let ((is-empty-line (my/is-line-empty??)))
+  (let ((is-empty-line (my/is-line-empty)))
     (save-excursion
       (if (use-region-p)
           (let ((start (region-beginning))
                 (end (region-end)))
             (goto-char end)
-            (if (not (my/is-line-empty??)) (insert " "))
+            (if (not (my/is-line-empty)) (insert " "))
             (insert "*/}")
             (goto-char start)
             (insert "{/* "))

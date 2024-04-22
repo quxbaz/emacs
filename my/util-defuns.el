@@ -20,7 +20,7 @@
 
 ;; # Util
 
-(defun my/is-line-empty? ()
+(defun my/is-line-empty ()
   "Returns t if the line at point is empty, otherwise nil."
   (eq (point-at-bol) (point-at-eol)))
 
