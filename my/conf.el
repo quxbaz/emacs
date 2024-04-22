@@ -44,6 +44,7 @@
 
 ;; # Parens
 (setq show-paren-delay 0)
+(show-paren-mode t)
 
 
 ;; # Visuals
@@ -95,8 +96,6 @@
 (setq uniquify-buffer-name-style 'forward)
 (setq ivy-do-completion-in-region nil)
 (ivy-mode t)
-(show-paren-mode t)
-(setq show-paren-delay 0)
 (electric-pair-mode 0)
 (autopair-global-mode t)
 (setq highlight-indent-guides-method 'bitmap)
