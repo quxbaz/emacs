@@ -13,16 +13,19 @@
   (if (use-region-p)
       (eval-region (region-beginning) (region-end) t)
     (save-excursion
-      (my/goto-root-list)
-      ;; If the point is at an opening parens, eval the list.
-      ;; Else-if point is to the right of a closing parens, eval the list.
-      ;; Else eval the line.
-      (cond ((looking-at "(")
-             (eval-region (point) (scan-lists (point) 1 0) t))
-            ((looking-back ")")
-             (eval-last-sexp nil))
-            (t
-             (eval-region (point-at-bol) (point-at-eol) t)))))
+      (let* ((origin (point))
+             (NULL (my/goto-root-list))
+             (new-point (point)))
+        ;; If the point is at an opening parens, eval the list.
+        ;; Else-if point is to the right of a closing parens, eval the list.
+        ;; Else eval the line.
+        (cond ((looking-at "(")
+               (goto-char origin)
+               (eval-region new-point (scan-lists new-point 1 0) t))
+              ((looking-back ")")
+               (eval-last-sexp nil))
+              (t
+               (eval-region (point-at-bol) (point-at-eol) t))))))
   (my/flash-mode-line))
 
 (defun my/eval-here ()
