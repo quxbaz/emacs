@@ -54,7 +54,7 @@
     current-point))
 
 (defun my/goto-root-list (&optional max-depth)
-  "Moves point to opening parens of root list."
+  "Moves point to opening parens of parent-most (ie, root) list."
   (interactive)
   (if (eq max-depth nil)
       (setq max-depth 100))
