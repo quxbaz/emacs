@@ -249,7 +249,8 @@ region as the search string."
   (interactive)
   (if (use-region-p)
       (call-interactively 'kill-ring-save)
-    (kill-ring-save (line-beginning-position) (+ (line-end-position) 1)))
+    (kill-ring-save (+ (line-beginning-position) (current-indentation))
+                    (+ (line-end-position) 1)))
   (message "%s" (string-trim (car kill-ring))))
 
 (defun my/kill-block (arg)
