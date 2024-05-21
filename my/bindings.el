@@ -128,7 +128,7 @@
 (global-set-key (kbd "M-r") 'my/query-replace-dwim)
 (global-set-key (kbd "M-R") 'my/query-replace-buffer-dwim)
 ;; ## Grep, find, occur
-(global-set-key (kbd "<escape> k") 'deadgrep)
+(global-set-key (kbd "<escape> s") 'deadgrep)
 (global-set-key (kbd "C-c o") 'my/occur-dwim)
 
 
