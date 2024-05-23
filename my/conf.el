@@ -40,6 +40,7 @@
 (setq-default truncate-lines t)
 (setq case-fold-search t)  ;; Search ignores case by default.
 (setq-default case-fold-search t)
+(setq-default sentence-end-double-space nil)  ;; Make single-space end a sentence. Affects filling.
 
 
 ;; # Parens
