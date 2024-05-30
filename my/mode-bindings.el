@@ -59,9 +59,9 @@
      ;; (local-set-key (kbd "M-.") 'lsp-find-definition)
      ;; (local-set-key (kbd "M-,") 'lsp-find-implementation)
      ;; (local-set-key (kbd "M-'") 'lsp-rename)
-     (local-set-key (kbd "M-.") 'my/mark-context)
-     (local-set-key (kbd "C-c C-/") 'my/toggle-jsx-comment)
-     (local-set-key (kbd "C-c /") 'my/close-html-tag)))
+     (keymap-set js-mode-map "M-." 'my/mark-context)
+     (keymap-set js-mode-map "C-c C-/" 'my/toggle-jsx-comment)
+     (keymap-set js-mode-map "C-c /" 'my/close-html-tag)))
 
 (eval-after-load 'org
   '(progn
