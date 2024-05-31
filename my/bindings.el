@@ -70,6 +70,7 @@
 
 
 ;; # Jumping
+(global-set-key (kbd "<escape> l") 'bookmark-bmenu-list)
 (global-set-key (kbd "M-'") 'xref-find-definitions)
 
 
