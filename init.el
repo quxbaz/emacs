@@ -2,6 +2,9 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+;; Extensions
+(load-file (concat user-emacs-directory "ext/show-point-mode.el"))
+
 ;; Custom config
 (load-file (concat user-emacs-directory "my/conf.el"))
 (load-file (concat user-emacs-directory "my/theme.el"))
