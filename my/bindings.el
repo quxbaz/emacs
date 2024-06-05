@@ -97,6 +97,7 @@
 (global-set-key (kbd "M-<up>") 'my/transpose-line)
 (global-set-key (kbd "M-<down>") (lambda () (interactive) (my/transpose-line t)))
 (global-set-key (kbd "M-T") 'transpose-regions)
+(global-set-key (kbd "S-<left>") 'transpose-sexps)
 ;; ## Sorting, alignment
 (global-set-key (kbd "C-c \\") 'align-regexp)
 
