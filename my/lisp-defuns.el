@@ -31,14 +31,23 @@
 (defun my/eval-here ()
   "Evaluates the most immediate list at point."
   (interactive)
-  (let ((eval (lambda () (eval-region (scan-lists (point) -1 1) (scan-lists (point) 1 1) t))))
+  (let* ((origin (point))
+         (position* (point))
+         (eval (lambda ()
+                 (let ((start (scan-lists (point) -1 1))
+                       (end (scan-lists (point) 1 1)))
+                   ;; Not sure if save-excursion is actually needed here.
+                   (save-excursion
+                     (goto-char origin) ;; Always execute eval from the starting point.
+                     (eval-region start end t)
+                     (if (/= (point) origin)
+                         (setq position* (point))))))))
     (condition-case nil
         (funcall eval)
       (scan-error (save-excursion
-                    ;; Potential bug here. We're moving point before evaluating
-                    ;; the expression, which can change the result in some cases.
                     (backward-up-list nil t t)
-                    (funcall eval))))))
+                    (funcall eval))))
+    (goto-char position*)))
 
 (defun my/lisp-forward-sexp ()
   "Like forward-sexp, but moves point to the first character of the sexp."
