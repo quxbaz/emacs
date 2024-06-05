@@ -59,7 +59,8 @@
 (add-hook 'prog-mode-hook
           (lambda ()
             (electric-pair-mode 0)
-            (git-gutter-mode t)))
+            (git-gutter-mode t)
+            (show-point-mode t)))
 
 (add-hook 'web-mode-hook
           (lambda ()
