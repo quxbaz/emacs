@@ -11,6 +11,8 @@
   ;; \s( and \s) represent the opening/closing delimiter character groups.
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        ;; Match opening quote.
+        ((and (looking-at "\"") (looking-back " ")) (forward-sexp) (backward-char 1))
         (t (backward-up-list 1 t t))))
 
 ;; The Logic needed here is trickier than it would appear on the surface.
