@@ -94,6 +94,7 @@
 (global-set-key (kbd "C-;") 'my/comment-line)
 (global-set-key (kbd "M-;") 'my/comment-block)
 ;; ## Transposing
+(global-set-key (kbd "M-t") 'my/transpose-words)
 (global-set-key (kbd "M-<up>") 'my/transpose-line)
 (global-set-key (kbd "M-<down>") (lambda () (interactive) (my/transpose-line t)))
 (global-set-key (kbd "M-T") 'transpose-regions)
