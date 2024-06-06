@@ -48,13 +48,14 @@
 
 (defun my/root-list-position (&optional max-depth)
   "Gets the position of the root list starting from point."
-  (if (eq max-depth nil)
-      (setq max-depth 100))
+  (if (eq max-depth nil) (setq max-depth 100))
   (let ((current-point (point)))
-    (condition-case nil
-        (dotimes (n max-depth)
-          (setq current-point (scan-lists current-point -1 1)))
-      (scan-error nil))
+    (save-excursion
+      (condition-case nil
+          (dotimes (n max-depth)
+            (backward-up-list 1 t t)
+            (setq current-point (point)))
+        (t nil)))
     current-point))
 
 (defun my/goto-root-list (&optional max-depth)
