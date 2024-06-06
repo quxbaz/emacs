@@ -12,20 +12,11 @@
   (interactive)
   (if (use-region-p)
       (eval-region (region-beginning) (region-end) t)
-    (save-excursion
-      (let* ((origin (point))
-             (NULL (my/goto-root-list))
-             (new-point (point)))
-        ;; If the point is at an opening parens, eval the list.
-        ;; Else-if point is to the right of a closing parens, eval the list.
-        ;; Else eval the line.
-        (cond ((looking-at "(")
-               (goto-char origin)
-               (eval-region new-point (scan-lists new-point 1 0) t))
-              ((looking-back ")")
-               (eval-last-sexp nil))
-              (t
-               (eval-region (point-at-bol) (point-at-eol) t))))))
+    (let ((origin (point))
+          (root-point (my/root-list-position)))
+      (if (my/string-equal-at root-point "(")
+          (eval-region root-point (scan-lists root-point 1 0) t)
+        (call-interactively #'eval-last-sexp))))
   (my/flash-mode-line))
 
 (defun my/eval-here ()
