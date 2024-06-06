@@ -29,6 +29,10 @@
   (let ((offset (or offset 0)))
     (string (char-after (+ pos offset)))))
 
+(defun my/string-at-is (pos str)
+  "Returns true if string at POS matches STR."
+  (string= (my/string-at pos) str))
+
 (defun my/string-at-point (&optional offset)
   "Gets the string at point."
   (let ((offset (or offset 0)))
