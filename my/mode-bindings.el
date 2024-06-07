@@ -5,7 +5,6 @@
 (keymap-set help-mode-map "<mouse-9>" 'help-go-forward)
 (add-hook 'html-mode-hook (lambda () (local-set-key (kbd "M-o") 'other-window)))
 (eval-after-load 'ibuffer '(keymap-set ibuffer-mode-map "M-r" 'ibuffer-do-query-replace-regexp))
-(eval-after-load 'magit '(keymap-set magit-mode-map "C-o" 'magit-diff-visit-file-other-window))
 (keymap-set minibuffer-mode-map "M-/" 'dabbrev-expand)
 (keymap-set occur-mode-map "n" (lambda () (interactive) (occur-next) (occur-mode-display-occurrence)))
 (keymap-set occur-mode-map "p" (lambda () (interactive) (occur-prev) (occur-mode-display-occurrence)))
@@ -62,6 +61,11 @@
      (keymap-set js-mode-map "M-." 'my/mark-context)
      (keymap-set js-mode-map "C-c C-/" 'my/toggle-jsx-comment)
      (keymap-set js-mode-map "C-c /" 'my/close-html-tag)))
+
+(eval-after-load 'magit
+  '(progn
+     (keymap-set magit-mode-map "w" 'my/key-w)
+     (keymap-set magit-mode-map "C-o" 'magit-diff-visit-file-other-window)))
 
 (eval-after-load 'org
   '(progn
