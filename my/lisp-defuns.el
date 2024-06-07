@@ -27,7 +27,6 @@
          (eval (lambda ()
                  (let ((start (scan-lists (point) -1 1))
                        (end (scan-lists (point) 1 1)))
-                   ;; Not sure if save-excursion is actually needed here.
                    (save-excursion
                      (goto-char origin)  ;; Always execute eval from the starting point.
                      (eval-region start end t)
