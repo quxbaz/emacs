@@ -81,7 +81,7 @@
 (global-set-key (kbd "C-M-/") 'undo-only)
 ;; ## Creation, duplication, opening
 (global-set-key (kbd "C-o") 'my/open-line)
-(global-set-key (kbd "M-<return>") 'my/duplicate-line)
+(global-set-key (kbd "M-<return>") 'my/duplicate-dwim)
 (global-set-key (kbd "M-S-<return>") 'my/duplicate-block)
 ;; ## Deletion, clearing
 (global-set-key (kbd "M-z") 'zap-up-to-char)
