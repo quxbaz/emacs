@@ -181,7 +181,8 @@
 
 
 ;; # Debugging
-;;
+(global-set-key (kbd "<escape> b") 'debug-on-entry)
+(global-set-key (kbd "<escape> u b") 'cancel-debug-on-entry)
 
 
 ;; # Keyboard Macros
