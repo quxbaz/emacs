@@ -409,7 +409,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 (defun my/close-html-tag ()
   (interactive)
-  (my/duplicate-line 1)
+  (my/duplicate-dwim 1)
   (back-to-indentation)
   (forward-char 1)
   (insert "/"))
