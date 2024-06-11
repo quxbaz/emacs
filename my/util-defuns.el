@@ -30,7 +30,7 @@
     (string (char-after (+ pos offset)))))
 
 (defun my/string-equal-at (pos str)
-  "Returns true if string at POS matches STR."
+  "Returns t if string at POS matches STR."
   (string= (my/string-at pos) str))
 
 (defun my/string-at-point (&optional offset)
