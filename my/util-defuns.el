@@ -24,6 +24,9 @@
   "Returns t if the line at point is empty, otherwise nil."
   (eq (point-at-bol) (point-at-eol)))
 
+(defun my/is-inside-string ()
+  "Returns t if point is inside a string."
+  (if (nth 3 (syntax-ppss)) t))
 (defun my/string-at (pos &optional offset)
   "Gets the string at a specified point."
   (let ((offset (or offset 0)))
