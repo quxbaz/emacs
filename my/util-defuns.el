@@ -27,6 +27,12 @@
 (defun my/is-inside-string ()
   "Returns t if point is inside a string."
   (if (nth 3 (syntax-ppss)) t))
+
+(defun my/string-beginning-position ()
+  "Returns position of opening quote of current string."
+  (let ((parse-state (syntax-ppss)))
+    (when (nth 3 parse-state)
+      (nth 8 parse-state))))
 (defun my/string-at (pos &optional offset)
   "Gets the string at a specified point."
   (let ((offset (or offset 0)))
