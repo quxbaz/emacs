@@ -46,6 +46,13 @@
   "Gets text within the region. If region is inactive, return nil."
   (buffer-substring-no-properties (region-beginning) (region-end)))
 
+(defun my/is-at-opening-parens ()
+  "Returns t point is at opening parens. Considers strings and comments."
+  (let ((parse-state (syntax-ppss)))
+    (and (null (nth 3 parse-state))
+         (null (nth 4 parse-state))
+         (looking-at "("))))
+
 (defun my/root-list-position (&optional max-depth)
   "Gets the position of the root list starting from point."
   (if (eq max-depth nil) (setq max-depth 100))
