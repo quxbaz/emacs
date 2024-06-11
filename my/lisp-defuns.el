@@ -101,5 +101,6 @@ Also works from inside strings."
   (let ((parse-state (syntax-ppss)))
     (if (nth 3 parse-state)              ;; Check if point is inside a string.
         (goto-char (nth 8 parse-state))  ;; Move point to beginning of string.
-      (thing-at-point--beginning-of-sexp)))
+      (if (not (my/is-at-opening-parens))
+          (thing-at-point--beginning-of-sexp))))
   (paredit-wrap-round))
