@@ -13,7 +13,7 @@
   (if (use-region-p)
       (eval-region (region-beginning) (region-end) t)
     (let ((origin (point))
-          (root-point (my/root-list-position)))
+          (root-point (my/list-root-position)))
       (if (my/string-equal-at root-point "(")
           (eval-region root-point (scan-lists root-point 1 0) t)
         (call-interactively #'eval-last-sexp))))

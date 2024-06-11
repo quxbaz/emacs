@@ -70,7 +70,8 @@
          (null (nth 3 parse-state))     ;; Return false if point is inside a string.
          (null (nth 4 parse-state)))))  ;; Return false if point is inside a comment.
 
-(defun my/root-list-position (&optional max-depth)
+
+(defun my/list-root-position (&optional max-depth)
   "Gets the position of the root list starting from point."
   (if (eq max-depth nil) (setq max-depth 100))
   (let ((current-point (point)))
