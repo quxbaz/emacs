@@ -34,7 +34,7 @@
     (when (nth 3 parse-state)
       (nth 8 parse-state))))
 
-(defun my/beginning-of-string ()
+(defun my/goto-beginning-of-string ()
   "Moves point to opening quote of current string."
   (interactive)
   (let ((parse-state (syntax-ppss)))
