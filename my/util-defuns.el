@@ -49,9 +49,9 @@
 (defun my/is-at-opening-parens ()
   "Returns t point is at opening parens. Considers strings and comments."
   (let ((parse-state (syntax-ppss)))
-    (and (null (nth 3 parse-state))
-         (null (nth 4 parse-state))
-         (looking-at "("))))
+    (and (looking-at "(")
+         (null (nth 3 parse-state))     ;; Return false if point is inside a string.
+         (null (nth 4 parse-state)))))  ;; Return false if point is inside a comment.
 
 (defun my/root-list-position (&optional max-depth)
   "Gets the position of the root list starting from point."
