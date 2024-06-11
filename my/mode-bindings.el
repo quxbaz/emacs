@@ -50,6 +50,7 @@
 (keymap-set emacs-lisp-mode-map "M-k" 'my/kill-list)
 (keymap-set emacs-lisp-mode-map "M-0" 'my/append-new-round)
 (keymap-set emacs-lisp-mode-map "M-9"  'my/insert-new-round)
+(keymap-set emacs-lisp-mode-map "M-("  'my/wrap-sexp)
 (keymap-set emacs-lisp-mode-map "C-c C-s" 'paredit-splice-sexp)
 (keymap-set emacs-lisp-mode-map "C-c C-o" 'paredit-raise-sexp)
 
@@ -92,7 +93,8 @@
      (keymap-set paredit-mode-map "M-<up>" 'my/transpose-line)
      (keymap-set paredit-mode-map "M-<down>" 'my/transpose-line-down)
      (keymap-set paredit-mode-map "C-k" 'my/lisp-kill-dwim)
-     (keymap-set paredit-mode-map "M-)" 'my/open-new-round)))
+     (keymap-set paredit-mode-map "M-)" 'my/open-new-round)
+     (keymap-set paredit-mode-map "M-(" 'my/wrap-sexp)))
 
 (add-hook 'sh-mode-hook
           (lambda ()
