@@ -70,6 +70,10 @@
          (null (nth 3 parse-state))     ;; Return false if point is inside a string.
          (null (nth 4 parse-state)))))  ;; Return false if point is inside a comment.
 
+(defun my/goto-opening-parens ()
+  "Moves point to opening parens."
+  (interactive)
+  (goto-char (nth 1 (syntax-ppss))))
 
 (defun my/list-root-position (&optional max-depth)
   "Gets the position of the root list starting from point."
