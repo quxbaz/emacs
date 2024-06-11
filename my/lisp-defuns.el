@@ -77,6 +77,20 @@
       (progn (backward-up-list 1 t t) (kill-sexp))
     (scan-error nil)))
 
+(defun my/duplicate-list (&optional arg)
+  (interactive "p")
+  (if (use-region-p)
+      (call-interactively 'my/duplicate-dwim)
+    (if (not (my/is-at-opening-parens))
+        (my/goto-opening-parens))
+    (if (my/is-at-opening-parens)
+        (let* ((start (point))
+               (NULL (forward-sexp))
+               (end (point))
+               (text (buffer-substring-no-properties start end)))
+          (newline)
+          (insert text)))))
+
 (defun my/append-new-round ()
   "Creates a sibling round."
   (interactive)
