@@ -70,6 +70,10 @@
          (null (nth 3 parse-state))     ;; Return false if point is inside a string.
          (null (nth 4 parse-state)))))  ;; Return false if point is inside a comment.
 
+(defun my/opening-parens-position ()
+  "Gets the position of the opening parens."
+  (nth 1 (syntax-ppss)))
+
 (defun my/goto-opening-parens ()
   "Moves point to opening parens."
   (interactive)
