@@ -28,6 +28,10 @@
   "Returns t if point is inside a string."
   (if (nth 3 (syntax-ppss)) t))
 
+(defun my/is-inside-comment ()
+  "Returns t if point is inside a comment."
+  (if (nth 4 (syntax-ppss)) t))
+
 (defun my/string-beginning-position ()
   "Returns position of opening quote of current string."
   (let ((parse-state (syntax-ppss)))
