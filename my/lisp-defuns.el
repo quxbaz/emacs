@@ -77,10 +77,14 @@
       (progn (backward-up-list 1 t t) (kill-sexp))
     (scan-error nil)))
 
-;; TODO: When outside a list, apply my/duplicate-dwim.
 (defun my/duplicate-list (&optional arg)
+  "Duplicates the current list. Uses dwim behavior in certain contexts."
   (interactive "p")
-  (if (use-region-p)
+  ;; If region is active, or point is outside a list, or point is inside a comment,
+  ;; use my/duplicate-dwim.
+  (if (or (use-region-p)
+          (null (nth 1 (syntax-ppss)))
+          (my/is-inside-comment))
       (call-interactively 'my/duplicate-dwim)
     (let ((origin (point))
           (offset (my/distance-from-opening-parens)))
