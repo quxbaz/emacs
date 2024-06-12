@@ -79,6 +79,12 @@
   (interactive)
   (goto-char (nth 1 (syntax-ppss))))
 
+(defun my/distance-from-opening-parens ()
+  "Gets the distance between point and the opening parens."
+  (if (my/is-at-opening-parens)
+      0
+    (- (point) (my/opening-parens-position))))
+
 (defun my/list-root-position (&optional max-depth)
   "Gets the position of the root list starting from point."
   (if (eq max-depth nil) (setq max-depth 100))
