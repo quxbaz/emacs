@@ -139,6 +139,6 @@ Also works from inside strings."
 (defun my/transpose-chars ()
   "Like transpose-chars, but calls transpose-sexps if point is on an opening delimiter."
   (interactive)
-  (if (looking-at "\\s\(")
+  (if (my/is-at-opening-parens)
       (call-interactively 'transpose-sexps)
     (call-interactively 'transpose-chars)))
