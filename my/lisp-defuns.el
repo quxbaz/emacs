@@ -39,6 +39,13 @@
                     (funcall eval))))
     (goto-char position*)))
 
+(defun my/eval-kill-ring ()
+  "Evals the car of the kill ring."
+  (interactive)
+  (let ((code (car kill-ring)))
+    (if (and code (stringp code))
+        (message "%s" (eval (read code))))))
+
 (defun my/lisp-forward-sexp ()
   "Like forward-sexp, but moves point to the first character of the sexp."
   (interactive)
