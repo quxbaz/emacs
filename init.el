@@ -31,7 +31,6 @@
      corfu
      deadgrep
      doom-themes
-     eros
      git-gutter
      highlight-indent-guides
      ivy
