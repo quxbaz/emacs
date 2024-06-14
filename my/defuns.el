@@ -293,13 +293,6 @@ region as the search string."
       (copy-to-register '@ (region-beginning) (region-end))
       (insert-register '@))))
 
-(defun my/transpose-chars ()
-  "Like transpose-chars, but calls transpose-sexps if point is on an opening delimiter."
-  (interactive)
-  (if (looking-at "\\s\(")
-      (call-interactively 'transpose-sexps)
-    (call-interactively 'transpose-chars)))
-
 (defun my/transpose-line (&optional down?)
   "Moves a line up or down.
 
