@@ -67,6 +67,10 @@
   "Gets text within the region. If region is inactive, return nil."
   (buffer-substring-no-properties (region-beginning) (region-end)))
 
+(defun my/is-inside-list ()
+  "Returns t if point is inside a list."
+  (not (null (nth 1 (syntax-ppss)))))
+
 (defun my/is-at-opening-parens ()
   "Returns t point is at opening parens. Considers strings and comments."
   (let ((parse-state (syntax-ppss)))
