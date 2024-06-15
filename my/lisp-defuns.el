@@ -10,13 +10,13 @@
 (defun my/eval-dwim ()
   "Evals either the current region, block, or line - in that order of preference."
   (interactive)
-  (if (use-region-p)
-      (eval-region (region-beginning) (region-end) t)
-    (let ((origin (point))
-          (root-point (my/list-root-position)))
-      (if (my/string-equal-at root-point "(")
-          (eval-region root-point (scan-lists root-point 1 0) t)
-        (call-interactively #'eval-last-sexp))))
+  (cond ((use-region-p)
+         (eval-region (region-beginning) (region-end) t))
+        ((my/is-inside-list)
+         (let ((root-pos (my/opening-parens-position)))
+           (eval-region root-pos (scan-lists root-pos 1 0) t)))
+        (t
+         (eval-region (line-beginning-position) (line-end-position) t)))
   (my/flash-mode-line))
 
 (defun my/eval-here ()
