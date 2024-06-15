@@ -13,7 +13,7 @@
   (cond ((use-region-p)
          (eval-region (region-beginning) (region-end) t))
         ((my/is-inside-list)
-         (let ((root-pos (my/opening-parens-position)))
+         (let ((root-pos (my/root-list-position)))
            (eval-region root-pos (scan-lists root-pos 1 0) t)))
         (t
          (eval-region (line-beginning-position) (line-end-position) t)))
