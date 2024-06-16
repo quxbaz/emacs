@@ -37,7 +37,8 @@
       (scan-error (save-excursion
                     (backward-up-list nil t t)
                     (funcall eval))))
-    (goto-char position*)))
+    (goto-char position*)
+    (my/flash-mode-line)))
 
 (defun my/eval-kill-ring ()
   "Evals the car of the kill ring."
