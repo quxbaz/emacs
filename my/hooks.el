@@ -11,6 +11,8 @@
           (lambda ()
             (find-file-noselect user-init-file t)
             (find-file-noselect (expand-file-name "my/*" user-emacs-directory) nil nil t)
+            (find-file-noselect (concat user-emacs-directory "bugs.el"))
+            (find-file-noselect (concat user-emacs-directory "scratch.el"))
             (find-file-noselect "~/personal/diary")
             (find-file-noselect "~/personal/main.org")
             (find-file-noselect "~/personal/media-queue.org")
