@@ -41,21 +41,14 @@
   (condition-case nil (backward-sexp) (scan-error nil)))
 
 (defun my/lisp-kill-ring-save-dwim ()
+  "Like kill-ring-save, but saves the current list if possible."
   (interactive)
-  (if (use-region-p)
-      (kill-ring-save nil nil t)
-    (save-excursion
-      (let ((n 0))
-        (while (and (< n 20)
-                    (not (eq (char-after) ?\()))
-          (condition-case nil
-              (backward-up-list 1 t)
-            (scan-error (if (looking-back ")")
-                            (backward-char))))
-          (setq n (+ n 1))))
-      (push-mark (point) t t)
-      (forward-list 1 t)
-      (kill-ring-save nil nil t)))
+  (cond ((use-region-p)
+         (kill-ring-save nil nil t))
+        ((my/is-inside-list)
+         (kill-new (thing-at-point 'list)))
+        (t
+         (call-interactively 'kill-ring-save)))
   (message (car kill-ring)))
 
 (defun my/lisp-kill-dwim (arg)
