@@ -135,3 +135,17 @@ Also works from inside strings."
   (if (my/is-at-opening-parens)
       (call-interactively 'transpose-sexps)
     (call-interactively 'transpose-chars)))
+
+
+;; Macros
+
+(defmacro my/if-buffer-changes (body then &optional else)
+  "Execute BODY and then execute THEN if the execution of BODY caused any change
+in the buffer. Otherwise execute ELSE."
+  (declare (indent 1))
+  `(let* ((get-buffer-content (lambda () (buffer-substring-no-properties (point-min) (point-max))))
+          (buffer-before (funcall get-buffer-content)))
+     ,body
+     (if (string= (funcall get-buffer-content) buffer-before)
+         ,else
+       ,then)))
