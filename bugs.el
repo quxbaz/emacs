@@ -9,10 +9,3 @@
 (setq-local foo '(1 2 3))
 foo
 ;;
-
-
-;; When point is at
-;;   (looking-back "[[:blan|k:]]")
-;; my/open-new-round doesn't work.
-(looking-back "[[:blank:]]")
-;;
