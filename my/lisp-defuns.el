@@ -125,20 +125,21 @@
   (paredit-close-round-and-newline)
   (paredit-open-round))
 
-;; TODO: Noop if inside a comment.
 (defun my/wrap-sexp ()
   "Like paredit-wrap-sexp, but moves to the beginning of the sexp, then wraps.
 Also works from inside strings."
   (interactive)
   (let ((parse-state (syntax-ppss)))
-    (if (nth 3 parse-state)             ;; Check if point is inside a string.
-        (goto-char (nth 8 parse-state)) ;; Move point to beginning of string.
-      (cond ((or (eq (point) (line-beginning-position))
-                 (my/is-at-opening-parens)
-                 (looking-back "[[:blank:]]")
-                 (looking-back "\\s\("))
-             nil)
-            (t (thing-at-point--beginning-of-sexp)))))
+    (cond ((nth 3 parse-state)  ;; If point is inside a string, move to opening quote.
+           (goto-char (nth 8 parse-state)))
+          ;; Noop on any of the following conditions.
+          ((or (nth 4 parse-state)  ;; Is point inside a comment.
+               (eq (point) (line-beginning-position))
+               (my/is-at-opening-parens)
+               (looking-back "[[:blank:]]")
+               (looking-back "\\s\("))
+           nil)
+          (t (thing-at-point--beginning-of-sexp))))
   (paredit-wrap-round))
 
 (defun my/transpose-chars ()
