@@ -45,7 +45,7 @@
   (interactive)
   (let ((code (car kill-ring)))
     (when (and code (stringp code))
-      (message "%s" (eval (read code)))
+      (eval-expression (read code))
       (my/flash-mode-line))))
 
 (defun my/lisp-forward-sexp ()
