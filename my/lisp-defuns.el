@@ -140,8 +140,8 @@ Also works from inside strings."
 ;; Macros
 
 (defmacro my/if-buffer-changes (body then &optional else)
-  "Execute BODY and then execute THEN if the execution of BODY caused any change
-in the buffer. Otherwise execute ELSE."
+  "Executes BODY. If the execution of BODY causes any change in the buffer,
+execute THEN. Otherwise execute ELSE."
   (declare (indent 1))
   `(let* ((get-buffer-content (lambda () (buffer-substring-no-properties (point-min) (point-max))))
           (buffer-before (funcall get-buffer-content)))
