@@ -16,6 +16,9 @@
         (t (backward-up-list 1 t t))))
 
 ;; The Logic needed here is trickier than it would appear on the surface.
+;;
+;; NOTE: This function was written before I learned about syntax-ppss. It could
+;; probably be condensed extensively.
 (defun my/mark-context ()
   "Marks the current context using the following logic:
 
