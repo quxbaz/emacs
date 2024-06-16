@@ -121,9 +121,16 @@
   (paredit-open-round))
 
 (defun my/open-new-round ()
+  "Like paredit-close-round-and-newline, but also opens a new round."
   (interactive)
-  (paredit-close-round-and-newline)
-  (paredit-open-round))
+  (let ((parse-state (syntax-ppss)))
+    ;; Noop when inside a comment.
+    (when (not (nth 4 parse-state))
+      ;; If inside a string, move to beginning of string.
+      (if (nth 3 parse-state)
+          (goto-char (nth 8 parse-state)))
+      (paredit-close-round-and-newline)
+      (paredit-open-round))))
 
 (defun my/wrap-sexp ()
   "Like paredit-wrap-sexp, but moves to the beginning of the sexp, then wraps.
