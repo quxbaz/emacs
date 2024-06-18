@@ -15,95 +15,46 @@
         ((and (looking-at "\"") (looking-back " ")) (forward-sexp) (backward-char 1))
         (t (backward-up-list 1 t t))))
 
-;; The Logic needed here is trickier than it would appear on the surface.
-;;
-;; NOTE: This function was written before I learned about syntax-ppss. It could
-;; probably be condensed extensively.
-(defun my/mark-context ()
-  "Marks the current context using the following logic:
-
-    1. If region is inactive and point is before indentation, move to indentation
-       and re-invoke.
-    2. If region is active, and point is at end of line, and start of region is
-       at indentation, mark entire line.
-    3. If point is at end of line, mark line back to first textual char.
-    4. If region is inactive and point is on (, mark sexp.
-    5. If region is inactive and point is on ), mark sexp.
-    6. If region is inactive, mark short word.
-    7. If region is active and long word is already marked, mark sexp.
-    8. If region is active and point is at (, mark parent sexp.
-    9. If region is active and short word is already marked, mark long word.
-   10. If region is active and short word is NOT marked, mark short word.
-
-Typically, repeated invocations will go like this:
-
-    short-word -> long-word -> sexp -> parent sexp"
+(defun my/mark-current-word (&optional extended-word)
+  "Marks either the short or extended word around point."
   (interactive)
   (let ((origin (point))
         (short-word (current-word nil t))
-        (long-word (current-word nil nil)))
-    (cond
-     ;; If point is before indentation, move to indentation and re-invoke.
-     ((and (not (use-region-p))
-           (< (current-column) (current-indentation)))
-      (back-to-indentation)
-      (call-interactively #'my/mark-context))
-     ;; If region is active, and point is at end of line, and start of region is
-     ;; at indentation, mark entire line.
-     ((and (use-region-p)
-           (= (point) (line-end-position))
-           (= (region-beginning) (+ (line-beginning-position) (current-indentation)))
-           (= (region-end) (line-end-position)))
-      (beginning-of-line)
-      (push-mark (point) nil t)
-      (end-of-line))
-     ;; If point is at end of line, mark line back to first textual char.
-     ((= (point) (line-end-position))
-      (beginning-of-line-text)
-      (push-mark (point) nil t)
-      (end-of-line))
-     ;; If region is inactive and point is on (, mark sexp.
-     ((and (not (use-region-p))
-           (= (char-after) ?\())
-      (push-mark (point) nil t)
-      (forward-sexp)
-      (exchange-point-and-mark))
-     ;; If region is inactive and point is on ), mark sexp.
-     ((and (not (use-region-p))
-           (= (char-after) ?\)))
-      (push-mark (+ (point) 1) nil t)
-      (backward-up-list 1 t t))
-     ;; If region is inactive, mark short word.
-     ((or (and (not (use-region-p))
-               (save-excursion
-                 (backward-char (length short-word))
-                 (search-forward short-word (+ origin (length short-word)) t))))
-      (push-mark (match-end 0) nil t)
-      (goto-char (match-beginning 0)))
-     ;; If region is active and long word is already marked, mark sexp.
-     ;; OR, if region is active and point is at (, mark parent sexp.
-     ((and (use-region-p)
-           (or (string= (my/region-text) long-word)
-               (eq (char-after) ?\()))
-      (backward-up-list 1 t t)
-      (push-mark (point))
-      (forward-list 1)
-      (exchange-point-and-mark))
-     ;; If region is active and short word is already marked, mark long word.
-     ((and (use-region-p)
-           (string= (my/region-text) short-word))
-      (backward-char (length long-word))
-      (search-forward long-word (+ origin (length long-word)) t)
-      (push-mark (match-end 0) nil t)
-      (goto-char (match-beginning 0)))
-     ;; If region is active and short word is NOT marked, mark short word.
-     ((and (use-region-p)
-           (not (string= (my/region-text) short-word))
-           (save-excursion
-             (backward-char (length short-word))
-             (search-forward short-word (+ origin (length short-word)) t)))
-      (push-mark (match-end 0) nil t)
-      (goto-char (match-beginning 0))))))
+        (long-word (current-word nil nil))
+        (word (if extended-word long-word short-word)))
+    (save-excursion
+      (backward-char (length word))
+      (search-forward word (+ origin (length word)) t))
+    (push-mark (match-end 0) nil t)
+    (goto-char (match-beginning 0))))
+
+(defun my/mark-context ()
+  "Marks the current context in this order (cycles):
+1. Current word (short word)
+2. Current word (extended word)
+3. Current list"
+  (interactive)
+  (defun my/mark-context ()
+    (interactive)
+    (when (not (eq last-command 'my/mark-context))
+      (setq-local my/mark-context/origin (point))
+      (setq-local my/mark-context/short-word (current-word nil t))
+      (setq-local my/mark-context/long-word (current-word nil nil)))
+    (cond ((and (my/is-at-opening-parens)
+                (not (my/is-list-marked)))
+           (mark-sexp))
+          ((string= (my/region-text) my/mark-context/long-word)
+           (goto-char my/mark-context/origin)
+           (my/goto-opening-parens)
+           (mark-sexp))
+          ((string= (my/region-text) my/mark-context/short-word)
+           (goto-char my/mark-context/origin)
+           (my/mark-current-word t))
+          (t
+           (goto-char my/mark-context/origin)
+           (my/mark-current-word nil)
+           (if (my/is-at-opening-parens)
+               (deactivate-mark))))))
 
 (defun my/mark-paragraph (arg)
   (interactive "p")
