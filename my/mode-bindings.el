@@ -56,6 +56,7 @@
 (keymap-set emacs-lisp-mode-map "M-("  'my/wrap-sexp)
 (keymap-set emacs-lisp-mode-map "C-c C-s" 'paredit-splice-sexp)
 (keymap-set emacs-lisp-mode-map "C-c C-o" 'paredit-raise-sexp)
+(keymap-set emacs-lisp-mode-map "C-t" 'my/lisp-transpose-chars)
 
 (eval-after-load 'js
   '(progn

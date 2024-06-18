@@ -138,7 +138,7 @@ Also works from inside strings."
           (t (thing-at-point--beginning-of-sexp))))
   (paredit-wrap-round))
 
-(defun my/transpose-chars ()
+(defun my/lisp-transpose-chars ()
   "Like transpose-chars, but calls transpose-sexps if point is on an opening delimiter."
   (interactive)
   (if (my/is-at-opening-parens)
