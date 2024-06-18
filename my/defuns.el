@@ -352,9 +352,9 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (interactive "p")
   (if (use-region-p)
       (comment-dwim nil)
-      (save-excursion
-        (mark-paragraph arg)
-        (comment-dwim nil))))
+    (save-excursion
+      (mark-paragraph arg)
+      (comment-dwim nil))))
 
 (defun my/comment-jsx (arg)
   (interactive "p")
