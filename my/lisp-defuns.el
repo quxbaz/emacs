@@ -142,7 +142,9 @@ Also works from inside strings."
   "Like transpose-chars, but calls transpose-sexps if point is on an opening delimiter."
   (interactive)
   (if (my/is-at-opening-parens)
-      (call-interactively 'transpose-sexps)
+      (progn (call-interactively 'transpose-sexps)
+             (thing-at-point--beginning-of-sexp)
+             (thing-at-point--beginning-of-sexp))
     (call-interactively 'transpose-chars)))
 
 (defun my/lisp-comment-dwim ()
