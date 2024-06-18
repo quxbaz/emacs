@@ -65,7 +65,9 @@
 
 (defun my/region-text ()
   "Gets text within the region. If region is inactive, return nil."
-  (buffer-substring-no-properties (region-beginning) (region-end)))
+  (condition-case nil
+      (buffer-substring-no-properties (region-beginning) (region-end))
+    (error nil)))
 
 (defun my/is-inside-list ()
   "Returns t if point is inside a list."
