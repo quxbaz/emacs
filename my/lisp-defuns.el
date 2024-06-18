@@ -33,10 +33,12 @@
     (eval-expression (read (thing-at-point thing)))))
 
 (defun my/eval-kill-ring ()
-  "Evals the car of the kill ring."
+  "Evals the car of the kill ring. Surrounds the string with parens if needed."
   (interactive)
   (let ((code (car kill-ring)))
     (when (and code (stringp code))
+      (if (not (string= (substring code 0 1) "("))
+          (setq code (format "(%s)" code)))
       (eval-expression (read code))
       (my/flash-mode-line))))
 
