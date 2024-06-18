@@ -42,7 +42,7 @@
       (eval-expression (read code))
       (my/flash-mode-line))))
 
-(defun my/lisp-forward-sexp ()
+(defun my/forward-sexp ()
   "Like forward-sexp, but moves point to the first character of the sexp."
   (interactive)
   (condition-case nil (forward-sexp) (scan-error nil))
