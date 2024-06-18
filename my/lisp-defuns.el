@@ -146,6 +146,7 @@ Also works from inside strings."
     (call-interactively 'transpose-chars)))
 
 
+
 ;; Macros
 
 (defmacro my/if-buffer-changes (body then &optional else)
