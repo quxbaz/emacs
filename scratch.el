@@ -1,3 +1,3 @@
-;; Scratch buffer for testing out code
+;; Scratch buffer for testing out code.
 ;;
 ;;
