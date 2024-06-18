@@ -39,6 +39,7 @@
             (local-set-key (kbd "C-a") (lambda () (interactive) (move-to-column 2)))
             (local-set-key (kbd "M-m") (lambda () (interactive) (move-to-column 2)))))
 
+(keymap-set emacs-lisp-mode-map "C-M-." 'my/mark-list)
 (keymap-set emacs-lisp-mode-map "M-<return>" 'my/duplicate-list)
 (keymap-set emacs-lisp-mode-map "M-/" 'completion-at-point)
 (keymap-set emacs-lisp-mode-map "C-M-i" 'dabbrev-expand)
