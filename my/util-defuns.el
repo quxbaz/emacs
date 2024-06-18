@@ -114,3 +114,14 @@
       (backward-up-list max-depth t t)
     (scan-error nil)
     (user-error nil)))
+
+(defun my/is-list-marked ()
+  "Returns true if a list is marked exactly from it's opening to closing parens."
+  (let ((start (region-beginning))
+        (end (region-end))
+        (parse-state (syntax-ppss)))
+    (and (use-region-p)
+         (string= (my/string-at start) "(")
+         (null (nth 3 parse-state))
+         (null (nth 4 parse-state))
+         (= end (scan-lists start 1 0)))))
