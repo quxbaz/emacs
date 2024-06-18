@@ -145,6 +145,20 @@ Also works from inside strings."
       (call-interactively 'transpose-sexps)
     (call-interactively 'transpose-chars)))
 
+(defun my/lisp-comment-dwim ()
+  "Comments out a list if point is on opening round. Otherwise, comment the line."
+  (interactive)
+  (cond ((use-region-p)
+         (call-interactively 'my/comment-line))
+        ((my/is-inside-comment)
+         (let ((start (nth 8 (syntax-ppss))))
+           (delete-region start (+ start 3))))
+        ((my/is-at-opening-parens)
+         (mark-sexp)
+         (call-interactively 'paredit-comment-dwim)
+         (forward-char 3))
+        (t
+         (call-interactively 'my/comment-line))))
 
 
 ;; Macros
