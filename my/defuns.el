@@ -342,11 +342,10 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
               (progn (beginning-of-line) (exchange-point-and-mark) (end-of-line))
             (progn (end-of-line) (exchange-point-and-mark) (beginning-of-line)))
           (comment-dwim nil))
-      (progn
-        (beginning-of-line)
-        (set-mark-command nil)
-        (move-end-of-line nil)
-        (comment-dwim nil)))))
+      (beginning-of-line)
+      (set-mark-command nil)
+      (move-end-of-line nil)
+      (comment-dwim nil))))
 
 (defun my/comment-block (arg)
   (interactive "p")
