@@ -2,10 +2,17 @@
 
 
 (defun my/mark-list ()
+  "Marks the list at point. Invoke again to restore point to origin."
   (interactive)
-  (if (/= (char-after) ?\()
-      (backward-up-list 1 t t))
-  (mark-sexp))
+  (cond ((and (eq last-command 'my/mark-list)
+              (my/is-list-marked))
+         (deactivate-mark)
+         (goto-char my/mark-list/origin))
+        ((my/is-inside-list)
+         (setq-local my/mark-list/origin (point))
+         (if (not (my/is-at-opening-parens))
+             (my/goto-opening-parens))
+         (mark-sexp))))
 
 (defun my/eval-dwim ()
   "Evals either the current region, block, or line - in that order of preference."
