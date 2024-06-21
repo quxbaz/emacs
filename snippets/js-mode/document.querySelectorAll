@@ -1,0 +1,4 @@
+# name: document.querySelectorAll
+# key: da
+# --
+document.querySelectorAll($0)
