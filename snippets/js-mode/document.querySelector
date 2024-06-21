@@ -1,0 +1,4 @@
+# name: document.querySelector
+# key: dq
+# --
+document.querySelector($0)
