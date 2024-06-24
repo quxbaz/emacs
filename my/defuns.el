@@ -23,7 +23,9 @@
          (long-word (current-word nil nil))
          (word (if extended-word long-word short-word)))
     (save-excursion
-      (backward-char (length word))
+      (condition-case nil
+          (backward-char (length word))
+        (error nil))
       (search-forward word (+ origin (length word)) t))
     (push-mark (match-end 0) nil t)
     (goto-char (match-beginning 0))))
