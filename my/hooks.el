@@ -18,6 +18,7 @@
             (find-file-noselect "~/personal/media-queue.org")
             (find-file-noselect "~/personal/food.org")
             (find-file-noselect "~/personal/promise.org")
+            (find-file-noselect "~/personal/cad.org")
             (find-file-noselect "~/personal/archive/buy.org")
             (find-file-noselect "~/personal/archive/people.org")
             (find-file-noselect "~/personal/archive/projects.org")
