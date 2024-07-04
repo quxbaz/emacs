@@ -32,6 +32,7 @@
             (find-file-noselect "~/personal/linux/emacs.org")
             (find-file-noselect "~/personal/linux/linux.org")
             (find-file-noselect "~/conf/i3/config")
+            ;; Work related.
             (find-file-noselect "~/work/wnmu/Todo.org")
             (find-file-noselect "~/work/wnmu/huddle-notes.org")
             (find-file-noselect "~/work/wnmu/records/creds.org")))
