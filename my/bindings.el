@@ -69,7 +69,7 @@
 (global-set-key (kbd "x") 'my/key-x)
 
 
-;; # Jumping
+;; # Jumping, definitions, source tracing
 (global-set-key (kbd "<escape> l") 'bookmark-bmenu-list)
 (global-set-key (kbd "M-'") 'xref-find-definitions)
 
