@@ -87,7 +87,8 @@
      (keymap-set org-mode-map "M-p" 'org-previous-visible-heading)
      (keymap-set org-mode-map "M-n" 'org-next-visible-heading)
      (keymap-set org-mode-map "C-M--" 'org-insert-todo-heading)
-     (keymap-set org-mode-map "C-M-." 'my/org-table-mark-field)))
+     (keymap-set org-mode-map "C-M-." 'my/org-table-mark-field)
+     (keymap-set org-mode-map "C-x r m" 'org-store-link)))
 
 (eval-after-load 'paredit
   '(progn
