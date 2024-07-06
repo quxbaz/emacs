@@ -76,7 +76,6 @@
 (eval-after-load 'org
   '(progn
      (keymap-set org-mode-map "M--" 'org-meta-return)
-     (keymap-set org-mode-map "M--" 'org-meta-return)
      (keymap-set org-mode-map "C-j" 'org-newline-and-indent)
      (keymap-set org-mode-map "C-o" 'open-line)
      (keymap-set org-mode-map "M-<return>" 'my/duplicate-dwim)
