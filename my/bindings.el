@@ -154,6 +154,7 @@
 
 ;; # Bookmarks, registers
 (global-set-key (kbd "<escape> l") 'bookmark-bmenu-list)
+(global-set-key (kbd "<escape> m") 'bookmark-set)
 (global-set-key (kbd "M-1") (lambda () (interactive) (jump-to-register ?1)))
 (global-set-key (kbd "M-2") (lambda () (interactive) (jump-to-register ?2)))
 (global-set-key (kbd "M-3") (lambda () (interactive) (jump-to-register ?3)))
