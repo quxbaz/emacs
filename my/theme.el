@@ -17,6 +17,7 @@
                                ("QUESTION" . "grey50")
                                ("REVIEW" . "orchid")
                                ("BACKLOG" . "grey50")
+                               ("NOTE" . "grey50")
                                ("DONE" . "green")))
 
 
