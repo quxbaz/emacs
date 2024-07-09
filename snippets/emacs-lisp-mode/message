@@ -1,4 +1,4 @@
 # name: message
-# key: m
+# key: msg
 # --
 (message "%s" $0)

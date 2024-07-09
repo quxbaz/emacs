@@ -1,0 +1,4 @@
+# name: document.querySelectorAll
+# key: qq
+# --
+document.querySelectorAll($0)

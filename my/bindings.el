@@ -21,6 +21,8 @@
 (global-unset-key (kbd "C-x 1"))
 (global-unset-key (kbd "C-x 0"))
 (global-unset-key (kbd "C-x r d"))
+(global-unset-key (kbd "C-x r t"))
+(global-unset-key (kbd "C-x C-b"))
 
 
 ;; # Mouse config
@@ -42,6 +44,7 @@
 
 ;; # Mini-apps
 (global-set-key (kbd "<f1>") 'ispell)
+(global-set-key (kbd "<f8>") 'list-packages)
 (global-set-key (kbd "<f9>") 'calc)
 (global-set-key (kbd "<f10>") (lambda () (interactive) (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
@@ -59,21 +62,28 @@
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
 
 
-;; # Jumping
+;; dwim region commands
+(global-set-key (kbd "SPC") 'my/key-spc)
+(global-set-key (kbd "k") 'my/key-k)
+(global-set-key (kbd "w") 'my/key-w)
+(global-set-key (kbd "x") 'my/key-x)
+
+
+;; # Jumping, definitions, source tracing
 (global-set-key (kbd "M-'") 'xref-find-definitions)
 
 
 ;; # Editing
 ;; ## Kill ring, clipboard, undo
+(global-set-key (kbd "M-w") 'my/kill-ring-save-dwim)
 (global-set-key [\S-insert] 'clipboard-yank)
 (global-set-key (kbd "C-M-/") 'undo-only)
 ;; ## Creation, duplication, opening
 (global-set-key (kbd "C-o") 'my/open-line)
-(global-set-key (kbd "M-<return>") 'my/duplicate-line)
+(global-set-key (kbd "M-<return>") 'my/duplicate-dwim)
 (global-set-key (kbd "M-S-<return>") 'my/duplicate-block)
 ;; ## Deletion, clearing
 (global-set-key (kbd "M-z") 'zap-up-to-char)
-(global-set-key (kbd "C-k") 'my/kill-dwim)
 (global-set-key (kbd "M-k") 'my/kill-block)
 (global-set-key (kbd "C-M-k") 'my/clear-buffer)
 ;; ## Whitespace
@@ -86,8 +96,13 @@
 (global-set-key (kbd "M-<up>") 'my/transpose-line)
 (global-set-key (kbd "M-<down>") (lambda () (interactive) (my/transpose-line t)))
 (global-set-key (kbd "M-T") 'transpose-regions)
+(global-set-key (kbd "S-<left>") 'transpose-sexps)
 ;; ## Sorting, alignment
-(global-set-key (kbd "C-c C-\\") 'align-regexp)
+(global-set-key (kbd "C-c \\") 'align-regexp)
+
+
+;; # Rectangles
+(global-set-key (kbd "<escape> i") 'string-rectangle)
 
 
 ;; # Indentation
@@ -104,7 +119,6 @@
 
 ;; # Auto-complete
 (global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-M-i") 'completion-at-point)
 
 
 ;; # Search, replace, regexp, occur
@@ -115,7 +129,7 @@
 (global-set-key (kbd "M-r") 'my/query-replace-dwim)
 (global-set-key (kbd "M-R") 'my/query-replace-buffer-dwim)
 ;; ## Grep, find, occur
-(global-set-key (kbd "C-S-s") 'deadgrep)
+(global-set-key (kbd "<escape> /") 'deadgrep)
 (global-set-key (kbd "C-c o") 'my/occur-dwim)
 
 
@@ -127,9 +141,10 @@
 ;; # Buffers, dired
 ;; ## Buffers
 (global-set-key (kbd "M-s") 'save-buffer)
+(global-set-key (kbd "<escape> <escape> <escape>") (lambda () (interactive) (kill-buffer)))
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
-(global-set-key (kbd "M-SPC") 'ido-switch-buffer)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "M-SPC") 'ivy-switch-buffer)
+(global-set-key (kbd "<escape> SPC") 'ibuffer)
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
 ;; ## Dired
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
@@ -137,15 +152,17 @@
 (global-set-key (kbd "M-~") 'dired-jump-other-window)
 
 
-;; # Registers
+;; # Bookmarks, registers
+(global-set-key (kbd "<escape> l") 'bookmark-bmenu-list)
+(global-set-key (kbd "<escape> m") 'bookmark-set)
 (global-set-key (kbd "M-1") (lambda () (interactive) (jump-to-register ?1)))
 (global-set-key (kbd "M-2") (lambda () (interactive) (jump-to-register ?2)))
 (global-set-key (kbd "M-3") (lambda () (interactive) (jump-to-register ?3)))
 (global-set-key (kbd "M-4") (lambda () (interactive) (jump-to-register ?4)))
-(global-set-key (kbd "C-M-m") 'my/move-line-to-register)
+(global-set-key (kbd "C-M-m") 'my/relocate-line-to-@)
 
 
-;; # Modes, viewing, narrowing, filtering
+;; # Viewing, narrowing, filtering
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
 (global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
 
@@ -153,9 +170,20 @@
 ;; # Windows
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x C-o") 'other-window)
-(global-set-key (kbd "<escape> s") 'window-swap-states)
+(global-set-key (kbd "<escape> -") 'window-swap-states)
 (global-set-key (kbd "<escape> 9") 'delete-other-windows)
 (global-set-key (kbd "<escape> 0") 'delete-window)
+(global-set-key (kbd "<escape> = ") 'balance-windows)
+
+
+;; # Math, numbers
+(global-set-key (kbd "C-M-=") 'my/increment)
+(global-set-key (kbd "C-M--") 'my/decrement)
+
+
+;; # Debugging
+(global-set-key (kbd "<escape> b") 'debug-on-entry)
+(global-set-key (kbd "<escape> u b") 'cancel-debug-on-entry)
 
 
 ;; # Keyboard Macros
@@ -179,7 +207,3 @@
 (global-set-key (kbd "C-c C-b") 'magit-blob-mode)
 (global-set-key (kbd "C-c C-p") 'git-gutter:previous-hunk)
 (global-set-key (kbd "C-c C-n") 'git-gutter:next-hunk)
-
-
-;; # org-mode
-;;

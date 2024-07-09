@@ -40,10 +40,12 @@
 (setq-default truncate-lines t)
 (setq case-fold-search t)  ;; Search ignores case by default.
 (setq-default case-fold-search t)
+(setq-default sentence-end-double-space nil)  ;; Make single-space end a sentence. Affects filling.
 
 
 ;; # Parens
 (setq show-paren-delay 0)
+(show-paren-mode t)
 
 
 ;; # Visuals
@@ -68,6 +70,7 @@
 
 
 ;; # Dired
+(setq dired-dwim-target t)  ;; Use other dired window as default copy/move path.
 (setq wdired-allow-to-change-permissions t)  ;; Allow editing file modes.
 (setq dired-listing-switches "-laXGh --group-directories-first")  ;; Order directories first.
 
@@ -86,23 +89,24 @@
 (add-to-list 'auto-mode-alist '("\\.jsx$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx?$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.FCMacro$" . python-mode))
 (add-to-list 'auto-mode-alist '("\\rc$" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
 
 
 ;; # Packages, modes
 (setq uniquify-buffer-name-style 'forward)
-(ido-mode t)
-(show-paren-mode t)
-(setq show-paren-delay 0)
+(setq ivy-do-completion-in-region nil)
+(ivy-mode t)
 (electric-pair-mode 0)
 (autopair-global-mode t)
 (setq highlight-indent-guides-method 'bitmap)
 (yas-global-mode t)
+(global-corfu-mode t)
 
 
 ;; # org-mode
-(setq org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "WAITING" "FAILED" "DONE")))
+(setq org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "WAITING" "FAILED" "QUESTION" "REVIEW" "BACKLOG" "|" "NOTE" "DONE")))
 
 
 ;; # TRAMP
