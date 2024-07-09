@@ -49,7 +49,7 @@
 (global-set-key (kbd "<f10>") (lambda () (interactive) (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
-(global-set-key (kbd "<escape> \\") 'my/open-scratch-buffer)
+(global-set-key (kbd "ESC M-\\") 'my/open-scratch-buffer)
 
 
 ;; # Appearance, themes
@@ -102,7 +102,7 @@
 
 
 ;; # Rectangles
-(global-set-key (kbd "<escape> i") 'string-rectangle)
+(global-set-key (kbd "ESC M-i") 'string-rectangle)
 
 
 ;; # Indentation
@@ -129,7 +129,7 @@
 (global-set-key (kbd "M-r") 'my/query-replace-dwim)
 (global-set-key (kbd "M-R") 'my/query-replace-buffer-dwim)
 ;; ## Grep, find, occur
-(global-set-key (kbd "<escape> /") 'deadgrep)
+(global-set-key (kbd "ESC M-/") 'deadgrep)
 (global-set-key (kbd "C-c o") 'my/occur-dwim)
 
 
@@ -141,10 +141,10 @@
 ;; # Buffers, dired
 ;; ## Buffers
 (global-set-key (kbd "M-s") 'save-buffer)
-(global-set-key (kbd "<escape> <escape> <escape>") (lambda () (interactive) (kill-buffer)))
+(global-set-key (kbd "ESC ESC ESC") (lambda () (interactive) (kill-buffer)))
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-SPC") 'ivy-switch-buffer)
-(global-set-key (kbd "<escape> SPC") 'ibuffer)
+(global-set-key (kbd "ESC M-SPC") 'ibuffer)
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
 ;; ## Dired
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
@@ -153,8 +153,8 @@
 
 
 ;; # Bookmarks, registers
-(global-set-key (kbd "<escape> l") 'bookmark-bmenu-list)
-(global-set-key (kbd "<escape> m") 'bookmark-set)
+(global-set-key (kbd "ESC M-l") 'bookmark-bmenu-list)
+(global-set-key (kbd "ESC M-m") 'bookmark-set)
 (global-set-key (kbd "M-1") (lambda () (interactive) (jump-to-register ?1)))
 (global-set-key (kbd "M-2") (lambda () (interactive) (jump-to-register ?2)))
 (global-set-key (kbd "M-3") (lambda () (interactive) (jump-to-register ?3)))
@@ -170,10 +170,10 @@
 ;; # Windows
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "C-x C-o") 'other-window)
-(global-set-key (kbd "<escape> -") 'window-swap-states)
-(global-set-key (kbd "<escape> 9") 'delete-other-windows)
-(global-set-key (kbd "<escape> 0") 'delete-window)
-(global-set-key (kbd "<escape> = ") 'balance-windows)
+(global-set-key (kbd "ESC M--") 'window-swap-states)
+(global-set-key (kbd "ESC M-9") 'delete-other-windows)
+(global-set-key (kbd "ESC M-0") 'delete-window)
+(global-set-key (kbd "ESC M-= ") 'balance-windows)
 
 
 ;; # Math, numbers
@@ -182,13 +182,13 @@
 
 
 ;; # Debugging
-(global-set-key (kbd "<escape> b") 'debug-on-entry)
-(global-set-key (kbd "<escape> u b") 'cancel-debug-on-entry)
+(global-set-key (kbd "ESC M-b") 'debug-on-entry)
+(global-set-key (kbd "ESC M-u b") 'cancel-debug-on-entry)
 
 
 ;; # Keyboard Macros
-(global-set-key (kbd "<escape> [") 'kmacro-start-macro)
-(global-set-key (kbd "<escape> ]") 'kmacro-end-macro)
+(global-set-key (kbd "ESC M-[") 'kmacro-start-macro)
+(global-set-key (kbd "ESC M-]") 'kmacro-end-macro)
 (global-set-key (kbd "M-,") 'kmacro-end-and-call-macro)
 (global-set-key (kbd "M-,") 'my/call-macro-dwim)  ;; TODO: apply-macro-to-region-lines
 (setq kmacro-call-repeat-key ?,)
