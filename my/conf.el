@@ -106,7 +106,7 @@
 
 
 ;; # org-mode
-(setq org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "WAITING" "FAILED" "QUESTION" "REVIEW" "LIMBO" "BACKLOG" "|" "NOTE" "DONE")))
+(setq org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "NEXT" "WAITING" "FAILED" "QUESTION" "REVIEW" "LIMBO" "BACKLOG" "|" "NOTE" "DONE")))
 ;; Add org-agenda files.
 (custom-set-variables
  '(org-agenda-files '("~/personal/main.org"

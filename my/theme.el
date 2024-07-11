@@ -12,6 +12,7 @@
 ;; ## org-mode
 (setq org-todo-keyword-faces '(("TODO" . "yellow")
                                ("IN-PROGRESS" . "cyan1")
+                               ("NEXT" . "OrangeRed")
                                ("WAITING" . "orange")
                                ("FAILED" . "DeepPink")
                                ("QUESTION" . "grey50")
