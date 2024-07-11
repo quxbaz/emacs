@@ -127,3 +127,6 @@
          (null (nth 3 parse-state))
          (null (nth 4 parse-state))
          (= end (scan-lists start 1 0)))))
+
+
+;; # Macros
