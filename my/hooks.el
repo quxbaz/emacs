@@ -34,6 +34,7 @@
             (find-file-noselect "~/conf/i3/config")
             ;; Work related.
             (find-file-noselect "~/work/wnmu/Todo.org")
+            (find-file-noselect "~/work/wnmu/projects.org")
             (find-file-noselect "~/work/wnmu/refactor.org")
             (find-file-noselect "~/work/wnmu/huddle-notes.org")
             (find-file-noselect "~/work/wnmu/records/creds.org")))
