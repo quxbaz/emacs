@@ -168,7 +168,7 @@
 
 
 ;; # Windows
-(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-o") '(lambda () (interactive) (other-window -1)))
 (global-set-key (kbd "C-x C-o") 'other-window)
 (global-set-key (kbd "<escape> -") 'window-swap-states)
 (global-set-key (kbd "<escape> 9") 'delete-other-windows)
