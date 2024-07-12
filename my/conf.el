@@ -109,8 +109,7 @@
 (setq org-todo-keywords '((sequence "TODO" "NEXT" "IN-PROGRESS" "WAITING" "FAILED" "QUESTION" "REVIEW" "LIMBO" "BACKLOG" "|" "NOTE" "DONE")))
 ;; Add org-agenda files.
 (custom-set-variables
- '(org-agenda-files '("~/personal/main.org"
-                      "~/work/wnmu/Todo.org")))
+ '(org-agenda-files '("~/work/wnmu/Todo.org")))
 
 
 ;; # TRAMP
