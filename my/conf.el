@@ -106,6 +106,7 @@
 
 
 ;; # org-mode
+(setq org-adapt-indentation t)  ;; Indent after headings.
 (setq org-todo-keywords '((sequence "TODO" "NEXT" "IN-PROGRESS" "WAITING" "FAILED" "QUESTION" "REVIEW" "LIMBO" "BACKLOG" "|" "NOTE" "DONE")))
 ;; Add org-agenda files.
 (custom-set-variables
