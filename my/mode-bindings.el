@@ -5,7 +5,6 @@
 (keymap-set help-mode-map "<mouse-9>" 'help-go-forward)
 (add-hook 'html-mode-hook (lambda () (local-set-key (kbd "M-o") 'other-window)))
 (eval-after-load 'ibuffer '(keymap-set ibuffer-mode-map "M-r" 'ibuffer-do-query-replace-regexp))
-(eval-after-load 'magit '(keymap-set magit-mode-map "C-o" 'magit-diff-visit-file-other-window))
 (keymap-set minibuffer-mode-map "M-/" 'dabbrev-expand)
 (keymap-set occur-mode-map "n" (lambda () (interactive) (occur-next) (occur-mode-display-occurrence)))
 (keymap-set occur-mode-map "p" (lambda () (interactive) (occur-prev) (occur-mode-display-occurrence)))
@@ -40,43 +39,60 @@
             (local-set-key (kbd "C-a") (lambda () (interactive) (move-to-column 2)))
             (local-set-key (kbd "M-m") (lambda () (interactive) (move-to-column 2)))))
 
+(keymap-set emacs-lisp-mode-map "C-M-." 'my/mark-list)
+(keymap-set emacs-lisp-mode-map "M-<return>" 'my/duplicate-list)
 (keymap-set emacs-lisp-mode-map "M-/" 'completion-at-point)
 (keymap-set emacs-lisp-mode-map "C-M-i" 'dabbrev-expand)
-(keymap-set emacs-lisp-mode-map "M-n" 'my/lisp-forward-sexp)
+(keymap-set emacs-lisp-mode-map "M-n" 'my/forward-sexp)
 (keymap-set emacs-lisp-mode-map "M-p" 'backward-sexp)
 (keymap-set emacs-lisp-mode-map "C-c C-c" 'my/eval-dwim)
-(keymap-set emacs-lisp-mode-map "C-c ." 'my/eval-here)
+(keymap-set emacs-lisp-mode-map "C-c C-." 'my/eval-here)
+(keymap-set emacs-lisp-mode-map "C-c C-x" 'my/eval-kill-ring)
 (keymap-set emacs-lisp-mode-map "M-w" 'my/lisp-kill-ring-save-dwim)
 (keymap-set emacs-lisp-mode-map "C-k" 'my/lisp-kill-dwim)
 (keymap-set emacs-lisp-mode-map "M-k" 'my/kill-list)
-(keymap-set emacs-lisp-mode-map "M-0" 'my/append-new-round)
-(keymap-set emacs-lisp-mode-map "M-9"  'my/insert-new-round)
+(keymap-set emacs-lisp-mode-map "M-9"  'backward-up-list)
+(keymap-set emacs-lisp-mode-map "M-0" 'paredit-close-round-and-newline)
+;; (keymap-set emacs-lisp-mode-map "C-<return>" 'paredit-close-round-and-newline)
+(keymap-set emacs-lisp-mode-map "C-<return>" 'my/open-new-round)
+;; (keymap-set emacs-lisp-mode-map "C-M-<return>" 'my/open-new-round)
+(keymap-set emacs-lisp-mode-map "M-("  'my/wrap-sexp)
 (keymap-set emacs-lisp-mode-map "C-c C-s" 'paredit-splice-sexp)
 (keymap-set emacs-lisp-mode-map "C-c C-o" 'paredit-raise-sexp)
+(keymap-set emacs-lisp-mode-map "C-t" 'my/lisp-transpose-chars)
+(keymap-set emacs-lisp-mode-map "C-;" 'my/lisp-comment-dwim)
 
 (eval-after-load 'js
   '(progn
      ;; (local-set-key (kbd "M-.") 'lsp-find-definition)
      ;; (local-set-key (kbd "M-,") 'lsp-find-implementation)
      ;; (local-set-key (kbd "M-'") 'lsp-rename)
-     (local-set-key (kbd "M-.") 'my/mark-context)
-     (local-set-key (kbd "C-c C-/") 'my/toggle-jsx-comment)
-     (local-set-key (kbd "C-c /") 'my/close-html-tag)))
+     (keymap-set js-mode-map "M-." 'my/mark-context)
+     (keymap-set js-mode-map "C-c C-/" 'my/toggle-jsx-comment)
+     (keymap-set js-mode-map "C-c /" 'my/close-html-tag)))
+
+(eval-after-load 'magit
+  '(progn
+     (keymap-set magit-mode-map "w" 'my/key-w)
+     (keymap-set magit-mode-map "C-o" 'magit-diff-visit-file-other-window)))
 
 (eval-after-load 'org
   '(progn
      (keymap-set org-mode-map "M--" 'org-meta-return)
-     (keymap-set org-mode-map "M--" 'org-meta-return)
      (keymap-set org-mode-map "C-j" 'org-newline-and-indent)
      (keymap-set org-mode-map "C-o" 'open-line)
-     (keymap-set org-mode-map "M-<return>" 'my/duplicate-line)
+     (keymap-set org-mode-map "M-<return>" 'my/duplicate-dwim)
+     ;; (keymap-set org-mode-map "M-<up>" 'my/transpose-line)
+     ;; (keymap-set org-mode-map "M-<down>" (lambda () (interactive) (my/transpose-line t)))
      (keymap-set org-mode-map "M-q" 'fill-paragraph)
      (keymap-set org-mode-map "C-," 'my/switch-to-other-buffer)
      (keymap-set org-mode-map "C-c C-v" 'my/revert-buffer)
-     (keymap-set org-mode-map "M-p" 'org-previous-visible-heading)
-     (keymap-set org-mode-map "M-n" 'org-next-visible-heading)
+     (keymap-set org-mode-map "M-p" (lambda () (interactive) (org-get-previous-sibling)))
+     (keymap-set org-mode-map "M-n" (lambda () (interactive) (org-get-next-sibling)))
      (keymap-set org-mode-map "C-M--" 'org-insert-todo-heading)
-     (keymap-set org-mode-map "C-M-." 'my/org-table-mark-field)))
+     (keymap-set org-mode-map "C-M-." 'my/org-table-mark-field)
+     (keymap-set org-mode-map "C-x r m" 'org-store-link)
+     (keymap-set org-mode-map "C-C C-," 'org-agenda)))
 
 (eval-after-load 'paredit
   '(progn
@@ -86,7 +102,8 @@
      (keymap-set paredit-mode-map "M-<up>" 'my/transpose-line)
      (keymap-set paredit-mode-map "M-<down>" 'my/transpose-line-down)
      (keymap-set paredit-mode-map "C-k" 'my/lisp-kill-dwim)
-     (keymap-set paredit-mode-map "M-)" 'my/open-new-round)))
+     (keymap-set paredit-mode-map "M-)" 'my/open-new-round)
+     (keymap-set paredit-mode-map "M-(" 'my/wrap-sexp)))
 
 (add-hook 'sh-mode-hook
           (lambda ()

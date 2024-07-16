@@ -11,12 +11,15 @@
 (custom-set-faces '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
 ;; ## org-mode
 (setq org-todo-keyword-faces '(("TODO" . "yellow")
+                               ("NEXT" . "OrangeRed")
                                ("IN-PROGRESS" . "cyan1")
                                ("WAITING" . "orange")
                                ("FAILED" . "DeepPink")
                                ("QUESTION" . "grey50")
                                ("REVIEW" . "orchid")
+                               ("LIMBO" . "grey50")
                                ("BACKLOG" . "grey50")
+                               ("NOTE" . "grey50")
                                ("DONE" . "green")))
 
 

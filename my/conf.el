@@ -40,10 +40,12 @@
 (setq-default truncate-lines t)
 (setq case-fold-search t)  ;; Search ignores case by default.
 (setq-default case-fold-search t)
+(setq-default sentence-end-double-space nil)  ;; Make single-space end a sentence. Affects filling.
 
 
 ;; # Parens
 (setq show-paren-delay 0)
+(show-paren-mode t)
 
 
 ;; # Visuals
@@ -87,6 +89,7 @@
 (add-to-list 'auto-mode-alist '("\\.jsx$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx?$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
+(add-to-list 'auto-mode-alist '("\\.FCMacro$" . python-mode))
 (add-to-list 'auto-mode-alist '("\\rc$" . shell-script-mode))
 (add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
 
@@ -95,8 +98,6 @@
 (setq uniquify-buffer-name-style 'forward)
 (setq ivy-do-completion-in-region nil)
 (ivy-mode t)
-(show-paren-mode t)
-(setq show-paren-delay 0)
 (electric-pair-mode 0)
 (autopair-global-mode t)
 (setq highlight-indent-guides-method 'bitmap)
@@ -105,7 +106,11 @@
 
 
 ;; # org-mode
-(setq org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "WAITING" "FAILED" "QUESTION" "REVIEW" "BACKLOG" "DONE")))
+(setq org-adapt-indentation t)  ;; Indent after headings.
+(setq org-todo-keywords '((sequence "TODO" "NEXT" "IN-PROGRESS" "WAITING" "FAILED" "QUESTION" "REVIEW" "LIMBO" "BACKLOG" "|" "NOTE" "DONE")))
+;; Add org-agenda files.
+(custom-set-variables
+ '(org-agenda-files '("~/work/wnmu/Todo.org")))
 
 
 ;; # TRAMP

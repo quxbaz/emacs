@@ -1,0 +1,23 @@
+Name: my/match-paren/1
+Point-Char: |
+=-=
+|(interactive)
+=-=
+(interactive|)
+=-=-=
+
+Name: my/match-paren/2
+Point-Char: |
+=-=
+(interactive|)
+=-=
+|(interactive)
+=-=-=
+
+Name: my/match-paren/3
+Point-Char: |
+=-=
+(interact|ive)
+=-=
+|(interactive)
+=-=-=

@@ -1,0 +1,4 @@
+# name: document.createElement
+# key: ce
+# --
+document.createElement($0)
