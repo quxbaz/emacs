@@ -82,8 +82,6 @@
      (keymap-set org-mode-map "C-j" 'org-newline-and-indent)
      (keymap-set org-mode-map "C-o" 'open-line)
      (keymap-set org-mode-map "M-<return>" 'my/duplicate-dwim)
-     ;; (keymap-set org-mode-map "M-<up>" 'my/transpose-line)
-     ;; (keymap-set org-mode-map "M-<down>" (lambda () (interactive) (my/transpose-line t)))
      (keymap-set org-mode-map "M-q" 'fill-paragraph)
      (keymap-set org-mode-map "C-," 'my/switch-to-other-buffer)
      (keymap-set org-mode-map "C-c C-v" 'my/revert-buffer)
