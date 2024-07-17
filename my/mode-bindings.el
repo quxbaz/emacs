@@ -87,8 +87,6 @@
      (keymap-set org-mode-map "M-q" 'fill-paragraph)
      (keymap-set org-mode-map "C-," 'my/switch-to-other-buffer)
      (keymap-set org-mode-map "C-c C-v" 'my/revert-buffer)
-     (keymap-set org-mode-map "M-p" (lambda () (interactive) (org-get-previous-sibling)))
-     (keymap-set org-mode-map "M-n" (lambda () (interactive) (org-get-next-sibling)))
      (keymap-set org-mode-map "C-M--" 'org-insert-todo-heading)
      (keymap-set org-mode-map "C-M-." 'my/org-table-mark-field)
      (keymap-set org-mode-map "C-x r m" 'org-store-link)
