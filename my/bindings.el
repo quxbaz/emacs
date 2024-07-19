@@ -97,7 +97,7 @@
 (global-set-key (kbd "M-T") 'transpose-regions)
 (global-set-key (kbd "S-<left>") 'transpose-sexps)
 ;; ## Sorting, alignment
-(global-set-key (kbd "C-c \\") 'align-regexp)
+(global-set-key (kbd "<escape> \\") 'align-regexp)
 
 
 ;; # Rectangles
