@@ -33,6 +33,7 @@
             (find-file-noselect "~/personal/linux/linux.org")
             (find-file-noselect "~/conf/sync.org")
             (find-file-noselect "~/conf/i3/config")
+            (find-file-noselect "~/conf/zsh/.zshrc")
             ;; Work related.
             (find-file-noselect "~/work/wnmu/Todo.org")
             (find-file-noselect "~/work/wnmu/projects.org")
