@@ -89,7 +89,6 @@
      (keymap-set org-mode-map "C-c C-v" 'my/revert-buffer)
      (keymap-set org-mode-map "C-M--" 'org-insert-todo-heading)
      (keymap-set org-mode-map "C-M-." 'my/org-table-mark-field)
-     (keymap-set org-mode-map "C-x r m" 'org-store-link)
      (keymap-set org-mode-map "C-C C-," 'org-agenda)))
 
 (eval-after-load 'paredit
