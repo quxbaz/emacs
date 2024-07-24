@@ -19,6 +19,13 @@
      (keymap-set calendar-mode-map "j" 'calendar-forward-week)
      (keymap-set calendar-mode-map "k" 'calendar-backward-week)))
 
+(eval-after-load 'deadgrep
+  '(progn
+     (keymap-set deadgrep-mode-map "C-o" (lambda ()
+                                           (interactive)
+                                           (deadgrep-visit-result-other-window)
+                                           (other-window -1)))))
+
 (eval-after-load 'dired
   '(progn
      (keymap-set dired-mode-map "M-`" 'my/dired-to-emacs-d)
