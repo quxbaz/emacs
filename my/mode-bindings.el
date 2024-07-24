@@ -19,12 +19,15 @@
      (keymap-set calendar-mode-map "j" 'calendar-forward-week)
      (keymap-set calendar-mode-map "k" 'calendar-backward-week)))
 
+(defun my/deadgrep-display-result ()
+  "Displays the result in other window without moving point."
+  (interactive)
+  (deadgrep-visit-result-other-window)
+  (other-window -1))
+
 (eval-after-load 'deadgrep
   '(progn
-     (keymap-set deadgrep-mode-map "C-o" (lambda ()
-                                           (interactive)
-                                           (deadgrep-visit-result-other-window)
-                                           (other-window -1)))))
+     (keymap-set deadgrep-mode-map "C-o" 'my/deadgrep-display-result)))
 
 (eval-after-load 'dired
   '(progn
