@@ -14,6 +14,7 @@
             (find-file-noselect (concat user-emacs-directory "bugs.el"))
             (find-file-noselect (concat user-emacs-directory "scratch.el"))
             (find-file-noselect "~/personal/diary")
+            (find-file-noselect "~/personal/bookmarks.org")
             (find-file-noselect "~/personal/cad.org")
             (find-file-noselect "~/personal/food.org")
             (find-file-noselect "~/personal/main.org")
