@@ -32,7 +32,7 @@
             (find-file-noselect "~/personal/linux/emacs-log.org")
             (find-file-noselect "~/personal/linux/emacs.org")
             (find-file-noselect "~/personal/linux/linux.org")
-            (find-file-noselect "~/personal/tracking/log.org")
+            (find-file-noselect "~/personal/tracking/tracking.org")
             (find-file-noselect "~/personal/tracking/food-db.org")
             (find-file-noselect "~/conf/sync.org")
             (find-file-noselect "~/conf/i3/config")
