@@ -414,7 +414,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 ;; # org-mode
 
-(defun my/org-insert-uuid ()
+(defun my/insert-uuid ()
   "Inserts a UUID at point generated from 'org-id-uuid."
   (interactive)
   (insert (org-id-uuid)))
