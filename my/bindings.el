@@ -43,13 +43,12 @@
 
 
 ;; # Mini-apps
-(global-set-key (kbd "<f1>") 'ispell)
 (global-set-key (kbd "<f8>") 'list-packages)
 (global-set-key (kbd "<f9>") 'calc)
+(global-set-key (kbd "<escape> c") 'ispell)
 (global-set-key (kbd "<f10>") (lambda () (interactive) (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
-(global-set-key (kbd "<escape> \\") 'my/open-scratch-buffer)
 
 
 ;; # Appearance, themes
@@ -98,7 +97,7 @@
 (global-set-key (kbd "M-T") 'transpose-regions)
 (global-set-key (kbd "S-<left>") 'transpose-sexps)
 ;; ## Sorting, alignment
-(global-set-key (kbd "C-c \\") 'align-regexp)
+(global-set-key (kbd "<escape> \\") 'align-regexp)
 
 
 ;; # Rectangles
@@ -115,6 +114,7 @@
 
 ;; # Commands
 (global-set-key (kbd "C-.") 'repeat)
+(global-set-key (kbd "<escape> <escape> i") 'my/insert-uuid)
 
 
 ;; # Auto-complete
@@ -155,6 +155,7 @@
 ;; # Bookmarks, registers
 (global-set-key (kbd "<escape> l") 'bookmark-bmenu-list)
 (global-set-key (kbd "<escape> m") 'bookmark-set)
+(global-set-key (kbd "<escape> j") 'jump-to-register)
 (global-set-key (kbd "M-1") (lambda () (interactive) (jump-to-register ?1)))
 (global-set-key (kbd "M-2") (lambda () (interactive) (jump-to-register ?2)))
 (global-set-key (kbd "M-3") (lambda () (interactive) (jump-to-register ?3)))
@@ -210,4 +211,5 @@
 
 
 ;; # org
+(global-set-key (kbd "<escape> <escape> m") 'org-store-link)
 (global-set-key (kbd "C-c C-,") 'org-agenda)

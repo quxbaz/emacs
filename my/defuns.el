@@ -411,13 +411,13 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (interactive)
   (switch-to-buffer nil))
 
-(defun my/open-scratch-buffer ()
-  "Opens custom scratch buffer in other window."
-  (interactive)
-  (find-file-other-window (expand-file-name "scratch.el" user-emacs-directory)))
-
 
 ;; # org-mode
+
+(defun my/insert-uuid ()
+  "Inserts a UUID at point generated from 'org-id-uuid."
+  (interactive)
+  (insert (org-id-uuid)))
 
 (defun my/org-table-mark-field ()
   (interactive)

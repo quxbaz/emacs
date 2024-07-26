@@ -19,6 +19,16 @@
      (keymap-set calendar-mode-map "j" 'calendar-forward-week)
      (keymap-set calendar-mode-map "k" 'calendar-backward-week)))
 
+(defun my/deadgrep-display-result ()
+  "Displays the result in other window without moving point."
+  (interactive)
+  (deadgrep-visit-result-other-window)
+  (other-window -1))
+
+(eval-after-load 'deadgrep
+  '(progn
+     (keymap-set deadgrep-mode-map "C-o" 'my/deadgrep-display-result)))
+
 (eval-after-load 'dired
   '(progn
      (keymap-set dired-mode-map "M-`" 'my/dired-to-emacs-d)
@@ -78,20 +88,17 @@
 
 (eval-after-load 'org
   '(progn
+     (keymap-set org-mode-map "M-p" 'org-previous-visible-heading)
+     (keymap-set org-mode-map "M-n" 'org-next-visible-heading)
      (keymap-set org-mode-map "M--" 'org-meta-return)
      (keymap-set org-mode-map "C-j" 'org-newline-and-indent)
      (keymap-set org-mode-map "C-o" 'open-line)
      (keymap-set org-mode-map "M-<return>" 'my/duplicate-dwim)
-     ;; (keymap-set org-mode-map "M-<up>" 'my/transpose-line)
-     ;; (keymap-set org-mode-map "M-<down>" (lambda () (interactive) (my/transpose-line t)))
      (keymap-set org-mode-map "M-q" 'fill-paragraph)
      (keymap-set org-mode-map "C-," 'my/switch-to-other-buffer)
      (keymap-set org-mode-map "C-c C-v" 'my/revert-buffer)
-     (keymap-set org-mode-map "M-p" (lambda () (interactive) (org-get-previous-sibling)))
-     (keymap-set org-mode-map "M-n" (lambda () (interactive) (org-get-next-sibling)))
      (keymap-set org-mode-map "C-M--" 'org-insert-todo-heading)
      (keymap-set org-mode-map "C-M-." 'my/org-table-mark-field)
-     (keymap-set org-mode-map "C-x r m" 'org-store-link)
      (keymap-set org-mode-map "C-C C-," 'org-agenda)))
 
 (eval-after-load 'paredit
