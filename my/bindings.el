@@ -211,4 +211,5 @@
 
 
 ;; # org
+(global-set-key (kbd "<escape> <escape> m") 'org-store-link)
 (global-set-key (kbd "C-c C-,") 'org-agenda)
