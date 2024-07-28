@@ -1,0 +1,4 @@
+# name: Map itme
+# key: k
+# --
+"$1" => $0
