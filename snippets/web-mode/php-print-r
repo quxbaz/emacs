@@ -1,0 +1,4 @@
+# name: print_r(...)
+# key: pr
+# --
+print_r($0);
