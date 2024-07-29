@@ -29,7 +29,6 @@
             (find-file-noselect "~/personal/exercise/misc.org")
             (find-file-noselect "~/personal/exercise/records.org")
             (find-file-noselect "~/personal/exercise/routines.org")
-            (find-file-noselect "~/personal/linux/emacs-log.org")
             (find-file-noselect "~/personal/linux/emacs.org")
             (find-file-noselect "~/personal/linux/linux.org")
             (find-file-noselect "~/personal/tracking/tracking.org")
