@@ -1,9 +1,9 @@
-(define-package "deadgrep" "20231130.1628" "fast, friendly searching with ripgrep"
+(define-package "deadgrep" "20240627.1535" "fast, friendly searching with ripgrep"
   '((emacs "25.1")
     (dash "2.12.0")
     (s "1.11.0")
     (spinner "1.7.3"))
-  :commit "38abe362997d2f18633a75d04c09da751bf8085e" :authors
+  :commit "609a9c3bf52f44998dd0ec7275374d059a3fdc15" :authors
   '(("Wilfred Hughes" . "me@wilfred.me.uk"))
   :maintainers
   '(("Wilfred Hughes" . "me@wilfred.me.uk"))
