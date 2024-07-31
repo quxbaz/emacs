@@ -1,0 +1,6 @@
+# name: foreach loop
+# key: for
+# --
+foreach (${1:$array} as ${2:$item}) {
+  $0
+}
