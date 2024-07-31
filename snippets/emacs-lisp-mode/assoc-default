@@ -1,4 +1,4 @@
 # name: assoc-default
 # key: ad
 # --
-assoc-default$0
+(assoc-default ${1:key} ${2:alist})$0
