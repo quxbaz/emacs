@@ -1,5 +1,5 @@
 # name: foreach loop
-# key: in
+# key: oo
 # --
 foreach ($${1:array} as $${2:item}) {
   $0
