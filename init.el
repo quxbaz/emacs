@@ -44,5 +44,4 @@
      yasnippet
      ))
  '(safe-local-variable-values
-   '((eval hl-line-mode t)
-     (eval hi-lock-line-face-buffer "[a-zA-Z]+: *$"))))
+   '((eval hl-line-mode t))))
