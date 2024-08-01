@@ -1,5 +1,5 @@
 # name: dolist
-# key: loop
+# key: in
 # --
 (dolist (${1:item} ${2:list})
   $0)
