@@ -1,0 +1,4 @@
+# name: alist-get
+# key: ag
+# --
+(alist-get ${1:key} ${2:alist})$0
