@@ -1,4 +1,4 @@
 # name: setq-local
 # key: sl
 # --
-setq-local$0
+(setq-local ${1:VARIABLE} ${2:VALUE})$0
