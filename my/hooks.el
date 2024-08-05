@@ -2,7 +2,6 @@
 
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'eval-expression-minibuffer-setup-hook (lambda () (paredit-mode t)))
 (add-hook 'calendar-mode-hook 'diary-mark-entries)
 (add-hook 'css-mode-hook (lambda () (setq css-indent-offset 2)))
 (add-hook 'occur-mode-hook (lambda () (switch-to-buffer-other-window "*Occur*")))
