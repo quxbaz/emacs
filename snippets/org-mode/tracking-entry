@@ -1,0 +1,25 @@
+# name: tracking-entry
+# key: ii
+# --
+Date: `(let ((ts (call-interactively 'org-time-stamp))) nil)`
+# Morning
+Alarm time: 08:00
+Getup time:
+Ease of wake:
+# Night
+Bed entry:
+Sleep entry:
+# Day
+Nap duration:
+# Activity
+Exercise duration:
+Walk duration:
+M:
+# Outcomes
+Mood:
+Overally energy:
+Cognitive clarity:
+Emotional ballast:
+Arousal:
+Anxiety:
+Headache:
