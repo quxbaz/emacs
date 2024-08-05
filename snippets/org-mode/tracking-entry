@@ -1,7 +1,7 @@
 # name: tracking-entry
 # key: ii
 # --
-Date: `(let ((ts (call-interactively 'org-time-stamp))) nil)`
+Date: `(let ((ts (org-insert-time-stamp (current-time)))) nil)`
 # Morning
 Alarm time: 08:00
 Getup time:
