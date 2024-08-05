@@ -1,11 +1,11 @@
 # name: tracking-entry
 # key: ii
 # --
-Date: `(let ((ts (org-insert-time-stamp (current-time)))) nil)`
+Date: `(progn (org-insert-time-stamp (current-time)) nil)`
 # Morning
-Alarm time: 08:00
-Getup time:
-Ease of wake:
+Alarm time: ${1:08}:${2:00}
+Getup time: ${3:00}:${4:00}
+Ease of wake: ${5:N}
 # Night
 Bed entry:
 Sleep entry:
