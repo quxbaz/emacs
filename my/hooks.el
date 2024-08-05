@@ -27,6 +27,7 @@
             (find-file-noselect "~/personal/archive/projects.org")
             (find-file-noselect "~/personal/exercise/exercises.org")
             (find-file-noselect "~/personal/exercise/misc.org")
+            (find-file-noselect "~/personal/exercise/movement-routine.org")
             (find-file-noselect "~/personal/exercise/records.org")
             (find-file-noselect "~/personal/exercise/routines.org")
             (find-file-noselect "~/personal/linux/emacs.org")
