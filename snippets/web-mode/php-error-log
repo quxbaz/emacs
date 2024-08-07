@@ -1,4 +1,4 @@
 # name: error_log(...)
 # key: el
 # --
-error_log($0);
+error_log(${1:message}, ${2:3}, ${3:'/var/www/error-log'});$0
