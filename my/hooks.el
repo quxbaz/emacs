@@ -31,7 +31,6 @@
             (find-file-noselect "~/personal/exercise/routines.org")
             (find-file-noselect "~/personal/linux/emacs.org")
             (find-file-noselect "~/personal/linux/linux.org")
-            (find-file-noselect "~/personal/tracking/tracking.org")
             (find-file-noselect "~/conf/sync.org")
             (find-file-noselect "~/conf/i3/config")
             (find-file-noselect "~/conf/zsh/.zshrc")
