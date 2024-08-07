@@ -38,7 +38,6 @@
      magit
      modus-themes
      paredit
-     php-mode
      rainbow-blocks
      web-mode
      yasnippet
