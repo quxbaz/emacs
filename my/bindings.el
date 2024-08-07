@@ -116,6 +116,7 @@
 ;; # Commands
 (global-set-key (kbd "C-.") 'repeat)
 (global-set-key (kbd "<escape> <escape> i") 'my/insert-uuid)
+(global-set-key (kbd "<escape> <escape> t") 'org-time-stamp)
 
 
 ;; # Auto-complete
