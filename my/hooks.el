@@ -2,7 +2,6 @@
 
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'eval-expression-minibuffer-setup-hook (lambda () (paredit-mode t)))
 (add-hook 'calendar-mode-hook 'diary-mark-entries)
 (add-hook 'css-mode-hook (lambda () (setq css-indent-offset 2)))
 (add-hook 'occur-mode-hook (lambda () (switch-to-buffer-other-window "*Occur*")))
@@ -27,13 +26,11 @@
             (find-file-noselect "~/personal/archive/projects.org")
             (find-file-noselect "~/personal/exercise/exercises.org")
             (find-file-noselect "~/personal/exercise/misc.org")
+            (find-file-noselect "~/personal/exercise/movement-routine.org")
             (find-file-noselect "~/personal/exercise/records.org")
             (find-file-noselect "~/personal/exercise/routines.org")
-            (find-file-noselect "~/personal/linux/emacs-log.org")
             (find-file-noselect "~/personal/linux/emacs.org")
             (find-file-noselect "~/personal/linux/linux.org")
-            (find-file-noselect "~/personal/tracking/tracking.org")
-            (find-file-noselect "~/personal/tracking/food-db.org")
             (find-file-noselect "~/conf/sync.org")
             (find-file-noselect "~/conf/i3/config")
             (find-file-noselect "~/conf/zsh/.zshrc")

@@ -39,8 +39,9 @@
      magit
      modus-themes
      paredit
-     php-mode
      rainbow-blocks
      web-mode
      yasnippet
-     )))
+     ))
+ '(safe-local-variable-values
+   '((eval hl-line-mode t))))

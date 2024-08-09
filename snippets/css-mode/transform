@@ -1,0 +1,4 @@
+# name: transform
+# key: tr
+# --
+transform: $0();

@@ -1,4 +1,0 @@
-# name: error_log(...)
-# key: el
-# --
-error_log($0);

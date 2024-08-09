@@ -1,4 +1,4 @@
 # name: global-set-key
 # key: gsk
 # --
-(global-set-key (kbd "$1") $0)
+(global-set-key (kbd "${1:KEY}") ${2:COMMAND})$0

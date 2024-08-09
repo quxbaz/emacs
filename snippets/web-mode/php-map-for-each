@@ -1,0 +1,6 @@
+# name: Associative array loop
+# key: fk
+# --
+foreach (${1:$map} as ${2:$k} => ${3:$v}) {
+  $0
+}
