@@ -12,3 +12,9 @@
 (propertize "hello world"
             'face '(:foreground "red" :weight "bold")
             'mouse-face 'highlight)
+
+;; Both these cases should work.
+|(setq-local my/list '(a b c))
+|(setq-local alist '((a . 1)
+                     (b . 2)
+                     (c . 3)))
