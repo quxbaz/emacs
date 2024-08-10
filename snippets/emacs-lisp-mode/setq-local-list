@@ -1,0 +1,4 @@
+# name: setq-local-list
+# key: sll
+# --
+(setq-local ${1:VARIABLE} ${2:VALUE})$0
