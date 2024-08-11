@@ -22,7 +22,7 @@
 
 (defun my/is-line-empty ()
   "Returns t if the line at point is empty, otherwise nil."
-  (eq (point-at-bol) (point-at-eol)))
+  (eq (line-beginning-position) (line-end-position)))
 
 (defun my/is-inside-string ()
   "Returns t if point is inside a string."
