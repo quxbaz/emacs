@@ -22,6 +22,8 @@
         ((my/is-inside-list)
          (let ((root-pos (my/list-root-position)))
            (eval-region root-pos (scan-lists root-pos 1 0) t)))
+        ((my/is-at-opening-parens)
+         (eval-region (point) (scan-lists (point) 1 0)))
         (t
          (eval-region (line-beginning-position) (line-end-position) t)))
   (my/flash-mode-line))
