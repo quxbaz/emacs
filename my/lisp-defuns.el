@@ -1,18 +1,23 @@
 ;; Like defuns.el, but for lisp-related stuff.
 
 
-(defun my/mark-list ()
+(defun my/mark-list (&optional position)
+  (if position
+      (goto-char position))
+  (if (not (my/is-at-opening-paren))
+      (my/goto-opening-paren))
+  (mark-sexp))
+
+(defun my/mark-list-command ()
   "Marks the list at point. Invoke again to restore point to origin."
   (interactive)
-  (cond ((and (eq last-command 'my/mark-list)
+  (cond ((and (eq last-command 'my/mark-list-command)
               (my/is-list-marked))
          (deactivate-mark)
          (goto-char my/mark-list/origin))
         ((my/is-inside-list)
          (setq-local my/mark-list/origin (point))
-         (if (not (my/is-at-opening-paren))
-             (my/goto-opening-paren))
-         (mark-sexp))))
+         (my/mark-list))))
 
 (defun my/eval-dwim ()
   "Evals either the current region, block, or line - in that order of preference."
