@@ -77,8 +77,8 @@
   "Returns t if point is at opening parens. Considers strings and comments."
   (let ((parse-state (syntax-ppss)))
     (and (looking-at "(")
-         (null (nth 3 parse-state))     ;; Return false if point is inside a string.
-         (null (nth 4 parse-state)))))  ;; Return false if point is inside a comment.
+         (null (nth 3 parse-state))     ;; Return nil if point is inside a string.
+         (null (nth 4 parse-state)))))  ;; Return nil if point is inside a comment.
 
 (defun my/opening-parens-position ()
   "Gets the position of the opening parens."
