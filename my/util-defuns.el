@@ -65,6 +65,14 @@
   (and (= (char-after (region-beginning)) 34)
        (= (char-before (region-end)) 34)))
 
+(defun my/mark-string (&optional position)
+  "Marks the string at a position."
+  (if position
+      (goto-char position))
+  (when (my/is-inside-string)
+    (my/goto-beginning-of-string)
+    (mark-sexp)))
+
 (defun my/line-text ()
   "Gets text string at the current line."
   (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
