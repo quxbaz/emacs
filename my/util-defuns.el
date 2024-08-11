@@ -71,7 +71,7 @@
 
 (defun my/is-inside-list ()
   "Returns t if point is inside a list."
-  (not (null (nth 1 (syntax-ppss)))))
+  (> (car (syntax-ppss)) 0))
 
 (defun my/is-at-opening-parens ()
   "Returns t point is at opening parens. Considers strings and comments."
