@@ -74,6 +74,7 @@
   (> (car (syntax-ppss)) 0))
 
 (defun my/is-at-opening-parens ()
+  "Returns t if point is at opening parens. Considers strings and comments."
   "Returns t point is at opening parens. Considers strings and comments."
   (let ((parse-state (syntax-ppss)))
     (and (looking-at "(")
