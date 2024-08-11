@@ -39,7 +39,7 @@
              (eval-region (my/opening-parens-position) (my/closing-parens-position) t)
            (eval-expression (read (thing-at-point 'list)))))
         (t
-         (eval-expression (read (thing-at-point 'sexp)))))))
+         (eval-expression (read (thing-at-point 'sexp))))))
 
 (defun my/eval-kill-ring ()
   "Evals the car of the kill ring. Surrounds the string with parens if needed."
