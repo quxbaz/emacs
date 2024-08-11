@@ -153,7 +153,7 @@ Also works from inside strings."
     (call-interactively 'transpose-chars)))
 
 (defun my/lisp-comment-dwim ()
-  "Comments out a list if point is on opening round. Otherwise, comment the line."
+  "Comment out a list if point is on opening round. Otherwise, comment the line."
   (interactive)
   (cond ((use-region-p)
          (call-interactively 'my/comment-line))
