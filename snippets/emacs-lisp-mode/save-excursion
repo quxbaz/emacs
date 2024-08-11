@@ -1,4 +1,4 @@
 # name: save-excursion
 # key: sn
 # --
-save-excursion$0
+(save-excursion $0)
