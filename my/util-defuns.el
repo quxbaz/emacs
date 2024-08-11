@@ -61,7 +61,7 @@
 
 (defun my/line-text ()
   "Gets text string at the current line."
-  (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+  (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
 
 (defun my/region-text ()
   "Gets text within the region. If region is inactive, return nil."
