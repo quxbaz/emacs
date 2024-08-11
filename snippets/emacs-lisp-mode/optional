@@ -1,0 +1,4 @@
+# name: &optional
+# key: opt
+# --
+&optional $0
