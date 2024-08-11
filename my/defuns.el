@@ -449,3 +449,26 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (my/org-table-mark-field)
       (kill-ring-save (region-beginning) (region-end)))
     (message "Saved: %s" (car kill-ring))))
+
+
+;; # deadgrep
+
+(defun my/deadgrep-display-result ()
+  "Displays the result in other window without moving point."
+  (interactive)
+  (deadgrep-visit-result-other-window)
+  (other-window -1))
+
+(defun my/deadgrep-display-next-result ()
+  "Displays the next result in the other window."
+  (interactive)
+  (call-interactively 'deadgrep-forward-match)
+  (deadgrep-visit-result-other-window)
+  (other-window -1))
+
+(defun my/deadgrep-display-prev-result ()
+  "Displays the previous result in the other window."
+  (interactive)
+  (call-interactively 'deadgrep-backward-match)
+  (deadgrep-visit-result-other-window)
+  (other-window -1))
