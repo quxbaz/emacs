@@ -74,14 +74,14 @@
   (> (car (syntax-ppss)) 0))
 
 (defun my/is-at-opening-parens ()
-  "Returns t if point is at opening parens. Ignores strings and comments."
+  "Returns t if point is at opening paren. Ignores strings and comments."
   (let ((parse-state (syntax-ppss)))
     (and (looking-at "(")
          (null (nth 3 parse-state))     ;; Return nil if point is inside a string.
          (null (nth 4 parse-state)))))  ;; Return nil if point is inside a comment.
 
 (defun my/is-after-closing-parens ()
-  "Returns t if point is after a closing parens. Ignores strings and comments."
+  "Returns t if point is after a closing paren. Ignores strings and comments."
   (save-excursion
     (backward-char)
     (let ((parse-state (syntax-ppss)))
@@ -90,16 +90,16 @@
            (null (nth 4 parse-state))))))  ;; Return nil if point is inside a comment.
 
 (defun my/opening-parens-position ()
-  "Gets the position of the opening parens."
+  "Gets the position of the opening paren."
   (nth 1 (syntax-ppss)))
 
 (defun my/goto-opening-parens ()
-  "Moves point to opening parens."
+  "Moves point to opening paren."
   (interactive)
   (goto-char (nth 1 (syntax-ppss))))
 
 (defun my/distance-from-opening-parens ()
-  "Gets the distance between point and the opening parens."
+  "Gets the distance between point and the opening paren."
   (if (my/is-at-opening-parens)
       0
     (- (point) (my/opening-parens-position))))
@@ -117,7 +117,7 @@
     current-point))
 
 (defun my/goto-root-list (&optional max-depth)
-  "Moves point to opening parens of parent-most (ie, root) list."
+  "Moves point to opening paren of parent-most (ie, root) list."
   (interactive)
   (if (eq max-depth nil)
       (setq max-depth 100))
@@ -127,7 +127,7 @@
     (user-error nil)))
 
 (defun my/is-list-marked ()
-  "Returns true if a list is marked exactly from it's opening to closing parens."
+  "Returns true if a list is marked exactly from it's opening to closing paren."
   (let ((start (region-beginning))
         (end (region-end))
         (parse-state (syntax-ppss)))
