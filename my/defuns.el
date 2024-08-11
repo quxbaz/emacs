@@ -48,8 +48,7 @@
          (my/mark-list my/mark-context/origin))
         ((string= (my/region-text) my/mark-context/long-word)
          (cond (my/mark-context/is-inside-string
-                (my/goto-beginning-of-string)
-                (mark-sexp))
+                (my/mark-string my/mark-context/origin))
                (t
                 (my/mark-list my/mark-context/origin))))
         ((string= (my/region-text) my/mark-context/short-word)
