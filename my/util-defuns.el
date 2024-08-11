@@ -81,7 +81,7 @@
          (null (nth 4 parse-state)))))  ;; Return nil if point is inside a comment.
 
 (defun my/is-after-closing-parens ()
-  "Returns t if point is after a closing parens."
+  "Returns t if point is after a closing parens. Ignores strings and comments."
   (save-excursion
     (backward-char)
     (let ((parse-state (syntax-ppss)))
