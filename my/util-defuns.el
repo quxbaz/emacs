@@ -93,6 +93,10 @@
   "Gets the position of the opening paren."
   (nth 1 (syntax-ppss)))
 
+(defun my/closing-parens-position ()
+  "Gets the position of the closing paren."
+  (scan-lists (nth 1 (syntax-ppss)) 1 0))
+
 (defun my/goto-opening-parens ()
   "Moves point to opening paren."
   (interactive)
