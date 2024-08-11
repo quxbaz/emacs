@@ -28,7 +28,7 @@
          (let ((opening-paren-pos (save-excursion (backward-char) (my/opening-paren-position))))
            (eval-region opening-paren-pos (point) t)))
         (t
-         (eval-region (line-beginning-position) (line-end-position) t)))
+         (eval-expression (read (thing-at-point 'sexp)))))
   (my/flash-mode-line))
 
 (defun my/eval-here ()
