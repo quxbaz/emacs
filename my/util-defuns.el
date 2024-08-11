@@ -74,11 +74,20 @@
   (> (car (syntax-ppss)) 0))
 
 (defun my/is-at-opening-parens ()
-  "Returns t if point is at opening parens. Considers strings and comments."
+  "Returns t if point is at opening parens. Ignores strings and comments."
   (let ((parse-state (syntax-ppss)))
     (and (looking-at "(")
          (null (nth 3 parse-state))     ;; Return nil if point is inside a string.
          (null (nth 4 parse-state)))))  ;; Return nil if point is inside a comment.
+
+(defun my/is-after-closing-parens ()
+  "Returns t if point is after a closing parens."
+  (save-excursion
+    (backward-char)
+    (let ((parse-state (syntax-ppss)))
+      (and (looking-at ")")
+           (null (nth 3 parse-state))      ;; Return nil if point is inside a string.
+           (null (nth 4 parse-state))))))  ;; Return nil if point is inside a comment.
 
 (defun my/opening-parens-position ()
   "Gets the position of the opening parens."
