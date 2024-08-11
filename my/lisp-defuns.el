@@ -34,8 +34,12 @@
 (defun my/eval-here ()
   "Evaluates the most immediate list at point."
   (interactive)
-  (let ((thing (if (my/is-inside-list) 'list 'sexp)))
-    (eval-expression (read (thing-at-point thing)))))
+  (cond ((my/is-inside-list)
+         (if (my/is-inside-string)
+             (eval-region (my/opening-parens-position) (my/closing-parens-position) t)
+           (eval-expression (read (thing-at-point 'list)))))
+        (t
+         (eval-expression (read (thing-at-point 'sexp)))))))
 
 (defun my/eval-kill-ring ()
   "Evals the car of the kill ring. Surrounds the string with parens if needed."
