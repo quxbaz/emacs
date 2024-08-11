@@ -42,7 +42,7 @@
          (eval-expression (read (thing-at-point 'sexp))))))
 
 (defun my/eval-kill-ring ()
-  "Evals the car of the kill ring. Surrounds the string with parens if needed."
+  "Evals the car of the kill ring. Surrounds the string with parens when needed."
   (interactive)
   (let ((code (car kill-ring)))
     (when (and code (stringp code))
