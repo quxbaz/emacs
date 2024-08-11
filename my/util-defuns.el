@@ -73,14 +73,14 @@
   "Returns t if point is inside a list."
   (> (car (syntax-ppss)) 0))
 
-(defun my/is-at-opening-parens ()
+(defun my/is-at-opening-paren ()
   "Returns t if point is at opening paren. Ignores strings and comments."
   (let ((parse-state (syntax-ppss)))
     (and (looking-at "(")
          (null (nth 3 parse-state))     ;; Return nil if point is inside a string.
          (null (nth 4 parse-state)))))  ;; Return nil if point is inside a comment.
 
-(defun my/is-after-closing-parens ()
+(defun my/is-after-closing-paren ()
   "Returns t if point is after a closing paren. Ignores strings and comments."
   (save-excursion
     (backward-char)
@@ -89,24 +89,24 @@
            (null (nth 3 parse-state))      ;; Return nil if point is inside a string.
            (null (nth 4 parse-state))))))  ;; Return nil if point is inside a comment.
 
-(defun my/opening-parens-position ()
+(defun my/opening-paren-position ()
   "Gets the position of the opening paren."
   (nth 1 (syntax-ppss)))
 
-(defun my/closing-parens-position ()
+(defun my/closing-paren-position ()
   "Gets the position of the closing paren."
   (scan-lists (nth 1 (syntax-ppss)) 1 0))
 
-(defun my/goto-opening-parens ()
+(defun my/goto-opening-paren ()
   "Moves point to opening paren."
   (interactive)
   (goto-char (nth 1 (syntax-ppss))))
 
-(defun my/distance-from-opening-parens ()
+(defun my/distance-from-opening-paren ()
   "Gets the distance between point and the opening paren."
-  (if (my/is-at-opening-parens)
+  (if (my/is-at-opening-paren)
       0
-    (- (point) (my/opening-parens-position))))
+    (- (point) (my/opening-paren-position))))
 
 (defun my/list-root-position (&optional max-depth)
   "Gets the position of the root list starting from point."

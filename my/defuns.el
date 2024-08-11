@@ -6,7 +6,7 @@
 ;; # Text navigation, selection
 
 (defun my/match-paren ()
-  "Move point to the matching parens. Falls back to moving to the parent parens."
+  "Move point to the matching paren. Falls back to moving to the parent paren."
   (interactive)
   ;; \s( and \s) represent the opening/closing delimiter character groups.
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
@@ -40,12 +40,12 @@
     (setq-local my/mark-context/origin (point))
     (setq-local my/mark-context/short-word (current-word nil t))
     (setq-local my/mark-context/long-word (current-word nil nil)))
-  (cond ((and (my/is-at-opening-parens)
+  (cond ((and (my/is-at-opening-paren)
               (not (my/is-list-marked)))
          (mark-sexp))
         ((string= (my/region-text) my/mark-context/long-word)
          (goto-char my/mark-context/origin)
-         (my/goto-opening-parens)
+         (my/goto-opening-paren)
          (mark-sexp))
         ((string= (my/region-text) my/mark-context/short-word)
          (goto-char my/mark-context/origin)
@@ -53,7 +53,7 @@
         (t
          (goto-char my/mark-context/origin)
          (my/mark-current-word nil)
-         (if (my/is-at-opening-parens)
+         (if (my/is-at-opening-paren)
              (deactivate-mark)))))
 
 (defun my/mark-paragraph (arg)
