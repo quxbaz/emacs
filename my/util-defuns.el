@@ -59,6 +59,12 @@
   (let ((offset (or offset 0)))
     (string (char-after (+ (point) offset)))))
 
+(defun my/is-string-marked ()
+  "Returns true if the region marks a complete string."
+  ;; 34 is the integer representation of the quote character.
+  (and (= (char-after (region-beginning)) 34)
+       (= (char-before (region-end)) 34)))
+
 (defun my/line-text ()
   "Gets text string at the current line."
   (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
