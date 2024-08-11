@@ -28,6 +28,7 @@
          (let ((opening-paren-pos (save-excursion (backward-char) (my/opening-paren-position))))
            (eval-region opening-paren-pos (point) t)))
         (t
+         ;; NOTE:BUG: This doesn't work for quoted expressions.
          (eval-expression (read (thing-at-point 'sexp)))))
   (my/flash-mode-line))
 
