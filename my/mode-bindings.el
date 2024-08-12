@@ -103,7 +103,6 @@
      (keymap-set paredit-mode-map "M-<up>" 'my/transpose-line)
      (keymap-set paredit-mode-map "M-<down>" 'my/transpose-line-down)
      (keymap-set paredit-mode-map "C-k" 'my/lisp-kill-dwim)
-     (keymap-set paredit-mode-map "M-)" 'my/open-new-round)
      (keymap-set paredit-mode-map "M-(" 'my/wrap-sexp)))
 
 (add-hook 'sh-mode-hook
