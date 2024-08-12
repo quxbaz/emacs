@@ -70,7 +70,10 @@
   (cond ((use-region-p)
          (kill-ring-save nil nil t))
         ((my/is-inside-list)
-         (kill-new (thing-at-point 'list)))
+         (if (my/is-inside-string)
+             (kill-new (buffer-substring-no-properties (my/opening-paren-position)
+                                                       (my/closing-paren-position)))
+           (kill-new (thing-at-point 'list))))
         (t
          (call-interactively 'kill-ring-save)))
   (message (car kill-ring)))
