@@ -141,7 +141,7 @@ region as the search string."
 If inside dired, jump to Emacs directory.
 If inside Emacs directory, jump to home directory.
 
-[current directory] -> [emacs.d/] -> [home]"
+[current-directory] -> [emacs.d/] -> [home]"
   (interactive)
   (if (string= major-mode "dired-mode")
       (cond ((string= default-directory user-emacs-directory)
