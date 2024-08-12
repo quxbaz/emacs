@@ -1,6 +1,7 @@
-;; My string/text library
+;; My text library
 ;;
-;;
+;; Collection of functions for handling text inside a buffer. This is not a
+;; string library.
 
 
 ;; Non-destructive functions
