@@ -136,11 +136,17 @@ region as the search string."
     (beginning-of-buffer)
     (call-interactively #'query-replace-regexp)))
 
-(defun my/dired-to-emacs-d ()
-  "Invokes a dired buffer to the user's emacs directory."
+(defun my/dired-jump ()
   (interactive)
-  (kill-buffer (current-buffer))  ;; Kill current dired buffer.
-  (dired user-emacs-directory))
+  (if (string= major-mode "dired-mode")
+      (cond ((string= default-directory user-emacs-directory)
+             (dired (getenv "HOME")))
+            ((or (string= default-directory (getenv "HOME"))
+                 (string= default-directory "~/"))
+             nil)
+            (t
+             (dired user-emacs-directory)))
+    (call-interactively 'dired-jump)))
 
 (defun my/dired-up-directory ()
   "Like dired-up-directory, but doesn't spawn a new buffer."

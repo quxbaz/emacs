@@ -152,8 +152,7 @@
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
 ;; ## Dired
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
-(global-set-key (kbd "M-`") 'dired-jump)
-(global-set-key (kbd "M-~") 'dired-jump-other-window)
+(global-set-key (kbd "M-`") 'my/dired-jump)
 
 
 ;; # Bookmarks, registers

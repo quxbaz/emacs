@@ -27,7 +27,6 @@
 
 (eval-after-load 'dired
   '(progn
-     (keymap-set dired-mode-map "M-`" 'my/dired-to-emacs-d)
      (keymap-set dired-mode-map "P" 'my/dired-up-directory)
      (keymap-set dired-mode-map "/" 'isearch-forward-regexp)
      (keymap-set dired-mode-map "M" 'dired-mark-files-regexp)
