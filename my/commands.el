@@ -184,11 +184,10 @@ region as the search string."
 (defun my/key-w ()
   "Inserts `w` normally. If region is active, save region to kill-ring instead."
   (interactive)
-  (cond ((and (use-region-p) (my/teleport-is-mark-active))
+  (cond ((use-region-p)
          (call-interactively 'kill-ring-save)
-         (my/teleport-copy-to-mark))
-        ((use-region-p)
-         (call-interactively 'kill-ring-save))
+         (if (my/teleport-is-mark-active)
+             (my/teleport-copy-to-mark)))
         (t
          (call-interactively 'self-insert-command))))
 
