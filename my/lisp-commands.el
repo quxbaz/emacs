@@ -3,24 +3,7 @@
 ;;
 
 
-(defun my/mark-list (&optional position)
-  "Marks the list at point or at a given POSITION."
-  (if position
-      (goto-char position))
-  (if (not (my/is-at-opening-paren))
-      (my/goto-opening-paren))
-  (mark-sexp))
-
-(defun my/mark-list-command ()
-  "Marks the list at point. Invoke again to restore point to origin."
-  (interactive)
-  (cond ((and (eq last-command 'my/mark-list-command)
-              (my/is-list-marked))
-         (deactivate-mark)
-         (goto-char my/mark-list/origin))
-        ((my/is-inside-list)
-         (setq-local my/mark-list/origin (point))
-         (my/mark-list))))
+;; # Evaluation
 
 (defun my/eval-dwim ()
   "Evals either the current region, block, or line - in that order of preference."
@@ -60,12 +43,18 @@
       (eval-expression (read code))
       (my/flash-mode-line))))
 
+
+;; Navigation
+
 (defun my/forward-sexp ()
   "Like forward-sexp, but moves point to the first character of the sexp."
   (interactive)
   (condition-case nil (forward-sexp) (scan-error nil))
   (condition-case nil (forward-sexp) (scan-error nil))
   (condition-case nil (backward-sexp) (scan-error nil)))
+
+
+;; Editing
 
 (defun my/lisp-kill-ring-save-dwim ()
   "Like kill-ring-save, but saves the current list if possible."
@@ -103,32 +92,18 @@
           (null (nth 1 (syntax-ppss)))
           (my/is-inside-comment))
       (call-interactively 'my/duplicate-dwim)
-    (let ((origin (point))
-          (offset (my/distance-from-opening-paren)))
+    (let ((offset (my/distance-from-opening-paren))
+          (text (buffer-substring-no-properties (my/opening-paren-position)
+                                                (my/closing-paren-position))))
       (if (not (my/is-at-opening-paren))
           (my/goto-opening-paren))
-      (if (my/is-at-opening-paren)
-          (let* ((start (point))
-                 (NULL (forward-sexp))
-                 (end (point))
-                 (text (buffer-substring-no-properties start end)))
-            (newline)
-            (insert text)
-            (indent-for-tab-command)
-            (backward-list 1 t)
-            (forward-char offset))))))
-
-(defun my/append-new-round ()
-  "Creates a sibling round."
-  (interactive)
-  (up-list 1 t t)
-  (paredit-open-round))
-
-(defun my/insert-new-round ()
-  "Creates a sibling round behind point."
-  (interactive)
-  (up-list -1 t t)
-  (paredit-open-round))
+      (when (my/is-at-opening-paren)
+        (forward-sexp)
+        (newline)
+        (insert text)
+        (indent-for-tab-command)
+        (backward-list 1 t)
+        (forward-char offset)))))
 
 (defun my/open-new-round ()
   "Like paredit-close-round-and-newline, but also opens a new round."
@@ -188,6 +163,28 @@ Also works from inside strings."
          (forward-char 3))
         (t
          (call-interactively 'my/comment-line))))
+
+
+;; # Marking
+
+(defun my/mark-list (&optional position)
+  "Marks the list at point or at a given POSITION."
+  (if position
+      (goto-char position))
+  (if (not (my/is-at-opening-paren))
+      (my/goto-opening-paren))
+  (mark-sexp))
+
+(defun my/mark-list-command ()
+  "Marks the list at point. Invoke again to restore point to origin."
+  (interactive)
+  (cond ((and (eq last-command 'my/mark-list-command)
+              (my/is-list-marked))
+         (deactivate-mark)
+         (goto-char my/mark-list/origin))
+        ((my/is-inside-list)
+         (setq-local my/mark-list/origin (point))
+         (my/mark-list))))
 
 
 ;; Macros
