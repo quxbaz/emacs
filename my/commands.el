@@ -137,6 +137,11 @@ region as the search string."
     (call-interactively #'query-replace-regexp)))
 
 (defun my/dired-jump ()
+  "When in a non-dired buffer, jump to dired.
+If inside dired, jump to Emacs directory.
+If inside Emacs directory, jump to home directory.
+
+[current directory] -> [emacs.d/] -> [home]"
   (interactive)
   (if (string= major-mode "dired-mode")
       (cond ((string= default-directory user-emacs-directory)
