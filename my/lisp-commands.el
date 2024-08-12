@@ -56,55 +56,6 @@
 
 ;; Editing
 
-(defun my/lisp-kill-ring-save-dwim ()
-  "Like kill-ring-save, but saves the current list if possible."
-  (interactive)
-  (cond ((use-region-p)
-         (kill-ring-save nil nil t))
-        ((my/is-inside-list)
-         (if (my/is-inside-string)
-             (kill-new (buffer-substring-no-properties (my/opening-paren-position)
-                                                       (my/closing-paren-position)))
-           (kill-new (thing-at-point 'list))))
-        (t
-         (call-interactively 'kill-ring-save)))
-  (message (car kill-ring)))
-
-(defun my/lisp-kill-dwim (arg)
-  (interactive "p")
-  (if (use-region-p)
-      (paredit-kill-region (region-beginning) (region-end))
-    (if (= arg 1) (paredit-kill) (paredit-kill arg))))
-
-(defun my/kill-list (arg)
-  "Kills a list or string from inside of it."
-  (interactive "p")
-  (condition-case nil
-      (progn (backward-up-list 1 t t) (kill-sexp))
-    (scan-error nil)))
-
-(defun my/duplicate-list (&optional arg)
-  "Duplicates the current list. Uses dwim behavior in certain contexts."
-  (interactive "p")
-  ;; If region is active, or point is outside a list, or point is inside a comment,
-  ;; use my/duplicate-dwim.
-  (if (or (use-region-p)
-          (null (nth 1 (syntax-ppss)))
-          (my/is-inside-comment))
-      (call-interactively 'my/duplicate-dwim)
-    (let ((offset (my/distance-from-opening-paren))
-          (text (buffer-substring-no-properties (my/opening-paren-position)
-                                                (my/closing-paren-position))))
-      (if (not (my/is-at-opening-paren))
-          (my/goto-opening-paren))
-      (when (my/is-at-opening-paren)
-        (forward-sexp)
-        (newline)
-        (insert text)
-        (indent-for-tab-command)
-        (backward-list 1 t)
-        (forward-char offset)))))
-
 (defun my/open-new-round ()
   "Like paredit-close-round-and-newline, but also opens a new round."
   (interactive)
@@ -134,15 +85,6 @@ Also works from inside strings."
           (t (thing-at-point--beginning-of-sexp))))
   (paredit-wrap-round))
 
-(defun my/lisp-transpose-chars ()
-  "Like transpose-chars, but calls transpose-sexps if point is on an opening delimiter."
-  (interactive)
-  (if (my/is-at-opening-paren)
-      (progn (call-interactively 'transpose-sexps)
-             (thing-at-point--beginning-of-sexp)
-             (thing-at-point--beginning-of-sexp))
-    (call-interactively 'transpose-chars)))
-
 (defun my/lisp-comment-dwim ()
   "Comment out a list if point is on opening round. Otherwise, comment the line."
   (interactive)
@@ -163,6 +105,64 @@ Also works from inside strings."
          (forward-char 3))
         (t
          (call-interactively 'my/comment-line))))
+
+(defun my/lisp-kill-ring-save-dwim ()
+  "Like kill-ring-save, but saves the current list if possible."
+  (interactive)
+  (cond ((use-region-p)
+         (kill-ring-save nil nil t))
+        ((my/is-inside-list)
+         (if (my/is-inside-string)
+             (kill-new (buffer-substring-no-properties (my/opening-paren-position)
+                                                       (my/closing-paren-position)))
+           (kill-new (thing-at-point 'list))))
+        (t
+         (call-interactively 'kill-ring-save)))
+  (message (car kill-ring)))
+
+(defun my/duplicate-list (&optional arg)
+  "Duplicates the current list. Uses dwim behavior in certain contexts."
+  (interactive "p")
+  ;; If region is active, or point is outside a list, or point is inside a comment,
+  ;; use my/duplicate-dwim.
+  (if (or (use-region-p)
+          (null (nth 1 (syntax-ppss)))
+          (my/is-inside-comment))
+      (call-interactively 'my/duplicate-dwim)
+    (let ((offset (my/distance-from-opening-paren))
+          (text (buffer-substring-no-properties (my/opening-paren-position)
+                                                (my/closing-paren-position))))
+      (if (not (my/is-at-opening-paren))
+          (my/goto-opening-paren))
+      (when (my/is-at-opening-paren)
+        (forward-sexp)
+        (newline)
+        (insert text)
+        (indent-for-tab-command)
+        (backward-list 1 t)
+        (forward-char offset)))))
+
+(defun my/lisp-kill-dwim (arg)
+  (interactive "p")
+  (if (use-region-p)
+      (paredit-kill-region (region-beginning) (region-end))
+    (if (= arg 1) (paredit-kill) (paredit-kill arg))))
+
+(defun my/kill-list (arg)
+  "Kills a list or string from inside of it."
+  (interactive "p")
+  (condition-case nil
+      (progn (backward-up-list 1 t t) (kill-sexp))
+    (scan-error nil)))
+
+(defun my/lisp-transpose-chars ()
+  "Like transpose-chars, but calls transpose-sexps if point is on an opening delimiter."
+  (interactive)
+  (if (my/is-at-opening-paren)
+      (progn (call-interactively 'transpose-sexps)
+             (thing-at-point--beginning-of-sexp)
+             (thing-at-point--beginning-of-sexp))
+    (call-interactively 'transpose-chars)))
 
 
 ;; # Marking
