@@ -6,7 +6,9 @@
 ;; # Evaluation
 
 (defun my/eval-dwim ()
-  "Evals either the current region, block, or line - in that order of preference."
+  "Evals either the current region, block, or line - in that order of preference.
+
+BUG: Does not work inside comments."
   (interactive)
   (cond ((use-region-p)
          (eval-region (region-beginning) (region-end) t))
