@@ -17,8 +17,8 @@
 (defun my/string-beginning-position ()
   "Returns position of opening quote of current string."
   (let ((parse-state (syntax-ppss)))
-    (when (nth 3 parse-state)
-      (nth 8 parse-state))))
+    (if (nth 3 parse-state)
+        (nth 8 parse-state))))
 
 (defun my/string-at (pos &optional offset)
   "Gets the string at a specified point."
