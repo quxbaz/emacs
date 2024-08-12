@@ -71,7 +71,7 @@
   (goto-char (nth 1 (syntax-ppss))))
 
 (defun my/goto-root-list (&optional max-depth)
-  "Moves point to opening paren of parent-most (ie, root) list."
+  "Moves point to the opening paren of the parent-most (aka, root) list."
   (interactive)
   (if (eq max-depth nil)
       (setq max-depth 100))
