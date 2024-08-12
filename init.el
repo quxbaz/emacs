@@ -41,6 +41,4 @@
      rainbow-blocks
      web-mode
      yasnippet
-     ))
- '(safe-local-variable-values
-   '((eval hl-line-mode t))))
+     )))
