@@ -16,3 +16,17 @@
 (defun my/is-inside-comment ()
   "Returns t if point is inside a comment."
   (if (nth 4 (syntax-ppss)) t))
+
+
+;; Macros
+
+(defmacro my/if-buffer-changes (body then &optional else)
+  "Executes BODY. If the execution of BODY causes any change in the buffer,
+execute THEN. Otherwise execute ELSE."
+  (declare (indent 1))
+  `(let* ((get-buffer-content (lambda () (buffer-substring-no-properties (point-min) (point-max))))
+          (buffer-before (funcall get-buffer-content)))
+     ,body
+     (if (string= (funcall get-buffer-content) buffer-before)
+         ,else
+       ,then)))
