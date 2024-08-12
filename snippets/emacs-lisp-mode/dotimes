@@ -1,0 +1,5 @@
+# name: dotimes
+# key: dot
+# --
+(dotimes (${1:VAR} ${2:COUNT})
+  $0)
