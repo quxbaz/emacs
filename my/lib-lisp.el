@@ -41,15 +41,12 @@
 
 (defun my/list-root-position (&optional max-depth)
   "Gets the position of the root list starting from point."
-  (if (eq max-depth nil) (setq max-depth 100))
-  (let ((current-point (point)))
-    (save-excursion
-      (condition-case nil
-          (dotimes (n max-depth)
-            (backward-up-list 1 t t)
-            (setq current-point (point)))
-        (t nil)))
-    current-point))
+  (if (null max-depth) (setq max-depth 100))
+  (let ((pos (or (my/string-beginning-position) (point))))
+    (condition-case nil
+        (dotimes (n max-depth)
+          (setq pos (scan-lists pos -1 1)))
+      (scan-error pos))))
 
 (defun my/is-list-marked ()
   "Returns t if a list is marked exactly from it's opening to closing paren."
