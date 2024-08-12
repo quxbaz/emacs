@@ -146,14 +146,14 @@
 
 (defun my/is-list-marked ()
   "Returns true if a list is marked exactly from it's opening to closing paren."
-  (let ((start (region-beginning))
-        (end (region-end))
-        (parse-state (syntax-ppss)))
-    (and (use-region-p)
-         (string= (my/string-at start) "(")
-         (null (nth 3 parse-state))
-         (null (nth 4 parse-state))
-         (= end (scan-lists start 1 0)))))
+  (when (use-region-p)
+    (let ((start (region-beginning))
+          (end (region-end))
+          (parse-state (syntax-ppss)))
+      (and (string= (my/string-at start) "(")
+           (null (nth 3 parse-state))
+           (null (nth 4 parse-state))
+           (= end (scan-lists start 1 0))))))
 
 
 ;; # Macros
