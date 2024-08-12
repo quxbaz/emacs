@@ -34,7 +34,8 @@
   "Marks the current context in this order (cycles):
 1. Current word (short word)
 2. Current word (extended word)
-3. Current list"
+3. Current string (if available)
+4. Current list"
   (interactive)
   (when (not (eq last-command 'my/mark-context))
     (setq-local my/mark-context/origin (point))
