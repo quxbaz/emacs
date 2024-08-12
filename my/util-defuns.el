@@ -24,58 +24,9 @@
   "Returns t if the line at point is empty, otherwise nil."
   (eq (line-beginning-position) (line-end-position)))
 
-(defun my/is-inside-string ()
-  "Returns t if point is inside a string."
-  (if (nth 3 (syntax-ppss)) t))
-
 (defun my/is-inside-comment ()
   "Returns t if point is inside a comment."
   (if (nth 4 (syntax-ppss)) t))
-
-(defun my/string-beginning-position ()
-  "Returns position of opening quote of current string."
-  (let ((parse-state (syntax-ppss)))
-    (when (nth 3 parse-state)
-      (nth 8 parse-state))))
-
-(defun my/goto-beginning-of-string ()
-  "Moves point to opening quote of current string."
-  (interactive)
-  (let ((parse-state (syntax-ppss)))
-    (when (nth 3 parse-state)
-      (goto-char (nth 8 parse-state)))))
-
-(defun my/string-at (pos &optional offset)
-  "Gets the string at a specified point."
-  (let ((offset (or offset 0)))
-    (string (char-after (+ pos offset)))))
-
-(defun my/string-equal-at (pos str)
-  "Returns t if string at POS matches STR."
-  (string= (my/string-at pos) str))
-
-(defun my/string-at-point (&optional offset)
-  "Gets the string at point."
-  (let ((offset (or offset 0)))
-    (string (char-after (+ (point) offset)))))
-
-(defun my/is-string-marked ()
-  "Returns true if the region marks a complete string."
-  ;; 34 is the integer representation of the quote character.
-  (and (= (char-after (region-beginning)) 34)
-       (= (char-before (region-end)) 34)))
-
-(defun my/mark-string (&optional position)
-  "Marks the string at a position."
-  (if position
-      (goto-char position))
-  (when (my/is-inside-string)
-    (my/goto-beginning-of-string)
-    (mark-sexp)))
-
-(defun my/line-text ()
-  "Gets text string at the current line."
-  (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
 
 (defun my/region-text ()
   "Gets text within the region. If region is inactive, return nil."
