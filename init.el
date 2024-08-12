@@ -29,7 +29,6 @@
    '(
      aggressive-indent
      autopair
-     autothemer
      corfu
      deadgrep
      doom-themes
