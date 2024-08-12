@@ -41,6 +41,8 @@ evaluate `aggressive-indent-mode'.
 The mode's hook is called both when the mode is enabled and when
 it is disabled.
 
+\\{aggressive-indent-mode-map}
+
 (fn &optional ARG)" t)
 (put 'global-aggressive-indent-mode 'globalized-minor-mode t)
 (defvar global-aggressive-indent-mode nil "\
