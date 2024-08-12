@@ -1,4 +1,6 @@
-;; Like defuns.el, but for lisp-related stuff.
+;; Lisp commands
+;;
+;;
 
 
 (defun my/mark-list (&optional position)
