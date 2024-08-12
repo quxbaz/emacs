@@ -145,11 +145,13 @@ If inside Emacs directory, jump to home directory.
   (interactive)
   (if (string= major-mode "dired-mode")
       (cond ((string= default-directory user-emacs-directory)
+             (kill-buffer (current-buffer))
              (dired (getenv "HOME")))
             ((or (string= default-directory (getenv "HOME"))
                  (string= default-directory "~/"))
              nil)
             (t
+             (kill-buffer (current-buffer))
              (dired user-emacs-directory)))
     (call-interactively 'dired-jump)))
 
