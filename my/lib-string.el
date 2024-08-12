@@ -3,7 +3,7 @@
 ;;
 
 
-;; Getters
+;; Non-destructive functions
 
 (defun my/is-inside-string ()
   "Returns t if point is inside a string."
@@ -28,7 +28,7 @@
        (= (char-before (region-end)) 34)))
 
 
-;; Interactive functions
+;; Destructive functions
 
 (defun my/goto-beginning-of-string ()
   "Moves point to opening quote of current string."
