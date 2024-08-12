@@ -273,22 +273,6 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (interactive)
   (my/transpose-line t))
 
-(defun my/relocate-line-to-@ (&optional register)
-  "Moves line to point stored in register `@`"
-  (interactive)
-  (when (eq register nil)
-    (setq register ?@))
-  (save-excursion
-    (kill-whole-line)
-    (let ((buffer (buffer-name))
-          (text (car kill-ring)))
-      (jump-to-register register)
-      (yank)
-      ;; If register is in another buffer, switch back to current buffer.
-      (if (not (string= (buffer-name) buffer))
-          (switch-to-buffer buffer))
-      (message (concat "Yanked: " (string-trim (string-chop-newline text)))))))
-
 (defun my/comment-line ()
   (interactive)
   (save-excursion

@@ -162,7 +162,6 @@
 (global-set-key (kbd "M-2") (lambda () (interactive) (jump-to-register ?2)))
 (global-set-key (kbd "M-3") (lambda () (interactive) (jump-to-register ?3)))
 (global-set-key (kbd "M-4") (lambda () (interactive) (jump-to-register ?4)))
-(global-set-key (kbd "C-M-m") 'my/relocate-line-to-@)
 
 
 ;; # Viewing, narrowing, filtering
