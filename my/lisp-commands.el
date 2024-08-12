@@ -57,9 +57,7 @@
 ;; Editing
 
 (defun my/open-new-round ()
-  "Like paredit-close-round-and-newline, but also opens a new round.
-
-BUG: This doesn't work inside strings."
+  "Like paredit-close-round-and-newline, but also opens a new round."
   (interactive)
   (let ((parse-state (syntax-ppss)))
     ;; Noop when inside a comment.
@@ -67,9 +65,7 @@ BUG: This doesn't work inside strings."
       ;; If inside a string, move to beginning of string.
       (if (nth 3 parse-state)
           (goto-char (nth 8 parse-state)))
-      (paredit-close-round)
-      (newline)
-      (indent-for-tab-command)
+      (paredit-close-round-and-newline)
       (paredit-open-round))))
 
 (defun my/wrap-sexp ()
