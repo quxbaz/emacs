@@ -10,6 +10,10 @@
   "Returns t if point is inside a string."
   (if (nth 3 (syntax-ppss)) t))
 
+(defun my/is-line-empty ()
+  "Returns t if the line at point is empty, otherwise nil."
+  (eq (line-beginning-position) (line-end-position)))
+
 (defun my/string-beginning-position ()
   "Returns position of opening quote of current string."
   (let ((parse-state (syntax-ppss)))
@@ -20,6 +24,12 @@
   "Gets the string at a specified point."
   (let ((offset (or offset 0)))
     (string (char-after (+ pos offset)))))
+
+(defun my/region-text ()
+  "Gets text within the region. If region is inactive, return nil."
+  (condition-case nil
+      (buffer-substring-no-properties (region-beginning) (region-end))
+    (error nil)))
 
 (defun my/is-string-marked ()
   "Returns true if the region marks a complete string."

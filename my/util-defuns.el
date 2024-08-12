@@ -20,19 +20,9 @@
 
 ;; # Util
 
-(defun my/is-line-empty ()
-  "Returns t if the line at point is empty, otherwise nil."
-  (eq (line-beginning-position) (line-end-position)))
-
 (defun my/is-inside-comment ()
   "Returns t if point is inside a comment."
   (if (nth 4 (syntax-ppss)) t))
-
-(defun my/region-text ()
-  "Gets text within the region. If region is inactive, return nil."
-  (condition-case nil
-      (buffer-substring-no-properties (region-beginning) (region-end))
-    (error nil)))
 
 (defun my/is-inside-list ()
   "Returns t if point is inside a list."
