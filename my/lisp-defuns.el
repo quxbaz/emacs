@@ -2,7 +2,7 @@
 
 
 (defun my/mark-list (&optional position)
-  "Marks the list at point or at a given position."
+  "Marks the list at point or at a given POSITION."
   (if position
       (goto-char position))
   (if (not (my/is-at-opening-paren))
