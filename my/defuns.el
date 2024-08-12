@@ -1,6 +1,6 @@
 ;; Reusable function definitions
 ;;
-;; Mostly interactive and meant to be bound.
+;; Interactive functions meant to be used as commands bound to a shortcut.
 
 
 ;; # Text navigation, selection
