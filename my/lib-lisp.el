@@ -73,9 +73,4 @@
 (defun my/goto-root-list (&optional max-depth)
   "Moves point to the opening paren of the parent-most (aka, root) list."
   (interactive)
-  (if (eq max-depth nil)
-      (setq max-depth 100))
-  (condition-case nil
-      (backward-up-list max-depth t t)
-    (scan-error nil)
-    (user-error nil)))
+  (goto-char (my/list-root-position)))
