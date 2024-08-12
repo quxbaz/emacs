@@ -10,6 +10,7 @@
 (load-file (concat user-emacs-directory "my/theme.el"))
 (load-file (concat user-emacs-directory "my/macros.el"))
 (load-file (concat user-emacs-directory "my/lib-string.el"))
+(load-file (concat user-emacs-directory "my/lib-lisp.el"))
 (load-file (concat user-emacs-directory "my/util-defuns.el"))
 (load-file (concat user-emacs-directory "my/defuns.el"))
 (load-file (concat user-emacs-directory "my/lisp-commands.el"))
