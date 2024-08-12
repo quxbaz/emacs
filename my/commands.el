@@ -184,9 +184,13 @@ region as the search string."
 (defun my/key-w ()
   "Inserts `w` normally. If region is active, save region to kill-ring instead."
   (interactive)
-  (if (use-region-p)
-      (call-interactively 'kill-ring-save)
-    (call-interactively 'self-insert-command)))
+  (cond ((and (use-region-p) (my/teleport-is-mark-active))
+         (call-interactively 'kill-ring-save)
+         (my/teleport-copy-to-mark))
+        ((use-region-p)
+         (call-interactively 'kill-ring-save))
+        (t
+         (call-interactively 'self-insert-command))))
 
 (defun my/key-x ()
   "Inserts `x` normally. If region is active, exchange point and mark instead."
@@ -303,6 +307,26 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 (defun my/revert-buffer ()
   (interactive)
   (revert-buffer t t))
+
+
+;; # Complex editing
+
+(defun my/teleport-set-mark ()
+  "Sets a teleport mark at point."
+  (interactive)
+  (setq-local my/teleport/mark (point-marker)))
+
+(defun my/teleport-is-mark-active ()
+  "Returns true if teleport mark is active."
+  (if (bound-and-true-p my/teleport/mark) t))
+
+(defun my/teleport-copy-to-mark ()
+  "Moves point to teleport mark and yanks from kill-ring."
+  (interactive)
+  (when (my/teleport-is-mark-active)
+    (goto-char my/teleport/mark)
+    (setq my/teleport/mark nil)
+    (yank)))
 
 
 ;; # Math, numbers
