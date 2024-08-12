@@ -118,6 +118,8 @@ Also works from inside strings."
            (kill-new (thing-at-point 'list))))
         (t
          (call-interactively 'kill-ring-save)))
+  (if (my/teleport-is-mark-active)
+      (my/teleport-copy-to-mark))
   (message (car kill-ring)))
 
 (defun my/duplicate-list (&optional arg)
