@@ -57,7 +57,7 @@
 (keymap-set emacs-lisp-mode-map "C-k" 'my/lisp-kill-dwim)
 (keymap-set emacs-lisp-mode-map "M-k" 'my/kill-list)
 (keymap-set emacs-lisp-mode-map "M-9"  'backward-up-list)
-(keymap-set emacs-lisp-mode-map "S-<return>" 'paredit-close-round-and-newline)
+(keymap-set emacs-lisp-mode-map "S-<return>" 'my/close-round-and-newline)
 (keymap-set emacs-lisp-mode-map "C-<return>" 'my/open-new-round)
 (keymap-set emacs-lisp-mode-map "M-("  'my/wrap-sexp)
 (keymap-set emacs-lisp-mode-map "C-c C-s" 'paredit-splice-sexp)
