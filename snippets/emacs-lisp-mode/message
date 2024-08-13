@@ -1,4 +1,4 @@
 # name: message
 # key: msg
 # --
-(message "%s" $0)
+(message ${1:"${2:%s}"}$0)
