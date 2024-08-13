@@ -1,4 +1,4 @@
 # name: transform
 # key: tr
 # --
-transform: $0();
+transform: ${1:fn}($0);
