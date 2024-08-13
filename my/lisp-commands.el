@@ -58,6 +58,12 @@ BUG: Does not work inside comments."
 
 ;; Editing
 
+(defun my/close-round-and-newline ()
+  (interactive)
+  (when (my/is-inside-string)
+    (my/goto-beginning-of-string))
+  (call-interactively 'paredit-close-round-and-newline))
+
 (defun my/open-new-round ()
   "Like paredit-close-round-and-newline, but also opens a new round."
   (interactive)
