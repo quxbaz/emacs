@@ -43,7 +43,7 @@
 
 
 ;; # Mini-apps
-(global-set-key (kbd "<f8>") 'list-packages)
+(global-set-key (kbd "<f8>") 'my/list-packages)
 (global-set-key (kbd "<f9>") 'calc)
 (global-set-key (kbd "<escape> c") 'ispell)
 (global-set-key (kbd "<f10>") (lambda () (interactive) (list-processes) (other-window 1)))
