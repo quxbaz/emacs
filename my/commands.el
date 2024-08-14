@@ -3,6 +3,13 @@
 ;; Interactive functions meant to be used as commands bound to a shortcut.
 
 
+;; # Buffers
+
+(defun my/switch-to-other-buffer ()
+  (interactive)
+  (switch-to-buffer nil))
+
+
 ;; # Text navigation, selection
 
 (defun my/match-paren ()
@@ -370,13 +377,6 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
         (apply-macro-to-region-lines (region-beginning) (region-end))
         (deactivate-mark))
     (kmacro-end-and-call-macro arg)))
-
-
-;; # Other
-
-(defun my/switch-to-other-buffer ()
-  (interactive)
-  (switch-to-buffer nil))
 
 
 ;; # org-mode
