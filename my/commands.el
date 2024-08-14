@@ -379,6 +379,16 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (kmacro-end-and-call-macro arg)))
 
 
+;; # Mini-apps
+
+(defun my/list-packages ()
+  (interactive)
+  (let ((existing-buffer (get-buffer "*Packages*")))
+    (if existing-buffer
+        (switch-to-buffer existing-buffer)
+      (call-interactively 'list-packages))))
+
+
 ;; # org-mode
 
 (defun my/insert-uuid ()
