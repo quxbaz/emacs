@@ -140,20 +140,16 @@ region as the search string."
   "When in a non-dired buffer, jump to dired.
 If inside dired, jump to Emacs directory.
 If inside Emacs directory, jump to home directory.
-
-[current-directory] -> [emacs.d/] -> [home]"
+If inside home directory, jump to Emacs directory."
   (interactive)
-  (if (string= major-mode "dired-mode")
-      (cond ((string= default-directory user-emacs-directory)
-             (kill-buffer (current-buffer))
-             (dired (getenv "HOME")))
-            ((or (string= default-directory (getenv "HOME"))
-                 (string= default-directory "~/"))
-             nil)
-            (t
-             (kill-buffer (current-buffer))
-             (dired user-emacs-directory)))
-    (call-interactively 'dired-jump)))
+  (cond ((string= major-mode "dired-mode")
+         (let ((current-dired-buffer (current-buffer)))
+           (if (string= default-directory user-emacs-directory)
+               (dired (getenv "HOME"))
+             (dired user-emacs-directory))
+           (kill-buffer current-dired-buffer)))
+        (t
+         (call-interactively 'dired-jump))))
 
 (defun my/dired-up-directory ()
   "Like dired-up-directory, but doesn't spawn a new buffer."
