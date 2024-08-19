@@ -2,6 +2,7 @@
 # key: if-admin
 # --
 // TESTING
-if (in_array('administrator',  wp_get_current_user()->roles)) {
+if (current_user_can('manage_options')) {
   $0
 }
+//
