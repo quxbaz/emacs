@@ -1,0 +1,7 @@
+# name: if-admin
+# key: if-admin
+# --
+// TESTING
+if (in_array('administrator',  wp_get_current_user()->roles)) {
+  $0
+}
