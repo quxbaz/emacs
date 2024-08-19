@@ -3,6 +3,8 @@
 # --
 // TESTING
 if (current_user_can('manage_options')) {
+  echo '<pre>';
   $0
+  echo '</pre>';
 }
 //
