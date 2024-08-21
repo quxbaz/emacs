@@ -1,0 +1,5 @@
+# name: cl-defun-key
+# key: clfn
+# --
+(cl-defun ${1:NAME} (&key ${2:KEY})
+  ($0))
