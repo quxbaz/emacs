@@ -1,5 +1,5 @@
 # name: if-admin
-# key: if-admin
+# key: ifa
 # --
 // TESTING
 if (current_user_can('manage_options')) {
