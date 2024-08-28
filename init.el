@@ -29,6 +29,7 @@
    '(
      aggressive-indent
      autopair
+     clojure-mode
      corfu
      deadgrep
      doom-themes
