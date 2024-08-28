@@ -85,7 +85,6 @@
 
 
 ;; # Filename patterns
-(add-to-list 'auto-mode-alist '("\\.cljs$" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx?$" . javascript-mode))
