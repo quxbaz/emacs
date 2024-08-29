@@ -329,7 +329,8 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 (defun my/teleport-set-mark ()
   "Sets a teleport mark at point."
   (interactive)
-  (setq-local my/teleport/mark (point-marker)))
+  (setq-local my/teleport/mark (point-marker))
+  (message "%s" my/teleport/mark))
 
 (defun my/teleport-is-mark-active ()
   "Returns true if teleport mark is active."
