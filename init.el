@@ -29,7 +29,6 @@
    '(
      aggressive-indent
      autopair
-     cider
      clojure-mode
      corfu
      deadgrep
