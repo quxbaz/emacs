@@ -1,5 +1,5 @@
 # name: dolist
-# key: fl
+# key: ll
 # --
 (dolist (${1:VAR} ${2:LIST})
   $0)

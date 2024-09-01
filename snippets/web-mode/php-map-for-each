@@ -1,5 +1,5 @@
 # name: Associative array loop
-# key: fk
+# key: lk
 # --
 foreach (${1:$map} as ${2:$k} => ${3:$v}) {
   $0
