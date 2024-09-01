@@ -1,5 +1,5 @@
 # name: dotimes
-# key: ii
+# key: fi
 # --
 (dotimes (${1:VAR} ${2:COUNT} ${3:RESULT})
   $0)
