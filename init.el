@@ -18,6 +18,7 @@
 (load-file (concat user-emacs-directory "my/mode-bindings.el"))
 (load-file (concat user-emacs-directory "my/kmacros.el"))
 (load-file (concat user-emacs-directory "my/hooks.el"))
+(load-file (concat user-emacs-directory "my/lisp-conf.el"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

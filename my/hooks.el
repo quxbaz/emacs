@@ -49,13 +49,6 @@
             (when (file-remote-p default-directory)
               (setq dired-listing-switches "-l"))))
 
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (autopair-mode 0)
-            (aggressive-indent-mode t)
-            (paredit-mode t)
-            (rainbow-blocks-mode t)))
-
 (add-hook 'js-mode-hook
           (lambda ()
             (setq js-indent-level 2)
