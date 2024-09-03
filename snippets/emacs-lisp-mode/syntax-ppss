@@ -1,4 +1,4 @@
 # name: syntax-ppss
 # key: pp
 # --
-syntax-ppss$0
+($0 (syntax-ppss))
