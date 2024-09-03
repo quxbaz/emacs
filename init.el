@@ -39,6 +39,7 @@
      modus-themes
      paredit
      rainbow-blocks
+     slime
      web-mode
      yasnippet
      )))
