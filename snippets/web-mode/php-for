@@ -1,6 +1,6 @@
 # name: for loop
 # key: ln
 # --
-for ($i=0; $i <= ${1:length}; $i++) {
+for ($i=${1:0}; $i <= ${2:length}; $i++) {
   $0
 }
