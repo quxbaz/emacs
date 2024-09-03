@@ -145,7 +145,7 @@
 ;; # Buffers, dired
 ;; ## Buffers
 (global-set-key (kbd "M-s") 'save-buffer)
-(global-set-key (kbd "<escape> <escape> <escape>") (lambda () (interactive) (kill-buffer)))
+(global-set-key (kbd "<escape> <escape> k") (lambda () (interactive) (kill-buffer)))
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-SPC") 'ivy-switch-buffer)
 (global-set-key (kbd "<escape> SPC") 'ibuffer)
