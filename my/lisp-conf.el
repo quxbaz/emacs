@@ -47,6 +47,7 @@
 ;;
 ;; # Common Lisp config
 (setq inferior-lisp-program (executable-find "sbcl"))
+;; Find good binding.
 ;; (keymap-set lisp-mode-map )
 
 
