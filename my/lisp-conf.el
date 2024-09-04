@@ -1,49 +1,38 @@
 ;; Lisp config
 ;;
-;;
-
-
-;;
-;; # All Lisp dialects config
-
-;; CLIPBOARD
-;; slime-repl-mode-hook
-
 ;; TODO: Add binding to show SLIME buffer.
 
-;; TODO: Make this work with all Lisp modes.
-(dolist (map (list emacs-lisp-mode-map lisp-mode-map))
-  ;; TODO: Only use these for emacs-lisp-mode.
-  (keymap-set map "C-c C-c" 'my/eval-dwim)
-  (keymap-set map "C-c C-." 'my/eval-here)
-  (keymap-set map "C-c C-x" 'my/eval-kill-ring)
-  ;;
 
-  (keymap-set map "M-/" 'completion-at-point)
-  (keymap-set map "C-M-i" 'dabbrev-expand)
-  (keymap-set map "M-n" 'my/forward-sexp)
-  (keymap-set map "M-p" 'backward-sexp)
-  (keymap-set map "C-M-." 'my/mark-list-command)
-  (keymap-set map "M-w" 'my/lisp-kill-ring-save-dwim)
-  (keymap-set map "M-<return>" 'my/duplicate-list)
-  (keymap-set map "C-k" 'my/lisp-kill-dwim)
-  (keymap-set map "M-k" 'my/kill-list)
-  (keymap-set map "M-(" 'my/wrap-sexp)
-  (keymap-set map "S-<return>" 'my/close-round-and-newline)
-  (keymap-set map "C-<return>" 'my/open-new-round)
-  (keymap-set map "C-c C-s" 'paredit-splice-sexp)
-  (keymap-set map "C-c C-o" 'paredit-raise-sexp)
-  (keymap-set map "C-t" 'my/lisp-transpose-chars)
-  (keymap-set map "C-;" 'my/lisp-comment-dwim))
+;;
+;; # Shared config
 
-;; TODO: Make this work with all Lisp modes.
-(add-hook 'emacs-lisp-mode-hook (lambda ()
-                                  (autopair-mode 0)
-                                  (aggressive-indent-mode t)
-                                  (paredit-mode t)
-                                  (rainbow-blocks-mode t)))
+;; slime-repl-mode-map seems to inherit from lisp-mode-map, so we can omit it.
+(dolist (keymap (list emacs-lisp-mode-map lisp-mode-map))
+  (keymap-set keymap "M-/" 'completion-at-point)
+  (keymap-set keymap "C-M-i" 'dabbrev-expand)
+  (keymap-set keymap "M-n" 'my/forward-sexp)
+  (keymap-set keymap "M-p" 'backward-sexp)
+  (keymap-set keymap "C-M-." 'my/mark-list-command)
+  (keymap-set keymap "M-w" 'my/lisp-kill-ring-save-dwim)
+  (keymap-set keymap "M-<return>" 'my/duplicate-list)
+  (keymap-set keymap "C-k" 'my/lisp-kill-dwim)
+  (keymap-set keymap "M-k" 'my/kill-list)
+  (keymap-set keymap "M-(" 'my/wrap-sexp)
+  (keymap-set keymap "S-<return>" 'my/close-round-and-newline)
+  (keymap-set keymap "C-<return>" 'my/open-new-round)
+  (keymap-set keymap "C-c C-s" 'paredit-splice-sexp)
+  (keymap-set keymap "C-c C-o" 'paredit-raise-sexp)
+  (keymap-set keymap "C-t" 'my/lisp-transpose-chars)
+  (keymap-set keymap "C-;" 'my/lisp-comment-dwim))
 
-;; TODO: Add SLIME mode maps.
+
+;; Mode hooks
+(dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook slime-repl-mode-hook))
+  (add-hook mode-hook (lambda ()
+                        (autopair-mode 0)
+                        (aggressive-indent-mode t)
+                        (paredit-mode t)
+                        (rainbow-blocks-mode t))))
 
 (eval-after-load 'paredit '(progn
                              (keymap-set paredit-mode-map "M-s" 'save-buffer)
@@ -58,8 +47,11 @@
 ;;
 ;; # Common Lisp config
 (setq inferior-lisp-program (executable-find "sbcl"))
+;; (keymap-set lisp-mode-map )
 
 
 ;;
 ;; # Emacs Lisp (Elisp) config
-;;
+(keymap-set emacs-lisp-mode-map "C-c C-c" 'my/eval-dwim)
+(keymap-set emacs-lisp-mode-map "C-c C-." 'my/eval-here)
+(keymap-set emacs-lisp-mode-map "C-c C-x" 'my/eval-kill-ring)
