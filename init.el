@@ -14,6 +14,7 @@
 (load-file (concat user-emacs-directory "my/util.el"))
 (load-file (concat user-emacs-directory "my/commands.el"))
 (load-file (concat user-emacs-directory "my/lisp-commands.el"))
+(load-file (concat user-emacs-directory "my/lisp-conf.el"))
 (load-file (concat user-emacs-directory "my/bindings.el"))
 (load-file (concat user-emacs-directory "my/mode-bindings.el"))
 (load-file (concat user-emacs-directory "my/kmacros.el"))
