@@ -149,6 +149,8 @@
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-SPC") 'ivy-switch-buffer)
 (global-set-key (kbd "<escape> SPC") 'ibuffer)
+(global-set-key (kbd "C-<") 'previous-buffer)
+(global-set-key (kbd "C->") 'next-buffer)
 (global-set-key (kbd "<escape> ,") 'bury-buffer)
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
 ;; ## Windows
