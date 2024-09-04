@@ -9,6 +9,10 @@
   (interactive)
   (switch-to-buffer nil))
 
+(defun my/other-window ()
+  (interactive)
+  (other-window -1))
+
 
 ;; # Text navigation, selection
 
