@@ -3,7 +3,7 @@
 ;; Interactive functions meant to be used as commands bound to a shortcut.
 
 
-;; # Buffers
+;; # Buffers, windows
 
 (defun my/switch-to-other-buffer ()
   (interactive)
