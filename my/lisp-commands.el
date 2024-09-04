@@ -46,7 +46,7 @@ BUG: Does not work inside comments."
       (my/flash-mode-line))))
 
 
-;; Navigation
+;; # Navigation
 
 (defun my/forward-sexp ()
   "Like forward-sexp, but moves point to the first character of the sexp."
@@ -56,7 +56,7 @@ BUG: Does not work inside comments."
   (condition-case nil (backward-sexp) (scan-error nil)))
 
 
-;; Editing
+;; # Editing
 
 (defun my/close-round-and-newline ()
   (interactive)
