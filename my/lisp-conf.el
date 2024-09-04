@@ -12,28 +12,25 @@
 ;; TODO: Add binding to show SLIME buffer.
 
 ;; TODO: Make this work with all Lisp modes.
-;; TODO: Sort.
 (dolist (map (list emacs-lisp-mode-map lisp-mode-map))
-  (keymap-set map "C-M-." 'my/mark-list-command)
-  (keymap-set map "M-<return>" 'my/duplicate-list)
-  (keymap-set map "M-/" 'completion-at-point)
-  (keymap-set map "C-M-i" 'dabbrev-expand)
-  (keymap-set map "M-n" 'my/forward-sexp)
-  (keymap-set map "M-p" 'backward-sexp)
-
   ;; TODO: Only use these for emacs-lisp-mode.
   (keymap-set map "C-c C-c" 'my/eval-dwim)
   (keymap-set map "C-c C-." 'my/eval-here)
   (keymap-set map "C-c C-x" 'my/eval-kill-ring)
   ;;
 
+  (keymap-set map "M-/" 'completion-at-point)
+  (keymap-set map "C-M-i" 'dabbrev-expand)
+  (keymap-set map "M-n" 'my/forward-sexp)
+  (keymap-set map "M-p" 'backward-sexp)
+  (keymap-set map "C-M-." 'my/mark-list-command)
   (keymap-set map "M-w" 'my/lisp-kill-ring-save-dwim)
+  (keymap-set map "M-<return>" 'my/duplicate-list)
   (keymap-set map "C-k" 'my/lisp-kill-dwim)
   (keymap-set map "M-k" 'my/kill-list)
-  (keymap-set map "M-9"  'backward-up-list)
+  (keymap-set map "M-(" 'my/wrap-sexp)
   (keymap-set map "S-<return>" 'my/close-round-and-newline)
   (keymap-set map "C-<return>" 'my/open-new-round)
-  (keymap-set map "M-(" 'my/wrap-sexp)
   (keymap-set map "C-c C-s" 'paredit-splice-sexp)
   (keymap-set map "C-c C-o" 'paredit-raise-sexp)
   (keymap-set map "C-t" 'my/lisp-transpose-chars)
