@@ -3,7 +3,6 @@
 
 (keymap-set help-mode-map "<mouse-8>" 'help-go-back)
 (keymap-set help-mode-map "<mouse-9>" 'help-go-forward)
-(add-hook 'html-mode-hook (lambda () (local-set-key (kbd "M-o") 'other-window)))
 (eval-after-load 'ibuffer '(keymap-set ibuffer-mode-map "M-r" 'ibuffer-do-query-replace-regexp))
 (keymap-set minibuffer-mode-map "M-/" 'dabbrev-expand)
 (keymap-set occur-mode-map "n" (lambda () (interactive) (occur-next) (occur-mode-display-occurrence)))
