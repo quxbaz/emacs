@@ -142,7 +142,7 @@
 (global-set-key (kbd "C-c p") 'find-file-at-point)
 
 
-;; # Buffers, dired
+;; # Buffers, windows, dired
 ;; ## Buffers
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "<escape> <escape> k") (lambda () (interactive) (kill-buffer)))
@@ -150,6 +150,13 @@
 (global-set-key (kbd "M-SPC") 'ivy-switch-buffer)
 (global-set-key (kbd "<escape> SPC") 'ibuffer)
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
+;; ## Windows
+(global-set-key (kbd "M-o") '(lambda () (interactive) (other-window -1)))
+(global-set-key (kbd "C-x C-o") 'other-window)
+(global-set-key (kbd "<escape> -") 'window-swap-states)
+(global-set-key (kbd "<escape> 9") 'delete-other-windows)
+(global-set-key (kbd "<escape> 0") 'delete-window)
+(global-set-key (kbd "<escape> = ") 'balance-windows)
 ;; ## Dired
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
 (global-set-key (kbd "M-`") 'my/dired-jump)
@@ -168,15 +175,6 @@
 ;; # Viewing, narrowing, filtering
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
 (global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
-
-
-;; # Windows
-(global-set-key (kbd "M-o") '(lambda () (interactive) (other-window -1)))
-(global-set-key (kbd "C-x C-o") 'other-window)
-(global-set-key (kbd "<escape> -") 'window-swap-states)
-(global-set-key (kbd "<escape> 9") 'delete-other-windows)
-(global-set-key (kbd "<escape> 0") 'delete-window)
-(global-set-key (kbd "<escape> = ") 'balance-windows)
 
 
 ;; # Math, numbers
