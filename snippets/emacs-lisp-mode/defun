@@ -1,5 +1,5 @@
 # name: defun
 # key: fn
 # --
-(defun ${1:NAME} (${2:ARGS})
+(defun ${1:NAME} ($2)
   $0)
