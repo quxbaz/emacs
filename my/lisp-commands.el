@@ -195,3 +195,18 @@ Also works from inside strings."
         ((my/is-inside-list)
          (setq-local my/mark-list/origin (point))
          (my/mark-list))))
+
+
+;; # Common Lisp
+
+(defun my/visit-slime-repl ()
+  "Activates SLIME or visits the SLIME buffer in the other window."
+  (interactive)
+  (let ((slime-buffer (get-buffer "*slime-repl sbcl*")))
+    (cond (slime-buffer
+           (if (= (length (window-list)) 1)
+               (split-window-right))
+           (windmove-right)
+           (switch-to-buffer slime-buffer))
+          (t
+           (slime)))))
