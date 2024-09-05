@@ -28,11 +28,12 @@
 (my/set-lisp-keymap lisp-mode-map)
 
 ;; When the SLIME REPL is activated, it modifies slime-mode-map, so we need to
-;; set our custom slime-mode-map from slime-repl-mode-hook.
+;; set our custom slime-mode-map keybindings from slime-repl-mode-hook.
 (add-hook 'slime-repl-mode-hook (lambda ()
                                   (my/set-lisp-keymap slime-mode-map)
                                   (my/set-lisp-keymap slime-repl-mode-map)))
 
+;; Override default paredit keymap.
 (eval-after-load 'paredit '(progn
                              (keymap-set paredit-mode-map "M-s" 'save-buffer)
                              (keymap-set paredit-mode-map "M-r" 'my/query-replace-dwim)
