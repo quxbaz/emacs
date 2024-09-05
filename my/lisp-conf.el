@@ -6,7 +6,7 @@
 ;;
 ;; # Shared config
 
-(dolist (keymap (list emacs-lisp-mode-map lisp-mode-map slime-mode-map))
+(dolist (keymap (list emacs-lisp-mode-map lisp-mode-map slime-mode-map slime-repl-mode-map))
   (keymap-set keymap "M-/" 'completion-at-point)
   (keymap-set keymap "C-M-i" 'dabbrev-expand)
   (keymap-set keymap "M-n" 'my/forward-sexp)
