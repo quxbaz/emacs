@@ -54,7 +54,7 @@
 ;;
 ;; # Common Lisp config
 (setq inferior-lisp-program (executable-find "sbcl"))
-(keymap-set lisp-mode-map "<escape> RET" 'my/visit-slime-repl)
+(keymap-set lisp-mode-map "<escape> ;" 'my/visit-slimej-repl)
 
 
 ;;
