@@ -6,34 +6,32 @@
 ;;
 ;; # Shared config
 
-(defun my/set-lisp-keymap (keymap)
-  (keymap-set keymap "M-/" 'completion-at-point)
-  (keymap-set keymap "C-M-i" 'dabbrev-expand)
-  (keymap-set keymap "M-n" 'my/forward-sexp)
-  (keymap-set keymap "M-p" 'backward-sexp)
-  (keymap-set keymap "C-M-." 'my/mark-list-command)
-  (keymap-set keymap "M-w" 'my/lisp-kill-ring-save-dwim)
-  (keymap-set keymap "M-<return>" 'my/duplicate-list)
-  (keymap-set keymap "C-k" 'my/lisp-kill-dwim)
-  (keymap-set keymap "M-k" 'my/kill-list)
-  (keymap-set keymap "M-(" 'my/wrap-sexp)
-  (keymap-set keymap "S-<return>" 'my/close-round-and-newline)
-  (keymap-set keymap "C-<return>" 'my/open-new-round)
-  (keymap-set keymap "C-c C-s" 'paredit-splice-sexp)
-  (keymap-set keymap "C-c C-o" 'paredit-raise-sexp)
-  (keymap-set keymap "C-t" 'my/lisp-transpose-chars)
-  (keymap-set keymap "C-;" 'my/lisp-comment-dwim))
+(defun my/set-lisp-keymap (map)
+  (keymap-set map "M-/" 'completion-at-point)
+  (keymap-set map "C-M-i" 'dabbrev-expand)
+  (keymap-set map "M-n" 'my/forward-sexp)
+  (keymap-set map "M-p" 'backward-sexp)
+  (keymap-set map "C-M-." 'my/mark-list-command)
+  (keymap-set map "M-w" 'my/lisp-kill-ring-save-dwim)
+  (keymap-set map "M-<return>" 'my/duplicate-list)
+  (keymap-set map "C-k" 'my/lisp-kill-dwim)
+  (keymap-set map "M-k" 'my/kill-list)
+  (keymap-set map "M-(" 'my/wrap-sexp)
+  (keymap-set map "S-<return>" 'my/close-round-and-newline)
+  (keymap-set map "C-<return>" 'my/open-new-round)
+  (keymap-set map "C-c C-s" 'paredit-splice-sexp)
+  (keymap-set map "C-c C-o" 'paredit-raise-sexp)
+  (keymap-set map "C-t" 'my/lisp-transpose-chars)
+  (keymap-set map "C-;" 'my/lisp-comment-dwim))
 
 (my/set-lisp-keymap emacs-lisp-mode-map)
 (my/set-lisp-keymap lisp-mode-map)
 
-;; Mode hooks
-(dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook slime-repl-mode-hook))
-  (add-hook mode-hook (lambda ()
-                        (autopair-mode 0)
-                        (aggressive-indent-mode t)
-                        (paredit-mode t)
-                        (rainbow-blocks-mode t))))
+;; When the SLIME REPL is activated, it modifies slime-mode-map, so we need to
+;; set our custom slime-mode-map from slime-repl-mode-hook.
+(add-hook 'slime-repl-mode-hook (lambda ()
+                                  (my/set-lisp-keymap slime-mode-map)
+                                  (my/set-lisp-keymap slime-repl-mode-map)))
 
 (eval-after-load 'paredit '(progn
                              (keymap-set paredit-mode-map "M-s" 'save-buffer)
@@ -44,6 +42,13 @@
                              (keymap-set paredit-mode-map "C-k" 'my/lisp-kill-dwim)
                              (keymap-set paredit-mode-map "M-(" 'my/wrap-sexp)))
 
+;; Mode hooks
+(dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook slime-repl-mode-hook))
+  (add-hook mode-hook (lambda ()
+                        (autopair-mode 0)
+                        (aggressive-indent-mode t)
+                        (rainbow-blocks-mode t)
+                        (paredit-mode t))))
 
 ;;
 ;; # Common Lisp config
