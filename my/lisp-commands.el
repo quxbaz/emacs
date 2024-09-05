@@ -200,7 +200,7 @@ Also works from inside strings."
 ;; # Common Lisp
 
 (defun my/visit-slime-repl ()
-  "Activates SLIME or visits the SLIME buffer in the other window."
+  "Activates SLIME or visits the SLIME buffer in the right-side window."
   (interactive)
   (let ((slime-buffer (get-buffer "*slime-repl sbcl*")))
     (cond (slime-buffer
