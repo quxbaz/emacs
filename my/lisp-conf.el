@@ -24,7 +24,6 @@
   (keymap-set keymap "C-t" 'my/lisp-transpose-chars)
   (keymap-set keymap "C-;" 'my/lisp-comment-dwim))
 
-
 ;; Mode hooks
 (dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook slime-repl-mode-hook))
   (add-hook mode-hook (lambda ()
