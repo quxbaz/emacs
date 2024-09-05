@@ -6,7 +6,7 @@
 ;;
 ;; # Shared config
 
-(dolist (keymap (list emacs-lisp-mode-map lisp-mode-map slime-mode-map slime-repl-mode-map))
+(defun my/set-lisp-keymap (keymap)
   (keymap-set keymap "M-/" 'completion-at-point)
   (keymap-set keymap "C-M-i" 'dabbrev-expand)
   (keymap-set keymap "M-n" 'my/forward-sexp)
@@ -23,6 +23,9 @@
   (keymap-set keymap "C-c C-o" 'paredit-raise-sexp)
   (keymap-set keymap "C-t" 'my/lisp-transpose-chars)
   (keymap-set keymap "C-;" 'my/lisp-comment-dwim))
+
+(my/set-lisp-keymap emacs-lisp-mode-map)
+(my/set-lisp-keymap lisp-mode-map)
 
 ;; Mode hooks
 (dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook slime-repl-mode-hook))
