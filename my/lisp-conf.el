@@ -6,6 +6,7 @@
 ;;
 ;; # Shared config
 
+;; Custom keybindings for all Lisp modes.
 (defun my/set-lisp-keymap (map)
   (keymap-set map "M-/" 'completion-at-point)
   (keymap-set map "C-M-i" 'dabbrev-expand)
