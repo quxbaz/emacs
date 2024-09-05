@@ -6,8 +6,7 @@
 ;;
 ;; # Shared config
 
-;; slime-repl-mode-map seems to inherit from lisp-mode-map, so we can omit it.
-(dolist (keymap (list emacs-lisp-mode-map lisp-mode-map))
+(dolist (keymap (list emacs-lisp-mode-map lisp-mode-map slime-mode-map))
   (keymap-set keymap "M-/" 'completion-at-point)
   (keymap-set keymap "C-M-i" 'dabbrev-expand)
   (keymap-set keymap "M-n" 'my/forward-sexp)
