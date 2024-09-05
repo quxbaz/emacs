@@ -49,6 +49,7 @@
 (global-set-key (kbd "<f10>") (lambda () (interactive) (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
+(global-set-key (kbd "<escape> y") 'my/visit-snippet-directory)
 
 
 ;; # Appearance, themes
