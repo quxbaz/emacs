@@ -9,7 +9,11 @@
 (add-hook 'after-init-hook
           (lambda ()
             (find-file-noselect user-init-file t)
+
+            ;; This line raises the message:
+            ;; > Symbolic link that points to nonexistent file
             (find-file-noselect (expand-file-name "my/*" user-emacs-directory) nil nil t)
+
             (find-file-noselect (concat user-emacs-directory "bugs.el"))
             (find-file-noselect (concat user-emacs-directory "scratch.el"))
             (find-file-noselect "~/personal/diary")
