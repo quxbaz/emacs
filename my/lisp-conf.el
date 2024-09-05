@@ -1,6 +1,5 @@
 ;; Lisp config
 ;;
-;; TODO: Add binding to show SLIME buffer.
 
 
 ;;
