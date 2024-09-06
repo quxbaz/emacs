@@ -157,14 +157,6 @@ region as the search string."
              (kill-buffer previous-buffer))))
         (t (call-interactively 'dired-jump))))
 
-(defun my/dired-home ()
-  "Jumps dired to the home directory."
-  (interactive)
-  (let ((previous-buffer (current-buffer)))
-    (dired (getenv "HOME"))
-    (if (eq major-mode 'dired-mode)
-        (kill-buffer previous-buffer))))
-
 (defun my/dired-up-directory ()
   "Like dired-up-directory, but doesn't spawn a new buffer."
   (interactive)
