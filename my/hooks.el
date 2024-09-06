@@ -40,6 +40,7 @@
 
 (add-hook 'after-init-hook
           (lambda ()
+            (find-file-noselect (expand-file-name "my/*" user-emacs-directory) nil nil t)
             (dolist (filepath my/init-files)
               (if (file-exists-p filepath)
                   (find-file-noselect filepath)
