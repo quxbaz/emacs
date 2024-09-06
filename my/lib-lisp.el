@@ -60,7 +60,7 @@
            (= end (scan-lists start 1 0))))))
 
 
-;; # Destuctive
+;; # Destructive
 
 (defun my/goto-opening-paren ()
   "Moves point to opening paren."
