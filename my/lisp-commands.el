@@ -206,7 +206,7 @@ Also works from inside strings."
     (cond (slime-buffer
            (if (= (length (window-list)) 1)
                (split-window-right))
-           (windmove-right)
+           (my/ignore-error (windmove-right))
            (switch-to-buffer slime-buffer))
           (t
            (slime)))))
