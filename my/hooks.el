@@ -6,41 +6,43 @@
 (add-hook 'css-mode-hook (lambda () (setq css-indent-offset 2)))
 (add-hook 'occur-mode-hook (lambda () (switch-to-buffer-other-window "*Occur*")))
 
-(add-hook 'after-init-hook
-          (lambda ()
-            (find-file-noselect user-init-file t)
-            (find-file-noselect (expand-file-name "my/*" user-emacs-directory) nil nil t)
-            (find-file-noselect (concat user-emacs-directory "bugs.el"))
-            (find-file-noselect (concat user-emacs-directory "scratch.el"))
-            (find-file-noselect "~/personal/diary")
-            (find-file-noselect "~/personal/bookmarks.org")
-            (find-file-noselect "~/personal/cad.org")
-            (find-file-noselect "~/personal/food.org")
-            (find-file-noselect "~/personal/main.org")
-            (find-file-noselect "~/personal/media-queue.org")
-            (find-file-noselect "~/personal/programming.org")
-            (find-file-noselect "~/personal/promise.org")
-            (find-file-noselect "~/personal/rem.org")
-            (find-file-noselect "~/personal/remember.org")
-            (find-file-noselect "~/personal/archive/buy.org")
-            (find-file-noselect "~/personal/archive/people.org")
-            (find-file-noselect "~/personal/archive/projects.org")
-            (find-file-noselect "~/personal/exercise/exercises.org")
-            (find-file-noselect "~/personal/exercise/misc.org")
-            (find-file-noselect "~/personal/exercise/movement.org")
-            (find-file-noselect "~/personal/exercise/records.org")
-            (find-file-noselect "~/personal/exercise/routines.org")
-            (find-file-noselect "~/personal/linux/emacs.org")
-            (find-file-noselect "~/personal/linux/linux.org")
-            (find-file-noselect "~/conf/sync.org")
-            (find-file-noselect "~/conf/i3/config")
-            (find-file-noselect "~/conf/zsh/.zshrc")
-            ;; Work-related
-            (find-file-noselect "~/work/wnmu/Todo.org")
-            (find-file-noselect "~/work/wnmu/projects.org")
-            (find-file-noselect "~/work/wnmu/refactor.org")
-            (find-file-noselect "~/work/wnmu/huddle-notes.org")
-            (find-file-noselect "~/work/wnmu/records/creds.org")))
+(setq-local my/init-files (list user-init-file
+                                (concat user-emacs-directory "bugs.el")
+                                (concat user-emacs-directory "scratch.el")
+                                "~/personal/bookmarks.org"
+                                "~/personal/cad.org"
+                                "~/personal/diary"
+                                "~/personal/food.org"
+                                "~/personal/main.org"
+                                "~/personal/media-queue.org"
+                                "~/personal/programming.org"
+                                "~/personal/promise.org"
+                                "~/personal/rem.org"
+                                "~/personal/remember.org"
+                                "~/personal/archive/buy.org"
+                                "~/personal/archive/people.org"
+                                "~/personal/archive/projects.org"
+                                "~/personal/exercise/exercises.org"
+                                "~/personal/exercise/misc.org"
+                                "~/personal/exercise/movement.org"
+                                "~/personal/exercise/records.org"
+                                "~/personal/exercise/routines.org"
+                                "~/personal/linux/emacs.org"
+                                "~/personal/linux/linux.org"
+                                "~/conf/sync.org"
+                                "~/conf/i3/config"
+                                "~/conf/zsh/.zshrc"
+                                "~/work/wnmu/Todo.org"
+                                "~/work/wnmu/huddle-notes.org"
+                                "~/work/wnmu/projects.org"
+                                "~/work/wnmu/records/creds.org"
+                                "~/work/wnmu/refactor.org"))
+
+(add-hook 'after-init-hook (lambda ()
+                             (dolist (filepath my/init-files)
+                               (if (file-exists-p filepath)
+                                   (find-file-noselect filepath)
+                                 (error "Init file does not exist: %s" filepath)))))
 
 (add-hook 'dired-mode-hook
           (lambda ()
