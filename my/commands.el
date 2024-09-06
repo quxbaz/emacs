@@ -155,8 +155,7 @@ region as the search string."
            (let ((previous-buffer (current-buffer)))
              (dired user-emacs-directory)
              (kill-buffer previous-buffer))))
-        (t
-         (call-interactively 'dired-jump))))
+        (t (call-interactively 'dired-jump))))
 
 (defun my/dired-up-directory ()
   "Like dired-up-directory, but doesn't spawn a new buffer."
