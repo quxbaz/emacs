@@ -203,8 +203,7 @@ region as the search string."
          (call-interactively 'kill-ring-save)
          (if (my/teleport-is-mark-active)
              (my/teleport-copy-to-mark)))
-        (t
-         (call-interactively 'self-insert-command))))
+        (t (call-interactively 'self-insert-command))))
 
 (defun my/key-x ()
   "Inserts `x` normally. If region is active, exchange point and mark instead."
