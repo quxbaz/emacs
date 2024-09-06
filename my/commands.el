@@ -150,7 +150,7 @@ region as the search string."
 (defun my/dired-jump ()
   "When in a non-dired buffer, jump to dired. If in dired, jump to Emacs directory."
   (interactive)
-  (cond ((eq major-mode 'dired-modeq)
+  (cond ((eq major-mode 'dired-mode)
          (unless (string= default-directory user-emacs-directory)
            (let ((previous-buffer (current-buffer)))
              (dired user-emacs-directory)
