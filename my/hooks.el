@@ -38,11 +38,12 @@
                                 "~/work/wnmu/records/creds.org"
                                 "~/work/wnmu/refactor.org"))
 
-(add-hook 'after-init-hook (lambda ()
-                             (dolist (filepath my/init-files)
-                               (if (file-exists-p filepath)
-                                   (find-file-noselect filepath)
-                                 (error "Init file does not exist: %s" filepath)))))
+(add-hook 'after-init-hook
+          (lambda ()
+            (dolist (filepath my/init-files)
+              (if (file-exists-p filepath)
+                  (find-file-noselect filepath)
+                (error "Init file does not exist: %s" filepath)))))
 
 (add-hook 'dired-mode-hook
           (lambda ()
