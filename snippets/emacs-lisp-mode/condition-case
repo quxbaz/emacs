@@ -2,5 +2,5 @@
 # key: cc
 # --
 (condition-case ${1:nil}
-    ($0)
+    $0
   (error nil))
