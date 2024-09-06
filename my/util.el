@@ -20,10 +20,6 @@
 
 ;; Macros
 
-(defmacro COMMENT (&rest body)
-  "Comment out a sexp."
-  nil)
-
 (defmacro my/if-buffer-changes (body then &optional else)
   "Executes BODY. If the execution of BODY causes any change in the buffer,
 execute THEN. Otherwise execute ELSE."
