@@ -148,17 +148,13 @@ region as the search string."
     (call-interactively #'query-replace-regexp)))
 
 (defun my/dired-jump ()
-  "When in a non-dired buffer, jump to dired.
-If inside dired, jump to Emacs directory.
-If inside Emacs directory, jump to home directory.
-If inside home directory, jump to Emacs directory."
+  "When in a non-dired buffer, jump to dired. If in dired, jump to Emacs directory."
   (interactive)
-  (cond ((string= major-mode "dired-mode")
-         (let ((current-dired-buffer (current-buffer)))
-           (if (string= default-directory user-emacs-directory)
-               (dired (getenv "HOME"))
-             (dired user-emacs-directory))
-           (kill-buffer current-dired-buffer)))
+  (cond ((eq major-mode 'dired-mode)()
+         (unless (string= default-directory user-emacs-directory)
+           (let ((previous-buffer (current-buffer)))
+             (dired user-emacs-directory)
+             (kill-buffer previous-buffer))))
         (t
          (call-interactively 'dired-jump))))
 
