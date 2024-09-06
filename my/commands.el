@@ -455,3 +455,12 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (call-interactively 'deadgrep-backward-match)
   (deadgrep-visit-result-other-window)
   (other-window -1))
+
+
+;; # magit
+
+(defun my/commit-current-file ()
+  "Stage and commit the current file."
+  (interactive)
+  (magit-stage-buffer-file)
+  (magit-commit-create))
