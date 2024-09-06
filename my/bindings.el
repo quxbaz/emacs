@@ -163,6 +163,7 @@
 ;; ## Dired
 (global-set-key (kbd "C-c C-SPC") 'ido-dired)
 (global-set-key (kbd "M-`") 'my/dired-jump)
+(global-set-key (kbd "<escape> h") 'my/dired-home)
 
 
 ;; # Bookmarks, registers
