@@ -27,6 +27,7 @@
 (eval-after-load 'dired
   '(progn
      (keymap-set dired-mode-map "P" 'my/dired-up-directory)
+     (keymap-set dired-mode-map "h" 'my/dired-home)
      (keymap-set dired-mode-map "/" 'isearch-forward-regexp)
      (keymap-set dired-mode-map "M" 'dired-mark-files-regexp)
      (keymap-set dired-mode-map "C-c C-c" 'dired-toggle-read-only)
