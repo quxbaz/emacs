@@ -20,6 +20,12 @@
 
 ;; Macros
 
+(defmacro my/ignore-error (form)
+  "Executes FORM and ignores any errors."
+  `(condition-case nil
+       ,form
+     (error nil)))
+
 (defmacro my/if-buffer-changed (body then &optional else)
   "Executes BODY. If the execution of BODY causes any change in the buffer,
 execute THEN. Otherwise execute ELSE."
