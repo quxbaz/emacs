@@ -20,7 +20,7 @@
 
 ;; Macros
 
-(defmacro my/if-buffer-changes (body then &optional else)
+(defmacro my/if-buffer-changed (body then &optional else)
   "Executes BODY. If the execution of BODY causes any change in the buffer,
 execute THEN. Otherwise execute ELSE."
   (declare (indent 1))
