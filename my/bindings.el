@@ -100,8 +100,6 @@
 ;; ## Sorting, alignment
 (global-set-key (kbd "<escape> \\") 'align-regexp)
 (global-set-key (kbd "<escape> <escape> l") 'sort-lines)
-;; ## Complex editing
-(global-set-key (kbd "C-x m") 'my/teleport-set-mark)
 
 
 ;; # Rectangles
