@@ -16,8 +16,8 @@
 
 ;; # Text navigation, selection
 
-(defun my/match-paren ()
-  "Move point to the matching paren. Falls back to moving to the parent paren."
+(defun my/match-delimiter ()
+  "Moves point to the beginning of the matching delimiter."
   (interactive)
   ;; \s( and \s) represent the opening/closing delimiter character groups.
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
