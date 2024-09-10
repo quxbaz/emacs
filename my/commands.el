@@ -233,8 +233,10 @@ region as the search string."
   (interactive)
   (if (use-region-p)
       (call-interactively 'kill-ring-save)
-    (kill-ring-save (+ (line-beginning-position) (current-indentation))
-                    (+ (line-end-position) 1)))
+    (if (eq last-command 'my/kill-ring-save-dwim)
+        (kill-ring-save (point-min) (point-max))
+      (kill-ring-save (+ (line-beginning-position) (current-indentation))
+                      (+ (line-end-position) 1))))
   (message "%s" (string-trim (car kill-ring))))
 
 (defun my/kill-block (arg)
