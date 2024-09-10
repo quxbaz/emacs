@@ -19,7 +19,7 @@
 (defun my/match-delimiter ()
   "Moves point to the beginning of the matching delimiter."
   (interactive)
-  ;; \s( and \s) represent the opening/closing delimiter character groups.
+  ;; \s( and \s) represent the opening and closing delimiter character groups.
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         ;; Match opening quote.
