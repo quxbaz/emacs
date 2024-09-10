@@ -121,6 +121,8 @@ Also works from inside strings."
   (interactive)
   (cond ((use-region-p)
          (kill-ring-save nil nil t))
+        ((eq last-command 'my/lisp-kill-ring-save-dwim)
+         (kill-ring-save (point-min) (point-max)))
         ((my/is-inside-list)
          (if (my/is-inside-string)
              (kill-new (buffer-substring-no-properties (my/opening-paren-position)
