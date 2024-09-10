@@ -22,7 +22,7 @@
   ;; \s( and \s) represent the opening and closing delimiter character groups.
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-        ;; Match opening quote.
+        ;; Match opening and closing quotes.
         ((and (looking-at "\"") (looking-back " ")) (forward-sexp) (backward-char 1))
         (t (backward-up-list 1 t t))))
 
