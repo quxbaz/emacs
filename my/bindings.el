@@ -76,7 +76,6 @@
 ;; # Editing
 ;; ## Kill ring, clipboard, undo
 (global-set-key (kbd "M-w") 'my/kill-ring-save-dwim)
-(global-set-key (kbd "C-c C-w") 'my/kill-ring-save-buffer)
 (global-set-key [\S-insert] 'clipboard-yank)
 (global-set-key (kbd "C-M-/") 'undo-only)
 ;; ## Creation, duplication, opening

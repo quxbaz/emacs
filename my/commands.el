@@ -237,12 +237,6 @@ region as the search string."
                     (+ (line-end-position) 1)))
   (message "%s" (string-trim (car kill-ring))))
 
-(defun my/kill-ring-save-buffer ()
-  "Saves the current buffer into the kill-ring."
-  (interactive)
-  (kill-ring-save (point-min) (point-max))
-  (message "%s" (car kill-ring)))
-
 (defun my/kill-block (arg)
   (interactive "p")
   (save-excursion
