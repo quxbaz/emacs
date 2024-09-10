@@ -1,11 +1,6 @@
 ;; Mode hooks
 
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'calendar-mode-hook 'diary-mark-entries)
-(add-hook 'css-mode-hook (lambda () (setq css-indent-offset 2)))
-(add-hook 'occur-mode-hook (lambda () (switch-to-buffer-other-window "*Occur*")))
-
 (setq-local my/init-files (list user-init-file
                                 (concat user-emacs-directory "bugs.el")
                                 (concat user-emacs-directory "scratch.el")
@@ -45,6 +40,11 @@
               (if (file-exists-p filepath)
                   (find-file-noselect filepath)
                 (error "Init file does not exist: %s" filepath)))))
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'calendar-mode-hook 'diary-mark-entries)
+(add-hook 'css-mode-hook (lambda () (setq css-indent-offset 2)))
+(add-hook 'occur-mode-hook (lambda () (switch-to-buffer-other-window "*Occur*")))
 
 (add-hook 'dired-mode-hook
           (lambda ()
