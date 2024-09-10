@@ -128,7 +128,7 @@ Also works from inside strings."
            (kill-new (thing-at-point 'list))))
         (t
          (call-interactively 'kill-ring-save)))
-  (message (car kill-ring)))
+  (message "%s "(car kill-ring)))
 
 (defun my/duplicate-list (&optional arg)
   "Duplicates the current list. Uses dwim behavior in certain contexts."
