@@ -241,8 +241,7 @@ region as the search string."
   "Saves the current buffer into the kill-ring."
   (interactive)
   (kill-ring-save (point-min) (point-max))
-  (message "Saved buffer [%s] to kill-ring." (current-buffer))
-  (my/flash-mode-line))
+  (message "%s" (car kill-ring)))
 
 (defun my/kill-block (arg)
   (interactive "p")
