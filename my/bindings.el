@@ -49,7 +49,7 @@
 (global-set-key (kbd "<f10>") (lambda () (interactive) (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
-(global-set-key (kbd "<escape> <escape> y") 'my/visit-snippet-directory)
+(global-set-key (kbd "<escape> y") 'my/visit-snippet-directory)
 
 
 ;; # Appearance, themes
@@ -76,7 +76,7 @@
 ;; # Editing
 ;; ## Kill ring, clipboard, undo
 (global-set-key (kbd "M-w") 'my/kill-ring-save-dwim)
-(global-set-key (kbd "<escape> y") 'my/kill-ring-save-buffer)
+(global-set-key (kbd "C-c C-w") 'my/kill-ring-save-buffer)
 (global-set-key [\S-insert] 'clipboard-yank)
 (global-set-key (kbd "C-M-/") 'undo-only)
 ;; ## Creation, duplication, opening
