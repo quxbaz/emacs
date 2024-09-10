@@ -26,6 +26,21 @@
         ((and (looking-at "\"") (looking-back " ")) (forward-sexp) (backward-char 1))
         (t (backward-up-list 1 t t))))
 
+(defun my/match-outside-delimiter ()
+  "Moves point to the outside of the matching delimiter."
+  (interactive)
+  (cond
+   ;; This needs to be the first condition.
+   ((my/is-inside-string) (my/goto-beginning-of-string))
+   ;; \s( and \s) represent the opening and closing delimiter character groups.
+   ((looking-at "\\s\(") (forward-list 1))
+   ((looking-back "\\s\)") (backward-list 1))
+   ;; Match opening and closing quotes.
+   ((looking-at "\"") (forward-sexp))
+   ((looking-back "\"") (backward-sexp))
+   (t (backward-up-list 1 t t))))
+
+
 (defun my/mark-current-word (&optional extended-word)
   "Marks either the short or extended word around point."
   (interactive)
