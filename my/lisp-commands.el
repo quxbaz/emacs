@@ -80,7 +80,8 @@ BUG: Does not work inside comments."
   "Like paredit-wrap-sexp, but moves to the beginning of the sexp, then wraps.
 Also works from inside strings."
   (interactive)
-  (let ((parse-state (syntax-ppss)))
+  (let ((parse-state (syntax-ppss))
+        (marker (point-marker)))
     (cond ((nth 3 parse-state)  ;; If point is inside a string, move to opening quote.
            (goto-char (nth 8 parse-state)))
           ;; Noop on any of the following conditions.
@@ -90,8 +91,9 @@ Also works from inside strings."
                (looking-back "[[:blank:]]")
                (looking-back "\\s\("))
            nil)
-          (t (thing-at-point--beginning-of-sexp))))
-  (paredit-wrap-round))
+          (t (thing-at-point--beginning-of-sexp)))
+    (paredit-wrap-round)
+    (goto-char marker)))
 
 (defun my/lisp-comment-dwim ()
   "Comment out a list if point is on opening round. Otherwise, comment the line."
