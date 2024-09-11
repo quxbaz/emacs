@@ -1,4 +1,4 @@
 # name: document.querySelector
-# key: q
+# key: dq
 # --
 document.querySelector($0)
