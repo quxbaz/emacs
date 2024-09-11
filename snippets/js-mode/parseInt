@@ -1,0 +1,4 @@
+# name: parseInt
+# key: pi
+# --
+parseInt($0)
