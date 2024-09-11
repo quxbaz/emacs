@@ -1,4 +1,4 @@
 # name: querySelector
 # key: q
 # --
-querySelector($0)
+querySelector('$0')
