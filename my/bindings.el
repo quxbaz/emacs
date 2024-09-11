@@ -143,6 +143,7 @@
 
 
 ;; # Files
+(global-set-key (kbd "C-u C-f") 'find-file)
 (global-set-key (kbd "M-F") 'find-file-other-window)
 (global-set-key (kbd "C-c p") 'find-file-at-point)
 
