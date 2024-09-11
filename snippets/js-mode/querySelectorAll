@@ -1,0 +1,4 @@
+# name: querySelectorAll
+# key: qq
+# --
+.querySelectorAll($0)
