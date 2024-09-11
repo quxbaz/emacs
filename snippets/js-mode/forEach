@@ -1,0 +1,6 @@
+# name: forEach
+# key: ll
+# --
+${1:array}.forEach(${2:item} => {
+  $0
+})
