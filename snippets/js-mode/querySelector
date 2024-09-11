@@ -1,0 +1,4 @@
+# name: querySelector
+# key: q
+# --
+.querySelector($0)
