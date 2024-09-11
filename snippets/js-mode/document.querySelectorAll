@@ -1,4 +1,4 @@
 # name: document.querySelectorAll
 # key: dqq
 # --
-document.querySelectorAll($0)
+document.querySelectorAll('$0')
