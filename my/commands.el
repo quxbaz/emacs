@@ -194,6 +194,16 @@ region as the search string."
         (occur (my/region-text)))
     (call-interactively 'occur)))
 
+(defun my/find-command-definition ()
+  "Finds a definition bound to a key sequence."
+  (interactive)
+  (let ((key (read-key-sequence "Find command bound to key sequence:")))
+    (if (and (stringp key) (string= key ""))
+        (message "Quit")
+      (let ((command-name (symbol-name (key-binding key))))
+        (xref-find-definitions command-name)
+        (message command-name)))))
+
 
 ;; # dwim region commands
 
