@@ -36,6 +36,11 @@
 (global-set-key [mouse-9] 'switch-to-next-buffer)  ;; Bind to next button.
 
 
+;; # Rebind important prefixes
+(global-set-key (kbd "C-0") 'universal-argument)
+(global-unset-key (kbd "C-u"))  ;; Repurpose C-u as a right-hand leader key.
+
+
 ;; # Help, info
 (global-set-key (kbd "C-h C-a") 'apropos)
 (global-set-key (kbd "C-h C-f") 'find-library)
