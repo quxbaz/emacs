@@ -71,6 +71,7 @@
 
 ;; # Jumping, definitions, source tracing
 (global-set-key (kbd "M-'") 'xref-find-definitions)
+(global-set-key (kbd "C-c C-'") 'my/find-command-definition)
 
 
 ;; # Editing
