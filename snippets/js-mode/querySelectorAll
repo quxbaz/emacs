@@ -1,4 +1,4 @@
 # name: querySelectorAll
 # key: qq
 # --
-querySelectorAll($0)
+querySelectorAll('$0')
