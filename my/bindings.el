@@ -190,8 +190,7 @@
 
 
 ;; # Debugging
-(global-set-key (kbd "<escape> b") 'debug-on-entry)
-(global-set-key (kbd "<escape> u b") 'cancel-debug-on-entry)
+(global-set-key (kbd "C-u C-c C-c") (my/cmd-u 'eval-defun))  ;; Instrument function w/ edebug.
 
 
 ;; # Keyboard Macros
