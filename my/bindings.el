@@ -48,7 +48,7 @@
 (global-set-key (kbd "<f8>") 'my/list-packages)
 (global-set-key (kbd "<f9>") 'calc)
 (global-set-key (kbd "<escape> c") 'ispell)
-(global-set-key (kbd "<f10>") (lambda () (interactive) (list-processes) (other-window 1)))
+(global-set-key (kbd "<f10>") (my/cmd (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
 (global-set-key (kbd "<escape> y") 'my/visit-snippet-directory)
@@ -97,7 +97,7 @@
 (global-set-key (kbd "M-;") 'my/comment-block)
 ;; ## Transposing
 (global-set-key (kbd "M-<up>") 'my/transpose-line)
-(global-set-key (kbd "M-<down>") (lambda () (interactive) (my/transpose-line t)))
+(global-set-key (kbd "M-<down>") (my/cmd (my/transpose-line t)))
 (global-set-key (kbd "M-T") 'transpose-regions)
 (global-set-key (kbd "S-<left>") 'transpose-sexps)
 ;; ## Sorting, alignment
@@ -148,7 +148,7 @@
 ;; # Buffers, windows, dired
 ;; ## Buffers
 (global-set-key (kbd "M-s") 'save-buffer)
-(global-set-key (kbd "<escape> <escape> k") (lambda () (interactive) (kill-buffer)))
+(global-set-key (kbd "<escape> <escape> k") (my/cmd (kill-buffer)))
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-SPC") 'ivy-switch-buffer)
 (global-set-key (kbd "<escape> SPC") 'ibuffer)
@@ -171,10 +171,10 @@
 (global-set-key (kbd "<escape> l") 'bookmark-bmenu-list)
 (global-set-key (kbd "<escape> m") 'bookmark-set)
 (global-set-key (kbd "<escape> j") 'jump-to-register)
-(global-set-key (kbd "M-1") (lambda () (interactive) (jump-to-register ?1)))
-(global-set-key (kbd "M-2") (lambda () (interactive) (jump-to-register ?2)))
-(global-set-key (kbd "M-3") (lambda () (interactive) (jump-to-register ?3)))
-(global-set-key (kbd "M-4") (lambda () (interactive) (jump-to-register ?4)))
+(global-set-key (kbd "M-1") (my/cmd (jump-to-register ?1)))
+(global-set-key (kbd "M-2") (my/cmd (jump-to-register ?2)))
+(global-set-key (kbd "M-3") (my/cmd (jump-to-register ?3)))
+(global-set-key (kbd "M-4") (my/cmd (jump-to-register ?4)))
 
 
 ;; # Viewing, narrowing, filtering
