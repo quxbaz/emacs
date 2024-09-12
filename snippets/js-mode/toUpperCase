@@ -1,4 +1,4 @@
 # name: toUpperCase
 # key: tu
 # --
-toUpperCase($0)
+toUpperCase()$0
