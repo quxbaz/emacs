@@ -1,4 +1,4 @@
 # name: toLowerCase
 # key: tl
 # --
-toLowerCase($0)
+toLowerCase()
