@@ -11,6 +11,14 @@
   (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
 
+;; # Commands
+
+(defmacro my/cmd (&rest forms)
+  "Wraps some forms in an (interactive) lambda. Useful for writing
+succinct keybindings."
+  `(lambda () (interactive) ,@forms))
+
+
 ;; # Util
 
 (defun my/is-inside-comment ()
