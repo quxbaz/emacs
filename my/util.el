@@ -19,6 +19,25 @@
 This is useful for writing succinct keybindings."
   `(lambda () (interactive) ,@forms))
 
+(defmacro my/cmd-u (&rest forms)
+  "Wraps some forms in an (interactive) lambda with the universal
+argument (C-u) set.
+
+FORMS can be either a single symbol or set of forms.
+
+This is useful for writing succinct keybindings."
+  ;; Check if FORMS is just a symbol.
+  (cond ((and (= (length forms) 1)
+              (eq (type-of (cadr forms)) 'symbol))
+         `(lambda ()
+            (interactive)
+            (let ((current-prefix-arg t))
+              (call-interactively ,@forms))))
+        (t `(lambda ()
+              (interactive)
+              (let ((current-prefix-arg t))
+                ,@forms)))))
+
 
 ;; # Util
 
