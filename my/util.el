@@ -14,8 +14,9 @@
 ;; # Commands
 
 (defmacro my/cmd (&rest forms)
-  "Wraps some forms in an (interactive) lambda. Useful for writing
-succinct keybindings."
+  "Wraps some forms in an (interactive) lambda.
+
+This is useful for writing succinct keybindings."
   `(lambda () (interactive) ,@forms))
 
 
