@@ -1,4 +1,4 @@
 # name: document.createElement
 # key: ce
 # --
-document.createElement($0)
+document.createElement('${1:div}')$0
