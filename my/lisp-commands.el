@@ -81,7 +81,7 @@ BUG: Does not work inside comments."
 Also works from inside strings."
   (interactive)
   (let ((parse-state (syntax-ppss))
-        (marker (point-marker)))
+        (origin (point)))
     (cond ((nth 3 parse-state)  ;; If point is inside a string, move to opening quote.
            (goto-char (nth 8 parse-state)))
           ;; Noop on any of the following conditions.
@@ -93,7 +93,7 @@ Also works from inside strings."
            nil)
           (t (thing-at-point--beginning-of-sexp)))
     (paredit-wrap-round)
-    (goto-char marker)))
+    (forward-char (+ (- origin (point)) 1))))
 
 (defun my/lisp-comment-dwim ()
   "Comment out a list if point is on opening round. Otherwise, comment the line."
