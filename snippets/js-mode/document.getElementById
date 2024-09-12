@@ -1,0 +1,4 @@
+# name: document.getElementById
+# key: id
+# --
+document.getElementById('$0')
