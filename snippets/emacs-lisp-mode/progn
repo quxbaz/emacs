@@ -1,0 +1,5 @@
+# name: progn
+# key: pg
+# --
+(progn
+   $0)
