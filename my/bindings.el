@@ -35,8 +35,8 @@
 
 ;; # Rebind important prefixes
 (global-set-key (kbd "C-0") 'digit-argument)
-(global-set-key (kbd "C-u C-u") 'universal-argument)
 (global-unset-key (kbd "C-u"))  ;; Repurpose C-u as a right-hand leader key.
+(global-set-key (kbd "C-u C-u") 'universal-argument)
 
 
 ;; # Help, info
