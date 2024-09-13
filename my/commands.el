@@ -435,15 +435,15 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 ;; # dired
 
 (defun my/dired-edit-file ()
-  "Opens a program to edit the file. The program used is based on
-the filename extension."
+  "Opens a program to edit the current file."
   (interactive)
   (let* ((filename (dired-get-filename))
          (extension (file-name-extension filename)))
     (cond ((or (string= extension "jpg")
                (string= extension "jpeg")
                (string= extension "png"))
-           (shell-command (format "gimp %s" filename))))))
+           (shell-command (format "gimp %s" filename)))
+          (t (message "No program associated with file: %s" (file-name-nondirectory filename))))))
 
 
 ;; # deadgrep
