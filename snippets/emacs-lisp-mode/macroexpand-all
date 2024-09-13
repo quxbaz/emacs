@@ -1,0 +1,9 @@
+# name: macroexpand-all
+# key: me
+# type: command
+# condition: (null t)
+# --
+(insert "(macroexpand-all)")
+(backward-char)
+(paredit-forward-slurp-sexp)
+(insert " ")
