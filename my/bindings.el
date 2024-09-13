@@ -20,6 +20,7 @@
 (global-unset-key (kbd "C-x r d"))
 (global-unset-key (kbd "C-x r t"))
 (global-unset-key (kbd "C-x C-b"))
+(global-unset-key (kbd "C-x C-f"))
 
 
 ;; # Mouse config
