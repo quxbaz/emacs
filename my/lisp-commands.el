@@ -95,6 +95,13 @@ Also works from inside strings."
     (paredit-wrap-round)
     (forward-char (+ (- origin (point)) 1))))
 
+(defun my/up-wrap-sexp ()
+  "Wraps the parent list in parens."
+  (interactive)
+  (save-excursion
+    (paredit-backward-up)
+    (paredit-wrap-sexp)))
+
 (defun my/lisp-comment-dwim ()
   "Comment out a list if point is on opening round. Otherwise, comment the line."
   (interactive)
