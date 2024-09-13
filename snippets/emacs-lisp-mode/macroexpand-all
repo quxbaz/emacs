@@ -1,9 +1,17 @@
 # name: macroexpand-all
 # key: me
 # type: command
-# condition: (null t)
+# condition: (looking-at " *\(")
+#
+# Wraps the proceeding list in the from:
+#
+#   (macroexpand-all LIST)
+#
+# and also quotes the list.
 # --
 (insert "(macroexpand-all)")
+(delete-horizontal-space)
 (backward-char)
 (paredit-forward-slurp-sexp)
-(insert " ")
+(insert " '")
+(paredit-forward-up)
