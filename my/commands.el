@@ -432,6 +432,20 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (message "Saved: %s" (car kill-ring))))
 
 
+;; # dired
+
+(defun my/dired-edit-file ()
+  "Opens a program to edit the file. The program used is based on
+the filename extension."
+  (interactive)
+  (let* ((filename (dired-get-filename))
+         (extension (file-name-extension filename)))
+    (cond ((or (string= extension "jpg")
+               (string= extension "jpeg")
+               (string= extension "png"))
+           (shell-command (format "gimp %s" filename))))))
+
+
 ;; # deadgrep
 
 (defun my/deadgrep-display-result ()
