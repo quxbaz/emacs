@@ -1,0 +1,16 @@
+# name: length
+# key: le
+# type: command
+# condition: t
+#
+# Wraps the proceeding list in the from:
+#
+#   (length SEXP)
+#
+# --
+(insert "(length)")
+(delete-horizontal-space)
+(backward-char)
+(paredit-forward-slurp-sexp)
+(insert " ")
+(backward-char)
