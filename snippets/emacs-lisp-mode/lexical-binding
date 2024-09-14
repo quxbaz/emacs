@@ -1,0 +1,8 @@
+# name: lexical-binding
+# key: lb
+# type: command
+# condition: (= (line-number-at-pos (point) t) 1))
+# --
+(delete-horizontal-space)
+(move-beginning-of-line nil)
+(insert ";; -*- lexical-binding: t; -*-")
