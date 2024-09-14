@@ -1,8 +1,10 @@
 # name: lexical-binding
 # key: lb
 # type: command
-# condition: (= (line-number-at-pos (point) t) 1))
+# condition: t
 # --
-(delete-horizontal-space)
-(move-beginning-of-line nil)
+(beginning-of-buffer)
+(open-line 1)
 (insert ";; -*- lexical-binding: t; -*-")
+(pop-to-mark-command)
+(message "[Line 1] ;; -*- lexical-binding: t; -*-")
