@@ -1,4 +1,4 @@
-# name: PHP map
+# name: php-map
 # key: map
 # --
 $${1:NAME} = [
