@@ -132,3 +132,11 @@
 
 ;; # Hardware
 (setq printer-name "HLL2350DW")
+
+
+;; # SQL
+(setq sql-connection-alist '((wnmu-edu-db (sql-product 'mysql)
+                                          (sql-user "wnmu_edu")
+                                          (sql-password "")
+                                          (sql-server "localhost")
+                                          (sql-database "wnmu_edu_db"))))
