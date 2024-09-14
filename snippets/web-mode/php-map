@@ -1,0 +1,6 @@
+# name: PHP map
+# key: map
+# --
+$${1:NAME} = [
+  $0
+];
