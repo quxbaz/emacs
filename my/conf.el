@@ -136,7 +136,7 @@
 
 ;; # SQL
 (setq sql-connection-alist '((wnmu-edu-db (sql-product 'mysql)
-                                          (sql-user "wnmu_edu")
+                                          (sql-user "david")
                                           (sql-password "")
                                           (sql-server "localhost")
                                           (sql-database "wnmu_edu_db"))))
