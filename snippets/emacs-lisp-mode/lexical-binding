@@ -6,5 +6,4 @@
 (beginning-of-buffer)
 (open-line 1)
 (insert ";; -*- lexical-binding: t; -*-")
-(pop-to-mark-command)
 (message "[Line 1] ;; -*- lexical-binding: t; -*-")
