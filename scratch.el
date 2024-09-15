@@ -2,37 +2,50 @@
 ;;
 ;;
 
-
-(defun my/sql-goto-sqli-window ()
-  (let ((current-window (selected-window)))
-    (walk-windows (lambda (window)
-                    (with-current-buffer (window-buffer window)
-                      (when (eq major-mode 'sql-interactive-mode)
-                        (end-of-buffer)
-                        (comint-kill-input)
-                        (insert "status")
-                        (comint-send-input)))))))
-
-(my/sql-goto-sqli-window)
-
-(defun my/sql-status ()
-  (sql-show-sqli-buffer)
-  (other-window)
-  (sql-send-string "status"))
-
-(defun my/sql-databases ()
-  (sql-send-string "show databases"))
-
-(defun my/sql-tables ()
-  (sql-send-string "show tables"))
+(defun my/sql-command (command)
+  ""
+  (if (memq command '(help status))
+      (walk-windows (lambda (window)
+                      (with-current-buffer (window-buffer window)
+                        (when (eq major-mode 'sql-interactive-mode)
+                          (end-of-buffer)
+                          (comint-kill-input)
+                          (insert (symbol-name command))
+                          (comint-send-input)))))
+    (error "Not a valid command: %s" command)))
 
 (defun my/sql-eval (command)
   (sql-send-string command))
 
-(my/sql-eval "select * fr")
+(defun my/sql-databases ()
+  (sql-send-string "SHOW DATABASES;"))
 
+(defun my/sql-tables ()
+  (sql-send-string "SHOW TABLES;"))
+
+(defun my/sql-select (alist)
+  (let (
+        (columns (alist-get 'columns alist))
+        (table (alist-get 'table alist))
+        (where (alist-get 'where alist))
+        (order-by (alist-get 'order-by alist))
+        (limit (alist-get 'limit alist))
+        (query nil))
+    (setq query (format "SELECT %s FROM %s" columns table))
+    (if order-by (setq query (concat query (format " ORDER BY %s" (car order-by) (cadr order-by)))))
+    (if limit (setq query (concat query (format " LIMIT %s" limit))))
+    (my/sql-eval query)))
+
+(my/sql-command 'help)
+(my/sql-command 'status)
 (my/sql-databases)
 (my/sql-tables)
-(my/sql-status)
 
-(my/sql-select )
+;; TODO: Create a snippet for this.
+(my/sql-select '((columns . *)
+                 (table . wp_10_postmeta)
+                 (where . nil)
+                 (order-by . (meta_key asc))
+                 (limit . 10)))
+
+(my/sql-eval "SELECT * FROM wp_10_postmeta LIMIT 10")
