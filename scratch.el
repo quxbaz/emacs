@@ -37,6 +37,9 @@
     (if limit (setq query (concat query (format " LIMIT %s" limit))))
     (my/sql-eval query)))
 
+;;
+;;
+
 (my/sql-command 'help)
 (my/sql-command 'status)
 (my/sql-databases)
@@ -49,4 +52,11 @@
                  (order-by . meta_key)
                  (limit . 10)))
 
-(my/sql-eval "SELECT * FROM wp_10_postmeta LIMIT 10")
+;; TODO: Support list in 'columns prop.
+(my/sql-select '((columns . (meta_id meta_key))
+                 (table . wp_10_postmeta)
+                 (limit . 10)))
+
+(prin1-to-string '(meta_id meta_key))
+
+;; (my/sql-eval "SELECT * FROM wp_10_postmeta LIMIT 10")
