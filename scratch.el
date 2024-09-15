@@ -24,15 +24,16 @@
   (sql-send-string "SHOW TABLES;"))
 
 (defun my/sql-select (alist)
-  (let (
-        (columns (alist-get 'columns alist))
-        (table (alist-get 'table alist))
-        (where (alist-get 'where alist))
-        (order-by (alist-get 'order-by alist))
-        (limit (alist-get 'limit alist))
-        (query nil))
+  (let* ((columns (alist-get 'columns alist))
+         (table (alist-get 'table alist))
+         (where (alist-get 'where alist))
+         (order-by (alist-get 'order-by alist))
+         (order-by-column (if (eq (type-of order-by) 'cons) (car order-by) order-by))
+         (order-by-sort (if (eq (type-of order-by) 'cons) (cadr order-by) 'asc))
+         (limit (alist-get 'limit alist))
+         (query nil))
     (setq query (format "SELECT %s FROM %s" columns table))
-    (if order-by (setq query (concat query (format " ORDER BY %s" (car order-by) (cadr order-by)))))
+    (if order-by (setq query (concat query (format " ORDER BY %s %s" order-by-column order-by-sort))))
     (if limit (setq query (concat query (format " LIMIT %s" limit))))
     (my/sql-eval query)))
 
@@ -45,7 +46,7 @@
 (my/sql-select '((columns . *)
                  (table . wp_10_postmeta)
                  (where . nil)
-                 (order-by . (meta_key asc))
+                 (order-by . meta_key)
                  (limit . 10)))
 
 (my/sql-eval "SELECT * FROM wp_10_postmeta LIMIT 10")
