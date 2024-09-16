@@ -1,0 +1,10 @@
+# name: php-wp-object
+# key: obj
+# --
+`(yas-choose-value '(
+  "get_current_blog_id()    // Get current site id."
+  "get_queried_object_id()  // Get current page id."
+  "get_the_ID()             // Get current post id."
+  "the_content()            // Get page content."
+  "the_post()               // Load next post object."
+  ))`
