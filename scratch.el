@@ -17,10 +17,10 @@
 (defun my/sql-eval (command)
   (sql-send-string command))
 
-(defun my/sql-databases ()
+(defun my/sql-show-databases ()
   (sql-send-string "SHOW DATABASES;"))
 
-(defun my/sql-tables ()
+(defun my/sql-show-tables ()
   (sql-send-string "SHOW TABLES;"))
 
 (defun my/sql-select (alist)
@@ -43,8 +43,8 @@
 (sql-connect "wnmu-edu-db")
 (my/sql-command 'help)
 (my/sql-command 'status)
-(my/sql-databases)
-(my/sql-tables)
+(my/sql-show-databases)
+(my/sql-show-tables)
 
 ;; TODO: Create a snippet for this.
 (my/sql-select '((columns . *)
