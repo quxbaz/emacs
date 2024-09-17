@@ -445,21 +445,26 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
            (shell-command (format "gimp %s" filename)))
           (t (message "No program associated with file: %s" (file-name-nondirectory filename))))))
 
-;; TODO: Revert created buffers afters images are resized and created.
 (defun my/dired-resize-image ()
-  ""
+  "Resize marked images and save to a subdirectory."
   (interactive)
-  (dolist (path (seq-filter 'file-regular-p (dired-get-marked-files)))
-    (let* ((filename (file-name-nondirectory path))
-           (directory (file-name-directory path))
-           (output-directory (file-name-as-directory (file-name-sans-extension filename)))
-           (full-output-path (concat directory output-directory filename)))
-      (my/ignore-error (dired-create-directory output-directory))
-      ;; TODO: Set 2x filename.
-      (shell-command (format "convert %s -resize 480x600 -quality 92 %s" path full-output-path))))
-  (dired-unmark-all-marks)
-  (revert-buffer))
-
+  (let ((marker (point-marker)))
+    (dolist (path (seq-filter 'my/is-image-p (dired-get-marked-files)))
+      (let* ((filename (file-name-nondirectory path))                        ;; img.jpg
+             (extension (file-name-extension filename))                      ;; jpg
+             (no-extension (file-name-sans-extension filename))              ;; img
+             (directory (file-name-directory path))                          ;; /path/to/
+             (output-directory (file-name-as-directory no-extension))        ;; img/
+             (full-output-path (concat directory output-directory filename)) ;; /path/to/img/img.jpg
+             (full-output-path-2x                                            ;; /path/to/img/img@2x.jpg
+              (format "%s%s%s@2x.%s" directory output-directory no-extension extension)))
+        (if (not (file-directory-p output-directory))
+            (dired-create-directory output-directory))
+        (shell-command (format "convert %s -resize 320x400 -quality 92 %s" path full-output-path))
+        (shell-command (format "convert %s -resize 480x600 -quality 92 %s" path full-output-path-2x))))
+    (dired-unmark-all-marks)
+    (goto-char marker)
+    (revert-buffer)))
 
 ;; # deadgrep
 
