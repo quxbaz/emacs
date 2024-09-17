@@ -45,6 +45,15 @@ This is useful for writing succinct keybindings."
   "Returns t if point is inside a comment."
   (if (nth 4 (syntax-ppss)) t))
 
+(defun my/is-image-p (filename)
+  "Returns t if FILENAME is an image type.
+
+FILENAME is a path to an actual image file."
+  (let ((extension (file-name-extension filename)))
+    (and extension
+         (file-regular-p filename)
+         (or (image-type-available-p (intern extension))
+             (string= extension "jpg")))))
 
 ;; Macros
 
