@@ -20,7 +20,6 @@
 (global-unset-key (kbd "C-x r d"))
 (global-unset-key (kbd "C-x r t"))
 (global-unset-key (kbd "C-x C-b"))
-(global-unset-key (kbd "C-x C-f"))
 
 
 ;; # Mouse config
@@ -143,7 +142,6 @@
 
 
 ;; # Files
-(global-set-key (kbd "C-u C-f") 'find-file)
 (global-set-key (kbd "M-F") 'find-file-other-window)
 (global-set-key (kbd "C-c p") 'find-file-at-point)
 
