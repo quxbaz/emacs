@@ -40,6 +40,7 @@
 ;;
 ;;
 
+(sql-connect "wnmu-edu-db")
 (my/sql-command 'help)
 (my/sql-command 'status)
 (my/sql-databases)
