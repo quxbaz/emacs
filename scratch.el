@@ -23,7 +23,8 @@
 (defun my/sql-show-tables ()
   (sql-send-string "SHOW TABLES;"))
 
-(defun my/sql-select (alist)
+(defun my/sql-query (alist)
+  "Builds a SQL query given an alist of SQL properties."
   (let* ((columns (alist-get 'columns alist))
          (table (alist-get 'table alist))
          (where (alist-get 'where alist))
@@ -35,7 +36,10 @@
     (setq query (format "SELECT %s FROM %s" columns table))
     (if order-by (setq query (concat query (format " ORDER BY %s %s" order-by-column order-by-sort))))
     (if limit (setq query (concat query (format " LIMIT %s" limit))))
-    (my/sql-eval query)))
+    query))
+
+(defun my/sql-select (alist)
+  (sql-send-string (my/sql-query alist)))
 
 ;;
 ;;
