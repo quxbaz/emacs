@@ -445,6 +445,21 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
            (shell-command (format "gimp %s" filename)))
           (t (message "No program associated with file: %s" (file-name-nondirectory filename))))))
 
+;; TODO: Revert created buffers afters images are resized and created.
+(defun my/dired-resize-image ()
+  ""
+  (interactive)
+  (dolist (path (seq-filter 'file-regular-p (dired-get-marked-files)))
+    (let* ((filename (file-name-nondirectory path))
+           (directory (file-name-directory path))
+           (output-directory (file-name-as-directory (file-name-sans-extension filename)))
+           (full-output-path (concat directory output-directory filename)))
+      (my/ignore-error (dired-create-directory output-directory))
+      ;; TODO: Set 2x filename.
+      (shell-command (format "convert %s -resize 480x600 -quality 92 %s" path full-output-path))))
+  (dired-unmark-all-marks)
+  (revert-buffer))
+
 
 ;; # deadgrep
 
