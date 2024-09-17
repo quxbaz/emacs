@@ -24,7 +24,8 @@
   (sql-send-string "SHOW TABLES;"))
 
 (defun my/sql-query (alist)
-  "Builds a SQL query given an alist of SQL properties."
+  "Builds a SQL query given an alist of SQL properties. Returns a
+SQL query string."
   (let* ((columns (alist-get 'columns alist))
          (table (alist-get 'table alist))
          (where (alist-get 'where alist))
