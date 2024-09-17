@@ -349,10 +349,13 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 ;; # Math, numbers
 
-(defun my/increment (&optional n)
-  "Increment next number on line by N."
-  (interactive)
-  (if (eq n nil) (setq n 1))
+(defun my/increment (&optional arg)
+  "Increment next number on line by ARG."
+  (interactive "P")
+  (cond ((eq arg nil)
+         (setq arg 1))
+        ((equal arg '(4))
+         (setq arg -1)))
   (let ((origin (point)))
     ;; Go to the starting position of the number.
     (while (looking-back "[0-9-\.]")
@@ -360,14 +363,20 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     ;; If number is found, increment it, and move point to start of number.
     (if (search-forward-regexp "-?[0-9]\+" (line-end-position) t)
         (progn
-          (replace-match (number-to-string (+ (string-to-number (match-string 0)) n)))
+          (replace-match (number-to-string (+ (string-to-number (match-string 0)) arg)))
           (goto-char (match-beginning 0)))
       ;; If number is not found, return point to original position.
       (goto-char origin))))
 
-(defun my/decrement ()
-  (interactive)
-  (my/increment -1))
+(defun my/decrement (&optional arg)
+  "Decrement next number on line by ARG."
+  (interactive "P")
+  (cond ((eq arg nil)
+         (setq arg -1))
+        ((equal arg '(4))
+         (setq arg 1))
+        (t (setq arg (* arg -1))))
+  (my/increment arg))
 
 
 ;; # Keyboard Macros
