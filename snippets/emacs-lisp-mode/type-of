@@ -1,4 +1,8 @@
 # name: type-of
 # key: to
+# type: command
+# condition: t
 # --
-type-of $0
+(insert "type-of")
+(if (not (looking-at " "))
+    (insert " "))
