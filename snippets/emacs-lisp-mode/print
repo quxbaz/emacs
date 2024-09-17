@@ -1,4 +1,10 @@
 # name: print
 # key: pr
+# type: command
+# condition: t
 # --
-(print $0)
+(if (and (looking-back "(")
+         (looking-at ")"))
+    (insert "print ")
+  (insert "(print )")
+  (backward-char))
