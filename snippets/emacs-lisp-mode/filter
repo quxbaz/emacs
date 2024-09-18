@@ -1,0 +1,4 @@
+# name: filter
+# key: filter
+# --
+(seq-filter ${1:PRED} ${2:SEQUENCE})$0
