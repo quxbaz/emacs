@@ -42,6 +42,7 @@
 
 
 ;; # Help, info
+(global-set-key (kbd "C-h C-h") 'my/help-dwim)
 (global-set-key (kbd "C-h C-a") 'apropos)
 (global-set-key (kbd "C-h C-f") 'find-library)
 (global-set-key (kbd "C-h q") 'shortdoc-display-group)
