@@ -21,6 +21,9 @@
 (load-file (concat user-emacs-directory "my/hooks.el"))
 (load-file (concat user-emacs-directory "my/lisp-conf.el"))
 
+;; Autoloads
+(autoload 'sql-lisp-mode (concat user-emacs-directory "my/lib-sql.el") "A mode for SQL interaction through evaluation of Emacs Lisp forms." t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
