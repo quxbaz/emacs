@@ -1,7 +1,7 @@
 # name: repeat-map
 # key: repeat-map
 # --
-;; Make sure you enable: M-x repeat-mode
+;; Make sure to enable: M-x repeat-mode
 (defvar ${1:NAME}-repeat-map
   (let ((map (make-sparse-keymap)))
     (define-key map "${2:KEY-SEQUENCE}" '${3:COMMAND})
