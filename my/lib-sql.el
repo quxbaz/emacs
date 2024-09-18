@@ -28,6 +28,7 @@
     (error "Not a valid command: %s" command)))
 
 
+;; TODO
 (defun my/sql-physical-eval (command)
   "Executes COMMAND by visiting the SQL buffer, inserting the
 command, and simulating <return>.
