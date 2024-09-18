@@ -65,6 +65,7 @@ SQL query string."
 (defun my/sql-notebook ()
 
   (sql-connect "wnmu-edu-db")
+
   (my/sql-command 'help)
   (my/sql-command 'status)
   (my/sql-show-databases)
