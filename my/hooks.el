@@ -4,6 +4,7 @@
 (setq-local my/init-files (list user-init-file
                                 (concat user-emacs-directory "bugs.el")
                                 (concat user-emacs-directory "scratch.el")
+                                (concat user-emacs-directory "sql-notebook.el")
                                 "~/personal/bookmarks.org"
                                 "~/personal/cad.org"
                                 "~/personal/diary"
