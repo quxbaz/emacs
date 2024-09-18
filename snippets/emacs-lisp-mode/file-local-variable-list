@@ -1,0 +1,7 @@
+# name: file-local-variable-list
+# key: var-list
+# --
+;; Local Variables:
+${1:;; mode: ${2:MODE}}
+${3:;; eval: ${4:FORM}}
+;; End:$0
