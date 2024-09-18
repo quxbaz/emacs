@@ -36,7 +36,13 @@ command, and simulating <return>.
 Unlike `sql-send-string`, this function actually navigates to the
 SQL buffer and inputs the COMMAND manually, which can lead to
 better formatting and handling of SQL output."
-  )
+  (if-let ((sqli-buffer (seq-find (lambda (buffer)
+                                    (with-current-buffer buffer
+                                      (eq major-mode 'sql-interactive-mode)))
+                                  (buffer-list))))
+      sqli-buffer))
+
+(my/sql-physical-eval "test")
 
 (defun my/sql-show-databases ()
   "Evaluates the SQL command: SHOW DATABASES"
