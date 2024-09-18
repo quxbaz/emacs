@@ -4,6 +4,16 @@
 ;; anything SQL-related.
 
 
+(define-minor-mode sql-lisp-mode
+  "A mode for SQL interaction through evaluation of Emacs Lisp forms."
+  :init-value nil
+  :lighter " SQL-Lisp"
+  :keymap (let ((map (make-sparse-keymap)))
+            ;; (define-key map (kbd "KEY-SEQUENCE") 'COMMAND)
+            map)
+  :global nil
+  :group 'sql-lisp-mode)
+
 (defun my/sql-command (command)
   "Runs a special COMMAND usually only used in the interactive SQL shell."
   (if (memq command '(help status))
