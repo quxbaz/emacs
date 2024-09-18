@@ -1,4 +1,4 @@
 # name: file-local-variable
 # key: var
 # --
-;; -*- mode: $0 -*-
+;; -*- mode: $0; -*-
