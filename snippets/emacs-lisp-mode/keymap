@@ -2,6 +2,6 @@
 # key: km
 # --
 (let ((map (make-sparse-keymap)))
-  (define-key map "${1:SEQUENCE}" '${2:COMMAND})
-  ${3:(define-key map "${4:SEQUENCE}" '${5:COMMAND})}
+  (define-key map "${1:KEY-SEQUENCE}" '${2:COMMAND})
+  ${3:(define-key map "${4:KEY-SEQUENCE}" '${5:COMMAND})}
   map)
