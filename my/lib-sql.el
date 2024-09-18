@@ -27,6 +27,16 @@
                           (comint-send-input)))))
     (error "Not a valid command: %s" command)))
 
+
+(defun my/sql-physical-eval (command)
+  "Executes COMMAND by visiting the SQL buffer, inserting the
+command, and simulating <return>.
+
+Unlike `sql-send-string`, this function actually navigates to the
+SQL buffer and inputs the COMMAND manually, which can lead to
+better formatting and handling of SQL output."
+  )
+
 (defun my/sql-show-databases ()
   "Evaluates the SQL command: SHOW DATABASES"
   (sql-send-string "SHOW DATABASES;"))
