@@ -3,6 +3,14 @@
 ;; Interactive functions meant to be used as commands bound to a shortcut.
 
 
+;; # Help
+
+(defun my/help-dwim ()
+  "Describes the function at point (without confirmation)."
+  (interactive)
+  (describe-function (intern (current-word nil nil))))
+
+
 ;; # Buffers, windows
 
 (defun my/switch-to-other-buffer ()
