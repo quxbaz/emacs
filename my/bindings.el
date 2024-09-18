@@ -21,6 +21,7 @@
 (global-unset-key (kbd "C-x r t"))
 (global-unset-key (kbd "C-x C-b"))
 (global-unset-key (kbd "C-x C-f"))
+(global-unset-key (kbd "C-x 3"))
 
 
 ;; # Mouse config
@@ -161,6 +162,7 @@
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
 ;; ## Windows
 (global-set-key (kbd "C-x C-o") 'my/other-window)
+(global-set-key (kbd "C-u C-s") 'split-window-right)
 (global-set-key (kbd "<escape> -") 'window-swap-states)
 (global-set-key (kbd "<escape> 9") 'delete-other-windows)
 (global-set-key (kbd "<escape> 0") 'delete-window)
