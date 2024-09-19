@@ -30,6 +30,8 @@ inserting the command, and simulating <return>.
 Unlike `sql-send-string`, this function actually navigates to the
 interactive SQL buffer and inputs COMMAND manually, which can
 lead to better formatting and handling of SQL output."
+  (if (not (string-suffix-p ";" command))
+      (setq command (concat command ";")))
   (dolist (buffer (buffer-list))
     (with-current-buffer buffer
       (if (eq major-mode 'sql-interactive-mode)
@@ -61,4 +63,4 @@ SQL query string."
 
 (defun my/sql-select (alist)
   "Evaluates a SELECT command in the interactive SQL buffer."
-  (sql-send-string (my/sql-query alist)))
+  (my/sql-physical-eval (my/sql-query alist)))
