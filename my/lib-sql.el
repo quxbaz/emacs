@@ -37,14 +37,6 @@ lead to better formatting and handling of SQL output."
       (if (eq major-mode 'sql-interactive-mode)
           (my/sql-send-physical-command command)))))
 
-(defun my/sql-show-databases ()
-  "Evaluates the SQL command: SHOW DATABASES"
-  (my/sql-physical-eval "SHOW DATABASES"))
-
-(defun my/sql-show-tables ()
-  "Evaluates the SQL command: SHOW TABLES"
-  (my/sql-physical-eval "SHOW TABLES"))
-
 (defun my/sql-query (alist)
   "Builds a SQL query given an alist of SQL properties. Returns a
 SQL query string."
