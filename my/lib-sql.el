@@ -28,6 +28,14 @@
     (error "Not a valid command: %s" command)))
 
 
+(defun my/sql-send-physical-command (command)
+  "TODO"
+  (when (eq major-mode 'sql-interactive-mode)
+    (end-of-buffer)
+    (comint-kill-input)
+    (insert command)
+    (comint-send-input)))
+
 ;; TODO
 ;; Check if sqli window exists. If yes, move to window and execute.
 ;; Else, find buffer and execute.
