@@ -29,38 +29,24 @@
 
 
 (defun my/sql-send-physical-command (command)
-  "TODO"
+  "Enters input in an interactive SQL buffer and submits it."
   (when (eq major-mode 'sql-interactive-mode)
     (end-of-buffer)
     (comint-kill-input)
     (insert command)
     (comint-send-input)))
 
-;; TODO
-;; Check if sqli window exists. If yes, move to window and execute.
-;; Else, find buffer and execute.
 (defun my/sql-physical-eval (command)
-  "Executes COMMAND by visiting the SQL buffer, inserting the
-command, and simulating <return>.
+  "Executes COMMAND by visiting the interactive SQL buffer,
+inserting the command, and simulating <return>.
 
 Unlike `sql-send-string`, this function actually navigates to the
-SQL buffer and inputs the COMMAND manually, which can lead to
-better formatting and handling of SQL output."
-  (let ((sqli-window-exists nil))
-    (walk-windows (lambda (window)
-                    (with-current-buffer (window-buffer window)
-                      (when (eq major-mode 'sql-interactive-mode)
-                        (setq sqli-window-exists t)
-                        (my/sql-send-physical-command command)))))
-    (when-let (((not sqli-window-exists))
-               (sqli-buffer (seq-find (lambda (buffer)
-                                        (with-current-buffer buffer
-                                          (eq major-mode 'sql-interactive-mode)))
-                                      (buffer-list))))
-      (switch-to-buffer sqli-buffer)
-      (my/sql-send-physical-command command))))
-
-(my/sql-physical-eval "test")
+interactive SQL buffer and inputs COMMAND manually, which can
+lead to better formatting and handling of SQL output."
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (if (eq major-mode 'sql-interactive-mode)
+          (my/sql-send-physical-command command)))))
 
 (defun my/sql-show-databases ()
   "Evaluates the SQL command: SHOW DATABASES"
