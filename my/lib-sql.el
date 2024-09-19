@@ -46,11 +46,19 @@ command, and simulating <return>.
 Unlike `sql-send-string`, this function actually navigates to the
 SQL buffer and inputs the COMMAND manually, which can lead to
 better formatting and handling of SQL output."
-  (if-let ((sqli-buffer (seq-find (lambda (buffer)
-                                    (with-current-buffer buffer
-                                      (eq major-mode 'sql-interactive-mode)))
-                                  (buffer-list))))
-      sqli-buffer))
+  (let ((sqli-window-exists nil))
+    (walk-windows (lambda (window)
+                    (with-current-buffer (window-buffer window)
+                      (when (eq major-mode 'sql-interactive-mode)
+                        (setq sqli-window-exists t)
+                        (my/sql-send-physical-command command)))))
+    (when-let (((not sqli-window-exists))
+               (sqli-buffer (seq-find (lambda (buffer)
+                                        (with-current-buffer buffer
+                                          (eq major-mode 'sql-interactive-mode)))
+                                      (buffer-list))))
+      (switch-to-buffer sqli-buffer)
+      (my/sql-send-physical-command command))))
 
 (my/sql-physical-eval "test")
 
