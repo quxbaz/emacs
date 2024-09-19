@@ -14,22 +14,9 @@
   :global nil
   :group 'sql-lisp-mode)
 
-(defun my/sql-command (command)
-  "Runs a special COMMAND usually only used in the interactive SQL shell."
-  (if (memq command '(help status))
-      ;; Find interactive SQL buffer.
-      (walk-windows (lambda (window)
-                      (with-current-buffer (window-buffer window)
-                        (when (eq major-mode 'sql-interactive-mode)
-                          (end-of-buffer)
-                          (comint-kill-input)
-                          (insert (symbol-name command))
-                          (comint-send-input)))))
-    (error "Not a valid command: %s" command)))
-
-
 (defun my/sql-send-physical-command (command)
-  "Enters input in an interactive SQL buffer and submits it."
+  "Enters input in an interactive SQL buffer and submits it. This
+function is used internally."
   (when (eq major-mode 'sql-interactive-mode)
     (end-of-buffer)
     (comint-kill-input)
