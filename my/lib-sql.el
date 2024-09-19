@@ -29,6 +29,8 @@
 
 
 ;; TODO
+;; Check if sqli window exists. If yes, move to window and execute.
+;; Else, find buffer and execute.
 (defun my/sql-physical-eval (command)
   "Executes COMMAND by visiting the SQL buffer, inserting the
 command, and simulating <return>.
