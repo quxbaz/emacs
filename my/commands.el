@@ -452,15 +452,11 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 ;; # dired
 
 (defun my/dired-edit-file ()
-  "Opens a program to edit the current file."
+  "Opens a program to edit marked files."
   (interactive)
-  (let* ((filename (dired-get-filename))
-         (extension (file-name-extension filename)))
-    (cond ((or (string= extension "jpg")
-               (string= extension "jpeg")
-               (string= extension "png"))
-           (shell-command (format "gimp %s" filename)))
-          (t (message "No program associated with file: %s" (file-name-nondirectory filename))))))
+  (let* ((paths (dired-get-marked-files))
+         (image-paths (seq-filter 'my/is-image-p paths)))
+    (shell-command (format "gimp %s" (s-join " " image-paths)))))
 
 (defun my/dired-resize-image ()
   "Resize marked images and save to a subdirectory."
