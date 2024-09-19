@@ -45,7 +45,7 @@ SQL query string."
          (where (alist-get 'where alist))
          (order-by (alist-get 'order-by alist))
          (order-by-column (if (eq (type-of order-by) 'cons) (car order-by) order-by))
-         (order-by-sort (if (eq (type-of order-by) 'cons) (cadr order-by) 'asc))
+         (order-by-sort (if (eq (type-of order-by) 'cons) (cadr order-by) 'ASC))
          (limit (alist-get 'limit alist))
          (query nil))
     (setq query (format "SELECT %s FROM %s" columns table))
