@@ -24,8 +24,8 @@
 (my/sql-select '((columns meta_id meta_key)
                  (table wp_10_postmeta)
                  (where nil)
-                 (order-by meta_id desc)
-                 (limit 20)))
+                 (order-by meta_id asc)
+                 (limit 15)))
 
 ;; TODO: Create a snippet for this.
 (my/sql-select '((columns *)
