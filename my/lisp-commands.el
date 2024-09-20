@@ -95,7 +95,7 @@ Also works from inside strings."
     (paredit-wrap-round)
     (forward-char (+ (- origin (point)) 1))))
 
-(defun my/up-wrap-sexp ()
+(defun my/up-wrap-list ()
   "Wraps the parent list in parens."
   (interactive)
   (paredit-backward-up)
