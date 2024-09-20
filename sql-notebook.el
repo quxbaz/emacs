@@ -9,35 +9,39 @@
 (my/sql-physical-eval "SHOW TABLES")
 
 ;; TODO: Create a snippet for this.
-(my/sql-query '((columns *)
-                (table wp_10_postmeta)
+(my/sql-query '((table wp_10_postmeta)
+                (columns *)
                 (where nil)
                 (order-by meta_key)
                 (limit 10)))
 
-(my/sql-query '((columns meta_id meta_key)
-                (table wp_10_postmeta)
+(my/sql-query '((table wp_10_postmeta)
+                (columns meta_id meta_key)
                 (where nil)
                 (order-by meta_key)
                 (limit 10)))
 
-(my/sql-select '((columns meta_id meta_key)
-                 (table wp_10_postmeta)
+(my/sql-select '((table wp_10_postmeta)
+                 (columns meta_id meta_key)
                  (where nil)
                  (order-by meta_id desc)
                  (limit 10)))
 
 ;; TODO: Create a snippet for this.
-(my/sql-select '((columns *)
-                 (table wp_10_postmeta)
+(my/sql-select '((table wp_10_postmeta)
+                 (columns *)
                  (where nil)
                  (order-by meta_key)
                  (limit 10)))
 
 ;; TODO: Support list in 'columns prop.
-(my/sql-select '((columns meta_id meta_key)
-                 (table wp_10_postmeta)
+(my/sql-select '((table wp_10_postmeta)
+                 (columns meta_id meta_key)
                  (limit 10)))
+
+(my/sql-insert '((table)
+                 (values (COLUMN VALUE)
+                         (COLUMN VALUE))))
 
 (my/sql-physical-eval "SELECT * FROM wp_10_postmeta LIMIT 10")
 (my/sql-physical-eval "SELECT * FROM wp_10_postmeta WHERE meta_id=9999999")
