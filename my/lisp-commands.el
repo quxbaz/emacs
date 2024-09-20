@@ -80,20 +80,24 @@ BUG: Does not work inside comments."
   "Like paredit-wrap-sexp, but moves to the beginning of the sexp, then wraps.
 Also works from inside strings."
   (interactive)
-  (let ((parse-state (syntax-ppss))
-        (origin (point)))
-    (cond ((nth 3 parse-state)  ;; If point is inside a string, move to opening quote.
-           (goto-char (nth 8 parse-state)))
-          ;; Noop on any of the following conditions.
-          ((or (nth 4 parse-state)  ;; Is point inside a comment.
-               (eq (point) (line-beginning-position))
-               (my/is-at-opening-paren)
-               (looking-back "[[:blank:]]")
-               (looking-back "\\s\("))
-           nil)
-          (t (thing-at-point--beginning-of-sexp)))
-    (paredit-wrap-round)
-    (forward-char (+ (- origin (point)) 1))))
+  (cond ((eq last-command 'my/wrap-sexp)
+         (call-interactively 'paredit-splice-sexp)
+         (call-interactively 'my/up-wrap-list))
+        (t
+         (let ((parse-state (syntax-ppss))
+               (origin (point)))
+           (cond ((nth 3 parse-state)  ;; If point is inside a string, move to opening quote.
+                  (goto-char (nth 8 parse-state)))
+                 ;; Noop on any of the following conditions.
+                 ((or (nth 4 parse-state)  ;; Is point inside a comment.
+                      (eq (point) (line-beginning-position))
+                      (my/is-at-opening-paren)
+                      (looking-back "[[:blank:]]")
+                      (looking-back "\\s\("))
+                  nil)
+                 (t (thing-at-point--beginning-of-sexp)))
+           (paredit-wrap-round)
+           (forward-char (+ (- origin (point)) 1))))))
 
 (defun my/up-wrap-list ()
   "Wraps the parent list in parens."
