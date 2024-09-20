@@ -1,4 +1,10 @@
 # name: call-interactively
 # key: ci
+# type: command
+# condition: t
 # --
-(call-interactively ${1:FUNCTION})$0
+(if (and (looking-back "(")
+         (looking-at ")"))
+    (insert "call-interactively ")
+  (insert "(call-interactively )")
+  (backward-char))
