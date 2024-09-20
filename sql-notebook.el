@@ -39,8 +39,6 @@
                  (table wp_10_postmeta)
                  (limit 10)))
 
-(prin1-to-string '(meta_id meta_key))
-
 (my/sql-physical-eval "SELECT * FROM wp_10_postmeta LIMIT 10")
 (my/sql-physical-eval "SELECT * FROM wp_10_postmeta WHERE meta_id=9999999")
 (my/sql-physical-eval "DELETE FROM wp_10_postmeta WHERE meta_id=9999999")
