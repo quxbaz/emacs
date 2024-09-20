@@ -16,8 +16,8 @@
   (keymap-set keymap "M-<return>" 'my/duplicate-list)
   (keymap-set keymap "C-k" 'my/lisp-kill-dwim)
   (keymap-set keymap "M-k" 'my/kill-list)
-  (keymap-set keymap "M-(" 'my/wrap-sexp)
-  (keymap-set keymap "C-w" 'my/up-wrap-sexp)
+  (keymap-set keymap "C-w" 'my/wrap-sexp)
+  (keymap-set keymap "M-(" 'my/up-wrap-sexp)
   (keymap-set keymap "S-<return>" 'my/close-round-and-newline)
   (keymap-set keymap "C-<return>" 'my/open-new-round)
   (keymap-set keymap "C-c C-s" 'paredit-splice-sexp)
@@ -44,7 +44,7 @@
                              (keymap-set paredit-mode-map "M-<up>" 'my/transpose-line)
                              (keymap-set paredit-mode-map "M-<down>" 'my/transpose-line-down)
                              (keymap-set paredit-mode-map "C-k" 'my/lisp-kill-dwim)
-                             (keymap-set paredit-mode-map "M-(" 'my/wrap-sexp)))
+                             (keymap-set paredit-mode-map "M-(" 'my/up-wrap-sexp)))
 
 ;; Mode hooks
 (dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook slime-repl-mode-hook))
