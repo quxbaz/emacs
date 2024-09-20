@@ -78,7 +78,7 @@ BUG: Does not work inside comments."
 
 (defun my/wrap-sexp ()
   "Like paredit-wrap-sexp, but moves to the beginning of the sexp, then wraps.
-Also works from inside strings."
+Also works from inside strings. Call twice to wrap the parent list."
   (interactive)
   (cond ((eq last-command 'my/wrap-sexp)
          (call-interactively 'paredit-splice-sexp)
