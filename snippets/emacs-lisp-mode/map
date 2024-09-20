@@ -1,0 +1,4 @@
+# name: map
+# key: map
+# --
+(mapcar ${1:FUNCTION} ${2:SEQUENCE})
