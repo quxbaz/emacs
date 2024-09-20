@@ -17,7 +17,7 @@
   (keymap-set keymap "C-k" 'my/lisp-kill-dwim)
   (keymap-set keymap "M-k" 'my/kill-list)
   (keymap-set keymap "M-(" 'my/wrap-sexp)
-  (keymap-set keymap "C-M-9" 'my/up-wrap-sexp)
+  (keymap-set keymap "C-w" 'my/up-wrap-sexp)
   (keymap-set keymap "S-<return>" 'my/close-round-and-newline)
   (keymap-set keymap "C-<return>" 'my/open-new-round)
   (keymap-set keymap "C-c C-s" 'paredit-splice-sexp)
