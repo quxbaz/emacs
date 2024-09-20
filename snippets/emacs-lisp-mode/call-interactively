@@ -3,8 +3,5 @@
 # type: command
 # condition: t
 # --
-(if (and (looking-back "(")
-         (looking-at ")"))
-    (insert "call-interactively ")
-  (insert "(call-interactively )")
-  (backward-char))
+
+(my/snippet-insert-or-wrap 'call-interactively)
