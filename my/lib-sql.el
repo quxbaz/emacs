@@ -46,15 +46,12 @@ SQL query string."
          (order-by (alist-get 'order-by alist))
          (order-by-column (car order-by))
          (order-by-sort (cadr order-by))
-         (limit (car (alist-get 'limit alist)))
-         (query (format "SELECT %s FROM %s" (s-join ", " (mapcar 'symbol-name columns)) table)))
-    (if order-by-column
-        (setq query (concat query (format " ORDER BY %s" order-by-column))))
-    (if order-by-sort
-        (setq query (concat query (format " %s" (upcase (symbol-name order-by-sort))))))
-    (if limit
-        (setq query (concat query (format " LIMIT %s" limit))))
-    (concat query ";")))
+         (limit (car (alist-get 'limit alist))))
+    (concat (format "SELECT %s FROM %s" (mapconcat 'symbol-name columns ", ") table)
+            (if order-by-column (format " ORDER BY %s" order-by-column))
+            (if order-by-sort (format " %s" (upcase (symbol-name order-by-sort))))
+            (if limit (format " LIMIT %s" limit))
+            ";")))
 
 (defun my/sql-select (alist)
   "Evaluates a SELECT command in the interactive SQL buffer."
