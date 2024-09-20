@@ -2,6 +2,9 @@
 ;;
 ;; Collection of functions for interacting with SQL inside buffers; or really
 ;; anything SQL-related.
+;;
+;; TODO
+;; INSERT, UPDATE, DELETE
 
 
 (define-minor-mode sql-lisp-mode
