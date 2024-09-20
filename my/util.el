@@ -81,7 +81,7 @@ execute THEN. Otherwise execute ELSE."
   "Expands a snippet with a form that either, depending on context,
 inserts itself, or inserts itself AND wraps the proceeeding form."
   (cond ((looking-at " *(")
-         (insert "(call-interactively)")
+         (insert (format "(%s)" symbol))
          (backward-char)
          (paredit-forward-slurp-sexp)
          (delete-horizontal-space)
@@ -89,7 +89,7 @@ inserts itself, or inserts itself AND wraps the proceeeding form."
         ((and (or (= (point) (line-beginning-position))
                   (looking-back "[[:blank:]]"))
               (looking-at "[[:blank:]\n]"))
-         (insert "(call-interactively )")
+         (insert (format "(%s )" symbol))
          (backward-char))
         (t
-         (insert "call-interactively "))))
+         (insert (format "%s " symbol)))))
