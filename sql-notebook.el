@@ -24,8 +24,8 @@
 (my/sql-select '((columns meta_id meta_key)
                  (table wp_10_postmeta)
                  (where nil)
-                 (order-by meta_id asc)
-                 (limit 15)))
+                 (order-by meta_id desc)
+                 (limit 10)))
 
 ;; TODO: Create a snippet for this.
 (my/sql-select '((columns *)
@@ -42,3 +42,6 @@
 (prin1-to-string '(meta_id meta_key))
 
 (my/sql-physical-eval "SELECT * FROM wp_10_postmeta LIMIT 10")
+(my/sql-physical-eval "SELECT * FROM wp_10_postmeta WHERE meta_id=9999999")
+(my/sql-physical-eval "DELETE FROM wp_10_postmeta WHERE meta_id=9999999")
+(my/sql-physical-eval "INSERT INTO wp_10_postmeta (meta_id) VALUES (9999999)")
