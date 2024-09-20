@@ -1,4 +1,6 @@
 # name: save-excursion
 # key: sn
+# type: command
+# condition: t
 # --
-(save-excursion$0)
+(my/snippet-insert-or-wrap 'save-excursion)
