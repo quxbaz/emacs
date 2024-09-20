@@ -44,8 +44,8 @@ lead to better formatting and handling of SQL output."
 (defun my/sql-query (alist)
   "Builds a SQL query given an alist of SQL properties. Returns a
 SQL query string."
-  (let* ((columns (alist-get 'columns alist))
-         (table (car (alist-get 'table alist)))
+  (let* ((table (car (alist-get 'table alist)))
+         (columns (alist-get 'columns alist))
          (where (car (alist-get 'where alist)))
          (order-by (alist-get 'order-by alist))
          (order-by-column (car order-by))
