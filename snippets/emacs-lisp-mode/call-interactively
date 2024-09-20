@@ -3,5 +3,4 @@
 # type: command
 # condition: t
 # --
-
 (my/snippet-insert-or-wrap 'call-interactively)
