@@ -73,3 +73,23 @@ execute THEN. Otherwise execute ELSE."
      (if (string= (funcall get-buffer-content) buffer-before)
          ,else
        ,then)))
+
+
+;; Snippet
+
+(defun my/snippet-insert-or-wrap (symbol)
+  "Expands a snippet with a form that either, depending on context,
+inserts itself, or inserts itself AND wraps the proceeeding form."
+  (cond ((looking-at " *(")
+         (insert "(call-interactively)")
+         (backward-char)
+         (paredit-forward-slurp-sexp)
+         (delete-horizontal-space)
+         (insert " "))
+        ((and (or (= (point) (line-beginning-position))
+                  (looking-back "[[:blank:]]"))
+              (looking-at "[[:blank:]\n]"))
+         (insert "(call-interactively )")
+         (backward-char))
+        (t
+         (insert "call-interactively "))))
