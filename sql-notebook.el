@@ -41,4 +41,4 @@
 
 (prin1-to-string '(meta_id meta_key))
 
-(sql-send-string "SELECT * FROM wp_10_postmeta LIMIT 10")
+(my/sql-physical-eval "SELECT * FROM wp_10_postmeta LIMIT 10")
