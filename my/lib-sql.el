@@ -4,7 +4,8 @@
 ;; anything SQL-related.
 ;;
 ;; TODO
-;; INSERT, UPDATE, DELETE
+;; INSERT INTO, UPDATE, DELETE, CREATE TABLE, ALTER TABLE, DROP TABLE,
+;; [BEGIN, COMMIT], ROLLBACK
 
 
 (define-minor-mode sql-lisp-mode
