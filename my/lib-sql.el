@@ -41,16 +41,19 @@ lead to better formatting and handling of SQL output."
   "Builds a SQL query given an alist of SQL properties. Returns a
 SQL query string."
   (let* ((columns (alist-get 'columns alist))
-         (table (alist-get 'table alist))
-         (where (alist-get 'where alist))
+         (table (car (alist-get 'table alist)))
+         (where (car (alist-get 'where alist)))
          (order-by (alist-get 'order-by alist))
-         (order-by-column (if (eq (type-of order-by) 'cons) (car order-by) order-by))
-         (order-by-sort (if (eq (type-of order-by) 'cons) (cadr order-by) 'ASC))
-         (limit (alist-get 'limit alist))
-         (query nil))
-    (setq query (format "SELECT %s FROM %s" columns table))
-    (if order-by (setq query (concat query (format " ORDER BY %s %s" order-by-column order-by-sort))))
-    (if limit (setq query (concat query (format " LIMIT %s" limit))))
+         (order-by-column (car order-by))
+         (order-by-sort (cadr order-by))
+         (limit (car (alist-get 'limit alist)))
+         (query (format "SELECT %s FROM %s" (s-join ", " (mapcar 'symbol-name columns)) table)))
+    (if order-by-column
+        (setq query (concat query (format " ORDER BY %s" order-by-column))))
+    (if order-by-sort
+        (setq query (concat query (format " %s" (upcase (symbol-name order-by-sort))))))
+    (if limit
+        (setq query (concat query (format " LIMIT %s" limit))))
     (concat query ";")))
 
 (defun my/sql-select (alist)
