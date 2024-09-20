@@ -102,9 +102,8 @@ Also works from inside strings. Call twice to wrap the parent list."
 (defun my/up-wrap-list ()
   "Wraps the parent list in parens."
   (interactive)
-  (save-excursion
-    (paredit-backward-up)
-    (paredit-wrap-sexp)))
+  (paredit-backward-up)
+  (paredit-wrap-sexp))
 
 (defun my/lisp-comment-dwim ()
   "Comment out a list if point is on opening round. Otherwise, comment the line."
