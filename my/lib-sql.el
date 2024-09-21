@@ -36,7 +36,8 @@ interactive SQL buffer and inputs COMMAND manually, which can
 lead to better formatting and handling of SQL output."
   (if (not (string-suffix-p ";" command))
       (setq command (concat command ";")))
-  (dolist (buffer (buffer-list))
+  (dolist (buffer (seq-filter (lambda (buffer) (string-match "SQL:" (buffer-name buffer)))
+                              (buffer-list)))
     (with-current-buffer buffer
       (if (eq major-mode 'sql-interactive-mode)
           (my/sql-send-physical-command command)))))
