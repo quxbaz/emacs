@@ -209,7 +209,12 @@ region as the search string."
     (if (and (stringp key) (string= key ""))
         (message "Quit")
       (let ((command-name (symbol-name (key-binding key))))
-        (xref-find-definitions command-name)
+        (if (eq major-mode 'emacs-lisp-mode)
+            (xref-find-definitions command-name)
+          ;; xref-find-definitions will only work correctly if the mode is emacs-lisp-mode.
+          (with-temp-buffer
+            (emacs-lisp-mode)
+            (xref-find-definitions command-name)))
         (message command-name)))))
 
 
