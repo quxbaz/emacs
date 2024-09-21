@@ -7,6 +7,7 @@
 
 ;; Custom keybindings for all Lisp modes.
 (defun my/set-lisp-keymap (keymap)
+  (keymap-set keymap "C-c C-b" nil)
   (keymap-set keymap "M-/" 'completion-at-point)
   (keymap-set keymap "C-M-i" 'dabbrev-expand)
   (keymap-set keymap "M-n" 'my/forward-sexp)
