@@ -215,7 +215,7 @@
 (global-set-key (kbd "C-M-SPC") 'magit-status)
 (global-set-key (kbd "<f5>") 'magit-file-checkout)
 (global-set-key (kbd "C-c C-l") 'magit-file-dispatch)
-(global-set-key (kbd "C-c C-b") 'magit-blob-mode)
+(global-set-key (kbd "<escape> b") 'magit-blob-mode)
 (global-set-key (kbd "C-c C-p") 'git-gutter:previous-hunk)
 (global-set-key (kbd "C-c C-n") 'git-gutter:next-hunk)
 
