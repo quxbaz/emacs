@@ -211,7 +211,8 @@ region as the search string."
       (let ((command-name (symbol-name (key-binding key))))
         (if (eq major-mode 'emacs-lisp-mode)
             (xref-find-definitions command-name)
-          ;; xref-find-definitions will only work correctly if the mode is emacs-lisp-mode.
+          ;; xref-find-definitions will only be able to find the command if the
+          ;; mode is emacs-lisp-mode.
           (with-temp-buffer
             (emacs-lisp-mode)
             (xref-find-definitions command-name)))
