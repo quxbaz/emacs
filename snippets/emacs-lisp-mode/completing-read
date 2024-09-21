@@ -1,7 +1,7 @@
 # name: completing-read
 # key: menu
 # --
-(let ((value (completing-read "${1:PROMPT}" ${2:COLLECTION})))
+(let ((value (completing-read "${1:PROMPT}: " ${2:COLLECTION})))
   (cond ((string= value "a")
          'a)
         ((string= value "b")
