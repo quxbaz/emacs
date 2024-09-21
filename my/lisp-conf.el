@@ -22,8 +22,7 @@
   (keymap-set keymap "C-c C-s" 'paredit-splice-sexp)
   (keymap-set keymap "C-c C-o" 'paredit-raise-sexp)
   (keymap-set keymap "C-t" 'my/lisp-transpose-chars)
-  (keymap-set keymap "C-;" 'my/lisp-comment-dwim)
-  (keymap-set keymap "C-c C-b" 'magit-blob-mode))
+  (keymap-set keymap "C-;" 'my/lisp-comment-dwim))
 
 (my/set-lisp-keymap emacs-lisp-mode-map)
 (my/set-lisp-keymap lisp-mode-map)
