@@ -207,18 +207,3 @@ Also works from inside strings. Call twice to wrap the parent list."
         ((my/is-inside-list)
          (setq-local my/mark-list/origin (point))
          (my/mark-list))))
-
-
-;; # Common Lisp
-
-(defun my/visit-slime-repl ()
-  "Activates SLIME or visits the SLIME buffer in the right-side window."
-  (interactive)
-  (let ((slime-buffer (get-buffer "*slime-repl sbcl*")))
-    (cond (slime-buffer
-           (if (= (length (window-list)) 1)
-               (split-window-right))
-           (my/ignore-error (windmove-right))
-           (switch-to-buffer slime-buffer))
-          (t
-           (slime)))))
