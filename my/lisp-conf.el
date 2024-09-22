@@ -58,7 +58,7 @@
 ;;
 ;; # Common Lisp config
 (setq inferior-lisp-program (executable-find "sbcl"))
-(keymap-set lisp-mode-map "<escape> <return>" 'my/visit-slime-repl)
+(keymap-set lisp-mode-map "<escape> <return>" 'slime-switch-to-output-buffer)
 
 
 ;;
