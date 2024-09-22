@@ -32,7 +32,9 @@
 ;; set our custom slime-mode-map keybindings from slime-repl-mode-hook.
 (add-hook 'slime-repl-mode-hook (lambda ()
                                   (my/set-lisp-keymap slime-mode-map)
-                                  (my/set-lisp-keymap slime-repl-mode-map)))
+                                  (my/set-lisp-keymap slime-repl-mode-map)
+                                  (keymap-set slime-repl-mode-map "M-p" 'slime-repl-previous-prompt)
+                                  (keymap-set slime-repl-mode-map "M-n" 'slime-repl-next-prompt)))
 
 ;; Override default paredit keymap.
 (eval-after-load 'paredit '(progn
