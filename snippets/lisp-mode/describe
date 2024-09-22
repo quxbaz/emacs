@@ -1,7 +1,0 @@
-# name: describe
-# key: ds
-# type: command
-# condition: t
-# --
-(insert "(describe ')")
-(backward-char)
