@@ -34,7 +34,8 @@
                                   (my/set-lisp-keymap slime-mode-map)
                                   (my/set-lisp-keymap slime-repl-mode-map)
                                   (keymap-set slime-repl-mode-map "M-p" 'slime-repl-previous-prompt)
-                                  (keymap-set slime-repl-mode-map "M-n" 'slime-repl-next-prompt)))
+                                  (keymap-set slime-repl-mode-map "M-n" 'slime-repl-next-prompt)
+                                  (keymap-set slime-repl-mode-map "<backspace>" 'paredit-backward-delete)))
 
 ;; Override default paredit keymap.
 (eval-after-load 'paredit '(progn
