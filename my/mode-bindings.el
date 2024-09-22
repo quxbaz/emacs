@@ -61,6 +61,8 @@
 
 (eval-after-load 'org
   '(progn
+     (keymap-set org-mode-map "M-a" 'org-backward-element)
+     (keymap-set org-mode-map "M-e" 'org-forward-element)
      (keymap-set org-mode-map "M-p" 'org-previous-visible-heading)
      (keymap-set org-mode-map "M-n" 'org-next-visible-heading)
      (keymap-set org-mode-map "M--" 'org-meta-return)
