@@ -79,20 +79,35 @@ execute THEN. Otherwise execute ELSE."
 
 (defun my/snippet-insert-or-wrap (symbol)
   "Expands a snippet with a form that either, depending on context,
-inserts itself, or inserts itself AND wraps the proceeeding form."
+inserts itself, or inserts itself AND wraps the proceeeding form.
+
+EMPTY      -> (print )
+(pr foo)   -> (print foo)
+(pr (foo)) -> (print (foo))
+pr)        -> (print ))
+pr (foo)   -> (print (foo))
+pr foo     -> (print foo)  ;; TODO"
   (cond ((and (looking-back "( *")
               (looking-at " *("))
-         (insert (format "%s " symbol)))
+         (insert (format "%s " symbol))
+         (delete-horizontal-space)
+         (insert " ")
+         (backward-char))
         ((looking-at " *(")
          (insert (format "(%s)" symbol))
          (backward-char)
          (paredit-forward-slurp-sexp)
          (delete-horizontal-space)
          (insert " "))
-        ((and (or (= (point) (line-beginning-position))
-                  (looking-back "[[:blank:]]"))
-              (looking-at "[[:blank:]\n]"))
+        ((or (and (or (= (point) (line-beginning-position))
+                      (looking-back "[[:blank:]]"))
+                  (looking-at "[[:blank:]\n]"))
+             (and (looking-back "[[:blank:]]*")
+                  (looking-at " *)")))
          (insert (format "(%s )" symbol))
          (backward-char))
         (t
-         (insert (format "%s " symbol)))))
+         (insert (format "%s " symbol))
+         (delete-horizontal-space)
+         (insert " ")
+         (backward-char))))
