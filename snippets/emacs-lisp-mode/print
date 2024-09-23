@@ -3,8 +3,4 @@
 # type: command
 # condition: t
 # --
-(if (and (looking-back "(")
-         (looking-at ")"))
-    (insert "print ")
-  (insert "(print )")
-  (backward-char))
+(my/snippet-insert-or-wrap 'print)
