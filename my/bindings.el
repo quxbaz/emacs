@@ -119,7 +119,7 @@
 (global-set-key (kbd "M-q") 'my/indent-block)
 (global-set-key (kbd "M-I") 'indent-rigidly-left)
 (global-set-key (kbd "M-i") 'indent-rigidly-right)
-(global-set-key (kbd "C--") 'delete-indentation)
+(global-set-key (kbd "C-w") 'delete-indentation)
 (global-set-key (kbd "C-j") 'newline-and-indent)
 
 
