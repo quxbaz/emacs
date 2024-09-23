@@ -83,12 +83,16 @@ execute THEN. Otherwise execute ELSE."
 inserts itself, or inserts itself AND wraps the proceeeding form.
 
 EMPTY      -> (print )
+(pr)       -> (print )
 (pr foo)   -> (print foo)
 (pr (foo)) -> (print (foo))
 pr)        -> (print ))
 pr (foo)   -> (print (foo))
 pr foo     -> (print foo)  ;; TODO"
   (cond ((and (looking-back "( *")
+              (looking-at " *)"))
+         (insert (format "%s " symbol)))
+        ((and (looking-back "( *")
               (looking-at " *("))
          (insert (format "%s " symbol))
          (delete-horizontal-space)
