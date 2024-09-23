@@ -77,8 +77,9 @@ execute THEN. Otherwise execute ELSE."
 
 ;; Snippet
 
+;; Could probably clean this up some.
 (defun my/snippet-insert-or-wrap (symbol)
-  "Expands a snippet with a form that either, depending on context,
+  "Expands a snippet with the best intentions that either, depending on context,
 inserts itself, or inserts itself AND wraps the proceeeding form.
 
 EMPTY      -> (print )
