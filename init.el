@@ -2,6 +2,9 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+;; Dependencies
+(require 's)
+
 ;; Extensions
 (load-file (concat user-emacs-directory "ext/show-point-mode.el"))
 
