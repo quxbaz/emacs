@@ -8,9 +8,4 @@
 #   (length SEXP)
 #
 # --
-(insert "(length)")
-(delete-horizontal-space)
-(backward-char)
-(paredit-forward-slurp-sexp)
-(insert " ")
-(backward-char)
+(my/snippet-insert-or-wrap 'length)
