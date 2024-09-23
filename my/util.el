@@ -80,7 +80,10 @@ execute THEN. Otherwise execute ELSE."
 (defun my/snippet-insert-or-wrap (symbol)
   "Expands a snippet with a form that either, depending on context,
 inserts itself, or inserts itself AND wraps the proceeeding form."
-  (cond ((looking-at " *(")
+  (cond ((and (looking-back "( *")
+              (looking-at " *("))
+         (insert (format "%s " symbol)))
+        ((looking-at " *(")
          (insert (format "(%s)" symbol))
          (backward-char)
          (paredit-forward-slurp-sexp)
