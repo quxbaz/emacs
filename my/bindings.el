@@ -72,6 +72,7 @@
 
 ;; dwim region commands
 (global-set-key (kbd "SPC") 'my/key-spc)
+(global-set-key (kbd "\\") 'my/key-backslash)
 (global-set-key (kbd "k") 'my/key-k)
 (global-set-key (kbd "w") 'my/key-w)
 (global-set-key (kbd "x") 'my/key-x)
