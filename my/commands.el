@@ -228,6 +228,13 @@ region as the search string."
       (call-interactively 'keyboard-quit)
     (call-interactively 'self-insert-command)))
 
+(defun my/key-backslash ()
+  "Inserts `\\` normally. If region is active, delete horizontal space instead."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'delete-whitespace-rectangle)
+    (call-interactively 'self-insert-command)))
+
 (defun my/key-k ()
   "Inserts `k` normally. If region is active, kill region instead."
   (interactive)
