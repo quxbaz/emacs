@@ -1,5 +1,7 @@
+;; -*- lexical-binding: t; -*-
+
+
 ;; Lisp config
-;;
 
 
 ;;
@@ -50,8 +52,9 @@
 ;; Mode hooks
 (dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook slime-repl-mode-hook))
   (add-hook mode-hook (lambda ()
-                        (autopair-mode 0)
-                        (aggressive-indent-mode t)
+                        (autopair-mode -1)
+                        (unless (eq mode-hook 'slime-repl-mode-hook)
+                          (aggressive-indent-mode t))
                         (rainbow-blocks-mode t)
                         (paredit-mode t))))
 
