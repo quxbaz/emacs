@@ -32,6 +32,9 @@
 (my/set-lisp-keymap emacs-lisp-mode-map)
 (my/set-lisp-keymap lisp-mode-map)
 
+(eval-after-load 'slime '(progn
+                           (keymap-set slime-mode-map "C-u C-i" 'slime-eval-last-expression)))
+
 ;; When the SLIME REPL is activated, it modifies slime-mode-map, so we need to
 ;; set our custom slime-mode-map keybindings from slime-repl-mode-hook.
 (add-hook 'slime-repl-mode-hook (lambda ()
