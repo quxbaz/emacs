@@ -1,0 +1,4 @@
+# name: defvar
+# key: dv
+# --
+(defvar *${1:NAME}* ${2:VALUE})
