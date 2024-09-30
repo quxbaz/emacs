@@ -67,7 +67,7 @@
      (keymap-set org-mode-map "M-n" 'org-next-visible-heading)
      (keymap-set org-mode-map "M--" 'org-meta-return)
      (keymap-set org-mode-map "C-j" 'org-newline-and-indent)
-     (keymap-set org-mode-map "C-o" 'open-line)
+     (keymap-set org-mode-map "C-o" 'my/open-line)
      (keymap-set org-mode-map "M-<return>" 'my/duplicate-dwim)
      (keymap-set org-mode-map "M-q" 'fill-paragraph)
      (keymap-set org-mode-map "C-," 'my/switch-to-other-buffer)
