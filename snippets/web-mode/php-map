@@ -1,5 +1,5 @@
 # name: php-map
-# key: mp
+# key: mapp
 # --
 $${1:NAME} = [
   $0
