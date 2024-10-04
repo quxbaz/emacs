@@ -1,0 +1,4 @@
+# name: padding
+# key: pd
+# --
+padding: $1;
