@@ -1,0 +1,4 @@
+# name: padding-bottom
+# key: pdb
+# --
+padding-bottom: $1;
