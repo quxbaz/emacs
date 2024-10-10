@@ -8,6 +8,7 @@
                                 "~/personal/bookmarks.org"
                                 "~/personal/cad.org"
                                 "~/personal/diary"
+                                "~/personal/dog"
                                 "~/personal/food.org"
                                 "~/personal/main.org"
                                 "~/personal/media-queue.org"
