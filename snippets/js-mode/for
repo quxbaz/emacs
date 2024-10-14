@@ -1,0 +1,6 @@
+# name: for
+# key: li
+# --
+for (let i=0; i < ${2:${1:array}.length}; i++) {
+  $0
+}
