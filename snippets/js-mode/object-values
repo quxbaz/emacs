@@ -1,0 +1,4 @@
+# name: Object.values
+# key: val
+# --
+Object.values($0)
