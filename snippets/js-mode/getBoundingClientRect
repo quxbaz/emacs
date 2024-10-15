@@ -1,0 +1,4 @@
+# name: getBoundingClientRect
+# key: box
+# --
+getBoundingClientRect().${1:$$(yas-choose-value 'width 'height 'x 'y 'top 'bottom 'left 'right)}
