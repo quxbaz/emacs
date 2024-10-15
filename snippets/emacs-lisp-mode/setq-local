@@ -1,4 +1,6 @@
 # name: setq-local
 # key: sl
+# type: command
+# condition: t
 # --
-setq-local$0
+(my/snippet-insert-or-wrap 'setq-local)
