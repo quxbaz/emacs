@@ -47,6 +47,7 @@
 ;; Override default paredit keymap.
 (eval-after-load 'paredit '(progn
                              (keymap-set paredit-mode-map "M-(" (my/cmd nil))
+                             (keymap-set paredit-mode-map "\\" 'my/key-backslash)
                              (keymap-set paredit-mode-map "C-j" 'newline-and-indent)
                              (keymap-set paredit-mode-map "M-s" 'save-buffer)
                              (keymap-set paredit-mode-map "M-r" 'my/query-replace-dwim)
