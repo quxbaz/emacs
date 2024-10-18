@@ -236,21 +236,21 @@ region as the search string."
     (call-interactively 'self-insert-command)))
 
 (defun my/key-k ()
-  "Inserts `k` normally. If region is active, kill region instead."
+  "Inserts `k` normally. If region is active, call kill-region instead."
   (interactive)
   (if (use-region-p)
       (call-interactively 'kill-region)
     (call-interactively 'self-insert-command)))
 
 (defun my/key-w ()
-  "Inserts `w` normally. If region is active, save region to kill-ring instead."
+  "Inserts `w` normally. If region is active, call kill-ring-save instead."
   (interactive)
   (if (use-region-p)
       (call-interactively 'kill-ring-save)
     (call-interactively 'self-insert-command)))
 
 (defun my/key-x ()
-  "Inserts `x` normally. If region is active, exchange point and mark instead."
+  "Inserts `x` normally. If region is active, call exchange-point-and-mark instead."
   (interactive)
   (if (use-region-p)
       (call-interactively 'exchange-point-and-mark)
