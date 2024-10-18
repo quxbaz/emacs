@@ -5,8 +5,8 @@
 
 
 ;;
-;; # Shared config
-
+;; # Shared Lisp config
+;;
 ;; Custom keybindings for all Lisp modes.
 (defun my/set-lisp-keymap (keymap)
   (keymap-set keymap "C-c C-b" nil)
@@ -32,31 +32,7 @@
 (my/set-lisp-keymap emacs-lisp-mode-map)
 (my/set-lisp-keymap lisp-mode-map)
 
-(eval-after-load 'slime '(progn
-                           (keymap-set slime-mode-map "C-u C-i" 'slime-eval-last-expression)))
-
-;; When the SLIME REPL is activated, it modifies slime-mode-map, so we need to
-;; set our custom slime-mode-map keybindings from slime-repl-mode-hook.
-(add-hook 'slime-repl-mode-hook (lambda ()
-                                  (my/set-lisp-keymap slime-mode-map)
-                                  (my/set-lisp-keymap slime-repl-mode-map)
-                                  (keymap-set slime-repl-mode-map "M-p" 'slime-repl-previous-prompt)
-                                  (keymap-set slime-repl-mode-map "M-n" 'slime-repl-next-prompt)
-                                  (keymap-set slime-repl-mode-map "<backspace>" 'paredit-backward-delete)))
-
-;; Override default paredit keymap.
-(eval-after-load 'paredit '(progn
-                             (keymap-set paredit-mode-map "M-(" (my/cmd nil))
-                             (keymap-set paredit-mode-map "\\" 'my/key-backslash)
-                             (keymap-set paredit-mode-map "C-j" 'newline-and-indent)
-                             (keymap-set paredit-mode-map "M-s" 'save-buffer)
-                             (keymap-set paredit-mode-map "M-r" 'my/query-replace-dwim)
-                             (keymap-set paredit-mode-map "M-;" 'my/comment-block)
-                             (keymap-set paredit-mode-map "M-<up>" 'my/transpose-line)
-                             (keymap-set paredit-mode-map "M-<down>" 'my/transpose-line-down)
-                             (keymap-set paredit-mode-map "C-k" 'my/lisp-kill-dwim)))
-
-;; Mode hooks
+;; Apply hook to all Lisp and Lisp REPL modes.
 (dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook slime-repl-mode-hook))
   (add-hook mode-hook (lambda ()
                         (autopair-mode -1)
@@ -64,6 +40,7 @@
                           (aggressive-indent-mode t))
                         (rainbow-blocks-mode t)
                         (paredit-mode t))))
+
 
 ;;
 ;; # Common Lisp config
@@ -76,3 +53,35 @@
 (keymap-set emacs-lisp-mode-map "C-c C-c" 'my/eval-dwim)
 (keymap-set emacs-lisp-mode-map "C-c C-." 'my/eval-here)
 (keymap-set emacs-lisp-mode-map "C-c C-x" 'my/eval-kill-ring)
+
+
+;;
+;; # Paredit config
+;;
+;; Override default paredit keymap.
+(eval-after-load 'paredit '(progn
+                             (keymap-set paredit-mode-map "M-(" (my/cmd nil))
+                             (keymap-set paredit-mode-map "\\" 'my/key-backslash)
+                             (keymap-set paredit-mode-map "C-j" 'newline-and-indent)
+                             (keymap-set paredit-mode-map "M-s" 'save-buffer)
+                             (keymap-set paredit-mode-map "M-r" 'my/query-replace-dwim)
+                             (keymap-set paredit-mode-map "M-;" 'my/comment-block)
+                             (keymap-set paredit-mode-map "M-<up>" 'my/transpose-line)
+                             (keymap-set paredit-mode-map "M-<down>" 'my/transpose-line-down)
+                             (keymap-set paredit-mode-map "C-k" 'my/lisp-kill-dwim)))
+
+
+;;
+;; # SLIME and SLIME REPL config
+;;
+(eval-after-load 'slime '(progn
+                           (keymap-set slime-mode-map "C-u C-i" 'slime-eval-last-expression)))
+
+;; When the SLIME REPL is activated, it also modifies slime-mode-map, so we need
+;; to set our custom slime-mode-map keybindings from slime-repl-mode-hook.
+(add-hook 'slime-repl-mode-hook (lambda ()
+                                  (my/set-lisp-keymap slime-mode-map)
+                                  (my/set-lisp-keymap slime-repl-mode-map)
+                                  (keymap-set slime-repl-mode-map "<backspace>" 'paredit-backward-delete)
+                                  (keymap-set slime-repl-mode-map "M-p" 'slime-repl-previous-prompt)
+                                  (keymap-set slime-repl-mode-map "M-n" 'slime-repl-next-prompt)))
