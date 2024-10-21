@@ -1,0 +1,6 @@
+# name: @media
+# key: @m
+# --
+@media (${1:$$(yas-choose-value 'min-width 'max-width 'min-height 'max-height)}: $2px) {
+  $0
+}
