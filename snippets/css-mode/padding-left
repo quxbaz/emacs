@@ -1,4 +1,4 @@
 # name: padding-left
-# key: pdl
+# key: pl
 # --
 padding-left: $1;
