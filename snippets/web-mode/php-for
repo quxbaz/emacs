@@ -1,5 +1,5 @@
 # name: for loop
-# key: ln
+# key: li
 # --
 for ($i=${1:0}; $i <= ${2:length}; $i++) {
   $0
