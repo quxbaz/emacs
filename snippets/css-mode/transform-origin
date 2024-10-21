@@ -1,0 +1,4 @@
+# name: transform-origin
+# key: tro
+# --
+transform-origin: 50% 50%;
