@@ -1,0 +1,4 @@
+# name: animation
+# key: anim
+# --
+animation: ${1:name} 200ms linear;
