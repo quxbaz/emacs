@@ -1,4 +1,4 @@
 # name: padding-top
-# key: pdt
+# key: pt
 # --
 padding-top: $1;
