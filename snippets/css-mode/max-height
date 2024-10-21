@@ -1,0 +1,4 @@
+# name: max-height
+# key: mh
+# --
+max-height: ${1:100%};$0
