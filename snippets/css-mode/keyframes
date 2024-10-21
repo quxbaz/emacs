@@ -1,0 +1,7 @@
+# name: @keyframes
+# key: @k
+# --
+@keyframes ${1:name} {
+  0% {}
+  100% {}
+}$0
