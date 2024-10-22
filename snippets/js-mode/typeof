@@ -1,0 +1,4 @@
+# name: typeof
+# key: to
+# --
+typeof $0
