@@ -1,0 +1,4 @@
+# name: flex-direction
+# key: fd
+# --
+flex-direction: ${1:$$(yas-choose-value 'row 'row-reverse 'column 'column-reverse)};
