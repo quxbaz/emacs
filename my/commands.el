@@ -49,7 +49,6 @@ closing delimiter."
    ((looking-back "\"") (backward-sexp))
    (t (backward-up-list 1 t t))))
 
-
 (defun my/mark-current-word (&optional extended-word)
   "Marks either the short or extended word around point."
   (interactive)
