@@ -61,8 +61,8 @@ closing delimiter."
           (backward-char (length word))
         (error nil))
       (search-forward word (+ origin (length word)) t))
-    (push-mark (match-end 0) nil t)
-    (goto-char (match-beginning 0))))
+    (push-mark (match-beginning 0) nil t)
+    (goto-char (match-end 0))))
 
 (defun my/mark-context ()
   "Marks the current context in this order (cycles):
