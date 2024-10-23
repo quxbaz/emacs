@@ -1,0 +1,4 @@
+# name: width
+# key: wi
+# --
+width: ${1:100%};
