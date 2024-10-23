@@ -35,7 +35,8 @@
         (t (backward-up-list 1 t t))))
 
 (defun my/match-outside-delimiter ()
-  "Moves point to the outside of the matching delimiter."
+  "Moves point between the left of opening delimiter and the right of the
+closing delimiter."
   (interactive)
   (cond
    ;; This needs to be the first condition.
