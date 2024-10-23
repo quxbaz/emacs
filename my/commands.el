@@ -25,7 +25,7 @@
 ;; # Text navigation, selection
 
 (defun my/match-delimiter ()
-  "Moves point to the beginning of the matching delimiter."
+  "Moves point between delimiters."
   (interactive)
   ;; \s( and \s) represent the opening and closing delimiter character groups.
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
