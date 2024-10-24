@@ -1,4 +1,4 @@
 # name: align-items
 # key: ai
 # --
-align-items: $1;
+align-items: ${1:center};
