@@ -1,4 +1,4 @@
 # name: justify-content
 # key: jc
 # --
-justify-content: $1;
+justify-content: ${1:center};
