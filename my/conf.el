@@ -73,6 +73,9 @@
 (setq dired-dwim-target t)  ;; Use other dired window as default copy/move path.
 (setq wdired-allow-to-change-permissions t)  ;; Allow editing file modes.
 (setq dired-listing-switches "-laXGh --group-directories-first")  ;; Order directories first.
+(setq dired-omit-files "^\\.$\\|^\\.\\.$")  ;; Hide . and .. directories.
+(setq dired-omit-lines nil)
+(setq dired-omit-extensions nil)
 
 
 ;; # Describe, help
