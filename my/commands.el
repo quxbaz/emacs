@@ -476,7 +476,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (interactive)
   (let* ((paths (dired-get-marked-files))
          (image-paths (seq-filter 'my/is-image-p paths)))
-    (shell-command (format "gimp %s" (s-join " " image-paths)))))
+    (shell-command (format "gimp '%s'" (s-join " " image-paths)))))
 
 (defun my/dired-resize-image ()
   "Resize marked images and save to a subdirectory."
