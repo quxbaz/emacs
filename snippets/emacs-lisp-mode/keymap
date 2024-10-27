@@ -1,5 +1,5 @@
 # name: keymap
-# key: km
+# key: keymap
 # --
 (let ((map (make-sparse-keymap)))
   (define-key map "${1:KEY-SEQUENCE}" '${2:COMMAND})
