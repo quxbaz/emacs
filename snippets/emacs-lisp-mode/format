@@ -1,0 +1,4 @@
+# name: format
+# key: fo
+# --
+(format ${1:"${2:%s}"} ${3:OBJECTS})
