@@ -475,8 +475,10 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   "Opens a program to edit marked files."
   (interactive)
   (let* ((paths (dired-get-marked-files))
-         (image-paths (seq-filter 'my/is-image-p paths)))
-    (shell-command (format "gimp '%s'" (s-join " " image-paths)))))
+         (image-paths (seq-filter 'my/is-image-p paths))
+         ;; Image paths joined and surrounded by single quotes.
+         (cmd-arg (mapconcat (lambda (path) (format "'%s'" path)) image-paths " ")))
+    (shell-command (format "gimp %s" cmd-arg))))
 
 (defun my/dired-resize-image ()
   "Resize marked images and save to a subdirectory."
