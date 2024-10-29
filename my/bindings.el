@@ -172,6 +172,7 @@
 (global-set-key (kbd "<escape> 0") 'delete-window)
 (global-set-key (kbd "<escape> = ") 'balance-windows)
 ;; ## Dired
+(global-set-key (kbd "C-c C-SPC") 'ido-dired)
 (global-set-key (kbd "M-`") 'my/dired-jump)
 
 
