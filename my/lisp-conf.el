@@ -47,7 +47,6 @@
 ;; # Common Lisp config
 (setq inferior-lisp-program (executable-find "sbcl"))
 (keymap-set lisp-mode-map "<escape> <return>" 'slime-switch-to-output-buffer)
-(keymap-set lisp-mode-map "C-c C-." 'slime-eval-last-expression)
 
 
 ;;
@@ -77,7 +76,9 @@
 ;; # SLIME and SLIME REPL config
 ;;
 (eval-after-load 'slime '(progn
-                           (keymap-set slime-mode-map "C-u C-i" 'slime-eval-last-expression)))
+                           (keymap-set slime-mode-map "C-c C-x" 'slime-compile-defun)
+                           (keymap-set slime-mode-map "C-c C-c" 'slime-eval-defun)
+                           (keymap-set slime-mode-map "C-c C-." 'slime-eval-last-expression)))
 
 ;; When the SLIME REPL is activated, it also modifies slime-mode-map, so we need
 ;; to set our custom slime-mode-map keybindings from slime-repl-mode-hook.
