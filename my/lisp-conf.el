@@ -74,6 +74,8 @@
 
 ;;
 ;; # SLIME and SLIME REPL config
+(setq common-lisp-hyperspec-root (expand-file-name "~/common-lisp/hyperspec/HyperSpec/"))
+
 (defun my/slime-help-dwim ()
   "Displays documentation for the function at point."
   (interactive)
@@ -83,6 +85,7 @@
 
 (eval-after-load 'slime '(progn
                            (keymap-set slime-mode-map "C-h C-h" 'my/slime-help-dwim)
+                           (keymap-set slime-mode-map "C-h C-o" 'slime-hyperspec-lookup)
                            (keymap-set slime-mode-map "C-c C-x" 'slime-compile-defun)
                            (keymap-set slime-mode-map "C-c C-c" 'slime-eval-defun)
                            (keymap-set slime-mode-map "C-c C-." 'slime-eval-last-expression)))
