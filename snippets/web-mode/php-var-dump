@@ -1,4 +1,4 @@
 # name: var_dump(...)
 # key: vd
 # --
-var_dump($0);
+var_dump(${1:objects});$0
