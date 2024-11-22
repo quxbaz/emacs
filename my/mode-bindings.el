@@ -24,21 +24,21 @@
      (keymap-set deadgrep-mode-map "N" 'my/deadgrep-display-next-result)
      (keymap-set deadgrep-mode-map "P" 'my/deadgrep-display-prev-result)))
 
-(eval-after-load 'dired
-  '(progn
-     (keymap-set dired-mode-map "P" 'my/dired-up-directory)
-     (keymap-set dired-mode-map "/" 'isearch-forward-regexp)
-     (keymap-set dired-mode-map "M" 'dired-mark-files-regexp)
-     (keymap-set dired-mode-map "C-c C-c" 'dired-toggle-read-only)
-     (keymap-set dired-mode-map "+" 'dired-create-empty-file)
-     (keymap-set dired-mode-map "C-+" 'dired-create-directory)
-     (keymap-set dired-mode-map "<return>" 'dired-find-alternate-file)
-     (keymap-set dired-mode-map "I" 'dired-do-isearch-regexp)
-     (keymap-set dired-mode-map "M-r" 'dired-do-query-replace-regexp)
-     (keymap-set dired-mode-map "F" 'my/find-regex-dired)
-     (keymap-set dired-mode-map "J" 'my/find-jsx)
-     (keymap-set dired-mode-map "E" 'my/dired-edit-file)
-     (keymap-set dired-mode-map "C-u C-r" 'my/dired-resize-image)))
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (keymap-set dired-mode-map "P" 'my/dired-up-directory)
+            (keymap-set dired-mode-map "/" 'isearch-forward-regexp)
+            (keymap-set dired-mode-map "M" 'dired-mark-files-regexp)
+            (keymap-set dired-mode-map "C-c C-c" 'dired-toggle-read-only)
+            (keymap-set dired-mode-map "+" 'dired-create-empty-file)
+            (keymap-set dired-mode-map "C-+" 'dired-create-directory)
+            (keymap-set dired-mode-map "<return>" 'dired-find-alternate-file)
+            (keymap-set dired-mode-map "I" 'dired-do-isearch-regexp)
+            (keymap-set dired-mode-map "M-r" 'dired-do-query-replace-regexp)
+            (keymap-set dired-mode-map "F" 'my/find-regex-dired)
+            (keymap-set dired-mode-map "J" 'my/find-jsx)
+            (keymap-set dired-mode-map "E" 'my/dired-edit-file)
+            (keymap-set dired-mode-map "C-u C-r" 'my/dired-resize-image)))
 
 (add-hook 'wdired-mode-hook
           (lambda ()
