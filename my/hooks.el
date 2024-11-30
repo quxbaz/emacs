@@ -16,7 +16,7 @@
                                 "~/personal/programming.org"
                                 "~/personal/promise.org"
                                 "~/personal/rem.org"
-                                "~/personal/remember.org"
+                                "~/personal/remember-structured.org"
                                 "~/personal/archive/buy.org"
                                 "~/personal/archive/people.org"
                                 "~/personal/archive/projects.org"
