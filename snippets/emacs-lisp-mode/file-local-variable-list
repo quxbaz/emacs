@@ -1,5 +1,5 @@
 # name: file-local-variable-list
-# key: var-list
+# key: vars
 # --
 ;; Local Variables:
 ${1:;; mode: ${2:MODE}}
