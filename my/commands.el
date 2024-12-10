@@ -285,11 +285,11 @@ region as the search string."
 
 (defun my/indent-block ()
   (interactive)
-  (save-excursion
-    (if (eq last-command 'my/indent-block)
-        (mark-whole-buffer)
-      (mark-paragraph))
-    (indent-for-tab-command)))
+  (let ((indent-buffer (eq last-command 'my/indent-block)))
+    (save-excursion
+      (if indent-buffer (mark-whole-buffer) (mark-paragraph))
+      (indent-for-tab-command)
+      (if indent-buffer (message "Indenting buffer...done")))))
 
 (defun my/open-line ()
   "Opens a new line above and indents."
