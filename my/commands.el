@@ -286,7 +286,9 @@ region as the search string."
 (defun my/indent-block ()
   (interactive)
   (save-excursion
-    (mark-paragraph)
+    (if (eq last-command 'my/indent-block)
+        (mark-whole-buffer)
+      (mark-paragraph))
     (indent-for-tab-command)))
 
 (defun my/open-line ()
