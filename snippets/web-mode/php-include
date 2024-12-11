@@ -1,0 +1,4 @@
+# name: php-include
+# key: inc
+# --
+<?php include ${1:get_template_directory_uri()}; ?>
