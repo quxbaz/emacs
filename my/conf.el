@@ -8,6 +8,10 @@
 (setq diary-file "~/personal/diary")
 
 
+;; Logging
+(setq message-log-max 10000)
+
+
 ;; # Enable commands
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
