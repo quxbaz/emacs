@@ -9,7 +9,7 @@
                                 "~/personal/bookmarks.org"
                                 "~/personal/cad.org"
                                 "~/personal/diary"
-                                "~/personal/dog.org"
+                                "~/personal/dogs.org"
                                 "~/personal/food.org"
                                 "~/personal/main.org"
                                 "~/personal/media-queue.org"
