@@ -1,0 +1,4 @@
+# name: require
+# key: r
+# --
+require('${1}')
