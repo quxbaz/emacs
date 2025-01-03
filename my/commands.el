@@ -3,6 +3,17 @@
 ;; Interactive functions meant to be used as commands bound to a shortcut.
 
 
+;; # Init
+
+(defun my/load-init-files ()
+  (interactive)
+  (find-file-noselect (expand-file-name "my/*" user-emacs-directory) nil nil t)
+  (dolist (filepath my/init-files)
+    (if (file-exists-p filepath)
+        (find-file-noselect filepath)
+      (error "Init file does not exist: %s" filepath))))
+
+
 ;; # Help
 
 (defun my/help-dwim ()

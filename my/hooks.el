@@ -1,49 +1,41 @@
 ;; Mode hooks
 
 
-(setq-local my/init-files (list user-init-file
-                                (concat user-emacs-directory "bugs.el")
-                                (concat user-emacs-directory "scratch.el")
-                                (concat user-emacs-directory "sql-notebook.el")
-                                "~/personal/automotive.org"
-                                "~/personal/bookmarks.org"
-                                "~/personal/cad.org"
-                                "~/personal/diary"
-                                "~/personal/dogs.org"
-                                "~/personal/food.org"
-                                "~/personal/main.org"
-                                "~/personal/media-queue.org"
-                                "~/personal/programming.org"
-                                "~/personal/promise.org"
-                                "~/personal/rem.org"
-                                "~/personal/rem-structured.org"
-                                "~/personal/archive/buy.org"
-                                "~/personal/archive/people.org"
-                                "~/personal/archive/projects.org"
-                                "~/personal/exercise/exercises.org"
-                                "~/personal/exercise/misc.org"
-                                "~/personal/exercise/movement.org"
-                                "~/personal/exercise/records.org"
-                                "~/personal/exercise/routines.org"
-                                "~/personal/linux/emacs.org"
-                                "~/personal/linux/linux.org"
-                                "~/conf/sync.org"
-                                "~/conf/i3/config"
-                                "~/conf/zsh/.zshrc"
-                                "~/work/wnmu/Todo.org"
-                                "~/work/wnmu/huddle-notes.org"
-                                "~/work/wnmu/projects.org"
-                                "~/work/wnmu/records/creds.org"
-                                "~/work/wnmu/records/qr-code.org"
-                                "~/work/wnmu/refactor.org"))
-
-(add-hook 'after-init-hook
-          (lambda ()
-            (find-file-noselect (expand-file-name "my/*" user-emacs-directory) nil nil t)
-            (dolist (filepath my/init-files)
-              (if (file-exists-p filepath)
-                  (find-file-noselect filepath)
-                (error "Init file does not exist: %s" filepath)))))
+(setq my/init-files (list user-init-file
+                          (concat user-emacs-directory "bugs.el")
+                          (concat user-emacs-directory "scratch.el")
+                          (concat user-emacs-directory "sql-notebook.el")
+                          "~/personal/automotive.org"
+                          "~/personal/bookmarks.org"
+                          "~/personal/cad.org"
+                          "~/personal/diary"
+                          "~/personal/dogs.org"
+                          "~/personal/food.org"
+                          "~/personal/main.org"
+                          "~/personal/media-queue.org"
+                          "~/personal/programming.org"
+                          "~/personal/promise.org"
+                          "~/personal/rem.org"
+                          "~/personal/rem-structured.org"
+                          "~/personal/archive/buy.org"
+                          "~/personal/archive/people.org"
+                          "~/personal/archive/projects.org"
+                          "~/personal/exercise/exercises.org"
+                          "~/personal/exercise/misc.org"
+                          "~/personal/exercise/movement.org"
+                          "~/personal/exercise/records.org"
+                          "~/personal/exercise/routines.org"
+                          "~/personal/linux/emacs.org"
+                          "~/personal/linux/linux.org"
+                          "~/conf/sync.org"
+                          "~/conf/i3/config"
+                          "~/conf/zsh/.zshrc"
+                          "~/work/wnmu/Todo.org"
+                          "~/work/wnmu/huddle-notes.org"
+                          "~/work/wnmu/projects.org"
+                          "~/work/wnmu/records/creds.org"
+                          "~/work/wnmu/records/qr-code.org"
+                          "~/work/wnmu/refactor.org"))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'calendar-mode-hook 'diary-mark-entries)
