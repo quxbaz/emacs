@@ -5,7 +5,7 @@
 
 ;; # Init
 
-(defun my/load-init-files ()
+(defun my/init ()
   (interactive)
   (find-file-noselect (expand-file-name "my/*" user-emacs-directory) nil nil t)
   (dolist (filepath my/init-files)
