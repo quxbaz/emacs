@@ -14,4 +14,3 @@
 (backward-char)
 (paredit-forward-slurp-sexp)
 (insert " '")
-(paredit-forward-up)
