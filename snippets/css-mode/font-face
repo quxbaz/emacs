@@ -2,6 +2,6 @@
 # key: font
 # --
 @font-face {
-    font-family: ${1:FONT-NAME};
-    src: url("${2:URL}") format("${3:opentype}");
+  font-family: ${1:FONT-NAME};
+  src: url("${2:URL}") format("${3:opentype}");
 }
