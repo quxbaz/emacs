@@ -1,0 +1,6 @@
+# name: boundp
+# key: bp
+# type: command
+# condition: t
+# --
+(my/snippet-insert-or-wrap 'boundp)
