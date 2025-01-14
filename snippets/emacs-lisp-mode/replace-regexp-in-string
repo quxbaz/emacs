@@ -1,0 +1,4 @@
+# name: replace-regexp-in-string
+# key: rep
+# --
+(replace-regexp-in-string ${1:REGEXP} ${2:REP} ${3:STRING})
