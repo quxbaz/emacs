@@ -1,0 +1,4 @@
+# name: index-of
+# key: ind
+# --
+(cl-position ${1:ITEM} ${2:SEQ})
