@@ -49,7 +49,6 @@
 ;; # Mini-apps
 (global-set-key (kbd "<f8>") 'my/list-packages)
 (global-set-key (kbd "<f9>") 'calc)
-(global-set-key (kbd "<escape> c") 'ispell)
 (global-set-key (kbd "<f10>") (my/cmd (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
@@ -76,6 +75,7 @@
 (global-set-key (kbd "|") 'my/key-pipe)
 (global-set-key (kbd "k") 'my/key-k)
 (global-set-key (kbd "o") 'my/key-o)
+(global-set-key (kbd "s") 'my/key-s)
 (global-set-key (kbd "w") 'my/key-w)
 (global-set-key (kbd "x") 'my/key-x)
 
