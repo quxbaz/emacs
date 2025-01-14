@@ -274,6 +274,13 @@ region as the search string."
       (call-interactively 'open-rectangle)
     (call-interactively 'self-insert-command)))
 
+(defun my/key-s ()
+  "Inserts `s` normally. If region is active, call ispell instead."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'ispell)
+    (call-interactively 'self-insert-command)))
+
 (defun my/key-w ()
   "Inserts `w` normally. If region is active, call kill-ring-save instead."
   (interactive)
