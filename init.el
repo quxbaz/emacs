@@ -10,6 +10,7 @@
 (load-file (concat user-emacs-directory "ext/show-point-mode.el"))
 
 ;; Custom config
+(load-file (concat user-emacs-directory "my/data.el"))
 (load-file (concat user-emacs-directory "my/conf.el"))
 (load-file (concat user-emacs-directory "my/theme.el"))
 (load-file (concat user-emacs-directory "my/lib-text.el"))
