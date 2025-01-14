@@ -253,6 +253,13 @@ region as the search string."
       (call-interactively 'delete-whitespace-rectangle)
     (call-interactively 'self-insert-command)))
 
+(defun my/key-pipe ()
+  "Inserts `|` normally. If region is active, call align-regexp instead."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'align-regexp)
+    (call-interactively 'self-insert-command)))
+
 (defun my/key-k ()
   "Inserts `k` normally. If region is active, call kill-region instead."
   (interactive)
