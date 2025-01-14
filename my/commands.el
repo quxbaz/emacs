@@ -239,6 +239,13 @@ region as the search string."
       (call-interactively 'keyboard-quit)
     (call-interactively 'self-insert-command)))
 
+(defun my/key-comma ()
+  "Inserts `,` normally. If region is active, call sort-lines on region instead."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'sort-lines)
+    (call-interactively 'self-insert-command)))
+
 (defun my/key-backslash ()
   "Inserts `\\` normally. If region is active, delete horizontal space instead."
   (interactive)
