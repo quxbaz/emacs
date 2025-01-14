@@ -73,6 +73,7 @@
 (global-set-key (kbd "SPC") 'my/key-spc)
 (global-set-key (kbd ",") 'my/key-comma)
 (global-set-key (kbd "\\") 'my/key-backslash)
+(global-set-key (kbd "|") 'my/key-pipe)
 (global-set-key (kbd "k") 'my/key-k)
 (global-set-key (kbd "o") 'my/key-o)
 (global-set-key (kbd "w") 'my/key-w)
@@ -109,7 +110,6 @@
 (global-set-key (kbd "M-T") 'transpose-regions)
 (global-set-key (kbd "S-<left>") 'transpose-sexps)
 ;; ## Sorting, alignment
-(global-set-key (kbd "<escape> \\") 'align-regexp)
 (global-set-key (kbd "<escape> <escape> l") 'sort-lines)
 
 
