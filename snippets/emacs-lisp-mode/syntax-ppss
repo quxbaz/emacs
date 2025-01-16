@@ -12,5 +12,5 @@
                   "8. Position of start of COMMENT or STRING."
                   "9. List of positions of all parent PARENS."))
        (choice (completing-read "(nth N (syntax-ppss)) " options))
-       (value (cl-position choice options)))
+       (value (cl-position choice options :test 'equal)))
   (insert (format "(nth %s (syntax-ppss))" value)))
