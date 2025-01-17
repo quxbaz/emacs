@@ -261,7 +261,7 @@ region as the search string."
     (call-interactively 'self-insert-command)))
 
 (defun my/key-c ()
-  "Inserts `s` normally. If region is active, call ispell instead."
+  "Inserts `c` normally. If region is active, call ispell instead."
   (interactive)
   (if (use-region-p)
       (call-interactively 'ispell)
