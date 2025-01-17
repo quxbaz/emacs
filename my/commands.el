@@ -22,6 +22,14 @@
   (describe-function (intern (current-word nil nil))))
 
 
+;; # Projects
+
+(defun my/project-list-buffers ()
+  (interactive)
+  (project-list-buffers)
+  (other-window -1))
+
+
 ;; # Buffers, windows
 
 (defun my/switch-to-other-buffer ()
