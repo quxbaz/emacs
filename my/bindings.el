@@ -76,6 +76,7 @@
 (global-set-key (kbd "\\") 'my/key-backslash)
 (global-set-key (kbd "|") 'my/key-pipe)
 (global-set-key (kbd "c") 'my/key-c)
+(global-set-key (kbd "i") 'my/key-i)
 (global-set-key (kbd "k") 'my/key-k)
 (global-set-key (kbd "o") 'my/key-o)
 (global-set-key (kbd "w") 'my/key-w)
