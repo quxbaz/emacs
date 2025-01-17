@@ -151,7 +151,7 @@
 
 
 ;; # Projects
-(global-set-key (kbd "C-c C-l") 'project-list-buffers)
+(global-set-key (kbd "C-c C-l") 'my/project-list-buffers)
 (global-set-key (kbd "C-c C-SPC") 'project-switch-to-buffer)
 
 
