@@ -111,8 +111,6 @@
 (global-set-key (kbd "M-<down>") (my/cmd (my/transpose-line t)))
 (global-set-key (kbd "M-T") 'transpose-regions)
 (global-set-key (kbd "S-<left>") 'transpose-sexps)
-;; ## Sorting, alignment
-(global-set-key (kbd "<escape> <escape> l") 'sort-lines)
 
 
 ;; # Rectangles
