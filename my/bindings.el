@@ -150,6 +150,11 @@
 (global-set-key (kbd "C-c p") 'find-file-at-point)
 
 
+;; # Projects
+(global-set-key (kbd "C-c C-l") 'project-list-buffers)
+(global-set-key (kbd "C-c C-SPC") 'project-switch-to-buffer)
+
+
 ;; # Buffers, windows, dired
 ;; ## Buffers
 (global-set-key (kbd "M-s") 'save-buffer)
@@ -169,7 +174,6 @@
 (global-set-key (kbd "<escape> 0") 'delete-window)
 (global-set-key (kbd "<escape> = ") 'balance-windows)
 ;; ## Dired
-(global-set-key (kbd "C-c C-SPC") 'ido-dired)
 (global-set-key (kbd "M-`") 'my/dired-jump)
 (global-set-key (kbd "M-~") 'dired-jump-other-window)
 
