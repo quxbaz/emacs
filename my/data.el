@@ -32,6 +32,7 @@
                           "~/conf/sync.org"
                           "~/conf/i3/config"
                           "~/conf/zsh/.zshrc"
+                          "~/conf/freecad/user.cfg"
                           "~/work/wnmu/Todo.org"
                           "~/work/wnmu/huddle-notes.org"
                           "~/work/wnmu/projects.org"
