@@ -1,4 +1,4 @@
 # name: Object.assign
-# key: mer
+# key: ass
 # --
 Object.assign(${1:target}, ${2:source})
