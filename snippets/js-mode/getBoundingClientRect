@@ -1,4 +1,4 @@
 # name: getBoundingClientRect
 # key: rect
 # --
-getBoundingClientRect()${1:.${2:$$(yas-choose-value 'width 'height 'x 'y 'top 'bottom 'left 'right)}}
+getBoundingClientRect()  // width | height | x | y | top | bottom | left | right
