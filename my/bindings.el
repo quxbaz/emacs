@@ -112,6 +112,8 @@
 (global-set-key (kbd "M-<down>") (my/cmd (my/transpose-line t)))
 (global-set-key (kbd "M-T") 'transpose-regions)
 (global-set-key (kbd "S-<left>") 'transpose-sexps)
+;; ## Misc editing
+(global-set-key (kbd "C-q") 'fill-paragraph)
 
 
 ;; # Indentation
