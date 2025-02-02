@@ -520,6 +520,12 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 ;; # dired
 
+(defun my/find-name-dired ()
+  "Like find-name-dired, but uses the current directory by default."
+  (interactive)
+  (let ((pattern (read-regexp "find . -name PATTERN: ")))
+    (find-name-dired default-directory pattern)))
+
 (defun my/dired-edit-file ()
   "Opens a program to edit marked files."
   (interactive)
