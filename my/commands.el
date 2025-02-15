@@ -503,6 +503,16 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (org-table-end-of-field 0)
   (exchange-point-and-mark))
 
+(defun my/org-evaluate-time-range ()
+  (interactive)
+  (condition-case nil
+      (call-interactively 'org-evaluate-time-range)
+    (error (if (org-at-timestamp-p 'lax)
+               (let* ((timestamp (match-string 0))
+                      (days-ago (* (org-time-stamp-to-now timestamp) -1))
+                      (postfix (if (or (> days-ago 1) (= days-ago 0)) "s" "")))
+                 (message "%s day%s" days-ago postfix))))))
+
 
 ;; # org-table
 
