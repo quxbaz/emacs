@@ -511,7 +511,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (error (if (org-at-timestamp-p 'lax)
                (let* ((timestamp (match-string 0))
                       (days-ago (* (org-time-stamp-to-now timestamp) -1))
-                      (postfix (if (or (> days-ago 1) (= days-ago 0)) "s" "")))
+                      (postfix (if (or (= days-ago 0) (> days-ago 1)) "s" "")))
                  (message "%s day%s" days-ago postfix))))))
 
 
