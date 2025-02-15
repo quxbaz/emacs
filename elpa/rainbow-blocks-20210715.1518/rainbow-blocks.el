@@ -171,7 +171,7 @@ Nil disables brace highlighting."
 ;;; Faces 10+:
 ;; NOTE: Currently unused. Additional faces for depths 9+ can be added on request.
 
-(defconst rainbow-blocks-max-face-count 9
+(defconst rainbow-blocks-max-face-count 8
   "Number of faces defined for highlighting delimiter levels.
 
 Determines depth at which to cycle through faces again.")
