@@ -504,6 +504,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (exchange-point-and-mark))
 
 (defun my/org-evaluate-time-range ()
+  "Evaluates a time range, or a range since now."
   (interactive)
   (condition-case nil
       (call-interactively 'org-evaluate-time-range)
