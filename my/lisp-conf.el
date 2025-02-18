@@ -69,7 +69,8 @@
                              (keymap-set paredit-mode-map "M-;" 'my/comment-block)
                              (keymap-set paredit-mode-map "M-<up>" 'my/transpose-line)
                              (keymap-set paredit-mode-map "M-<down>" 'my/transpose-line-down)
-                             (keymap-set paredit-mode-map "C-k" 'my/lisp-kill-dwim)))
+                             (keymap-set paredit-mode-map "C-k" 'my/lisp-kill-dwim)
+                             (keymap-set paredit-mode-map "C-M-b" 'magit-blob-mode)))
 
 
 ;;
