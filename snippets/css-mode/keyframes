@@ -1,5 +1,5 @@
 # name: @keyframes
-# key: @k
+# key: kf
 # --
 @keyframes ${1:name} {
   0% {}
