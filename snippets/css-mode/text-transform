@@ -1,0 +1,4 @@
+# name: text-transform
+# key: tt
+# --
+text-transform: ${1:uppercase};
