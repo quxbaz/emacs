@@ -11,6 +11,7 @@
                           "~/personal/diary"
                           "~/personal/dogs.org"
                           "~/personal/food.org"
+                          "~/personal/ideas.org"
                           "~/personal/main.org"
                           "~/personal/media-queue.org"
                           "~/personal/programming.org"
