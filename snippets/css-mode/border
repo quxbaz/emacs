@@ -1,0 +1,4 @@
+# name: border
+# key: bd
+# --
+border: 1px solid hsl(0deg 100% 50%);$0
