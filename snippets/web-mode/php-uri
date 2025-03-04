@@ -1,4 +1,0 @@
-# name: php-uri
-# key: uri
-# --
-get_template_directory_uri()
