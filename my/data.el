@@ -14,6 +14,7 @@
                           "~/personal/ideas.org"
                           "~/personal/main.org"
                           "~/personal/media-queue.org"
+                          "~/personal/mutual-aid-collective.org"
                           "~/personal/programming.org"
                           "~/personal/promise.org"
                           "~/personal/rem.org"
