@@ -1,0 +1,16 @@
+# name: doc
+# key: doc
+# --
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="style.css" /> -->
+    <title>${1:TITLE}</title>
+  </head>
+  <body>
+    $0
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>
