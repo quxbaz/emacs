@@ -12,6 +12,7 @@
                           "~/personal/dogs.org"
                           "~/personal/food.org"
                           "~/personal/ideas.org"
+                          "~/personal/journal.org"
                           "~/personal/main.org"
                           "~/personal/media-queue.org"
                           "~/personal/mutual-aid-collective.org"
