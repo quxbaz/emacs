@@ -7,6 +7,7 @@
                           (concat user-emacs-directory "sql-notebook.el")
                           "~/personal/automotive.org"
                           "~/personal/bookmarks.org"
+                          "~/personal/buffer.org"
                           "~/personal/cad.org"
                           "~/personal/diary"
                           "~/personal/dogs.org"
