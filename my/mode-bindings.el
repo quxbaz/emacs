@@ -18,6 +18,10 @@
      (keymap-set calendar-mode-map "j" 'calendar-forward-week)
      (keymap-set calendar-mode-map "k" 'calendar-backward-week)))
 
+(add-hook 'css-mode-hook
+          (lambda ()
+            (keymap-set css-mode-map "M-q" 'my/indent-block)))
+
 (eval-after-load 'deadgrep
   '(progn
      (keymap-set deadgrep-mode-map "C-o" 'my/deadgrep-display-result)
