@@ -9,6 +9,7 @@
                           "~/personal/bookmarks.org"
                           "~/personal/buffer.org"
                           "~/personal/cad.org"
+                          "~/personal/design-notes.org"
                           "~/personal/diary"
                           "~/personal/dogs.org"
                           "~/personal/food.org"
