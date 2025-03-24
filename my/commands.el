@@ -547,7 +547,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (shell-command (format "gimp %s" cmd-arg))))
 
 (defun my/dired-open-gallery ()
-  "Opens a gallery program to view images in current directory."
+  "Opens a gallery program to view images in the current directory."
   (interactive)
   (shell-command (format "geeqie " default-directory)))
 
