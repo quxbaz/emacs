@@ -546,6 +546,11 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
          (cmd-arg (mapconcat (lambda (path) (format "'%s'" path)) image-paths " ")))
     (shell-command (format "gimp %s" cmd-arg))))
 
+(defun my/dired-open-gallery ()
+  "Opens a gallery program to view images in current directory."
+  (interactive)
+  (shell-command (format "geeqie " default-directory)))
+
 (defun my/dired-resize-image ()
   "Resize marked images and save to a subdirectory."
   (interactive)
