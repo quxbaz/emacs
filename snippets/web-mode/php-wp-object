@@ -7,4 +7,5 @@
   "get_the_ID()             // Get current POST id."
   "the_content()            // Get PAGE content."
   "the_post()               // Load next POST object."
+  "the_excerpt()            // Get the post excerpt (or post content as a fallback)."
   ))`
