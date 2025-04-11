@@ -575,6 +575,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (goto-char marker)
     (revert-buffer)))
 
+
 ;; # deadgrep
 
 (defun my/deadgrep-display-result ()
