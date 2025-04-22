@@ -1,5 +1,5 @@
 # name: condition-case
-# key: cc
+# key: c-c
 # --
 (condition-case ${1:nil}
     $0

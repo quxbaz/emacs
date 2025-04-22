@@ -1,0 +1,4 @@
+# name: concat
+# key: cc
+# --
+(concat ${1:&rest SEQUENCES})

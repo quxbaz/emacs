@@ -8,4 +8,5 @@
   "the_content()            // Get PAGE content."
   "the_post()               // Load next POST object."
   "the_excerpt()            // Get the post excerpt (or post content as a fallback)."
+  "has_excerpt()            // True if the post has a custom excerpt."
   ))`

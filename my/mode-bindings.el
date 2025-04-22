@@ -71,7 +71,7 @@
      (keymap-set org-mode-map "M-e" 'org-forward-element)
      (keymap-set org-mode-map "M-p" 'org-previous-visible-heading)
      (keymap-set org-mode-map "M-n" 'org-next-visible-heading)
-     (keymap-set org-mode-map "M--" 'org-meta-return)
+     ;; (keymap-set org-mode-map "M--" 'org-meta-return)
      (keymap-set org-mode-map "M-j" 'org-meta-return)
      (keymap-set org-mode-map "C-j" 'org-newline-and-indent)
      (keymap-set org-mode-map "|" 'my/key-pipe)
