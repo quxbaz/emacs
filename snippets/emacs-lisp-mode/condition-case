@@ -2,5 +2,5 @@
 # key: c-c
 # --
 (condition-case ${1:nil}
-    $0
+    ${0:BODY}
   (error nil))
