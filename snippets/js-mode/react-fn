@@ -18,11 +18,11 @@ const $1 = () => {
 
 $1.propTypes = {}
 
-const mapState = () => ({})
+const mapStateToProps = () => ({})
 
-const mapDispatch = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   const api = createApi(dispatch)
   return {}
 }
 
-export default connect(mapState, mapDispatch)($1)
+export default connect(mapStateToProps, mapDispatchToProps)($1)
