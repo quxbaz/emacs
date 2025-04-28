@@ -1,0 +1,6 @@
+# name: init
+# key: --
+# --
+#!/bin/bash
+
+$0
