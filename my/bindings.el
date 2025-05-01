@@ -138,6 +138,9 @@
 ;; ## Search
 (global-set-key (kbd "C-s") 'my/isearch-forward-dwim)
 (global-set-key (kbd "C-r") 'my/isearch-backward-dwim)
+(global-set-key (kbd "C-c >") 'search-forward-regexp)
+(global-set-key (kbd "C-c <") 'search-backward-regexp)
+
 ;; ## Replace
 (global-set-key (kbd "M-r") 'my/query-replace-dwim)
 (global-set-key (kbd "M-R") 'my/query-replace-buffer-dwim)
