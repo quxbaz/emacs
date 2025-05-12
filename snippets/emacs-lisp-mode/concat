@@ -1,4 +1,6 @@
 # name: concat
 # key: cc
+# type: command
+# condition: t
 # --
-(concat ${1:&rest SEQUENCES})
+(my/snippet-insert-or-wrap 'concat)
