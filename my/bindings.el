@@ -157,7 +157,7 @@
 
 ;; # Projects
 (global-set-key (kbd "C-c C-l") 'my/project-list-buffers)
-(global-set-key (kbd "C-c C-SPC") 'project-switch-to-buffer)
+(global-set-key (kbd "C-c C-SPC") 'ido-dired)
 
 
 ;; # Buffers, windows, dired
