@@ -3,7 +3,6 @@
 
 (keymap-set help-mode-map "<mouse-8>" 'help-go-back)
 (keymap-set help-mode-map "<mouse-9>" 'help-go-forward)
-(eval-after-load 'ibuffer '(keymap-set ibuffer-mode-map "M-r" 'ibuffer-do-query-replace-regexp))
 (keymap-set minibuffer-mode-map "M-/" 'dabbrev-expand)
 (keymap-set occur-mode-map "n" (lambda () (interactive) (occur-next) (occur-mode-display-occurrence)))
 (keymap-set occur-mode-map "p" (lambda () (interactive) (occur-prev) (occur-mode-display-occurrence)))
@@ -50,6 +49,11 @@
           (lambda ()
             (local-set-key (kbd "C-a") (lambda () (interactive) (move-to-column 2)))
             (local-set-key (kbd "M-m") (lambda () (interactive) (move-to-column 2)))))
+
+(eval-after-load 'ibuffer
+  '(progn
+     (keymap-set ibuffer-mode-map "M-r" 'ibuffer-do-query-replace-regexp)
+     (keymap-set ibuffer-mode-map "/ q" 'ibuffer-pop-filter)))
 
 (eval-after-load 'js
   '(progn
