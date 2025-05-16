@@ -43,6 +43,8 @@
 
 ;; # Help, info
 (global-set-key (kbd "C-h C-h") 'my/help-dwim)
+(global-set-key (kbd "C-h c") 'describe-key)
+(global-set-key (kbd "C-h k") 'describe-key-briefly)
 (global-set-key (kbd "C-h C-a") 'apropos)
 (global-set-key (kbd "C-h q") 'shortdoc-display-group)
 
