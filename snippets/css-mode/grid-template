@@ -4,5 +4,4 @@
 grid-template:
    "a a b" ${1:ROW-HEIGHT}
    "a a b" ${2:ROW-HEIGHT}
-   "c c c" ${2:ROW-HEIGHT}
-   / 100px 100px 1fr;  /* Column widths */
+   "c c c" ${2:ROW-HEIGHT} / 100px 100px 1fr;  /* Column widths */
