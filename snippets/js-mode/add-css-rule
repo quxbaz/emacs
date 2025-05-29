@@ -1,0 +1,4 @@
+# name: addRule
+# key: add-rule
+# --
+document.styleSheets[0].insertRule('${1:body \{ \}}')
