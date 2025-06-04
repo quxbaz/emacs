@@ -51,7 +51,7 @@
 
 ;; # Mini-apps
 (global-set-key (kbd "<f8>") 'my/list-packages)
-(global-set-key (kbd "<f9>") 'calc)
+(global-set-key (kbd "<escape> n") 'calc)
 (global-set-key (kbd "<escape> c") 'ispell)
 (global-set-key (kbd "<f10>") (my/cmd (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
