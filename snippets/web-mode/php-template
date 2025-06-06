@@ -1,5 +1,5 @@
 # name: php-template
-# key: tmp
+# key: --
 # --
 <?php /**Template Name: ${1:NAME} */ ?>
 
