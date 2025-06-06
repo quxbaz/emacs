@@ -1,0 +1,6 @@
+# name: php-template
+# key: tmp
+# --
+<?php /**Template Name: ${1:NAME} */ ?>
+
+$0
