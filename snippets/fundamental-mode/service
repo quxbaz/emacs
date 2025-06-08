@@ -34,7 +34,7 @@ ExecReload=
 # Restart=on-failure
 
 # Command to run before ExecStart.
-# ExecStartPre=sleep 5
+# ExecStartPre=/bin/sleep 2
 
 # Specifies the user account to run the service under.
 User=david
