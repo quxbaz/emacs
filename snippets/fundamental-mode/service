@@ -1,0 +1,66 @@
+# name: service
+# key: service
+# --
+[Unit]
+Description=${DESCRIPTION}
+
+# Specifies that the unit should start after the listed units. Does not imply dependency.
+# After=[network.target, graphical-bsession.target]
+
+# Specifies a hard dependency. If the listed unit fails to start, this unit will fail too.
+# Requires=
+
+
+[Service]
+# Defines the startup type. Common values:
+# - simple: Default. ExecStart runs in foreground.
+# - forking: For services that daemonize (e.g., background themselves).
+# - oneshot: For short-lived tasks like setup scripts.
+# - notify: Daemon notifies systemd when ready.
+# - idle: Waits until system is idle.
+Type=simple
+
+# Sets the working directory before executing ExecStart.
+# WorkingDirectory=
+
+# Command to start the service. Required.
+ExecStart=/home/david/bin/my-i3-server/run-server
+
+# Command to stop the service. Optional.
+# ExecStop=
+
+# Command to reload the service without restarting it. Optional.
+ExecReload=
+# Restart=
+
+# Specifies the user account to run the service under.
+User=david
+
+# Specifies the group to run the service under.
+Group=david
+
+# Sets environment variables.
+# Environment=
+
+# Redirect output (e.g., journal, null, syslog, or a file path).
+# StandardOutput=
+# StandardError=
+
+
+[Install]
+# Tells systemd which target wants this unit. Common values:
+# - multi-user.target: Run at standard system boot.
+# - default.target: For default boot.
+# - graphical.target: If using a GUI.
+WantedBy=multi-user.target
+
+
+# Run the following commands to activate the service unit:
+#
+#     cd /etc/systemd/system/
+#     ln -s /path/to/my.service
+#     systemctl daemon-reexec
+#     systemctl daemon-reload
+#     systemctl enable my.service
+#     systemctl start my.service
+#     systemctl status my.service
