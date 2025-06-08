@@ -31,7 +31,7 @@ ExecStart=/home/david/bin/my-i3-server/run-server
 
 # Command to reload the service without restarting it. Optional.
 ExecReload=
-# Restart=
+# Restart=on-failure
 
 # Specifies the user account to run the service under.
 User=david
