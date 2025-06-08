@@ -33,6 +33,9 @@ ExecStart=/home/david/bin/my-i3-server/run-server
 ExecReload=
 # Restart=on-failure
 
+# Command to run before ExecStart.
+# ExecStartPre=sleep 5
+
 # Specifies the user account to run the service under.
 User=david
 
@@ -50,7 +53,7 @@ Group=david
 [Install]
 # Tells systemd which target wants this unit. Common values:
 # - multi-user.target: Run at standard system boot.
-# - default.target: For default boot.
+# - default.target: For default boot. Runs after login.
 # - graphical.target: If using a GUI.
 WantedBy=multi-user.target
 
