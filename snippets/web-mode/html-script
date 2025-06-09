@@ -1,4 +1,4 @@
 # name: script
 # key: script
 # --
-<script type="text/javascript" src="${1:<?= get_template_directory_uri() . '/templates/static-landing-assets/js/' ?>}"></script>
+<script type="text/javascript" src="<?= get_stylesheet_directory_uri() . '/${PATH}' ?>"></script>
