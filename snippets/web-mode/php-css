@@ -1,0 +1,4 @@
+# name: php-css
+# key: php-css
+# --
+<link rel="stylesheet" type="text/css" href="<?= get_stylesheet_directory_uri() . '/${1:PATH}?ts=' . filemtime(get_stylesheet_directory() . '/$1') ?>" />
