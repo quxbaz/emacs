@@ -1,0 +1,9 @@
+# name: php-enqueue-style
+# key: eq-css
+# --
+wp_enqueue_style(
+  '${1:HANDLE}',  ;; Handle
+  get_stylesheet_directory_uri() . '${2:PATH}',  ;; Path
+  [],  ;; Dependencies
+  filemtime(get_stylesheet_directory() . '$2')  ;; Version
+);
