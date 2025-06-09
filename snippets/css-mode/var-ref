@@ -1,0 +1,4 @@
+# name: var-ref
+# key: v
+# --
+var(--${NAME})
