@@ -1,4 +1,4 @@
 # name: script
 # key: script
 # --
-<script type="text/javascript" src="<?= get_stylesheet_directory_uri() . '/${PATH}' ?>"></script>
+<script type="text/javascript" src="<?= get_stylesheet_directory_uri() . '/' . basename(__DIR__) . '/${1:PATH}?ts=' . filemtime(get_stylesheet_directory() . '/' . basename(__DIR__) . '/$1')?>"></script>
