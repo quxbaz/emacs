@@ -1,0 +1,4 @@
+# name: transition
+# key: trans
+# --
+transition: ${1:all} ${2:linear} ${3:1s};
