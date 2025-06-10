@@ -1,0 +1,4 @@
+# name: php-basename
+# key: bn
+# --
+basename(${STRING})
