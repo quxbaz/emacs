@@ -1,0 +1,4 @@
+# name: php-shell-exec
+# key: sh
+# --
+shell_exec($1)
