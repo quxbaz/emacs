@@ -1,0 +1,4 @@
+# name: php-script
+# key: js'
+# --
+<script type="text/javascript" src="<?= get_stylesheet_directory_uri() . '/' . basename(__DIR__) . '/${1:PATH}?ts=' . filemtime(get_stylesheet_directory() . '/' . basename(__DIR__) . '/$1')?>"></script>
