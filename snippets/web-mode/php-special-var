@@ -1,0 +1,7 @@
+# name: php-special-var
+# key: __
+# --
+`(yas-choose-value '(
+  "__FILE__"
+  "__DIR__"
+  ))`
