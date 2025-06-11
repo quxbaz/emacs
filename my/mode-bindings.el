@@ -62,6 +62,7 @@
      ;; (local-set-key (kbd "M-.") 'lsp-find-definition)
      ;; (local-set-key (kbd "M-,") 'lsp-find-implementation)
      ;; (local-set-key (kbd "M-'") 'lsp-rename)
+     (keymap-set js-mode-map "M-q" 'my/indent-block)
      (keymap-set js-mode-map "M-." 'my/mark-context)
      (keymap-set js-mode-map "C-c C-/" 'my/toggle-jsx-comment)
      (keymap-set js-mode-map "C-c /" 'my/close-html-tag)))
