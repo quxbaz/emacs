@@ -1,0 +1,7 @@
+# name: php-path-fn
+# key: path
+# --
+`(yas-choose-value '(
+  "basename"
+  "dirname"
+  ))`
