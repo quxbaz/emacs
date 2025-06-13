@@ -1,0 +1,4 @@
+# name: php-unset
+# key: rm
+# --
+unset($${VAR}[${KEY}]);
