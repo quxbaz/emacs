@@ -1,6 +1,6 @@
 # name: php-map
 # key: mp
 # --
-$${1:NAME} = [
-  $0
-];
+[
+  '${KEY}' => ${VALUE},$0
+]
