@@ -1,4 +1,4 @@
 # name: Map item
 # key: kv
 # --
-'$1' => $0
+'${KEY}' => ${VALUE}
