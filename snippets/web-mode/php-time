@@ -1,0 +1,7 @@
+# name: php-time
+# key: time
+# --
+`(yas-choose-value '(
+  "date('Y-m-d')"
+  "date('Y-m-d H:i:s')"
+  ))`
