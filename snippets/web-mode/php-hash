@@ -1,0 +1,7 @@
+# name: php-hash
+# key: hash
+# --
+`(yas-choose-value '(
+  "hash_equals(STRING_1, STRING_2)"
+  "hash_hmac('sha256', STRING_MESSAGE, STRING_SECRET_KEY)"
+  ))`
