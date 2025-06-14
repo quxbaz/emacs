@@ -1,0 +1,4 @@
+# name: php-define
+# key: def
+# --
+define('${NAME}', ${VALUE});
