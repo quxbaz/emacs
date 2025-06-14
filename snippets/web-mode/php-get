@@ -5,4 +5,5 @@
   "file_get_content(PATH)"
   "file_get_content('php://input')  // Gets raw HTTP body."
   "getallheaders()                  // Returns an associative array."
+  "json_decode(JSON_STRING)"
   ))`
