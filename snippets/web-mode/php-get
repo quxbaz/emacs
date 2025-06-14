@@ -3,5 +3,6 @@
 # --
 `(yas-choose-value '(
   "file_get_content(PATH)"
-  "file_get_content('php://input')"
+  "file_get_content('php://input')  // Gets raw HTTP body."
+  "getallheaders()                  // Returns an associative array."
   ))`
