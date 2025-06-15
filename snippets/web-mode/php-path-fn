@@ -1,7 +1,8 @@
 # name: php-path-fn
 # key: /
+# type: command
 # --
-`(yas-choose-value '(
-  "basename"
-  "dirname"
-  ))`
+(let* ((options '("basename  -> file.ext"
+                  "dirname   -> /path/to/directory"))
+       (value (completing-read "Select PHP function:" options)))
+  (insert (car (string-split value " +-> +" t " *"))))
