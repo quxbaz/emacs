@@ -1,5 +1,5 @@
 # name: php-get
-# key: get
+# key: g.
 # --
 `(yas-choose-value '(
   "file_get_content(FILE_PATH)"
