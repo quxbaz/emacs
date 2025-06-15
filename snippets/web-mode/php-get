@@ -2,7 +2,7 @@
 # key: get
 # --
 `(yas-choose-value '(
-  "file_get_content(PATH)"
+  "file_get_content(FILE_PATH)"
   "file_get_content('php://input')  // Gets raw HTTP body."
   "getallheaders()                  // -> associative array"
   "http_response_code()"
