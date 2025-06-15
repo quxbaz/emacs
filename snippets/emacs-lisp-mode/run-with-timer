@@ -1,0 +1,4 @@
+# name: run-with-timer
+# key: timer
+# --
+(run-with-timer ${SECS} ${REPEAT} ${FUNCTION} ${&rest ${ARGS}})
