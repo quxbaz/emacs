@@ -11,4 +11,4 @@
                   "http_response_code(404)"
                   "json_decode(JSON_STRING)"))
        (value (completing-read "Select PHP function:" options)))
-  (insert (car (string-split value " +// +" nil " *"))))
+  (insert (car (string-split value " +// +" t " *"))))
