@@ -1,6 +1,6 @@
 # name: yas-choose-value
 # key: sel
-# binding: nil
+# binding:
 # type: snippet
 # condition: t
 # --
