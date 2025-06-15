@@ -1,5 +1,5 @@
 # name: let
 # key: let
 # --
-(let (($1))
+(let ((${NAME} ${VALUE}))
   $0)
