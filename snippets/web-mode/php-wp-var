@@ -1,7 +1,8 @@
 # name: php-special-var
 # key: __
+# type: command
 # --
-`(yas-choose-value '(
-  "__FILE__"
-  "__DIR__"
-  ))`
+(let* ((options '("__FILE__  -> /path/to/file"
+                  "__DIR__   -> /path/to/directory"))
+       (value (completing-read "Select PHP function:" options)))
+  (insert (car (string-split value " +-> +" t " *"))))
