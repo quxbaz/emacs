@@ -1,0 +1,5 @@
+# name: defun
+# key: cond
+# --
+(cond (${COND} ${BODY})
+      (t ${DEFAULT}))
