@@ -3,7 +3,7 @@
 # --
 `(yas-choose-value '(
   "file_get_content(FILE_PATH)"
-  "file_get_content('php://input')  // Gets raw HTTP body."
+  "file_get_content('php://input')  // -> Raw HTTP body string."
   "getallheaders()                  // -> associative array"
   "http_response_code()"
   "http_response_code(404)"
