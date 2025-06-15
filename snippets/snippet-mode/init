@@ -1,0 +1,13 @@
+# name: init
+# key: --
+# condition: t
+# --
+# name: ${NAME}
+# key: ${KEY}
+# binding: nil
+# type: ${$$(yas-choose-value '("snippet" "command"))}
+# condition: t
+# --
+`(progn
+  (run-with-idle-timer 0 nil (lambda () (delete-whitespace-rectangle (point-min) (point-max))))
+  nil)`$0
