@@ -4,7 +4,7 @@
 # --
 # name: ${NAME}
 # key: ${KEY}
-# binding: nil
+# binding:
 # type: ${$$(yas-choose-value '("snippet" "command"))}
 # condition: t
 # --
