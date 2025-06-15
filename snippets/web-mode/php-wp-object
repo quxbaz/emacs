@@ -1,12 +1,13 @@
 # name: php-wp-object
 # key: obj
+# type: command
 # --
-`(yas-choose-value '(
-  "get_current_blog_id()    // Get current SITE id."
-  "get_queried_object_id()  // Get current PAGE id."
-  "get_the_ID()             // Get current POST id."
-  "the_content()            // Get PAGE content."
-  "the_post()               // Load next POST object."
-  "the_excerpt()            // Get the post excerpt (or post content as a fallback)."
-  "has_excerpt()            // True if the post has a custom excerpt."
-  ))`
+(let* ((options '("get_current_blog_id()    // Get current SITE id."
+                  "get_queried_object_id()  // Get current PAGE id."
+                  "get_the_ID()             // Get current POST id."
+                  "the_content()            // Get PAGE content."
+                  "the_post()               // Load next POST object."
+                  "the_excerpt()            // Get the post excerpt (or post content as a fallback)."
+                  "has_excerpt()            // True if the post has a custom excerpt."))
+       (value (completing-read "Select PHP function:" options)))
+  (insert (car (string-split value " +// +" t " *"))))
