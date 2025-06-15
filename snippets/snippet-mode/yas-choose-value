@@ -1,0 +1,8 @@
+# name: yas-choose-value
+# key: sel
+# binding: nil
+# type: snippet
+# condition: t
+# --
+`(yas-choose-value "\`(yas-choose-value LIST)\`"
+                   "${$$(yas-choose-value LIST}")`
