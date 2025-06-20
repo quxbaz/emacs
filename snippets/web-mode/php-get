@@ -6,7 +6,7 @@
 # --
 (let* ((options '("file_get_contents(FILE_PATH)"
                   "file_get_contents('php://input')  // -> Raw HTTP body string."
-                  "getallheaders()                  // -> associative array"
+                  "getallheaders()                   // -> associative array"
                   "http_response_code()"
                   "http_response_code(404)"
                   "json_decode(JSON_STRING)"))
