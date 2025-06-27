@@ -47,7 +47,7 @@
 (global-set-key (kbd "C-h k") 'describe-key-briefly)
 (global-set-key (kbd "C-h C-a") 'apropos)
 (global-set-key (kbd "C-h q") 'shortdoc-display-group)
-(global-set-key (kbd "C-h C-j") 'my/jump-to-binding-definition)
+(global-set-key (kbd "C-h C-g") 'my/goto-to-binding-definition)
 
 
 ;; # Mini-apps

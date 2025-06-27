@@ -21,7 +21,7 @@
   (interactive)
   (describe-function (intern (current-word nil nil))))
 
-(defun my/jump-to-binding-definition ()
+(defun my/goto-to-binding-definition ()
   "Jumps to a definition bound to a key sequence."
   (interactive)
   (let ((key (read-key-sequence "Find command bound to key sequence:")))
