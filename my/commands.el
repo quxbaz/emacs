@@ -21,6 +21,22 @@
   (interactive)
   (describe-function (intern (current-word nil nil))))
 
+(defun my/jump-to-binding-definition ()
+  "Jumps to a definition bound to a key sequence."
+  (interactive)
+  (let ((key (read-key-sequence "Find command bound to key sequence:")))
+    (if (and (stringp key) (string= key ""))
+        (message "Quit")
+      (let ((command-name (symbol-name (key-binding key))))
+        (if (eq major-mode 'emacs-lisp-mode)
+            (xref-find-definitions command-name)
+          ;; xref-find-definitions will only be able to find the command if the
+          ;; mode is emacs-lisp-mode.
+          (with-temp-buffer
+            (emacs-lisp-mode)
+            (xref-find-definitions command-name)))
+        (message command-name)))))
+
 
 ;; # Projects
 
@@ -220,22 +236,6 @@ region as the search string."
         (deactivate-mark)
         (occur (my/region-text)))
     (call-interactively 'occur)))
-
-(defun my/find-command-definition ()
-  "Finds a definition bound to a key sequence."
-  (interactive)
-  (let ((key (read-key-sequence "Find command bound to key sequence:")))
-    (if (and (stringp key) (string= key ""))
-        (message "Quit")
-      (let ((command-name (symbol-name (key-binding key))))
-        (if (eq major-mode 'emacs-lisp-mode)
-            (xref-find-definitions command-name)
-          ;; xref-find-definitions will only be able to find the command if the
-          ;; mode is emacs-lisp-mode.
-          (with-temp-buffer
-            (emacs-lisp-mode)
-            (xref-find-definitions command-name)))
-        (message command-name)))))
 
 
 ;; # dwim region commands

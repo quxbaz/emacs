@@ -47,6 +47,7 @@
 (global-set-key (kbd "C-h k") 'describe-key-briefly)
 (global-set-key (kbd "C-h C-a") 'apropos)
 (global-set-key (kbd "C-h q") 'shortdoc-display-group)
+(global-set-key (kbd "C-h C-j") 'my/jump-to-binding-definition)
 
 
 ;; # Mini-apps
@@ -87,7 +88,6 @@
 
 ;; # Jumping, definitions, source tracing
 (global-set-key (kbd "M-'") 'xref-find-definitions)
-(global-set-key (kbd "C-c C-'") 'my/find-command-definition)
 
 
 ;; # Editing
