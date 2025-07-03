@@ -487,12 +487,10 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 (defun my/visit-snippet-directory ()
   "Visits the yasnippet directory for the current major mode."
   (interactive)
-  (let ((directory (file-name-as-directory (concat user-emacs-directory
-                                                   "snippets/"
-                                                   (symbol-name major-mode)))))
-    (if (file-directory-p directory)
-        (dired directory)
-      (message "Could not find snippet directory for: %s" major-mode))))
+  (let* ((root-snippet-dir (car yas-snippet-dirs))
+         (mode-snippet-dir (format "%s/%s/" root-snippet-dir (symbol-name major-mode)))
+         (target-dir (if (file-directory-p mode-snippet-dir) mode-snippet-dir root-snippet-dir)))
+    (dired target-dir)))
 
 
 ;; # org-mode
