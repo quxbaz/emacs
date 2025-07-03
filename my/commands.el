@@ -488,9 +488,11 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   "Visits the yasnippet directory for the current major mode."
   (interactive)
   (let* ((root-snippet-dir (car yas-snippet-dirs))
-         (mode-snippet-dir (format "%s/%s/" root-snippet-dir (symbol-name major-mode)))
-         (target-dir (if (file-directory-p mode-snippet-dir) mode-snippet-dir root-snippet-dir)))
-    (dired target-dir)))
+         (mode-snippet-dir (format "%s/%s/" root-snippet-dir (symbol-name major-mode))))
+    (if (file-directory-p mode-snippet-dir)
+        (dired mode-snippet-dir)
+      (dired root-snippet-dir)
+      (message "Could not find snippet directory: %s" mode-snippet-dir))))
 
 
 ;; # org-mode
