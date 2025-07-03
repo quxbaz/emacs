@@ -1,0 +1,7 @@
+# name: ssh-host
+# key: ssh-host
+# --
+Host ${1:LABEL}
+  HostName ${2:HOSTNAME}
+  User ${3:USERNAME}
+  port ${4:22}
