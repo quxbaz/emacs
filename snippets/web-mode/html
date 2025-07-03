@@ -1,0 +1,16 @@
+# name: html
+# key: --
+# --
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="<?= get_stylesheet_directory_uri() . '/' . basename(__DIR__) . '/style.css?ts=' . filemtime(get_stylesheet_directory() . '/' . basename(__DIR__) . '/style.css') ?>" /> -->
+    <title>${TITLE}</title>
+  </head>
+  <body>
+    $0
+    <!-- <script type="text/javascript" src="<?= get_stylesheet_directory_uri() . '/' . basename(__DIR__) . '/script.js?ts=' . filemtime(get_stylesheet_directory() . '/' . basename(__DIR__) . '/script.js')?>"></script> -->
+  </body>
+</html>

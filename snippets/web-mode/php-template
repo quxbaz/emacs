@@ -1,6 +1,4 @@
 # name: php-template
 # key: --
 # --
-<?php /**Template Name: ${1:NAME} */ ?>
-
-$0
+<?php /* Template Name: ${1:NAME} */ ?>
