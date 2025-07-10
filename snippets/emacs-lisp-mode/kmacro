@@ -1,0 +1,4 @@
+# name: kmacro
+# key: km
+# --
+(kmacro "${KEYS}")
