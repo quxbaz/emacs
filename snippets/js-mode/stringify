@@ -2,4 +2,4 @@
 # name: JSON.stringify
 # key: s
 # --
-JSON.stringify($1)
+JSON.stringify(${1:VALUE}, ${2:REPLACER}, ${3:SPACES})
