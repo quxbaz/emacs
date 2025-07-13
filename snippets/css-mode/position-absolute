@@ -1,4 +1,4 @@
 # name: position-absolute
-# key: pa
+# key: abs
 # --
 position: absolute;$0
