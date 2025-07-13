@@ -10,7 +10,9 @@
     <title>${1:TITLE}</title>
   </head>
   <body>
-    $0
+    <main>
+      $0
+    </main>
     <!-- <script src="script.js"></script> -->
   </body>
 </html>
