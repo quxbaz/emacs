@@ -1,4 +1,4 @@
 # name: padding-right
-# key: prr
+# key: pr
 # --
 padding-right: $1;
