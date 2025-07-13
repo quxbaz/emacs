@@ -1,0 +1,6 @@
+# name: mask
+# key: mask
+# --
+mask-image: url(${1:URL});  /* Can be a gradient, PNG, or SVG. */
+mask-repeat: no-repeat;
+mask-size: contain;
