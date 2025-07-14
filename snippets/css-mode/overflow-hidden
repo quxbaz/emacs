@@ -1,0 +1,4 @@
+# name: overflow-hidden
+# key: oh
+# --
+overflow: hidden;
