@@ -1,4 +1,4 @@
 # name: var-define
-# key: var
+# key: dv
 # --
 --${1:NAME}: ${2:VALUE};
