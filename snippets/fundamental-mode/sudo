@@ -1,4 +1,4 @@
 # name: sudo
 # key: sudo
 # --
-${1:USER}	ALL=(${2:user}:${3:host}) NOPASSWD: ${4:COMMAND}
+${1:USER}	ALL=(${2:user}:${3:group}) NOPASSWD: ${4:COMMAND}
