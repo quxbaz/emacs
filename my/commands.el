@@ -544,7 +544,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (let ((pattern (read-regexp "find . -name PATTERN: ")))
     (find-name-dired default-directory pattern)))
 
-(defun my/dired-edit-file ()
+(defun my/dired-context-edit-file ()
   "Opens a program to edit marked files."
   (interactive)
   (let* ((paths (dired-get-marked-files))

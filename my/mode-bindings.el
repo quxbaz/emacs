@@ -41,7 +41,7 @@
             (keymap-set dired-mode-map "F" 'my/find-regex-dired)
             (keymap-set dired-mode-map "N" 'my/find-name-dired)
             (keymap-set dired-mode-map "J" 'my/find-jsx)
-            (keymap-set dired-mode-map "E" 'my/dired-edit-file)
+            (keymap-set dired-mode-map "E" 'my/dired-context-edit-file)
             (keymap-set dired-mode-map "G" 'my/dired-open-gallery)
             (keymap-set dired-mode-map "C-u C-r" 'my/dired-resize-image)))
 
