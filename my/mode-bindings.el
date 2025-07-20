@@ -33,6 +33,7 @@
             (keymap-set dired-mode-map "/" 'isearch-forward-regexp)
             (keymap-set dired-mode-map "M" 'dired-mark-files-regexp)
             (keymap-set dired-mode-map "C-c C-c" 'dired-toggle-read-only)
+            (keymap-set dired-mode-map "r" 'my/dired-do-rename-here)
             (keymap-set dired-mode-map "+" 'dired-create-empty-file)
             (keymap-set dired-mode-map "C-+" 'dired-create-directory)
             (keymap-set dired-mode-map "<return>" 'dired-find-alternate-file)

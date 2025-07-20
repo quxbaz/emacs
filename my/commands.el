@@ -536,7 +536,16 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (message "Saved: %s" (car kill-ring))))
 
 
-;; # dired
+;; # Dired
+
+(defun my/dired-do-rename-here ()
+  "Like dired-do-rename, but restricts target to the current window."
+  (interactive)
+  (let ((saved-dired-dwim-target dired-dwim-target))
+    (setq dired-dwim-target nil)
+    (unwind-protect
+        (call-interactively 'dired-do-rename)
+      (setq dired-dwim-target saved-dired-dwim-target))))
 
 (defun my/find-name-dired ()
   "Like find-name-dired, but uses the current directory by default."
@@ -583,7 +592,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (revert-buffer)))
 
 
-;; # deadgrep
+;; # Deadgrep
 
 (defun my/deadgrep-display-result ()
   "Displays the result in other window without moving point."
