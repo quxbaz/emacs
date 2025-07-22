@@ -1,0 +1,40 @@
+# name: virtual-host-https
+# key: vhost
+# --
+# Listen on port 443 (HTTPS) on all interfaces (*).
+<VirtualHost *:443>
+    # The primary domain.
+    ServerName ${1:example.com}
+
+    # Additional domains/subdomains.
+    # ServerAlias ${2:www.}$1
+
+    # Directory where site files are served from.
+    DocumentRoot ${3:/var/www/example.com/public_html}
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/$1.crt
+    SSLCertificateKeyFile /etc/ssl/private/$1.key
+
+    # The following configuration applies to the directory and its contents.
+    <Directory $3>
+        # Indexes
+        # If there's no index.html (or other index file), Apache will generate a
+        # directory listing for the folder.
+        #
+        # FollowSymLinks
+        # Allows Apache to follow symbolic links (symlinks) in the directory.
+        Options Indexes FollowSymLinks
+
+        # Controls whether .htaccess files in this directory can override Apache's global settings.
+        AllowOverride All
+
+        # Allow all users (remote IPs, clients) to access this directory.
+        # No restrictions based on IP, authentication, etc.
+        Require all granted
+    </Directory>
+
+    # Paths to log files using ${APACHE_LOG_DIR} variable (usually /var/log/apache2).
+    ErrorLog ${APACHE_LOG_DIR}/$1-error.log
+    CustomLog ${APACHE_LOG_DIR}/$1-access.log combined
+</VirtualHost>
