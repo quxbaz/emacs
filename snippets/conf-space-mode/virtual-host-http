@@ -1,4 +1,4 @@
-# name: virtual-host
+# name: virtual-host-http
 # key: vhost
 # --
 # Listen on port 80 (HTTP) on all interfaces (*).
