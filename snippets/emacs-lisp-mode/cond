@@ -1,4 +1,4 @@
-# name: defun
+# name: cond
 # key: cond
 # --
 (cond (${COND} ${BODY})
