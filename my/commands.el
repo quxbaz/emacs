@@ -289,6 +289,13 @@ region as the search string."
       (call-interactively 'kill-region)
     (call-interactively 'self-insert-command)))
 
+(defun my/key-l ()
+  "Inserts `l` normally. If region is active, call kill-rectangle instead."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'clear-rectangle)
+    (call-interactively 'self-insert-command)))
+
 (defun my/key-n ()
   "Inserts `n` normally. If region is active, call rectangle-number-lines instead."
   (interactive)
