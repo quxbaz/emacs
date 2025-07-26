@@ -212,7 +212,8 @@ region as the search string."
          (unless (string= default-directory user-emacs-directory)
            (let ((previous-buffer (current-buffer)))
              (dired user-emacs-directory)
-             (kill-buffer previous-buffer))))
+             ;; (kill-buffer previous-buffer)  ;; Uncomment to kill the existing buffer.
+             )))
         (t (call-interactively 'dired-jump))))
 
 (defun my/dired-up-directory ()
