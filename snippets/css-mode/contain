@@ -1,0 +1,13 @@
+# name: contain
+# key: cn
+# type: command
+# --
+(let* ((options '("strict   // Enables all containment values."
+                  "content  // Enables all but size."
+                  "layout   // Prevents layout from escaping the element."
+                  "size     // Treats the element's size as fixed."
+                  "paint    // Prevents visual overflow from affecting outside."
+                  "style    // Prevents outside styles from affecting the element."
+                  "none"))
+       (value (completing-read "contain: " options)))
+  (insert (message "contain: %s;" (car (string-split value " +// +" t " *")))))
