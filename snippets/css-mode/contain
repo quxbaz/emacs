@@ -1,12 +1,12 @@
 # name: contain
-# key: cn
+# key: con
 # type: command
 # --
 (let* ((options '("strict   // Enables all containment values."
                   "content  // Enables all but size."
-                  "layout   // Prevents layout from escaping the element."
+                  "paint    // Descendants of the element don't display outside its bounds."
                   "size     // Treats the element's size as fixed."
-                  "paint    // Prevents visual overflow from affecting outside."
+                  "layout   // Nothing outside the element affects its internal layout, and vice versa."
                   "style    // Prevents outside styles from affecting the element."
                   "none"))
        (value (completing-read "contain: " options)))
