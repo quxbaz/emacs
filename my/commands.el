@@ -568,7 +568,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
          (image-paths (seq-filter 'my/is-image-p paths))
          ;; Image paths joined and surrounded by single quotes.
          (cmd-arg (mapconcat (lambda (path) (format "'%s'" path)) image-paths " ")))
-    (shell-command (format "gimp %s" cmd-arg))))
+    (async-shell-command (format "gimp %s" cmd-arg))))
 
 (defun my/dired-open-gallery ()
   "Opens a gallery program to view images in the current directory."
