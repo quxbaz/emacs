@@ -339,6 +339,13 @@ region as the search string."
                       (+ (line-end-position) 1))))
   (message "%s" (string-trim (car kill-ring))))
 
+(defun my/yank ()
+  "Works just like yank, but also replaces the active region."
+  (interactive)
+  (if (use-region-p)
+      (delete-region (region-beginning) (region-end)))
+  (call-interactively 'yank))
+
 (defun my/kill-block (arg)
   (interactive "p")
   (save-excursion
