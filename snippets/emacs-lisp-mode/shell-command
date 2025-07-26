@@ -1,0 +1,4 @@
+# name: shell-command
+# key: sh
+# --
+(shell-command ${1:COMMAND})
