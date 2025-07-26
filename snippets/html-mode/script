@@ -1,4 +1,4 @@
 # name: script
-# key: script
+# key: js
 # --
 <script type="text/javascript" src="${1:URL}"></script>$0
