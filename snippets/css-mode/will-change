@@ -1,5 +1,5 @@
 # name: will-change
-# key: ch
+# key: wc
 # type: command
 # --
 (let* ((options '("auto"
