@@ -1,0 +1,12 @@
+# name: will-change
+# key: ch
+# type: command
+# --
+(let* ((options '("auto"
+                  "scroll-position"
+                  "contents"
+                  "transform        // Example of <custom-ident>"
+                  "opacity          // Example of <custom-ident>"
+                  "left, top        // Example of two <animatable-feature>"))
+       (value (completing-read "will-change: " options)))
+  (insert (message "will-change: %s;" (car (string-split value " +// +" t " *")))))
