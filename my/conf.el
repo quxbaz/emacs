@@ -109,6 +109,7 @@
 (autopair-global-mode t)
 (setq highlight-indent-guides-method 'bitmap)
 (yas-global-mode t)
+(setq yas-triggers-in-field t)  ;; Enable nested snippet expansions.
 (global-corfu-mode t)
 (setq blink-matching-paren nil) ;; Disable paredit delay when closing round.
 
