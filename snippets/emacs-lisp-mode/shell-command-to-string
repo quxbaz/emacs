@@ -1,4 +1,4 @@
 # name: shell-command-to-string
-# key: shs
+# key: sh
 # --
 (shell-command-to-string ${1:COMMAND})
