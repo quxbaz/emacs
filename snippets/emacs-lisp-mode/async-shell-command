@@ -1,4 +1,4 @@
 # name: async-shell-command
-# key: ash
+# key: sh
 # --
 (async-shell-command ${1:COMMAND})

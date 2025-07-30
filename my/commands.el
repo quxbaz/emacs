@@ -572,6 +572,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   "Opens a program to edit marked files."
   (interactive)
   (let* ((paths (dired-get-marked-files))
+         ;; Filter for image file types.
          (image-paths (seq-filter 'my/is-image-p paths))
          ;; Image paths joined and surrounded by single quotes.
          (cmd-arg (mapconcat (lambda (path) (format "'%s'" path)) image-paths " ")))
