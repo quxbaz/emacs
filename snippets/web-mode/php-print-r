@@ -1,4 +1,0 @@
-# name: print_r(...)
-# key: pr
-# --
-print_r(${1:VALUE}${2:, true})
