@@ -1,5 +1,5 @@
 # name: php-enqueue-style
-# key: eq-css
+# key: eq
 # --
 wp_enqueue_style(
   '${1:HANDLE}',  // Handle
