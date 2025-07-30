@@ -1,0 +1,4 @@
+# name: php-print-r-1
+# key: pr
+# --
+print_r(${1:VALUE});
