@@ -4,8 +4,8 @@
 # --
 
 (let* ((options '("get_template_directory_uri()    // Get URL for parent theme."
-                  "get_stylesheet_directory_uri()  // Get URL for active theme."
+                  "get_stylesheet_directory_uri()  // Get URL for current theme."
                   "get_template_directory()        // Get FS path for parent theme."
-                  "get_stylesheet_directory()      // Get FS path for child theme."))
+                  "get_stylesheet_directory()      // Get FS path for current theme."))
        (value (completing-read "Select PHP function:" options)))
   (insert (car (string-split value " +// +" t " *"))))
