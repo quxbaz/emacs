@@ -1,0 +1,6 @@
+# name: php-capture-output
+# key: out
+# --
+ob_start();                // Redirect output to internal buffer.
+$0
+$output = ob_get_clean();  // Retrieve output buffer and end redirection.
