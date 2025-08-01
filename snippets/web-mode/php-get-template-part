@@ -1,4 +1,4 @@
 # name: php-get-template-part
 # key: tmp
 # --
-get_template_part('template-parts/${1:PATH}')
+get_template_part('template-parts/${1:PATH}');
