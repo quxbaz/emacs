@@ -1,0 +1,9 @@
+# name: init-basic
+# key: --
+# --
+# name: ${NAME}
+# key: ${KEY}
+# --
+`(progn
+  (run-with-idle-timer 0 nil (lambda () (delete-whitespace-rectangle (point-min) (point-max))))
+  nil)`$0
