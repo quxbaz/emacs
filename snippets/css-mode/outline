@@ -1,4 +1,4 @@
 # name: outline
 # key: o
 # --
-outline: 1px solid hsl(0deg 100% 50%);$0
+outline: 1px solid hsl(0 100% 50% / 1);
