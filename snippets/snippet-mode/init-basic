@@ -1,7 +1,7 @@
 # name: init-basic
 # key: --
 # --
-# name: ${NAME}
+# name: `(buffer-name)`
 # key: ${KEY}
 # --
 `(progn
