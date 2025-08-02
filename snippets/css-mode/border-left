@@ -1,0 +1,4 @@
+# name: border-left
+# key: bl
+# --
+border-left: ${1:1}px solid ${2:hsl(0deg 0% 0%)};
