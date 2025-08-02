@@ -1,0 +1,4 @@
+# name: insert-field
+# key: i
+# --
+\${`(progn (kmacro-insert-counter 1) nil)`:${1:DEFAULT-VALUE}}
