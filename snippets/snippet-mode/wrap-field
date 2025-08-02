@@ -1,0 +1,5 @@
+# name: wrap-field
+# binding: M-o
+# condition: (use-region-p)
+# --
+\${`(progn (kmacro-insert-counter 1) nil)`:`yas-selected-text`}
