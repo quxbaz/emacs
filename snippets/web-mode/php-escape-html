@@ -1,4 +1,4 @@
 # name: php-escape-html
-# key: ,
+# key: \
 # --
 htmlspecialchars(${1:INPUT}, ENT_QUOTES, 'UTF-8')
