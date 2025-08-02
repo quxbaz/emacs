@@ -1,5 +1,5 @@
 # name: php-capture-output
-# key: out
+# key: cap
 # --
 ob_start();                // Redirect output to internal buffer.
 $0
