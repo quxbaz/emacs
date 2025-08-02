@@ -112,6 +112,7 @@
 (setq yas-triggers-in-field t)  ;; Enable nested snippet expansions.
 (global-corfu-mode t)
 (setq blink-matching-paren nil) ;; Disable paredit delay when closing round.
+(setq calc-algebraic-mode t)
 
 
 ;; # org-mode
