@@ -1,0 +1,4 @@
+# name: php-map
+# key: map
+# --
+array_map(${1:FUNCTION}, ${2:ARRAY})
