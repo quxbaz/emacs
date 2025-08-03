@@ -1,0 +1,4 @@
+# name: string-replace
+# key: rep
+# --
+str_replace(${1:SEARCH}, ${2:REPLACE}, ${3:SUBJECT})
