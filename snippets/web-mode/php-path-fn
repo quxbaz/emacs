@@ -2,7 +2,12 @@
 # key: /
 # type: command
 # --
-(let* ((options '("basename  -> file.ext"
-                  "dirname   -> /path/to/directory"))
+(let* ((options '("basename(path/to/file)          -> file"
+                  "dirname(path/to/file)           -> path/to"
+                  "get_stylesheet_directory_uri()  // Get URL for CURRENT theme."
+                  "get_stylesheet_directory()      // Get FS path for CURRENT theme."
+                  "get_template_directory_uri()    // Get URL for PARENT theme."
+                  "get_template_directory()        // Get FS path for PARENT theme."))
        (value (completing-read "Select PHP function:" options)))
-  (insert (car (string-split value " +-> +" t " *"))))
+  (insert (car (string-split value " +\\(->\\|//\\) +" t " *")))
+  (backward-char 1))
