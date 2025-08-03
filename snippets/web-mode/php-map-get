@@ -1,4 +1,4 @@
-# name: Map get
+# name: php-map-get
 # key: k
 # --
 $${1:map}['${2:key}']$0
