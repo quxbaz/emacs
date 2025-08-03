@@ -1,4 +1,4 @@
 # name: php-include
-# key: inc
+# key: i
 # --
-<?php include ${1:get_template_directory_uri()}; ?>
+include ${1:get_stylesheet_directory()} . '/${2:PATH}';
