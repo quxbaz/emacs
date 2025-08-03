@@ -2,8 +2,8 @@
 # key: db
 # --
 // Enable WP debugging.
-define( 'WP_DEBUG', true );                         // Master switch
-define( 'WP_DEBUG_LOG', true );                     // Save errors to wp-content/debug.log
-define( 'WP_DEBUG_DISPLAY', true );                 // Show errors on screen
-define( 'SCRIPT_DEBUG', true );                     // Use non-minified scripts and styles
-@ini_set( 'display_errors', 1 );                    // Enable PHP errors in browser
+define('WP_DEBUG', true);                         // Master switch
+define('WP_DEBUG_LOG', true);                     // Save errors to wp-content/debug.log
+define('WP_DEBUG_DISPLAY', true);                 // Show errors on screen
+define('SCRIPT_DEBUG', true);                     // Use non-minified scripts and styles
+@ini_set('display_errors', 1);                    // Enable PHP errors in browser
