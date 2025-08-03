@@ -1,4 +1,4 @@
-# name: php-map-get
+# name: php-associative-array-get
 # key: k
 # --
 $${1:map}['${2:key}']$0
