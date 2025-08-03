@@ -1,4 +1,4 @@
-# name: php-map-for-each
+# name: php-associative-array-for-each
 # key: lk
 # --
 foreach (${1:$map} as ${2:$k} => ${3:$v}) {
