@@ -8,5 +8,6 @@
 # condition: t
 # --
 `(progn
-  (run-with-idle-timer 0 nil (lambda () (delete-whitespace-rectangle (point-min) (point-max))))
-  nil)`$0
+   (run-with-idle-timer 0 nil (lambda () (delete-whitespace-rectangle (point-min) (point-max))))
+   (kmacro-set-counter 1)
+   nil)`$0
