@@ -1,0 +1,4 @@
+# name: php-var
+# key: v
+# --
+\$${1:NAME} = $0;
