@@ -2,7 +2,9 @@
 # key: /
 # type: command
 # --
-(let* ((options '("basename(path/to/file)          -> file"
+(let* ((options '("__FILE__                        -> /path/to/current-file"
+                  "__DIR__                         -> /path/to/current-dir"
+                  "basename(path/to/file)          -> file"
                   "dirname(path/to/file)           -> path/to"
                   "get_stylesheet_directory_uri()  // Get URL for CURRENT theme."
                   "get_stylesheet_directory()      // Get FS path for CURRENT theme."
