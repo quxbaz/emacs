@@ -1,4 +1,4 @@
-# name: php-map-item
+# name: php-associative-array-item
 # key: kv
 # --
 '${KEY}' => ${VALUE}
