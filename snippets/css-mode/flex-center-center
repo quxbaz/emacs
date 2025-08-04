@@ -1,0 +1,6 @@
+# name: flex-center-center
+# key: cc
+# --
+display: flex;
+justify-content: center;
+align-items: center;
