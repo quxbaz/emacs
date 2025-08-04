@@ -1,0 +1,4 @@
+# name: list-style-type
+# key: lst
+# --
+list-style-type: none;
