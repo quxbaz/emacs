@@ -1,4 +1,4 @@
 # name: php-filter
 # key: fil
 # --
-array_filter(${1:ARRAY}, ${2:PRED})
+array_filter(${1:ARRAY}, '${2:PRED}')
