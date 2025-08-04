@@ -1,0 +1,5 @@
+# name: php-wrap-php
+# binding: M-o
+# condition: (use-region-p)
+# --
+<?php `yas-selected-text` ?>
