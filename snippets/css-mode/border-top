@@ -1,4 +1,4 @@
 # name: border-top
 # key: bt
 # --
-border-top: ${1:1}px solid ${2:hsl(0deg 0% 0%)};
+border-top: ${1:1}px solid ${2:hsl(0 0% 0% / 1)};
