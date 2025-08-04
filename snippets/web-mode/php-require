@@ -1,0 +1,4 @@
+# name: php-require
+# key: .
+# --
+require '${1:FILE}';
