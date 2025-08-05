@@ -1,4 +1,4 @@
 # name: php-split
-# key: split
+# key: r
 # --
 explode('${1:DELIMITER}', ${2:STRING})

@@ -1,4 +1,4 @@
-# name: string-replace
-# key: rep
+# name: php-string-replace
+# key: r
 # --
 str_replace(${1:SEARCH}, ${2:REPLACE}, ${3:SUBJECT})
