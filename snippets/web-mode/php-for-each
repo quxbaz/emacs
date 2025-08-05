@@ -1,4 +1,4 @@
-# name: foreach loop
+# name: php-for-each
 # key: ll
 # --
 foreach ($${1:array} as $${2:item}) {
