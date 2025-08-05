@@ -1,4 +1,4 @@
-# name: string-split
-# key: split
+# name: str-string-split
+# key: r
 # --
 (string-split ${STRING}${ ${SEPARATORS} ${OMIT-NULLS} ${TRIM}})

@@ -1,4 +1,4 @@
-# name: dotimes
+# name: iter-dotimes
 # key: ll
 # --
 (dotimes (${1:VAR} ${2:COUNT} ${3:RESULT})
