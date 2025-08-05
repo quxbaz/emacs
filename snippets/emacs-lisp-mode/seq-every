@@ -1,4 +1,4 @@
 # name: seq-every
-# key: ev
+# key: l
 # --
 (seq-every-p ${1:PRED} ${2:SEQUENCE})
