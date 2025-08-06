@@ -1,5 +1,6 @@
 # name: virtual-host-https
 # key: vhost
+# expand-env: ((yas-indent-line nil))
 # --
 # Listen on port 443 (HTTPS) on all interfaces (*).
 <VirtualHost *:443>
