@@ -1,4 +1,4 @@
 # name: frac
 # key: /
 # --
-\frac{$1}{$2}
+\frac
