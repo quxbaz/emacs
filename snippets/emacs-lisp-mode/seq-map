@@ -1,4 +1,4 @@
 # name: seq-map
-# key: l
+# key: ,
 # --
 (mapcar ${1:FUNCTION} ${2:SEQUENCE})

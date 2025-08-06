@@ -1,4 +1,4 @@
 # name: seq-find
-# key: l
+# key: ,
 # --
 (seq-find ${1:PRED} ${2:SEQUENCE}${3: &optional ${4:DEFAULT}})$0
