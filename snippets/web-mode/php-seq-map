@@ -1,4 +1,4 @@
-# name: php-map
-# key: l
+# name: php-seq-map
+# key: ,
 # --
 array_map(${1:FUNCTION}, ${2:ARRAY})

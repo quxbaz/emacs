@@ -1,0 +1,4 @@
+# name: php-seq-array-unique
+# key: ,
+# --
+array_unique(${1:ARRAY})
