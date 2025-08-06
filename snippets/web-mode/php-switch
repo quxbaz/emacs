@@ -1,0 +1,11 @@
+# name: php-switch
+# key: cond
+# --
+switch (\$${1:VAR}) {
+  case ${2:MATCHING-VALUE}:
+    ${0:// Do stuff here.}
+    break;
+  default:
+    // Do stuff here if no matches.
+    break;
+}
