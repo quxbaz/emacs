@@ -1,0 +1,7 @@
+# name: php-function
+# key: fn
+# expand-env: ((yas-indent-line nil))
+# --
+function ${1:NAME} (${2:ARGS}) {
+  $0
+}
