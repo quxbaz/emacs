@@ -1,0 +1,5 @@
+# name: php-namespace
+# key: ns
+# expand-env: ((yas-indent-line nil))
+# --
+namespace ${1:My\Namespace};
