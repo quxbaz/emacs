@@ -5,6 +5,7 @@
 # key: ${KEY}
 # binding:
 # type: ${$$(yas-choose-value '("snippet" "command"))}
+# expand-env: ((yas-indent-line nil))
 # condition: t
 # --
 `(progn
