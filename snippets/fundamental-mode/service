@@ -61,10 +61,10 @@ WantedBy=multi-user.target
 
 # Run the following commands to activate the service unit:
 #
-#     cd /etc/systemd/system/
-#     ln -s /path/to/my.service
-#     systemctl daemon-reexec
-#     systemctl daemon-reload
-#     systemctl enable my.service
-#     systemctl start my.service
-#     systemctl status my.service
+# cd /etc/systemd/system/
+# ln -s /path/to/my.service
+# systemctl daemon-reexec
+# systemctl daemon-reload
+# systemctl enable my.service
+# systemctl start my.service
+# systemctl status my.service
