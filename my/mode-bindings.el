@@ -73,6 +73,10 @@
      (keymap-set magit-mode-map "w" 'my/key-w)
      (keymap-set magit-mode-map "C-o" 'magit-diff-visit-file-other-window)))
 
+(add-hook 'mathjax-mode-hook
+          (lambda ()
+            (yas-activate-extra-mode 'mathjax-mode)))
+
 (eval-after-load 'org
   '(progn
      (keymap-set org-mode-map "M-a" 'org-backward-element)

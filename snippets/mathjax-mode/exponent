@@ -1,0 +1,4 @@
+# name: exponent
+# key: e
+# --
+^{$1}

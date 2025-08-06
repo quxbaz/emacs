@@ -1,5 +1,5 @@
 # name: php-associative-array-for-each
-# key: lk
+# key: ll
 # --
 foreach (${1:$map} as ${2:$k} => ${3:$v}) {
   $0

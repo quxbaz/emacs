@@ -1,0 +1,4 @@
+# name: frac-extended
+# key: //
+# --
+\frac{$1}{$2}

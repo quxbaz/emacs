@@ -1,4 +1,4 @@
-# name: php-filter
-# key: fil
+# name: php-seq-filter
+# key: ,
 # --
 array_filter(${1:ARRAY}, ${2:PRED})

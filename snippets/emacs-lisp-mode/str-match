@@ -1,4 +1,4 @@
-# name: string-match
-# key: re
+# name: str-match
+# key: r
 # --
 (string-match ${1:REGEXP} ${2:STRING})

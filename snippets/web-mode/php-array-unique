@@ -1,4 +1,0 @@
-# name: php-array-unique
-# key: uniq
-# --
-array_unique(${1:ARRAY})

@@ -1,0 +1,7 @@
+# name: align
+# key: al
+# expand-env: ((yas-indent-line nil))
+# --
+\begin{align}
+$1 &= $2
+\end{align}

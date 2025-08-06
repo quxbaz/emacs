@@ -1,4 +1,5 @@
 # name: sudo
 # key: sudo
+# expand-env: ((yas-indent-line nil))
 # --
 ${1:USER}	ALL=(${2:user}:${3:group}) NOPASSWD: ${4:COMMAND}

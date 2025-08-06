@@ -1,4 +1,4 @@
-# name: s-join
-# key: sj
+# name: str-join
+# key: r
 # --
 (s-join ${1:SEPARATOR} ${2:STRINGS})$0

@@ -1,4 +1,4 @@
 # name: seq-filter
-# key: fil
+# key: ,
 # --
 (seq-filter ${1:PRED} ${2:SEQUENCE})

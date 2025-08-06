@@ -1,4 +1,4 @@
-# name: dolist
+# name: iter-dolist
 # key: ll
 # --
 (dolist (${1:VAR} ${2:LIST} ${3:[RESULT]})
