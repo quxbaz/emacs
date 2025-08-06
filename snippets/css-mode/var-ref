@@ -1,4 +1,4 @@
 # name: var-ref
-# key: v
+# key: -
 # --
-var(--$0)
+var(${1:--${2:NAME}})
