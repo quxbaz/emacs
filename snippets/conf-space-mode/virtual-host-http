@@ -1,5 +1,6 @@
 # name: virtual-host-http
 # key: vhost
+# expand-env: ((yas-indent-line nil))
 # --
 # Listen on port 80 (HTTP) on all interfaces (*).
 <VirtualHost *:80>
