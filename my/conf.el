@@ -156,20 +156,15 @@
 
 (define-minor-mode mathjax-mode
   "Mode for writing MathJax snippets."
-
   ;; If t, the minor mode is enabled by default.
   :init-value nil
-
   ;; Mode Line text when the minor mode is active.
   :lighter " Mathjax"
-
   ;; Custom keybindings when the minor mode is active.
   :keymap (let ((map (make-sparse-keymap)))
             ;; (define-key map (kbd "KEY-SEQUENCE") 'COMMAND)
             map)
-
   ;; Specifies whether the mode is global (t) or buffer local (nil).
   :global nil
-
   ;;The customization group under which the mode settings are categorized.
   :group 'mathjax-mode)
