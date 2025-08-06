@@ -1,4 +1,4 @@
 # name: border
 # key: bd
 # --
-border: ${0:1px solid hsl(0 0% 0% / 1)};
+border: ${1:1px} ${2:solid} ${3:hsl(0 0% 0% / 1)};
