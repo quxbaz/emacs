@@ -1,5 +1,6 @@
 # name: init-extended
 # key: --
+# expand-env: ((yas-indent-line nil))
 # --
 # name: `(buffer-name)`
 # key: ${KEY}
