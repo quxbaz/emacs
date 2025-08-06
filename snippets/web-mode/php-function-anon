@@ -1,0 +1,7 @@
+# name: php-function-anon
+# key: l
+# expand-env: ((yas-indent-line nil))
+# --
+function (${2:ARGS}) {
+  $0
+}
