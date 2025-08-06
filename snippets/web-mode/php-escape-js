@@ -1,0 +1,5 @@
+# name: php-escape-js
+# key: \
+# expand-env: ((yas-indent-line nil))
+# --
+esc_js(${1:STRING})

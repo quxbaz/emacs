@@ -1,0 +1,4 @@
+# name: php-escape-html
+# key: \
+# --
+esc_html(${1:STRING})

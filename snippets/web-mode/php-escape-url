@@ -1,0 +1,5 @@
+# name: php-escape-url
+# key: \
+# expand-env: ((yas-indent-line nil))
+# --
+esc_url(${1:STRING})

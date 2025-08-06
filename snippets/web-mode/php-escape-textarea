@@ -1,0 +1,5 @@
+# name: php-escape-textarea
+# key: \
+# expand-env: ((yas-indent-line nil))
+# --
+esc_textarea(${1:STRING})
