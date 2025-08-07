@@ -1,4 +1,4 @@
 # name: io-http-response-code
-# key: ;
+# key: o
 # --
 http_response_code(${1:200})
