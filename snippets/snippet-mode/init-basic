@@ -3,8 +3,8 @@
 # expand-env: ((yas-indent-line nil))
 # --
 # name: `(buffer-name)`
-# key: ${KEY}
-# expand-env: ((yas-indent-line nil))
+# key: ${1:KEY}
+${2:# expand-env: ((yas-indent-line nil))}
 # --
 `(progn
    (run-with-idle-timer 0 nil (lambda () (delete-whitespace-rectangle (point-min) (point-max))))
