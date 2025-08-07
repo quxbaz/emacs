@@ -1,4 +1,4 @@
 # name: z-index
 # key: zi
 # --
-z-index: ${1:1};
+z-index: ${1:0};
