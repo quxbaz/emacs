@@ -1,4 +1,4 @@
 # name: border-radius
 # key: r
 # --
-border-radius: $1px;
+border-radius: ${1:5}px;
