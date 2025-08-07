@@ -1,0 +1,4 @@
+# name: nth-1
+# key: 1
+# --
+(cadr ${1:LIST})

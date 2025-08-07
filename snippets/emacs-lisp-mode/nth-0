@@ -1,0 +1,4 @@
+# name: nth-0
+# key: 0
+# --
+(car ${1:LIST})
