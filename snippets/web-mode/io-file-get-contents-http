@@ -1,0 +1,4 @@
+# name: io-file-get-contents-http
+# key: ;
+# --
+file_get_contents(${1:'php://input'})  // Get raw HTTP body (as a string).

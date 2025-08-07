@@ -1,0 +1,4 @@
+# name: io-file-get-contents
+# key: ;
+# --
+file_get_contents(${1:FILE-PATH})
