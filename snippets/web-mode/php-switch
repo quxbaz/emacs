@@ -6,6 +6,6 @@ switch (\$${1:VAR}) {
     ${0:// Do stuff here.}
     break;
   default:
-    // Do stuff here if no matches.
+    // Execute if no matches.
     break;
 }
