@@ -1,0 +1,5 @@
+# name: text-shadow
+# key: ts
+# expand-env: ((yas-indent-line nil))
+# --
+text-shadow: 0 0 ${1:BLUR}px ${2:hsl(0 0% 50% / 0.5)};
