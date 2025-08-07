@@ -1,5 +1,5 @@
 # name: php-get
-# key: g.
+# key: :
 # binding:
 # type: command
 # condition: t
