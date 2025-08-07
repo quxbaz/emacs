@@ -1,0 +1,6 @@
+# name: io-read-first-line
+# key: ;
+# --
+$handle = fopen(${1:PATH}, 'r');
+$first_line = $handle ? fgets($handle) : false;
+if ($handle) fclose($handle);
