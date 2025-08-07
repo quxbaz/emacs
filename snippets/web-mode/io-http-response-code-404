@@ -1,4 +1,4 @@
 # name: io-http-response-code-404
-# key: o
+# key: io
 # --
 http_response_code(404)

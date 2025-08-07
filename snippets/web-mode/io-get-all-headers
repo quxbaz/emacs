@@ -1,4 +1,4 @@
 # name: io-get-all-headers
-# key: o
+# key: io
 # --
 getallheaders()  // Returns an associative array
