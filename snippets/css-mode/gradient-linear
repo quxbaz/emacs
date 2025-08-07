@@ -1,4 +1,4 @@
-# name: linear-radient
-# key: lin
+# name: radient-linear
+# key: n
 # --
 linear-gradient(${1:90deg}, ${2:hsl(0 0% 0% / 1)}, ${3:hsl(0 0% 0% / 0)})
