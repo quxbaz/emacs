@@ -1,11 +1,11 @@
 # name: php-cond
 # key: cond
 # --
-switch (\$${1:VAR}) {
+switch (\$${1:VARIABLE}) {
   case ${2:MATCHING-VALUE}:
-    ${0:// Do stuff here.}
+    ${3:// Do stuff here.}
     break;
   default:
-    // Execute if no matches.
+    ${4:// Execute if no matches.}
     break;
 }
