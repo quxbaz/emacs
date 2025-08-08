@@ -1,4 +1,4 @@
-# name: php-switch
+# name: php-cond
 # key: cond
 # --
 switch (\$${1:VAR}) {
