@@ -1,4 +1,8 @@
 # name: var-ref
 # key: -
+# type: command
 # --
-var(${1:--${2:NAME}})
+(let* ((buffer-content (buffer-substring-no-properties (point-min) (point-max)))
+       (matches (sort (delete-dups (my/string-match-all "--[-a-zA-Z0-9]+" buffer-content))))
+       (value (completing-read "var(...): " matches)))
+  (insert (format "var(%s)" value)))
