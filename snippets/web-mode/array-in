@@ -1,0 +1,4 @@
+# name: array-in
+# key: in
+# --
+in_array(${1:VALUE}, ${2:ARRAY})
