@@ -2,3 +2,5 @@
 # key: dg
 # --
 display: grid;
+${1:grid-template-columns: ${2:COLUMNS};}
+${3:grid-template-rows: ${4:ROWS};}
