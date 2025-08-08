@@ -1,0 +1,4 @@
+# name: str-match-all
+# key: r
+# --
+(my/string-match-all ${1:REGEXP} ${2:STRING})
