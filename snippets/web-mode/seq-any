@@ -1,0 +1,4 @@
+# name: seq-any
+# key: ,
+# --
+w_any(${1:cond}, ${2:array})
