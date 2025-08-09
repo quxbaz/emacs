@@ -1,0 +1,4 @@
+# name: io-base-64-encode
+# key: io
+# --
+base64_encode(${1:STRING})
