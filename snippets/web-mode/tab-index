@@ -1,4 +1,4 @@
 # name: tab-index
 # key: ti
 # --
-tabindex="0"
+tabindex="${1:0}"
