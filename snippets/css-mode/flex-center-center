@@ -1,4 +1,4 @@
 # name: flex-center-center
 # key: cc
 # --
-display: flex; justify-content: center; align-items: center;
+display: flex; ${1:flex-direction: ${2:$$(yas-choose-value '(row column))}; }justify-content: center; align-items: center;
