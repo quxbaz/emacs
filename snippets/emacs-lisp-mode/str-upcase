@@ -1,0 +1,4 @@
+# name: str-upcase
+# key: r
+# --
+(upcase ${1:STRING})
