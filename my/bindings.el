@@ -132,6 +132,7 @@
 (global-set-key (kbd "C-.") 'repeat)
 (global-set-key (kbd "<escape> <escape> i") 'my/insert-uuid)
 (global-set-key (kbd "<escape> <escape> t") 'org-time-stamp)
+(global-set-key (kbd "<escape> p") 'my/toggle-emacs-lisp-mode)
 
 
 ;; # Auto-complete

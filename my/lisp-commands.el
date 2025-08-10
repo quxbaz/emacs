@@ -3,6 +3,15 @@
 ;;
 
 
+;; # Misc
+
+(defun my/toggle-emacs-lisp-mode ()
+  (interactive)
+  (if (eq major-mode 'emacs-lisp-mode)
+      (call-interactively 'normal-mode)
+    (emacs-lisp-mode)))
+
+
 ;; # Evaluation
 
 (defun my/eval-dwim ()
