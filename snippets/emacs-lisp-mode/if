@@ -1,4 +1,6 @@
 # name: if
 # key: if
 # --
-(if $0)
+(if ${1:COND}
+    ${2:THEN}
+  ${3:ELSE})
