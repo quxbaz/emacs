@@ -1,4 +1,4 @@
 # name: php-printf
 # key: msg
 # --
-printf("${2:%s}", ${3:VALUES});
+printf(${1:"${2:%s}"}, ${3:VALUES});
