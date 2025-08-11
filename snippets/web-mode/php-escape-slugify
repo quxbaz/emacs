@@ -1,0 +1,4 @@
+# name: php-escape-slugify
+# key: \
+# --
+sanitize_title(${1:STRING})
