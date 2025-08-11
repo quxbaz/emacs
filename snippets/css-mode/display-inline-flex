@@ -1,0 +1,4 @@
+# name: display-inline-flex
+# key: dif
+# --
+display: inline-flex;
