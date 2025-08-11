@@ -1,0 +1,4 @@
+# name: php-sprintf
+# key: fo
+# --
+sprintf(${1:"${2:%s}"}, ${3:VALUES})
