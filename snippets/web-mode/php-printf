@@ -1,0 +1,4 @@
+# name: php-printf
+# key: msg
+# --
+printf("${2:%s}", ${3:VALUES});
