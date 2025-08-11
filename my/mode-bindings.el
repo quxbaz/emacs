@@ -8,6 +8,10 @@
 (keymap-set occur-mode-map "p" (lambda () (interactive) (occur-prev) (occur-mode-display-occurrence)))
 (keymap-set text-mode-map "M-/" 'dabbrev-expand)
 
+(eval-after-load 'calc
+  '(progn
+     (keymap-set calc-mode-map "SPC" 'calc-algebraic-entry)))
+
 (eval-after-load 'calendar
   '(progn
      (keymap-set calendar-mode-map "s-d" 'calendar-exit)
