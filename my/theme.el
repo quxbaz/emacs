@@ -7,6 +7,13 @@
 
 
 ;; # Colors
+;; ## mode line
+(set-face-attribute 'mode-line  ;; 'mode-line-inactive also configurable.
+                    nil
+                    :foreground "white"
+                    :background "violet red"
+                    :box '(:line-width 1 :style released-button))
+
 ;; ## magit
 (custom-set-faces '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
 
