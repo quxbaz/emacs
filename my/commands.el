@@ -629,3 +629,15 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (call-interactively 'deadgrep-backward-match)
   (deadgrep-visit-result-other-window)
   (other-window -1))
+
+
+;; php, web-mode
+
+(defun my/eval-php ()
+  "Evaluates the line or the region in php interpreter."
+  (interactive)
+  (if (use-region-p)
+      (shell-command-on-region (region-beginning) (region-end) "php -a")
+    (shell-command-on-region (+ (line-beginning-position) (current-indentation))
+                             (region-end)
+                             "php -a")))
