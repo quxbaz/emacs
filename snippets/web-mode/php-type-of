@@ -1,0 +1,4 @@
+# name: php-type-of
+# key: to
+# --
+gettype(${1:VAR})
