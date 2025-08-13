@@ -1,0 +1,4 @@
+# name: php-has
+# key: h
+# --
+array_key_exists(${1:KEY}, ${2:ARRAY})
