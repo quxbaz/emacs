@@ -114,4 +114,5 @@
             (keymap-set web-mode-map "M-/" 'hippie-expand)
             (keymap-set web-mode-map "C-M-i" 'completion-at-point)
             (keymap-set web-mode-map "M-q" 'my/indent-block)
-            (keymap-set web-mode-map "C-c /" (kmacro "< > C-b / C-f"))))  ;; Close tag.
+            (keymap-set web-mode-map "C-c /" (kmacro "< > C-b / C-f"))
+            (keymap-set web-mode-map "C-c C-c" 'my/eval-php)))
