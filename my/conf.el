@@ -125,6 +125,7 @@
 (global-corfu-mode t)
 (setq blink-matching-paren nil) ;; Disable paredit delay when closing round.
 ;; (setq calc-algebraic-mode t)
+(setq calc-simplify-mode 'none)  ;; Disable automatic simplification.
 (setq bookmark-save-flag 1)     ;; Save ~/.emacs.d/bookmarks on every change.
 
 
