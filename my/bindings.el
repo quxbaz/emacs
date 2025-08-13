@@ -168,7 +168,7 @@
 ;; # Buffers, windows, dired
 ;; ## Buffers
 (global-set-key (kbd "M-s") 'save-buffer)
-(global-set-key (kbd "<escape> <escape> k") (my/cmd (kill-buffer)))
+(global-set-key (kbd "<escape> .") (my/cmd (kill-buffer)))
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-SPC") 'ivy-switch-buffer)
 (global-set-key (kbd "<escape> SPC") 'ibuffer)
@@ -176,6 +176,7 @@
 (global-set-key (kbd "C->") 'next-buffer)
 (global-set-key (kbd "<escape> ,") 'bury-buffer)
 (global-set-key (kbd "C-c C-v") 'my/revert-buffer)
+(global-set-key (kbd "<escape> RET") 'clone-indirect-buffer)
 ;; ## Windows
 (global-set-key (kbd "C-x C-o") 'my/other-window)
 (global-set-key (kbd "C-u C-s") (my/cmd (split-window-right) (windmove-right)))
