@@ -1,4 +1,4 @@
 # name: box-shadow
 # key: bs
 # --
-box-shadow: 0 0 ${1:20}px 0 ${2:hsl(0 0% 30% / 50%)};
+box-shadow: 0 0 ${1:20}px 0 ${2:hsl(0 0% 30% / 0.5)};
