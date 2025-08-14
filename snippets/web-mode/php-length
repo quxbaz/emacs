@@ -1,0 +1,4 @@
+# name: php-length
+# key: le
+# --
+count(${1:VAR})
