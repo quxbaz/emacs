@@ -11,8 +11,7 @@
 (eval-after-load 'calc
   '(progn
      (keymap-set calc-mode-map "SPC" 'calc-algebraic-entry)
-     (keymap-set calc-mode-map "e" 'calc-power)
-     (keymap-set calc-mode-map "s a" 'calc-solve-for)))
+     (keymap-set calc-mode-map "e" 'calc-power)))
 
 (eval-after-load 'calendar
   '(progn
