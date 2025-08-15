@@ -1,4 +1,4 @@
 # name: php-split
 # key: r
 # --
-explode('${1:PHP_EOL}', ${2:STRING})
+explode(${1:PHP_EOL}, ${2:STRING})
