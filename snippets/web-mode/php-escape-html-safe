@@ -1,0 +1,4 @@
+# name: php-escape-html-safe
+# key: \
+# --
+wp_kses_post(${1:HTML-STRING})
