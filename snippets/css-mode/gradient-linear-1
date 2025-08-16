@@ -1,4 +1,4 @@
-# name: gradient-linear
+# name: gradient-linear-1
 # key: nl
 # --
 linear-gradient(${1:90deg}, ${2:hsl(0 0% 0% / 1)}, ${3:hsl(0 0% 0% / 0)})
