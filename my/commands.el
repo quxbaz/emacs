@@ -38,6 +38,16 @@
         (message command-name)))))
 
 
+;; # Commands
+
+(defun my/quit ()
+  "Quits the minibuffer if it's open, otherwise do a normal keyboard-quit."
+  (interactive)
+  (if (active-minibuffer-window)
+      (abort-recursive-edit)
+    (keyboard-quit)))
+
+
 ;; # Projects
 
 (defun my/project-list-buffers ()
