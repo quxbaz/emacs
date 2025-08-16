@@ -1,4 +1,4 @@
-# name: gradient-radial
+# name: gradient-radial-1
 # key: nr
 # --
 radial-gradient(${1:50%} ${2:50%}, ${3:hsl(0 0% 0% / 1)}, ${4:hsl(0 0% 0% / 0)})
