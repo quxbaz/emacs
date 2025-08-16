@@ -46,7 +46,7 @@
   (other-window -1))
 
 
-;; # Buffers, windows
+;; # Buffers, windows, ibuffer
 
 (defun my/switch-to-other-buffer ()
   (interactive)
@@ -55,6 +55,14 @@
 (defun my/other-window ()
   (interactive)
   (other-window -1))
+
+(defun my/ibuffer-delete-no-conf ()
+  "Delete buffer at point immediately; no confirmation."
+  (interactive)
+  (let ((buffer (ibuffer-current-buffer)))
+    (when buffer
+      (kill-buffer buffer)
+      (ibuffer-update nil t))))
 
 
 ;; # Text navigation, selection
