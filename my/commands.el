@@ -67,12 +67,15 @@
   (other-window -1))
 
 (defun my/ibuffer-delete-no-conf ()
-  "Delete buffer at point immediately; no confirmation."
+  "Delete marked buffers if any are marked, otherwise delete buffer at point; no confirmation."
   (interactive)
-  (let ((buffer (ibuffer-current-buffer)))
-    (when buffer
-      (kill-buffer buffer)
-      (ibuffer-update nil t))))
+  (let ((marked-buffers (ibuffer-get-marked-buffers)))
+    (cond (marked-buffers (dolist (buffer marked-buffers)
+                            (kill-buffer buffer))
+                          (ibuffer-unmark-all nil))
+          (t (if-let ((buffer (ibuffer-current-buffer)))
+                 (kill-buffer buffer)))))
+  (ibuffer-update nil t))
 
 
 ;; # Text navigation, selection
