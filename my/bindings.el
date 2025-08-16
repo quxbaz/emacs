@@ -129,7 +129,7 @@
 
 
 ;; # Commands
-(global-set-key (kbd "C-g") 'keyboard-escape-quit)  ;; Other values: keyboard-quit abort-recursive-edit
+(global-set-key (kbd "C-g") 'abort-recursive-edit)  ;; Values: keyboard-quit abort-recursive-edit
 (global-set-key (kbd "C-.") 'repeat)
 (global-set-key (kbd "<escape> <escape> i") 'my/insert-uuid)
 (global-set-key (kbd "<escape> <escape> t") 'org-time-stamp)
