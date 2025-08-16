@@ -58,6 +58,7 @@
 
 (eval-after-load 'ibuffer
   '(progn
+     (keymap-set ibuffer-mode-map "D" 'my/ibuffer-delete-no-conf)
      (keymap-set ibuffer-mode-map "M-r" 'ibuffer-do-query-replace-regexp)
      (keymap-set ibuffer-mode-map "/ ?" 'ibuffer-filter-by-predicate)
      (keymap-set ibuffer-mode-map "/ e" 'ibuffer-filter-by-file-extension)
