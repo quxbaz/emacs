@@ -1,5 +1,5 @@
 # name: php-debug
-# key: db
+# key: debug
 # --
 // Enable WP debugging.
 define('WP_DEBUG', true);                         // Master switch
