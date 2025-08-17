@@ -1,5 +1,5 @@
 # name: io-get-file-headers
-# key: io
+# key: ;
 # --
 $headers = get_file_data(${1:FILE-PATH}, [ 'Template Name' => 'Template Name' ]);
 echo $headers['Template Name'];
