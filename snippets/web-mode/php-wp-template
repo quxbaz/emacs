@@ -1,4 +1,4 @@
-# name: php-template
+# name: php-wp-template
 # key: --
 # --
 <?php /* Template Name: ${1:NAME} */ ?>
