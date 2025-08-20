@@ -176,7 +176,7 @@
 (global-set-key (kbd "C-<") 'previous-buffer)
 (global-set-key (kbd "C->") 'next-buffer)
 (global-set-key (kbd "<escape> ,") 'bury-buffer)
-(global-set-key (kbd "C-c C-v") 'my/revert-buffer)
+(global-set-key (kbd "C-M-<return>") 'my/revert-buffer)
 (global-set-key (kbd "<escape> RET") 'clone-indirect-buffer)
 ;; ## Windows
 (global-set-key (kbd "C-x C-o") 'my/other-window)
