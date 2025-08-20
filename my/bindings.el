@@ -104,7 +104,7 @@
 ;; ## Deletion, clearing
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-k") 'my/kill-block)
-;; (global-set-key (kbd "C-M-k") 'my/clear-buffer)
+(global-set-key (kbd "C-M-k") 'my/clear-buffer)
 ;; ## Whitespace
 (global-set-key (kbd "M-\\") 'delete-horizontal-space)
 (global-set-key (kbd "C-x r \\") 'delete-whitespace-rectangle)
@@ -169,7 +169,7 @@
 ;; # Buffers, windows, dired
 ;; ## Buffers
 (global-set-key (kbd "M-s") 'save-buffer)
-(global-set-key (kbd "C-M-k") 'kill-current-buffer)
+(global-set-key (kbd "<escape> DEL") 'kill-current-buffer)
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-SPC") 'ivy-switch-buffer)
 (global-set-key (kbd "<escape> SPC") 'ibuffer)
