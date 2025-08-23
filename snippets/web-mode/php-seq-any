@@ -1,4 +1,4 @@
-# name: seq-any
+# name: php-seq-any
 # key: ,
 # --
 w_any(${1:COND}, ${2:ARRAY})
