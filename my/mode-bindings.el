@@ -10,8 +10,7 @@
 
 (eval-after-load 'calc
   '(progn
-     (keymap-set calc-mode-map "SPC" 'calc-algebraic-entry)
-     (keymap-set calc-mode-map "C-M-SPC" (kmacro "'`"))))
+     (keymap-set calc-mode-map "SPC" (kmacro "'`"))))
 
 (eval-after-load 'calendar
   '(progn
