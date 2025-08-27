@@ -21,6 +21,7 @@
                           "~/personal/promise.org"
                           "~/personal/rem.org"
                           "~/personal/rem-structured.org"
+                          "~/personal/quotes.org"
                           "~/personal/archive/buy.org"
                           "~/personal/archive/people.org"
                           "~/personal/archive/projects.org"
