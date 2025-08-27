@@ -457,11 +457,6 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (forward-char 1)
   (insert "/"))
 
-(defun my/clear-buffer ()
-  (interactive)
-  (mark-whole-buffer)
-  (kill-region (region-beginning) (region-end)))
-
 (defun my/revert-buffer ()
   (interactive)
   (revert-buffer t t))
