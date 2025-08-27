@@ -1,5 +1,5 @@
 # name: php-wp-object
-# key: obj
+# key: wp
 # type: command
 # --
 (let* ((options '("get_current_blog_id()    // Get current SITE id."
