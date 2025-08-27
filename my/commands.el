@@ -657,3 +657,33 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (shell-command-on-region (+ (line-beginning-position) (current-indentation))
                              (region-end)
                              "php -a")))
+
+
+;; calc-mode
+
+(defun my/calc-history-prev ()
+  "Recall previous calc history entry."
+  (interactive)
+  (when calc-alg-entry-history
+    (let ((history-length (length calc-alg-entry-history)))
+      (setq my/calc-history-index (min (1+ my/calc-history-index) (1- history-length)))
+      (goto-char (point-min)) (forward-line 2) (delete-region (point) (point-max))
+      (insert (nth my/calc-history-index calc-alg-entry-history)))))
+
+(defun my/calc-history-next ()
+  "Recall next calc history entry."
+  (interactive)
+  (when calc-alg-entry-history
+    (goto-char (point-min)) (forward-line 2) (delete-region (point) (point-max))
+    (when (> my/calc-history-index 0)
+      (setq my/calc-history-index (1- my/calc-history-index))
+      (insert (nth my/calc-history-index calc-alg-entry-history)))))
+
+(defun my/calc-edit-finish ()
+  "Like calc-edit-finish, but pushes to calc-alg-entry-history."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min)) (forward-line 2)
+    (push (string-trim-right (buffer-substring-no-properties (point) (point-max)))
+          calc-alg-entry-history))
+  (calc-edit-finish))
