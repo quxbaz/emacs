@@ -684,6 +684,8 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (interactive)
   (save-excursion
     (goto-char (point-min)) (forward-line 2)
-    (push (string-trim-right (buffer-substring-no-properties (point) (point-max)))
-          calc-alg-entry-history))
+    (let ((text (string-trim (buffer-substring-no-properties (point) (point-max)))))
+      (cond ((string= text "") nil)                             ;; Don't save empty strings to history.
+            ((string= text (cadr calc-alg-entry-history)) nil)  ;; Don't save string to history if it's a duplicate of the previous entry.
+            (t (push text calc-alg-entry-history)))))
   (calc-edit-finish))
