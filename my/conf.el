@@ -32,10 +32,11 @@
 (global-display-line-numbers-mode t)
 
 
-;; # Indentation
+;; # Whitespace, indentation
 (setq-default indent-tabs-mode nil)
 (setq indent-line-function 'insert-tab)  ;; Keep an eye on this, might cause problems.
 (setq-default tab-width 2)
+(setq-default comment-padding "  ")
 (setq-default c-basic-offset 2)
 (setq-default sgml-basic-offset 2)
 
