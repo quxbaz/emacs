@@ -10,9 +10,12 @@
 
 (eval-after-load 'calc
   '(progn
-     (keymap-set calc-mode-map "SPC" (kmacro "'`"))
-     (keymap-set calc-mode-map "t o" 'calc-trail-in)
-     (keymap-set calc-trail-mode-map "t o" 'calc-trail-out)))
+     (keymap-set calc-mode-map "SPC" (kmacro "'`"))))
+
+(use-package calc-ext
+  :defer t
+  :bind (:map calc-mode-map ("t o" . calc-trail-in))
+  :bind (:map calc-trail-mode-map ("t o" . calc-trail-out)))
 
 (add-hook 'calc-edit-mode-hook
           (lambda ()
