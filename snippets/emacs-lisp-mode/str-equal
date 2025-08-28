@@ -1,0 +1,4 @@
+# name: str-equal
+# key: s=
+# --
+(string= ${1:STRING-1} ${2:STRING-2})
