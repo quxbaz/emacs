@@ -10,7 +10,9 @@
 
 (eval-after-load 'calc
   '(progn
-     (keymap-set calc-mode-map "SPC" (kmacro "'`"))))
+     (keymap-set calc-mode-map "SPC" (kmacro "'`"))
+     (keymap-set calc-mode-map "t o" 'calc-trail-in)
+     (keymap-set calc-trail-mode-map "t o" 'calc-trail-out)))
 
 (add-hook 'calc-edit-mode-hook
           (lambda ()
