@@ -182,7 +182,7 @@
 (global-set-key (kbd "C-x C-o") 'my/other-window)
 (global-set-key (kbd "C-u C-s") (my/cmd (split-window-right) (windmove-right)))
 (global-set-key (kbd "<escape> -") 'window-swap-states)
-(global-set-key (kbd "<escape> 9") 'delete-other-windows)
+(global-set-key (kbd "<escape> .") 'delete-other-windows)
 (global-set-key (kbd "<escape> \\") 'delete-window)
 (global-set-key (kbd "<escape> = ") 'balance-windows)
 ;; ## Dired
