@@ -1,6 +1,6 @@
 
-;;; Mode settings stored by Calc on Wed Aug 27 21:50:28 2025
+;;; Mode settings stored by Calc on Sat Aug 30 16:14:34 2025
+(setq calc-show-selections nil)
 (setq calc-display-trail nil)
-;; (setq calc-algebraic-mode t)
-;; (setq calc-simplify-mode 'none)  ;; Disable automatic simplification.
+(setq calc-prefer-frac t)
 ;;; End of mode settings
