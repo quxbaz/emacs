@@ -73,8 +73,9 @@
     (cond (marked-buffers (dolist (buffer marked-buffers)
                             (kill-buffer buffer))
                           (ibuffer-unmark-all nil))
-          (t (if-let ((buffer (ibuffer-current-buffer)))
-                 (kill-buffer buffer)))))
+          (t (when-let ((buffer (ibuffer-current-buffer)))
+               (kill-buffer buffer)
+               (next-line)))))
   (ibuffer-update nil t))
 
 
