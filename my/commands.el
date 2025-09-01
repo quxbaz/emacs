@@ -662,6 +662,13 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 ;; calc-mode
 
+(defun my/calc-key-spc ()
+  (interactive)
+  (let ((line (substring-no-properties (thing-at-point 'line))))
+    (if (string-match "[0-9]+:" line)
+        (funcall (kmacro "j`"))
+      (funcall (kmacro "'`")))))
+
 (defun my/calc-edit-history-prev ()
   "Recall previous calc history entry."
   (interactive)
