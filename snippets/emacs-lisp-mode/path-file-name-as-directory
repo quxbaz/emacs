@@ -1,0 +1,4 @@
+# name: path-file-name-as-directory
+# key: /
+# --
+(file-name-as-directory ${1:FILE})
