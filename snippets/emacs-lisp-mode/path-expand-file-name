@@ -1,4 +1,4 @@
-# name: path-abs
+# name: path-expand-file-name
 # key: /
 # --
 (expand-file-name ${1:NAME})
