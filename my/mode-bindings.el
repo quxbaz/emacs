@@ -10,7 +10,7 @@
 
 (eval-after-load 'calc
   '(progn
-     (keymap-set calc-mode-map "SPC" (kmacro "'`"))))
+     (keymap-set calc-mode-map "SPC" 'my/calc-key-spc)))
 
 (use-package calc-ext
   :defer t
