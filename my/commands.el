@@ -662,14 +662,6 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 ;; calc-mode
 
-(defun my/calc-edit-spc ()
-  "Like SPC, but exits the buffer if content is empty. This is useful for
-quickly exiting the edit buffer if you accidentally brought it up."
-  (interactive)
-  (if (= (length (string-trim (buffer-substring-no-properties (point-min) (point-max)))) 68)
-      (kill-current-buffer)
-    (call-interactively 'self-insert-command)))
-
 (defun my/calc-edit-history-prev ()
   "Recall previous calc history entry."
   (interactive)
