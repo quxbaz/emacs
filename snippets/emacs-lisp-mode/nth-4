@@ -1,4 +1,0 @@
-# name: nth-4
-# key: 4
-# --
-(nth 4 ${1:LIST})
