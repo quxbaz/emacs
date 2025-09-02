@@ -62,6 +62,10 @@
 (set-face-attribute 'default nil :font "UbuntuMono-12")         ;; Quite readable.
 
 ;; Alternate ways of setting font.
+;; Monaco
+(set-face-attribute 'default nil :font "Monaco-10:pixelsize=14")
+(set-frame-font "Monaco-10:pixelsize=14")
+;; Source Code Pro
 (set-face-attribute 'default nil :font "SourceCodePro-10:pixelsize=14")
 (set-frame-font "SourceCodePro-10:pixelsize=14")
 
