@@ -663,6 +663,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 ;; calc-mode
 
 (defun my/calc-key-spc ()
+  "Opens edit mode or edits the current entry."
   (interactive)
   (let ((line (substring-no-properties (thing-at-point 'line))))
     (if (string-match "[0-9]+:" line)
