@@ -18,7 +18,8 @@
          (:map calc-mode-map ("a S" . calc-simplify))
          (:map calc-mode-map ("a S" . calc-simplify))
          (:map calc-mode-map ("t o" . calc-trail-in))
-         (:map calc-trail-mode-map ("t o" . calc-trail-out))))
+         (:map calc-trail-mode-map ("t o" . calc-trail-out))
+         (:map calc-mode-map ("j E" . my/calc-sel-jump-equals))))
 
 (add-hook 'calc-edit-mode-hook
           (lambda ()
