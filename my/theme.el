@@ -3,7 +3,8 @@
 
 ;; # Set theme and font.
 (load-theme 'modus-vivendi t)
-(set-face-attribute 'default nil :font "Monaco-10")
+;; (set-face-attribute 'default nil :font "Monaco-10")
+(set-face-attribute 'default nil :font "Monaco-10:pixelsize=14")
 
 
 ;; # Colors
