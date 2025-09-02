@@ -215,8 +215,8 @@
 
 
 ;; # Keyboard Macros
-(global-set-key (kbd "<escape> [") 'kmacro-start-macro)
-(global-set-key (kbd "<escape> ]") 'kmacro-end-macro)
+(global-set-key (kbd "<escape> i") 'kmacro-start-macro)
+(global-set-key (kbd "<escape> o") 'kmacro-end-macro)
 (global-set-key (kbd "M-,") 'kmacro-end-and-call-macro)
 (global-set-key (kbd "M-,") 'my/call-macro-dwim)  ;; TODO: apply-macro-to-region-lines
 (setq kmacro-call-repeat-key ?,)
