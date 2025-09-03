@@ -1,6 +1,6 @@
 # name: key
 # key: key
 # --
-awful.key({ ${1:modKey}${2:, "Control"}${3:, "Shift"}${4:, "Mod1"} }, "${5:KEY}",
+awful.key({ ${1:modKey, "Control", "Shift", "Mod1"} }, "${2:KEY}",
   function () $0 end,
-  { description = "${6:DESCRIPTION}", group = "${7:custom}" })
+  { description = "${3:DESCRIPTION}", group = "${4:custom}" })
