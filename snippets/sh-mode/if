@@ -1,0 +1,10 @@
+# name: if
+# key: if
+# --
+if [[ $XDG_SESSION_TYPE = x11 ]]; then
+    ${1:#}
+elif [[ $XDG_SESSION_TYPE = x11 ]]; then
+    ${2:#}
+else
+    ${3:#}
+fi
