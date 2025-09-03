@@ -26,7 +26,7 @@
             (setq my/calc-history-index -1)
             (keymap-set calc-edit-mode-map "M-p" 'my/calc-edit-history-prev)
             (keymap-set calc-edit-mode-map "M-n" 'my/calc-edit-history-next)
-            (keymap-set calc-edit-mode-map "S-<return>" 'newline)
+            (keymap-set calc-edit-mode-map "S-<return>" 'my/calc-edit-newline)
             (keymap-set calc-edit-mode-map "RET" 'my/calc-edit-finish)
             (keymap-set calc-edit-mode-map "C-c C-c" 'my/calc-edit-finish)
             (keymap-set calc-edit-mode-map "M-2" (kmacro "^ 2"))
