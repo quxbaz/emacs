@@ -1,4 +1,4 @@
 # name: grid-gap
 # key: gg
 # --
-grid-gap: $1;
+grid-gap: ${1:ROW} ${2:COLUMN};
