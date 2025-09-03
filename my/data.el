@@ -36,6 +36,7 @@
                           "~/personal/linux/linux.org"
                           "~/personal/printing/printing.org"
                           "~/conf/sync.org"
+                          "~/conf/awesome/rc.lua"
                           "~/conf/i3/config"
                           "~/conf/zsh/.zshrc"
                           "~/conf/freecad/user.cfg"
