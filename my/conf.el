@@ -152,8 +152,11 @@
                                           (sql-database "wnmu_edu_db"))))
 
 
-;; # Modes
+;; Lua
+(setq lua-indent-level 2)
 
+
+;; # Modes
 (define-minor-mode mathjax-mode
   "Mode for writing MathJax snippets."
   ;; If t, the minor mode is enabled by default.
