@@ -1,6 +1,6 @@
 # name: Embed code, emacs-lisp
 # key: //
 # --
-#+BEGIN_SRC ${1:emacs-lisp}
-$0
+#+BEGIN_SRC ${1:emacs-lisp} ${2::results silent}
+  $0
 #+END_SRC
