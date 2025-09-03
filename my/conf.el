@@ -4,6 +4,7 @@
 ;; # Startup
 (setq-default inhibit-startup-message t)
 (setq warning-minimum-level :emergency)  ;; Don't bombard me with plugin warnings and hijack focus.
+(setq frame-resize-pixelwise t)  ;; In awesomewm this needs to be true for emacs to take up the full screen.
 (add-to-list 'default-frame-alist '(fullscreen . maximized))  ;; Default to full-screen.
 (setq diary-file "~/personal/diary")
 
