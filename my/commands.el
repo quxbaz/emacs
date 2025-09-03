@@ -670,6 +670,13 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
         (funcall (kmacro "j`"))
       (funcall (kmacro "'`")))))
 
+(defun my/calc-edit-newline ()
+  "Like newline, but also sets indentation."
+  (interactive)
+  (newline)
+  (if (string= (string-trim (thing-at-point 'line)) "]")
+      (delete-horizontal-space)))
+
 (defun my/calc-edit-history-prev ()
   "Recall previous calc history entry."
   (interactive)
