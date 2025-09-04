@@ -46,6 +46,7 @@
      git-gutter
      highlight-indent-guides
      ivy
+     lua-mode
      magit
      modus-themes
      paredit

@@ -4,6 +4,7 @@
 ;; # Startup
 (setq-default inhibit-startup-message t)
 (setq warning-minimum-level :emergency)  ;; Don't bombard me with plugin warnings and hijack focus.
+(setq frame-resize-pixelwise t)  ;; In awesomewm this needs to be true for emacs to take up the full screen.
 (add-to-list 'default-frame-alist '(fullscreen . maximized))  ;; Default to full-screen.
 (setq diary-file "~/personal/diary")
 
@@ -152,8 +153,11 @@
                                           (sql-database "wnmu_edu_db"))))
 
 
-;; # Modes
+;; Lua
+(setq lua-indent-level 2)
 
+
+;; # Modes
 (define-minor-mode mathjax-mode
   "Mode for writing MathJax snippets."
   ;; If t, the minor mode is enabled by default.
