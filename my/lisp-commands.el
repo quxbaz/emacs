@@ -144,11 +144,9 @@ Also works from inside strings. Call twice to wrap the parent list."
          (kill-ring-save (point-min) (point-max)))
         ((my/is-inside-list)
          (if (my/is-inside-string)
-             (kill-new (buffer-substring-no-properties (my/opening-paren-position)
-                                                       (my/closing-paren-position)))
+             (kill-new (buffer-substring-no-properties (my/opening-paren-position) (my/closing-paren-position)))
            (kill-new (thing-at-point 'list))))
-        (t
-         (call-interactively 'kill-ring-save)))
+        (t (call-interactively 'kill-ring-save)))
   (message "%s "(car kill-ring)))
 
 (defun my/duplicate-list (&optional arg)
