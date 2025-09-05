@@ -5,6 +5,7 @@
                           (concat user-emacs-directory "bugs.el")
                           (concat user-emacs-directory "scratch.el")
                           (concat user-emacs-directory "sql-notebook.el")
+                          "~/.stumpwm.d/init.lisp"
                           "~/personal/automotive.org"
                           "~/personal/bookmarks.org"
                           "~/personal/cad.org"
