@@ -42,19 +42,16 @@
                         (rainbow-blocks-mode t)
                         (paredit-mode t))))
 
-
 ;;
 ;; # Common Lisp config
 (setq inferior-lisp-program (executable-find "sbcl"))
 (keymap-set lisp-mode-map "<escape> <return>" 'slime-switch-to-output-buffer)
-
 
 ;;
 ;; # Emacs Lisp (Elisp) config
 (keymap-set emacs-lisp-mode-map "C-c C-c" 'my/eval-dwim)
 (keymap-set emacs-lisp-mode-map "C-c C-." 'my/eval-here)
 (keymap-set emacs-lisp-mode-map "C-c C-x" 'my/eval-kill-ring)
-
 
 ;;
 ;; # Paredit config
@@ -71,7 +68,6 @@
                              (keymap-set paredit-mode-map "M-<down>" 'my/transpose-line-down)
                              (keymap-set paredit-mode-map "C-k" 'my/lisp-kill-dwim)
                              (keymap-set paredit-mode-map "C-M-b" 'magit-blob-mode)))
-
 
 ;;
 ;; # SLIME and SLIME REPL config
