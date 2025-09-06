@@ -1,0 +1,4 @@
+# name: define-key
+# key: dk
+# --
+(define-key `(yas-choose-value '(*top-map* *root-map*))` (kbd "${2:KEY}") "${3:COMMAND}")
