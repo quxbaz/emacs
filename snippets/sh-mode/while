@@ -1,0 +1,6 @@
+# name: while
+# key: while
+# --
+while [[ ${1:COND} ]]; do
+  ${0:true}
+done
