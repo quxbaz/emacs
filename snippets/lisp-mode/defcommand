@@ -1,0 +1,6 @@
+# name: defcommand
+# key: df
+# --
+(defcommand NAME (${1:args}) (${2:spec})
+  "${3:DOCSTRING}"
+  $0)
