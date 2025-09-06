@@ -2,9 +2,9 @@
 # key: if
 # --
 if [[ $XDG_SESSION_TYPE = x11 ]]; then
-    ${1:#}
+    ${1:true}
 elif [[ $XDG_SESSION_TYPE = wayland ]]; then
-    ${2:#}
+    ${2:true}
 else
-    ${3:#}
+    ${3:true}
 fi
