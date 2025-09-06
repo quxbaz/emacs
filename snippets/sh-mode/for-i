@@ -1,0 +1,6 @@
+# name: for-i
+# key: li
+# --
+for ((i=1; i <= ${1:LIMIT}; i++)); do
+    ${0:true}
+done
