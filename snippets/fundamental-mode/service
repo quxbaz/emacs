@@ -14,7 +14,7 @@ Description=${DESCRIPTION}
 
 [Service]
 # Defines the startup type. Common values:
-# - simple: Default. ExecStart runs in foreground.
+# - simple: Default. ExecStart will run in foreground.
 # - forking: For services that daemonize (e.g., background themselves).
 # - oneshot: For short-lived tasks like setup scripts.
 # - notify: Daemon notifies systemd when ready.
