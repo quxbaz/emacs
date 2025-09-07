@@ -21,3 +21,8 @@ OnUnitActiveSec=60s
 # This ensures the timer starts when you enable it:
 #   systemctl --user enable --now mouse-speed.timer
 WantedBy=timers.target
+
+
+# Enable and start the timer in the current session.
+# systemctl --user daemon-reload
+# systemctl --user enable --now mouse-speed.timer
