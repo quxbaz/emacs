@@ -25,13 +25,13 @@ Type=simple
 # WorkingDirectory=
 
 # Command to start the service. Required.
-ExecStart=%h/bin/SCRIPT
+ExecStart=%h/bin/EXEC-FILE
 
 # Command to stop the service. Optional.
 # ExecStop=
 
 # Command to reload the service without restarting it. Optional.
-ExecReload=
+ExecReload=%h/bin/RELOAD-FILE
 # Restart=on-failure
 
 # Command to run before ExecStart.
