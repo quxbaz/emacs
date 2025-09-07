@@ -31,7 +31,7 @@ ExecStart=%h/bin/EXEC-FILE
 # ExecStop=
 
 # Command to reload the service without restarting it. Optional.
-ExecReload=%h/bin/RELOAD-FILE
+# ExecReload=%h/bin/RELOAD-FILE
 # Restart=on-failure
 
 # Command to run before ExecStart.
