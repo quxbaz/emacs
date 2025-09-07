@@ -25,7 +25,7 @@ Type=simple
 # WorkingDirectory=
 
 # Command to start the service. Required.
-ExecStart=/home/david/bin/my-i3-server/run-server
+ExecStart=%h/bin/SCRIPT
 
 # Command to stop the service. Optional.
 # ExecStop=
