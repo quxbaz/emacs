@@ -1,5 +1,5 @@
-# name: service
-# key: service
+# name: systmed-service
+# key: .service
 # expand-env: ((yas-indent-line nil))
 # --
 [Unit]
