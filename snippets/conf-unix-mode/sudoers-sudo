@@ -1,4 +1,4 @@
-# name: sudo
+# name: sudoers-sudo
 # key: sudo
 # expand-env: ((yas-indent-line nil))
 # --
