@@ -63,8 +63,8 @@ WantedBy=multi-user.target
 #
 # cd /etc/systemd/system/
 # ln -s /path/to/my.service
-# systemctl [--user] daemon-reexec
-# systemctl [--user] daemon-reload
-# systemctl [--user] enable my.service
-# systemctl [--user] start my.service
-# systemctl [--user] status my.service
+# systemctl --user daemon-reexec
+# systemctl --user daemon-reload
+# systemctl --user enable my.service
+# systemctl --user start my.service
+# systemctl --user status my.service
