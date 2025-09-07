@@ -1,0 +1,6 @@
+# name: comment-multiline
+# key: //
+# --
+#|
+$0
+|#
