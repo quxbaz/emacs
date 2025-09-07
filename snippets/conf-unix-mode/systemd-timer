@@ -7,14 +7,17 @@ Description=${1:DESCRIPTION}
 
 
 [Timer]
+# Which service to trigger (defaults to the same basename).
+# Unit=MY-SERVICE.service
+
 # When to start the timer after boot.
 OnBootSec=30s
 
 # How often to trigger the timer.
 OnUnitActiveSec=60s
 
-# Which service to trigger (defaults to the same basename).
-# Unit=MY-SERVICE.service
+# Crucial for sub-minute cadence.
+# AccuracySec=1s
 
 
 [Install]
