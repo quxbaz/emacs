@@ -3,7 +3,7 @@
 # expand-env: ((yas-indent-line nil))
 # --
 [Unit]
-Description=${DESCRIPTION}
+Description=${1:DESCRIPTION}
 
 # Specifies that the unit should start after the listed units. Does not imply dependency.
 # After=[network.target, graphical-bsession.target]
