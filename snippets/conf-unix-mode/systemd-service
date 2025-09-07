@@ -37,11 +37,13 @@ ExecStart=%h/bin/EXEC-FILE
 # Command to run before ExecStart.
 # ExecStartPre=/bin/sleep 2
 
-# Specifies the user account to run the service under.
-User=david
+# Specifies the user account to run the service under. Only allowed for system
+# units. If you try to configure this for a user unit, the service will fail.
+# User=david
 
-# Specifies the group to run the service under.
-Group=david
+# Specifies the group to run the service under. Only allowed for system
+# units. If you try to configure this for a user unit, the service will fail.
+# Group=david
 
 # Sets environment variables.
 # Environment=
