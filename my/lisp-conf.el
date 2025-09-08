@@ -49,7 +49,7 @@
 ;; the future (it will see all of the libraries you install, completion will
 ;; work etc).
 ;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
-(keymap-set lisp-mode-map "<escape> <return>" 'slime-switch-to-output-buffer)
+(keymap-set lisp-mode-map "C-c C-;" 'slime-switch-to-output-buffer)
 
 ;;
 ;; # Emacs Lisp (Elisp) config
