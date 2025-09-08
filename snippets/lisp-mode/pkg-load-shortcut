@@ -1,0 +1,4 @@
+# name: load-shortcut
+# key: i
+# --
+(load "${1:FILE}")
