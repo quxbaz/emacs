@@ -1,4 +1,4 @@
-# name: in-package
+# name: (in-package PACKAGE)
 # key: .
 # --
 (in-package :${1:PACKAGE})
