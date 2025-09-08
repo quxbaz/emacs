@@ -1,7 +1,6 @@
 # name: macroexpand-all
 # key: me
 # type: command
-# condition: (looking-at " *\(")
 #
 # Wraps the proceeding list in the from:
 #
@@ -9,8 +8,12 @@
 #
 # and also quotes the list.
 # --
-(insert "(macroexpand-all)")
-(delete-horizontal-space)
-(backward-char)
-(paredit-forward-slurp-sexp)
-(insert " '")
+(cond ((looking-at " *\(")
+       (insert "(macroexpand-all)")
+       (delete-horizontal-space)
+       (backward-char)
+       (paredit-forward-slurp-sexp)
+       (insert " '"))
+      (t
+       (insert "(macroexpand-all ')")
+       (backward-char)))
