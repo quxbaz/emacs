@@ -1,0 +1,4 @@
+# name: (compile-file FILE)
+# key: .
+# --
+(compile-file ${1:FILE})
