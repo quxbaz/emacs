@@ -1,4 +1,4 @@
-# name: rename-package
+# name: (rename-package PACKAGE NEW NICKNAMES)
 # key: .
 # --
 (rename-package "${1:PACKAGE}" "$1" '("${2:NICKNAME}"))
