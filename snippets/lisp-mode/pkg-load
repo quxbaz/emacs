@@ -1,4 +1,4 @@
-# name: load
+# name: (load FILE)
 # key: .
 # --
 (load "${1:FILE}")
