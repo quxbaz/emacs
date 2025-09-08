@@ -1,0 +1,4 @@
+# name: notify-send
+# key: pr
+# --
+notify-send ${1:STRING}
