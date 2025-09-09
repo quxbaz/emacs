@@ -1,4 +1,4 @@
 # name: member
 # key: ine
 # --
-(member ${1:ELT} ${2:LIST})$0
+(member ${1:ELT} ${2:LIST})
