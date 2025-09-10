@@ -2,6 +2,6 @@
 # key: var
 # --
 ;; Local Variables:
-${1:;; mode: ${2:MODE}}
-${3:;; eval: ${4:FORM}}
-;; End:$0
+;; mode: ${1:MODE}
+;; eval: ${2:FORM}
+;; End:
