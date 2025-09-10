@@ -1,4 +1,4 @@
 # name: defvar
 # key: dv
 # --
-(defvar *${1:NAME}* ${2:VALUE} "${3:DOCSTRING}")
+(defvar *${1:NAME}* ${2:VALUE})
