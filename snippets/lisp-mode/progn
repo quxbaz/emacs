@@ -1,0 +1,6 @@
+# name: progn
+# key: pg
+# type: command
+# condition: t
+# --
+(my/snippet-insert-or-wrap 'progn)
