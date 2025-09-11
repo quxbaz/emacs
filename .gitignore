@@ -1,10 +1,12 @@
-elpa/archives/
-transient/
-ido.last
-.cache
 .lsp-session*
-/ac-comphist.dat
+/.cache
 /.emacs.desktop.lock
+/ac-comphist.dat
 /bookmarks
 /eln-cache
+/elpa/archives/
+/elpa/claude-code-ide/
+/elpa/vterm-20241218.331/build/libvterm-prefix/src/libvterm
 /eshell/history
+/ido.last
+/transient/
