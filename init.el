@@ -40,6 +40,7 @@
    '(
      aggressive-indent
      autopair
+     claude-code-ide
      corfu
      deadgrep
      doom-themes
