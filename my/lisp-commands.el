@@ -180,9 +180,11 @@ Also works from inside strings. Call twice to wrap the parent list."
 (defun my/kill-list (arg)
   "Kills a list or string from inside of it."
   (interactive "p")
-  (condition-case nil
-      (progn (backward-up-list 1 t t) (kill-sexp))
-    (scan-error nil)))
+  (if (or (my/is-inside-list) (my/is-inside-string))
+      (condition-case nil
+          (progn (backward-up-list 1 t t) (kill-sexp))
+        (scan-error nil))
+    (my/kill-block arg)))
 
 (defun my/lisp-transpose-chars ()
   "Like transpose-chars, but calls transpose-sexps if point is on an opening delimiter."
