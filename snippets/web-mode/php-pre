@@ -1,0 +1,4 @@
+# name: php-pre
+# key: pre
+# --
+printf('<pre>%s</pre>', print_r(${1:OBJECT}, true));
