@@ -1,0 +1,6 @@
+# name: (defpackage :MY-PACKAGE ...)
+# key: .
+# --
+(defpackage :${1:`(file-name-sans-extension (buffer-name))`}
+  (:use :cl)
+  (:import-from :${2:PACKAGE} #:${3:SYMBOL}))
