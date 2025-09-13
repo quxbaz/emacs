@@ -1,4 +1,4 @@
-# name: (defpackage :MY-PACKAGE ...)
+# name: (defpackage :MY-PACKAGE [...])
 # key: .
 # --
 (defpackage :${1:`(file-name-sans-extension (buffer-name))`}
