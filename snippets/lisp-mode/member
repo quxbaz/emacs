@@ -1,0 +1,4 @@
+# name: member
+# key: in
+# --
+(member ${1:ELT} ${2:LIST}${3: :test ${4:CONDITION}})
