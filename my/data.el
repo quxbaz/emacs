@@ -40,6 +40,7 @@
                           "~/conf/awesome/rc.lua"
                           "~/conf/i3/config"
                           "~/conf/home/.profile"
+                          "~/conf/zsh/.zprofile"
                           "~/conf/zsh/.zshrc"
                           "~/conf/freecad/user.cfg"
                           "~/work/wnmu/Todo.org"
