@@ -1,0 +1,4 @@
+# name: str-concatenate-short
+# key: cat
+# --
+(concatenate '${1:TYPE} ${2:SEQUENCES})
