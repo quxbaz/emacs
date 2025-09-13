@@ -1,0 +1,4 @@
+# name: (concatenate TYPE &rest SEQUENCES)
+# key: r
+# --
+(concatenate '${1:TYPE} ${2:SEQUENCES})
