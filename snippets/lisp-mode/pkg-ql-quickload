@@ -1,0 +1,4 @@
+# name: (ql:quickload PACKAGE)
+# key: .
+# --
+(ql:quickload :${1:PACKAGE})
