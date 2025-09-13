@@ -1,0 +1,4 @@
+# name: (use-package :PACKAGES)
+# key: .
+# --
+(use-package :${1:PACKAGES})
