@@ -2,5 +2,5 @@
 # key: try
 # --
 (handler-case
-    $0
+    ${0:BODY}
   (error (e) (declare (ignore e)) nil))
