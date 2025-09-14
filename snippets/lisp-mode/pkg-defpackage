@@ -3,8 +3,8 @@
 # --
 (defpackage :${1:`(file-name-sans-extension (buffer-name))`}
   (:use :cl)
-  (:import-from :${2:PACKAGE} #:${3:SYMBOL})
-  (:shadowing-import-from :${4:PACKAGE} #:${5:SYMBOL})
-  (:export #:${6:SYMBOL}))
+  (:import-from :${2:PACKAGE} :${3:SYMBOL})
+  (:shadowing-import-from :${4:PACKAGE} :${5:SYMBOL})
+  (:export :${6:SYMBOL}))
 
 (in-package :$1)
