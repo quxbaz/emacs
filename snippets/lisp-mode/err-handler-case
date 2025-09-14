@@ -1,0 +1,6 @@
+# name: err-handler-case
+# key: try
+# --
+(handler-case
+    $0
+  (error (e) (declare (ignore e)) nil))
