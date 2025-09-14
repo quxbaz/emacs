@@ -1,0 +1,4 @@
+# name: in
+# key: in
+# --
+(find ${1:ELT} ${2:SEQUENCE})
