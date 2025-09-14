@@ -1,0 +1,4 @@
+# name: (remove-if-not PREDICATE SEQUENCE)
+# key: ,
+# --
+(remove-if-not ${1:PREDICATE} ${2:SEQUENCE})
