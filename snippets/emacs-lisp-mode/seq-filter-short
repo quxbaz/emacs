@@ -1,0 +1,4 @@
+# name: seq-filter-short
+# key: fil
+# --
+(seq-filter ${1:PRED} ${2:SEQUENCE})
