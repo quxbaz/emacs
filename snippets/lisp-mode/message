@@ -1,0 +1,4 @@
+# name: message
+# key: msg
+# --
+(message "${1:~A}" ${2:ARGS})
