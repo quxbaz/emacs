@@ -1,0 +1,4 @@
+# name: (concat &rest STRINGS)
+# key: r
+# --
+(concat ${1:&rest STRINGS})

@@ -1,0 +1,4 @@
+# name: (find-if PREDICATE SEQUENCE)
+# key: ,
+# --
+(find-if ${1:PREDICATE} ${2:SEQUENCE})

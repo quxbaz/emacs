@@ -1,5 +1,5 @@
-# name: condition-case
-# key: c-c
+# name: err-condition-case
+# key: try
 # --
 (condition-case ${1:nil}
     ${0:BODY}

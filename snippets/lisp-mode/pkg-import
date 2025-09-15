@@ -1,0 +1,4 @@
+# name: (import '(PACKAGE:SYMBOL))
+# key: .
+# --
+(import '(${1:PACKAGE}:${2:SYMBOL}))

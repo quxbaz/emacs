@@ -1,0 +1,4 @@
+# name: seq-filter-short
+# key: fil
+# --
+(remove-if-not ${1:PREDICATE} ${2:SEQUENCE})
