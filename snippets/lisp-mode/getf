@@ -1,4 +1,4 @@
 # name: getf
-# key: g
+# key: g.
 # --
 (getf ${1:PLACE} ${2:VALUE})
