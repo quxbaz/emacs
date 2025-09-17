@@ -1,4 +1,4 @@
 # name: format
 # key: fo
 # --
-(format nil ${1:STRING} ${2:ARGS})
+(format nil ${1:"${2:~A}"} ${3:ARGS})
