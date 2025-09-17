@@ -1,4 +1,4 @@
 # name: transition
 # key: tr-
 # --
-transition: ${1:all} ${2:ease-out} ${3:200ms};
+transition: ${1:all} ${2:ease-in-out} ${3:200ms};
