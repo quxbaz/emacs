@@ -95,7 +95,8 @@
                            (keymap-set slime-mode-map "C-c C-." 'slime-eval-last-expression)
                            (keymap-set slime-mode-indirect-map "C-c C-l" 'slime-switch-to-output-buffer)
                            ;; Temporary, until you get ELisp completion-at-point working.
-                           (keymap-set slime-mode-indirect-map "M-/" 'dabbrev-expand)))
+                           ;; (keymap-set slime-mode-indirect-map "M-/" 'dabbrev-expand)
+                           (keymap-set slime-mode-indirect-map "M-/" 'hippie-expand)))
 
 ;; When the SLIME REPL is activated, it also modifies slime-mode-map, so we need
 ;; to set our custom slime-mode-map keybindings from slime-repl-mode-hook.
@@ -103,5 +104,7 @@
                                   (my/set-lisp-keymap slime-mode-map)
                                   (my/set-lisp-keymap slime-repl-mode-map)
                                   (keymap-set slime-repl-mode-map "<backspace>" 'paredit-backward-delete)
+                                  ;; (keymap-set slime-repl-mode-map "M-/" 'dabbrev-expand)
+                                  (keymap-set slime-repl-mode-map "M-/" 'hippie-expand)
                                   (keymap-set slime-repl-mode-map "M-p" 'slime-repl-previous-prompt)
                                   (keymap-set slime-repl-mode-map "M-n" 'slime-repl-next-prompt)))
