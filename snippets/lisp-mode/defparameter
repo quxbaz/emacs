@@ -1,0 +1,4 @@
+# name: defparameter
+# key: dp
+# --
+(defparameter *${1:NAME}* ${2:VALUE})
