@@ -126,7 +126,20 @@
 (setq yas-triggers-in-field t)  ;; Enable nested snippet expansions.
 (global-corfu-mode t)
 (setq blink-matching-paren nil) ;; Disable paredit delay when closing round.
-(setq bookmark-save-flag 1)     ;; Save ~/.emacs.d/bookmarks on every change.
+(setq bookmark-save-flag 1)     ;; Save ~/.emacs.d/bookmarks on every change
+;; Control hippie-expand order of expansion.
+(setq hippie-expand-try-functions-list
+      '(try-expand-dabbrev-visible
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-all-abbrevs
+        try-expand-list
+        try-expand-line
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
 
 
 ;; # TRAMP
