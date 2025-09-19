@@ -1,0 +1,6 @@
+# name: unwind-protect
+# key: uw
+# --
+(unwind-protect
+     ${1:PROTECTED-FORM}
+  ${2:CLEANUP-FORM})
