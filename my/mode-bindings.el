@@ -22,7 +22,6 @@
   :defer t
   :bind ((:map calc-mode-map ("a s" . calc-solve-for))
          (:map calc-mode-map ("a S" . calc-simplify))
-         (:map calc-mode-map ("a S" . calc-simplify))
          (:map calc-mode-map ("t o" . calc-trail-in))
          (:map calc-trail-mode-map ("t o" . calc-trail-out))
          (:map calc-mode-map ("j e" . my/calc-sel-jump-equals))
