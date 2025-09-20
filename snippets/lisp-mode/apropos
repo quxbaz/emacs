@@ -1,0 +1,4 @@
+# name: apropos
+# key: ap
+# --
+(apropos "${1:STRING}"${2: :${3:package}})
