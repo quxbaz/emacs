@@ -8,6 +8,12 @@
 (keymap-set occur-mode-map "p" (lambda () (interactive) (occur-prev) (occur-mode-display-occurrence)))
 (keymap-set text-mode-map "M-/" 'dabbrev-expand)
 
+(add-hook 'bookmark-bmenu-mode-hook
+          (lambda ()
+            (keymap-set bookmark-bmenu-mode-map "D" (my/cmd (bookmark-bmenu-unmark-all)
+                                                            (bookmark-bmenu-delete)
+                                                            (bookmark-bmenu-execute-deletions)))))
+
 (eval-after-load 'calc
   '(progn
      (keymap-set calc-mode-map "SPC" 'my/calc-key-spc)))
