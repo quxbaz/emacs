@@ -1,0 +1,4 @@
+# name: keymap-set
+# key: dk
+# --
+(keymap-set ${1:KEYMAP}${2:-mode-map} "${3:KEY}" ${4:DEFINITION})
