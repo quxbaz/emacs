@@ -1,5 +1,5 @@
 # name: php-wrap-comment
-# binding: *
+# binding: /
 # condition: (use-region-p)
 # --
 <?php /* `yas-selected-text` */ ?>
