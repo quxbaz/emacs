@@ -243,4 +243,5 @@
 
 
 ;; # yasnippet
+(global-set-key (kbd "<escape> <escape> y") 'yas-reload-all)
 (global-set-key (kbd "<escape> y") 'my/visit-snippet-directory)
