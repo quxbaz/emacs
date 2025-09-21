@@ -1,0 +1,5 @@
+# name: when
+# key: wh
+# --
+(when ${1:COND}
+  $0)
