@@ -57,7 +57,6 @@
 (global-set-key (kbd "<f10>") (my/cmd (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
-(global-set-key (kbd "<escape> y") 'my/visit-snippet-directory)
 
 
 ;; # Appearance, themes
@@ -241,3 +240,7 @@
 ;; # org
 (global-set-key (kbd "<escape> <escape> m") 'org-store-link)
 (global-set-key (kbd "C-c C-,") (my/cmd (org-agenda nil "n")))
+
+
+;; # yasnippet
+(global-set-key (kbd "<escape> y") 'my/visit-snippet-directory)
