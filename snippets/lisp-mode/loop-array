@@ -1,0 +1,5 @@
+# name: (loop for ELT across ARRAY)
+# key: oo
+# --
+(loop for ${1:ELT} across ${2:ARRAY}${3: do}
+  $0)
