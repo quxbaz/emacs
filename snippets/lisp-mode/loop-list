@@ -1,0 +1,5 @@
+# name: (loop for ELT in LIST)
+# key: oo
+# --
+(loop for ${1:ELT} in ${2:LIST}${3: do}
+  $0)
