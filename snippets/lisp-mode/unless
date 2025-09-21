@@ -2,4 +2,4 @@
 # key: ul
 # --
 (unless ${1:COND}
-  ${2:BODY})
+  $0)
