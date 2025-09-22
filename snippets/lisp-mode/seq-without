@@ -1,0 +1,4 @@
+# name: (remove ELT SEQUENCE)
+# key: ,
+# --
+(remove ${1:ELT} ${2:SEQUENCE})
