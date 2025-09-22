@@ -1,0 +1,4 @@
+# name: swank-eval-in-emacs
+# key: pre
+# --
+(swank:eval-in-emacs ${1:STRING-OR-FORM})
