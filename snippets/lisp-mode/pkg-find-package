@@ -1,0 +1,4 @@
+# name: (find-package PACKAGE)
+# key: .
+# --
+(find-package :${1:PACKAGE})
