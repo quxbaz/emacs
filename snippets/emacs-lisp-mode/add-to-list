@@ -1,4 +1,4 @@
 # name: add-to-list
 # key: al
 # --
-(add-to-list ${1:LIST-SYMBOL} ${2:ELEMENT})$0
+(add-to-list ${1:LIST-SYMBOL} ${2:ELEMENT})
