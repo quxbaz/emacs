@@ -1,4 +1,4 @@
-# name: (find ITEM SEQUENCE :key KEY :test TEST)
+# name: (find ELT SEQUENCE :key KEY :test TEST)
 # key: ,
 # --
-(find ${1:ITEM} ${2:SEQUENCE} :key ${3:KEY} :test ${4:TEST})
+(find ${1:ELT} ${2:SEQUENCE} :key ${3:KEY} :test ${4:TEST})
