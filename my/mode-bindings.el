@@ -39,12 +39,12 @@
             (keymap-set calc-edit-mode-map "RET" 'my/calc-edit-finish)
             (keymap-set calc-edit-mode-map "C-c C-c" 'my/calc-edit-finish)
             (keymap-set calc-edit-mode-map "P" (kmacro "p i"))
+            (keymap-set calc-edit-mode-map "Q" (kmacro "s q r t ( ) C-b"))
             (keymap-set calc-edit-mode-map "M-2" (kmacro "^ 2"))
             (keymap-set calc-edit-mode-map "M-3" (kmacro "^ 3"))
             (keymap-set calc-edit-mode-map "M-4" (kmacro "^ 4"))
             (keymap-set calc-edit-mode-map "M-5" (kmacro "^ 5"))
-            (keymap-set calc-edit-mode-map "M-6" (kmacro "^ 6"))
-            (keymap-set calc-edit-mode-map "M-q" (kmacro "s q r t ( ) C-b"))))
+            (keymap-set calc-edit-mode-map "M-6" (kmacro "^ 6"))))
 
 (eval-after-load 'calendar
   '(progn
