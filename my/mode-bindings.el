@@ -20,7 +20,8 @@
 
 (use-package calc-ext
   :defer t
-  :bind ((:map calc-mode-map ("a s" . calc-solve-for))
+  :bind ((:map calc-mode-map ("s a" . calc-edit-variable))
+         (:map calc-mode-map ("a s" . calc-solve-for))
          (:map calc-mode-map ("j i" . calc-sel-isolate))
          (:map calc-mode-map ("a S" . calc-simplify))
          (:map calc-mode-map ("t o" . calc-trail-in))
