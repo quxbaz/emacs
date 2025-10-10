@@ -1,0 +1,4 @@
+# name: grid-auto-flow
+# key: gaf
+# --
+grid-auto-flow: `(yas-choose-value '(row column))`;
