@@ -1,0 +1,4 @@
+# name: grid-auto-fit
+# key: gaf
+# --
+grid-template-columns: repeat(`(yas-choose-value '(auto-fit auto-fill))`, minmax(${1:MIN-WIDTH}, 1fr));
