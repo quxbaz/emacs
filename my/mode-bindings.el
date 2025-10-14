@@ -29,6 +29,7 @@
          (:map calc-mode-map ("j e" . my/calc-sel-jump-equals))
          (:map calc-mode-map ("j l" . calc-commute-left))
          (:map calc-mode-map ("j r" . calc-commute-right))
+         (:map calc-mode-map ("j x" . calc-sel-commute))
          (:map calc-mode-map ("j n" . calc-sel-negate))))
 
 (add-hook 'calc-edit-mode-hook
