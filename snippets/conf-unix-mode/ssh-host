@@ -1,5 +1,5 @@
 # name: ssh-host
-# key: ssh-host
+# key: ssh
 # expand-env: ((yas-indent-line nil))
 # --
 Host ${1:LABEL}
