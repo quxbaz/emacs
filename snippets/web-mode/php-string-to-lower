@@ -1,0 +1,4 @@
+# name: php-string-to-lower
+# key: r
+# --
+strtolower($${1:STRING})
