@@ -26,6 +26,7 @@
          (:map calc-mode-map ("a S" . calc-simplify))
          (:map calc-mode-map ("t o" . calc-trail-in))
          (:map calc-trail-mode-map ("t o" . calc-trail-out))
+         (:map calc-mode-map ("C-d" . calc-del-selection))
          (:map calc-mode-map ("j e" . my/calc-sel-jump-equals))
          (:map calc-mode-map ("j l" . calc-commute-left))
          (:map calc-mode-map ("j r" . calc-commute-right))
