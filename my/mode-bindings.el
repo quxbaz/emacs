@@ -22,6 +22,8 @@
   :defer t
   :bind ((:map calc-mode-map ("l d" . calc-to-degrees))
          (:map calc-mode-map ("l r" . calc-to-radians))
+         (:map calc-mode-map ("l l" . calc-float))
+         (:map calc-mode-map ("l c" . calc-fraction))
          (:map calc-mode-map ("s a" . calc-edit-variable))
          (:map calc-mode-map ("a s" . calc-solve-for))
          (:map calc-mode-map ("j i" . calc-sel-isolate))
