@@ -1,0 +1,4 @@
+# name: php-string-to-upper
+# key: r
+# --
+strtoupper(${1:STRING})
