@@ -714,3 +714,15 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (search-forward-regexp "#")
   (backward-char)
   (call-interactively 'calc-unselect))
+
+(defun my/calc-toggle-brackets ()
+  "Toggle between parentheses and square brackets at point."
+  (interactive)
+  (cond ((looking-at "(")
+         (delete-char 1) (insert "[") (backward-char 1))
+        ((looking-at ")")
+         (delete-char 1) (insert "]") (backward-char 1))
+        ((looking-at "\\[")
+         (delete-char 1) (insert "(") (backward-char 1))
+        ((looking-at "\\]")
+         (delete-char 1) (insert ")") (backward-char 1))))
