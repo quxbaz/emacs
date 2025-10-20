@@ -47,6 +47,7 @@
             (keymap-set calc-edit-mode-map "C-c C-c" 'my/calc-edit-finish)
             (keymap-set calc-edit-mode-map "S-<up>" 'my/calc-toggle-brackets)
             (keymap-set calc-edit-mode-map "S-<down>" 'my/calc-toggle-brackets)
+            (keymap-set calc-edit-mode-map ";" (kmacro ":"))
             (keymap-set calc-edit-mode-map "P" (kmacro "p i"))
             (keymap-set calc-edit-mode-map "M-2" (kmacro "^ 2"))
             (keymap-set calc-edit-mode-map "M-3" (kmacro "^ 3"))
