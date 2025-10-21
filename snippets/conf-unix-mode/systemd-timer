@@ -1,5 +1,5 @@
 # name: systemd-timer
-# key: .timer
+# key: sc
 # expand-env: ((yas-indent-line nil))
 # --
 [Unit]
