@@ -27,7 +27,7 @@
          (:map calc-mode-map ("l f" . calc-reduce))
          (:map calc-mode-map ("s a" . calc-edit-variable))
          (:map calc-mode-map ("s l" . calc-solve-for))
-         (:map calc-mode-map ("a s" . calc-let))
+         (:map calc-mode-map ("a l" . calc-let))
          (:map calc-mode-map ("a S" . calc-simplify))
          (:map calc-mode-map ("j i" . calc-sel-isolate))
          (:map calc-mode-map ("k t" . calc-perm))
