@@ -706,6 +706,16 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
             (t (push text calc-alg-entry-history)))))
   (calc-edit-finish))
 
+(defun my/calc-commute ()
+  "Like calc-sel-commute, but works on the line instead of the current selection."
+  (interactive)
+  (let ((saved-point (point)))
+    (unwind-protect
+        (progn
+          (move-end-of-line nil)
+          (call-interactively 'calc-sel-commute))
+      (setf (point) saved-point))))
+
 (defun my/calc-sel-jump-equals ()
   "Like calc-sel-jump-equals, but unselects after jumping."
   (interactive)
