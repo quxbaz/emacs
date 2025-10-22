@@ -31,6 +31,7 @@
          (:map calc-mode-map ("a S" . calc-simplify))
          (:map calc-mode-map ("j i" . calc-sel-isolate))
          (:map calc-mode-map ("k t" . calc-perm))
+         (:map calc-mode-map ("M" . calc-map))
          (:map calc-mode-map ("t o" . calc-trail-in))
          (:map calc-trail-mode-map ("t o" . calc-trail-out))
          (:map calc-mode-map ("C-d" . calc-del-selection))
