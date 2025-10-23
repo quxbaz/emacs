@@ -670,6 +670,12 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
         (funcall (kmacro "j`"))
       (funcall (kmacro "'`")))))
 
+(defun my/calc-pow-2 ()
+  "Raise a number to the power of 2."
+  (interactive)
+  (end-of-buffer)
+  (funcall (kmacro "2 ^")))
+
 (defun my/calc-edit-newline ()
   "Like newline, but also sets indentation."
   (interactive)
