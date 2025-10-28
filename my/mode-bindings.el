@@ -41,7 +41,7 @@
          (:map calc-mode-map ("j l" . calc-commute-left))
          (:map calc-mode-map ("j r" . calc-commute-right))
          (:map calc-mode-map ("X" . my/calc-commute))
-         (:map calc-mode-map ("j n" . calc-sel-negate))))
+         (:map calc-mode-map ("N" . calc-sel-negate))))
 
 (add-hook 'calc-edit-mode-hook
           (lambda ()
