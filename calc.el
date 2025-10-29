@@ -4,5 +4,5 @@
 (setq calc-display-trail nil)
 (setq calc-symbolic-mode t)
 (setq calc-prefer-frac t)
-(setq calc-vector-commas nil)
+;; (setq calc-vector-commas nil)
 ;;; End of mode settings
