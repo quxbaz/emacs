@@ -736,3 +736,8 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
          (delete-char 1) (insert "(") (backward-char 1))
         ((looking-at "\\]")
          (delete-char 1) (insert ")") (backward-char 1))))
+
+(defun my/calc-square ()
+  "Squares a number."
+  (interactive)
+  (funcall (kmacro "I Q")))
