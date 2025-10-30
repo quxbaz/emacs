@@ -24,6 +24,7 @@
          (:map calc-mode-map ("l r" . calc-to-radians))
          (:map calc-mode-map ("l l" . calc-float))
          (:map calc-mode-map ("l c" . calc-fraction))
+         (:map calc-mode-map ("W" . my/calc-square))
          (:map calc-mode-map ("F" . calc-reduce))
          ;; (:map calc-mode-map ("l f" . calc-reduce))
          (:map calc-mode-map ("s a" . calc-edit-variable))
