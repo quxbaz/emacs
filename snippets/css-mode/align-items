@@ -1,4 +1,4 @@
 # name: align-items
 # key: ai
 # --
-align-items: ${1:center};
+align-items: `(yas-choose-value '(center flex-start flex-end stretch))`;
