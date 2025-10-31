@@ -23,7 +23,7 @@
   :bind ((:map calc-mode-map ("l d" . calc-to-degrees))
          (:map calc-mode-map ("l r" . calc-to-radians))
          (:map calc-mode-map ("l l" . calc-float))
-         (:map calc-mode-map ("~" . calc-inv))
+         (:map calc-mode-map ("y" . calc-inv))
          (:map calc-mode-map ("l c" . calc-fraction))
          (:map calc-mode-map ("W" . my/calc-square))
          (:map calc-mode-map ("F" . calc-reduce))
