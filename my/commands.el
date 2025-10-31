@@ -598,7 +598,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 (defun my/dired-open-gallery ()
   "Opens a gallery program to view images in the current directory."
   (interactive)
-  (async-shell-command (format "geeqie %s" default-directory)))
+  (async-shell-command (format "geeqie %s" (replace-regexp-in-string " " "\\\\ " default-directory))))
 
 (defun my/dired-resize-image ()
   "Resize marked images and save to a subdirectory."
