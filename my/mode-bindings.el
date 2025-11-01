@@ -30,6 +30,7 @@
          ;; (:map calc-mode-map ("l f" . calc-reduce))
          (:map calc-mode-map ("s a" . calc-edit-variable))
          (:map calc-mode-map ("i" . calc-solve-for))
+         (:map calc-mode-map ("x" . calc-expand))
          ;; (:map calc-mode-map ("s l" . calc-solve-for))
          ;; (:map calc-mode-map ("a l" . calc-let))
          (:map calc-mode-map ("a s" . calc-simplify-extended))
