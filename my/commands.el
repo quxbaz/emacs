@@ -670,6 +670,17 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
         (funcall (kmacro "j`"))
       (funcall (kmacro "'`")))))
 
+(defun my/calc-evaluate ()
+  "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
+  (interactive)
+  (let ((stored-symbolic-mode calc-symbolic-mode))
+    (unwind-protect
+        (progn (calc-symbolic-mode -1)
+               (call-interactively 'calc-evaluate))
+      (if stored-symbolic-mode
+          (calc-symbolic-mode 1)
+        (calc-symbolic-mode -1)))))
+
 (defun my/calc-edit-newline ()
   "Like newline, but also sets indentation."
   (interactive)
