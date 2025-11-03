@@ -20,7 +20,8 @@
 
 (use-package calc-ext
   :defer t
-  :bind ((:map calc-mode-map ("l d" . calc-to-degrees))
+  :bind ((:map calc-mode-map ("=" . my/calc-evaluate))
+         (:map calc-mode-map ("l d" . calc-to-degrees))
          (:map calc-mode-map ("l r" . calc-to-radians))
          (:map calc-mode-map ("l l" . calc-float))
          (:map calc-mode-map ("o" . calc-inv))
