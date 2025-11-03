@@ -20,35 +20,40 @@
 
 (use-package calc-ext
   :defer t
-  :bind ((:map calc-mode-map ("=" . my/calc-evaluate))
+  :bind (;; Basic operations
+         (:map calc-mode-map ("=" . my/calc-evaluate))
+         (:map calc-mode-map ("o" . calc-inv))
+         (:map calc-mode-map ("W" . my/calc-square))
+         ;; Conversions
          (:map calc-mode-map ("l d" . calc-to-degrees))
          (:map calc-mode-map ("l r" . calc-to-radians))
          (:map calc-mode-map ("l l" . calc-float))
-         (:map calc-mode-map ("o" . calc-inv))
          (:map calc-mode-map ("l c" . calc-fraction))
-         (:map calc-mode-map ("W" . my/calc-square))
-         (:map calc-mode-map ("F" . calc-reduce))
-         ;; (:map calc-mode-map ("l f" . calc-reduce))
-         (:map calc-mode-map ("s a" . calc-edit-variable))
-         (:map calc-mode-map ("i" . calc-solve-for))
+         ;; Algebraic operations
          (:map calc-mode-map ("x" . calc-expand))
-         ;; (:map calc-mode-map ("s l" . calc-solve-for))
-         ;; (:map calc-mode-map ("a l" . calc-let))
-         (:map calc-mode-map ("a s" . calc-simplify-extended))
          (:map calc-mode-map ("a e" . calc-simplify))
+         (:map calc-mode-map ("a s" . calc-simplify-extended))
+         ;; Solving
+         (:map calc-mode-map ("i" . calc-solve-for))
+         ;; Variables
+         (:map calc-mode-map ("s a" . calc-edit-variable))
+         ;; Selection operations
          (:map calc-mode-map ("j i" . calc-sel-isolate))
-         (:map calc-mode-map ("k t" . calc-perm))
-         (:map calc-mode-map ("M" . calc-map))
-         (:map calc-mode-map ("u D" . calc-vector-median))
-         (:map calc-mode-map ("v o" . calc-sort))
-         (:map calc-mode-map ("t o" . calc-trail-in))
-         (:map calc-trail-mode-map ("t o" . calc-trail-out))
-         (:map calc-mode-map ("C-d" . calc-del-selection))
          (:map calc-mode-map ("j e" . my/calc-sel-jump-equals))
          (:map calc-mode-map ("j l" . calc-commute-left))
          (:map calc-mode-map ("j r" . calc-commute-right))
          (:map calc-mode-map ("X" . my/calc-commute))
-         (:map calc-mode-map ("N" . calc-sel-negate))))
+         (:map calc-mode-map ("N" . calc-sel-negate))
+         (:map calc-mode-map ("C-d" . calc-del-selection))
+         ;; Statistics and vectors
+         (:map calc-mode-map ("F" . calc-reduce))
+         (:map calc-mode-map ("k t" . calc-perm))
+         (:map calc-mode-map ("M" . calc-map))
+         (:map calc-mode-map ("u D" . calc-vector-median))
+         (:map calc-mode-map ("v o" . calc-sort))
+         ;; Trail
+         (:map calc-mode-map ("t o" . calc-trail-in))
+         (:map calc-trail-mode-map ("t o" . calc-trail-out))))
 
 (add-hook 'calc-edit-mode-hook
           (lambda ()
