@@ -36,6 +36,7 @@
          ;; Solving
          (:map calc-mode-map ("i" . calc-solve-for))
          ;; Variables
+         (:map calc-mode-map ("p" . calc-recall))
          (:map calc-mode-map ("s a" . calc-edit-variable))
          ;; Selection operations
          (:map calc-mode-map ("j i" . calc-sel-isolate))
