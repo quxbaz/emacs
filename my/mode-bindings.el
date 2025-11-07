@@ -30,6 +30,7 @@
          (:map calc-mode-map ("l r" . calc-to-radians))
          (:map calc-mode-map ("l l" . calc-float))
          (:map calc-mode-map ("l c" . calc-fraction))
+         (:map calc-mode-map ("d ," . calc-group-digits))
          ;; Algebraic operations
          (:map calc-mode-map ("x" . calc-expand))
          (:map calc-mode-map ("a e" . calc-simplify))
