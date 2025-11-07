@@ -6,6 +6,15 @@
 (add-hook 'css-mode-hook (lambda () (setq css-indent-offset 2)))
 (add-hook 'occur-mode-hook (lambda () (switch-to-buffer-other-window "*Occur*")))
 
+(defun my/calc-minibuffer-setup ()
+  "Set up keybindings for calc minibuffers."
+  (when (and (minibufferp)
+             (with-current-buffer (window-buffer (minibuffer-selected-window))
+               (derived-mode-p 'calc-mode)))
+    (local-set-key (kbd ";") (my/cmd (insert ":")))))
+
+(add-hook 'minibuffer-setup-hook 'my/calc-minibuffer-setup)
+
 (add-hook 'dired-mode-hook
           (lambda ()
             (dired-hide-details-mode t)
