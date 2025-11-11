@@ -54,6 +54,7 @@
          (:map calc-mode-map ("M" . calc-map))
          (:map calc-mode-map ("u D" . calc-vector-median))
          (:map calc-mode-map ("v o" . calc-sort))
+         (:map calc-mode-map ("M-u" . calc-unpack))
          ;; Trail
          (:map calc-mode-map ("t o" . calc-trail-in))
          (:map calc-trail-mode-map ("t o" . calc-trail-out))))
