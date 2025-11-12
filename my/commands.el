@@ -670,6 +670,14 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
         (funcall (kmacro "j`"))
       (funcall (kmacro "'`")))))
 
+(defun my/calc-key-comma ()
+  "Begins a vector entry in edit mode."
+  (interactive)
+  (if (minibufferp)
+      (call-interactively 'self-insert-command)
+    (funcall (kmacro "'`"))
+    (insert "[]") (backward-char)))
+
 (defun my/calc-evaluate ()
   "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
   (interactive)
@@ -710,9 +718,10 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   "Like calc-edit-finish, but pushes to calc-alg-entry-history."
   (interactive)
   (save-excursion
-    (goto-char (point-min)) (forward-line 2)
+    (goto-char (point-min)) (forward-line 2) (beginning-of-line)
     (let ((text (string-trim (buffer-substring-no-properties (point) (point-max)))))
-      (cond ((string= text "") nil)                             ;; Don't save empty strings to history.
+      (cond ((string= text "") nil)    ;; Don't save empty strings to history.
+            ((string= text "[]") (delete-region (line-beginning-position) (1+ (line-end-position))))
             ((string= text (cadr calc-alg-entry-history)) nil)  ;; Don't save string to history if it's a duplicate of the previous entry.
             (t (push text calc-alg-entry-history)))))
   (calc-edit-finish))
