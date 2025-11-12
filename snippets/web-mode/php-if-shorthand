@@ -2,9 +2,5 @@
 # key: ifs
 # --
 <?php if (${1:COND}): ?>
-  ${2:HTML}
-<?php elseif (${3:COND}): ?>
-  ${4:HTML}
-<?php else: ?>
-  ${5:HTML}
+  $0
 <?php endif ?>$0
