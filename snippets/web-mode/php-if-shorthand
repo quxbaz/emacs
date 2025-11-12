@@ -3,4 +3,4 @@
 # --
 <?php if (${1:COND}): ?>
   $0
-<?php endif ?>$0
+<?php endif ?>
