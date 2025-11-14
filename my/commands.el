@@ -761,3 +761,11 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   "Squares a number."
   (interactive)
   (funcall (kmacro "I Q")))
+
+(defun my/calc-edit-square ()
+  "Squares a number."
+  (interactive)
+  (if (use-region-p)
+      (progn (call-interactively 'kill-ring-save)
+             (message "%s" (string-trim (car kill-ring))))
+    (insert "^2")))
