@@ -48,7 +48,7 @@
          (:map calc-mode-map ("N" . calc-sel-negate))
          (:map calc-mode-map ("C-d" . calc-del-selection))
          ;; Statistics and vectors
-         (:map calc-mode-map ("S-SPC" . my/calc-key-comma))
+         (:map calc-mode-map ("w" . my/calc-key-comma))
          (:map calc-mode-map ("F" . calc-reduce))
          (:map calc-mode-map ("k t" . calc-perm))
          (:map calc-mode-map ("M" . calc-map))
