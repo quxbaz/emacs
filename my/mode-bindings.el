@@ -21,6 +21,8 @@
 (use-package calc-ext
   :defer t
   :bind (;; Basic operations
+         (:map calc-mode-map ("RET" . my/calc-duplicate))
+         (:map calc-mode-map ("S-<return>" . calc-enter))
          (:map calc-mode-map ("M-=" . calc-evaluate))
          (:map calc-mode-map ("=" . my/calc-evaluate))
          (:map calc-mode-map ("o" . calc-inv))
