@@ -16,7 +16,7 @@
 
 (eval-after-load 'calc
   '(progn
-     (keymap-set calc-mode-map "SPC" 'my/calc-key-spc)))
+     (keymap-set calc-mode-map "SPC" 'my/calc-edit)))
 
 (use-package calc-ext
   :defer t

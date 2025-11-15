@@ -5,7 +5,7 @@
 
 ;; Entry / Commands
 
-(defun my/calc-key-spc ()
+(defun my/calc-edit ()
   "Opens edit mode or edits the current entry."
   (interactive)
   (let ((line (substring-no-properties (thing-at-point 'line))))
