@@ -13,6 +13,15 @@
         (funcall (kmacro "j`"))
       (funcall (kmacro "'`")))))
 
+(defun my/calc-point-gte-last-entry-p ()
+  "returns t if point is at the last entry or beyond it."
+  (save-excursion
+    (condition-case nil
+        (progn (next-line 2) (previous-line))
+      (error nil))
+    (let ((line (string-trim (substring-no-properties (thing-at-point 'line)))))
+      (string= line "."))))
+
 (defun my/calc-evaluate ()
   "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
   (interactive)
