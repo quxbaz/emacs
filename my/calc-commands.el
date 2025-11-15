@@ -22,6 +22,16 @@
     (let ((line (string-trim (substring-no-properties (thing-at-point 'line)))))
       (string= line "."))))
 
+(defun my/calc-duplicate ()
+  "Duplicates the nearest entry at point."
+  (interactive)
+  (if (my/calc-point-gte-last-entry-p)
+      (call-interactively 'calc-enter)
+    (let* ((line (string-trim (substring-no-properties (thing-at-point 'line))))
+           (no-prefix-line (replace-regexp-in-string "[0-9]+:[[:space:]]*" "" line)))
+      (calc-push no-prefix-line)
+      (setf (point) (- (point-max) 2)))))
+
 (defun my/calc-evaluate ()
   "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
   (interactive)
