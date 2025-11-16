@@ -1,4 +1,4 @@
-# name: io-json-decode
+# name: json-decode
 # key: ;
 # --
 json_decode(${1:JSON-STRING})
