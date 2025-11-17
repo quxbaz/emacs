@@ -22,6 +22,7 @@
 (use-package calc-ext
   :defer t
   :bind (;; Basic operations
+         (:map calc-mode-map ("C-a" . my/calc-beginning-of-expression))
          (:map calc-mode-map ("M-w" . my/calc-kill-ring-save-dwim))
          (:map calc-mode-map ("RET" . my/calc-duplicate))
          (:map calc-mode-map ("S-<return>" . calc-enter))
