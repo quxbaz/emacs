@@ -48,6 +48,12 @@
   (interactive)
   (funcall (kmacro "I Q")))
 
+(defun my/calc-sqrt ()
+  "Applies square root to the proceeding expression or to the expression in region."
+  (interactive)
+  ; TODO
+  )
+
 (defun my/calc-vector-edit ()
   "Begins a vector entry."
   (interactive)
