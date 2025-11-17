@@ -49,10 +49,20 @@
   (funcall (kmacro "I Q")))
 
 (defun my/calc-sqrt ()
-  "Applies square root to the proceeding expression or to the expression in region."
+  "Applies square root to the preceeding expression or to the expression in region."
   (interactive)
-  ; TODO
-  )
+  (if (use-region-p)
+      (let* ((start (region-beginning))
+             (end (region-end))
+             (expr (buffer-substring-no-properties start end)))
+        (delete-region start end)
+        (insert (format "sqrt(%s)" expr))
+        (deactivate-mark))
+    (let ((bounds (bounds-of-thing-at-point 'sexp)))
+      (when bounds
+        (let ((expr (buffer-substring-no-properties (car bounds) (cdr bounds))))
+          (delete-region (car bounds) (cdr bounds))
+          (insert (format "sqrt(%s)" expr)))))))
 
 (defun my/calc-vector-edit ()
   "Begins a vector entry."
