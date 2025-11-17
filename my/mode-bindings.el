@@ -16,11 +16,13 @@
 
 (eval-after-load 'calc
   '(progn
+     (keymap-set calc-mode-map "M-w" 'my/calc-kill-ring-save-dwim)
      (keymap-set calc-mode-map "SPC" 'my/calc-edit)))
 
 (use-package calc-ext
   :defer t
   :bind (;; Basic operations
+         (:map calc-mode-map ("M-w" . my/calc-kill-ring-save-dwim))
          (:map calc-mode-map ("RET" . my/calc-duplicate))
          (:map calc-mode-map ("S-<return>" . calc-enter))
          (:map calc-mode-map ("M-=" . calc-evaluate))
