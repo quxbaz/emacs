@@ -48,7 +48,7 @@
   (interactive)
   (funcall (kmacro "I Q")))
 
-(defun my/calc-sqrt ()
+(defun my/calc-sqrt-dwim ()
   "Applies square root to the preceeding expression or to the expression in region."
   (interactive)
   (if (use-region-p)
