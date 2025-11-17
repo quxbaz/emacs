@@ -5,6 +5,16 @@
 
 ;; Entry / Commands
 
+(defun my/calc-kill-ring-save-dwim ()
+  "Saves the region if region is active, else save the current line."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'kill-ring-save)
+    (let* ((line (string-trim (substring-no-properties (thing-at-point 'line))))
+           (no-prefix-line (replace-regexp-in-string "^[0-9]+:[[:space:]]*" "" line)))
+      (kill-new no-prefix-line)))
+  (message "%s" (string-trim (car kill-ring))))
+
 (defun my/calc-edit ()
   "Opens edit mode or edits the current entry."
   (interactive)
@@ -28,7 +38,7 @@
   (if (my/calc-point-gte-last-entry-p)
       (call-interactively 'calc-enter)
     (let* ((line (string-trim (substring-no-properties (thing-at-point 'line))))
-           (no-prefix-line (replace-regexp-in-string "[0-9]+:[[:space:]]*" "" line)))
+           (no-prefix-line (replace-regexp-in-string "^[0-9]+:[[:space:]]*" "" line)))
       (calc-push (math-read-expr no-prefix-line))
       (setf (point) (- (point-max) 2)))))
 
