@@ -1,4 +1,4 @@
-# name: php-namespace
+# name: namespace
 # key: .
 # expand-env: ((yas-indent-line nil))
 # --
