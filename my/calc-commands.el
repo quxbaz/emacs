@@ -66,6 +66,11 @@ just the region."
             (calc-push (math-read-expr no-prefix-line)))
            (setf (point) (- (point-max) 2))))))
 
+(defun my/calc-edit-duplicate (arg)
+  "Duplicates the current line. Adds a comma if necessary."
+  (interactive "p")
+  (call-interactively 'my/duplicate-dwim))
+
 (defun my/calc-evaluate ()
   "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
   (interactive)
