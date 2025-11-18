@@ -5,6 +5,14 @@
 
 ;; Entry / Commands
 
+(defun my/calc ()
+  "Starts calc."
+  (interactive)
+  (if (and (string= (buffer-name) "*scratch*")
+           (= (count-windows) 1))
+      (calc nil t t)
+    (call-interactively 'calc)))
+
 (defun my/calc-beginning-of-expression ()
   "Moves point to beginning of expression on current line."
   (interactive)
