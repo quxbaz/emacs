@@ -69,7 +69,20 @@ just the region."
 (defun my/calc-edit-duplicate (arg)
   "Duplicates the current line. Adds a comma if necessary."
   (interactive "p")
-  (call-interactively 'my/duplicate-dwim))
+  ;; Add comma to current line if it doesn't have one.
+  (save-excursion
+    (end-of-line)
+    (skip-chars-backward " \t")
+    (unless (looking-back "," (line-beginning-position))
+      (insert ",")))
+  ;; Duplicate the line.
+  (call-interactively 'my/duplicate-dwim)
+  ;; Remove comma from the duplicated line.
+  (save-excursion
+    (end-of-line)
+    (skip-chars-backward " \t")
+    (when (looking-back "," (line-beginning-position))
+      (delete-char -1))))
 
 (defun my/calc-evaluate ()
   "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
