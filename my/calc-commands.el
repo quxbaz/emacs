@@ -54,14 +54,16 @@
 just the region."
   (interactive)
   (cond ((use-region-p)
-         (calc-push (math-read-expr (buffer-substring-no-properties (region-beginning) (region-end))))
+         (calc-wrapper
+          (calc-push (math-read-expr (buffer-substring-no-properties (region-beginning) (region-end)))))
          (setf (point) (- (point-max) 2)))
         ((my/calc-point-gte-last-entry-p)
          (call-interactively 'calc-enter))
         (t
          (let* ((line (string-trim (substring-no-properties (thing-at-point 'line))))
                 (no-prefix-line (replace-regexp-in-string "^[0-9]+:[[:space:]]*" "" line)))
-           (calc-push (math-read-expr no-prefix-line))
+           (calc-wrapper
+            (calc-push (math-read-expr no-prefix-line)))
            (setf (point) (- (point-max) 2))))))
 
 (defun my/calc-evaluate ()
