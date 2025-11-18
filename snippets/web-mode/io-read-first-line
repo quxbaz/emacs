@@ -1,4 +1,4 @@
-# name: io-read-first-line
+# name: read-first-line
 # key: ;
 # --
 $handle = fopen(${1:PATH}, 'r');

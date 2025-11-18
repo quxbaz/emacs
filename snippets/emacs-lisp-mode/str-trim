@@ -1,0 +1,4 @@
+# name: str-trim
+# key: r
+# --
+(string-trim ${1:STRING})

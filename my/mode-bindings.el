@@ -16,44 +16,67 @@
 
 (eval-after-load 'calc
   '(progn
-     (keymap-set calc-mode-map "SPC" 'my/calc-key-spc)))
+     (keymap-set calc-mode-map "M-w" 'my/calc-kill-ring-save-dwim)
+     (keymap-set calc-mode-map "SPC" 'my/calc-edit)
+     (keymap-set calc-mode-map "q" 'calc-sqrt)))
 
 (use-package calc-ext
   :defer t
-  :bind ((:map calc-mode-map ("l d" . calc-to-degrees))
+  :bind (;; Basic operations
+         (:map calc-mode-map ("<escape> DEL" . calc-quit))
+         (:map calc-mode-map ("C-a" . my/calc-beginning-of-expression))
+         (:map calc-mode-map ("M-w" . my/calc-kill-ring-save-dwim))
+         (:map calc-mode-map ("RET" . my/calc-duplicate))
+         (:map calc-mode-map ("S-<return>" . calc-enter))
+         (:map calc-mode-map ("M-=" . calc-evaluate))
+         (:map calc-mode-map ("=" . my/calc-evaluate))
+         (:map calc-mode-map ("C-c C-c" . my/calc-evaluate))
+         (:map calc-mode-map ("o" . calc-inv))
+         (:map calc-mode-map ("W" . my/calc-square))
+         ;; Conversions
+         (:map calc-mode-map ("l d" . calc-to-degrees))
          (:map calc-mode-map ("l r" . calc-to-radians))
          (:map calc-mode-map ("l l" . calc-float))
-         (:map calc-mode-map ("o" . calc-inv))
          (:map calc-mode-map ("l c" . calc-fraction))
-         (:map calc-mode-map ("W" . my/calc-square))
-         (:map calc-mode-map ("F" . calc-reduce))
-         ;; (:map calc-mode-map ("l f" . calc-reduce))
-         (:map calc-mode-map ("s a" . calc-edit-variable))
+         ;; Algebraic operations
+         (:map calc-mode-map ("O" . calc-no-simplify-mode))
+         (:map calc-mode-map ("x" . calc-expand))
+         (:map calc-mode-map ("a e" . calc-simplify))
+         (:map calc-mode-map ("a s" . calc-simplify-extended))
+         ;; Solving
          (:map calc-mode-map ("i" . calc-solve-for))
-         ;; (:map calc-mode-map ("s l" . calc-solve-for))
-         ;; (:map calc-mode-map ("a l" . calc-let))
-         ;; (:map calc-mode-map ("a S" . calc-simplify))
+         (:map calc-mode-map ("M-." . calc-remove-equal))
+         ;; Variables
+         (:map calc-mode-map ("p" . calc-recall))
+         (:map calc-mode-map ("s a" . calc-edit-variable))
+         ;; Selection operations
          (:map calc-mode-map ("j i" . calc-sel-isolate))
-         (:map calc-mode-map ("k t" . calc-perm))
-         (:map calc-mode-map ("M" . calc-map))
-         (:map calc-mode-map ("u D" . calc-vector-median))
-         (:map calc-mode-map ("v o" . calc-sort))
-         (:map calc-mode-map ("t o" . calc-trail-in))
-         (:map calc-trail-mode-map ("t o" . calc-trail-out))
-         (:map calc-mode-map ("C-d" . calc-del-selection))
          (:map calc-mode-map ("j e" . my/calc-sel-jump-equals))
          (:map calc-mode-map ("j l" . calc-commute-left))
          (:map calc-mode-map ("j r" . calc-commute-right))
          (:map calc-mode-map ("X" . my/calc-commute))
-         (:map calc-mode-map ("N" . calc-sel-negate))))
+         (:map calc-mode-map ("N" . calc-sel-negate))
+         (:map calc-mode-map ("C-d" . calc-del-selection))
+         ;; Statistics and vectors
+         (:map calc-mode-map ("w" . my/calc-vector-edit))
+         (:map calc-mode-map ("F" . calc-reduce))
+         (:map calc-mode-map ("k t" . calc-perm))
+         (:map calc-mode-map ("M" . calc-map))
+         (:map calc-mode-map ("u D" . calc-vector-median))
+         (:map calc-mode-map ("v o" . calc-sort))
+         (:map calc-mode-map ("M-u" . calc-unpack))
+         ;; Trail
+         (:map calc-mode-map ("t o" . calc-trail-in))
+         (:map calc-trail-mode-map ("t o" . calc-trail-out))))
 
 (add-hook 'calc-edit-mode-hook
           (lambda ()
             (setq my/calc-history-index -1)
             (keymap-set calc-edit-mode-map "M-p" 'my/calc-edit-history-prev)
             (keymap-set calc-edit-mode-map "M-n" 'my/calc-edit-history-next)
-            (keymap-set calc-edit-mode-map "S-<return>" 'my/calc-edit-newline)
             (keymap-set calc-edit-mode-map "RET" 'my/calc-edit-finish)
+            (keymap-set calc-edit-mode-map "S-<return>" 'my/calc-edit-newline)
+            (keymap-set calc-edit-mode-map "M-<return>" 'my/calc-edit-duplicate)
             (keymap-set calc-edit-mode-map "C-c C-c" 'my/calc-edit-finish)
             (keymap-set calc-edit-mode-map "S-<up>" 'my/calc-toggle-brackets)
             (keymap-set calc-edit-mode-map "S-<down>" 'my/calc-toggle-brackets)
@@ -64,7 +87,8 @@
             (keymap-set calc-edit-mode-map "M-4" (kmacro "^ 4"))
             (keymap-set calc-edit-mode-map "M-5" (kmacro "^ 5"))
             (keymap-set calc-edit-mode-map "M-6" (kmacro "^ 6"))
-            (keymap-set calc-edit-mode-map "M-q" (kmacro "s q r t ( ) C-b"))))
+            (keymap-set calc-edit-mode-map "M-q" (kmacro "s q r t ( ) C-b"))
+            (keymap-set calc-edit-mode-map "\\" 'my/calc-sqrt-dwim)))
 
 (eval-after-load 'calendar
   '(progn

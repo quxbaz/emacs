@@ -1,4 +1,4 @@
-# name: php-require
+# name: require
 # key: .
 # --
 require get_stylesheet_directory() . '/${1:FILE}';

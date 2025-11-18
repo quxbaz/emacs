@@ -1,4 +1,4 @@
-# name: io-get-file-headers
+# name: get-file-headers
 # key: ;
 # --
 $headers = get_file_data(${1:FILE-PATH}, [ 'Template Name' => 'Template Name' ]);

@@ -20,6 +20,7 @@
 (load-file (concat user-emacs-directory "my/lib-js.el"))
 (load-file (concat user-emacs-directory "my/util.el"))
 (load-file (concat user-emacs-directory "my/commands.el"))
+(load-file (concat user-emacs-directory "my/calc-commands.el"))
 (load-file (concat user-emacs-directory "my/lisp-commands.el"))
 (load-file (concat user-emacs-directory "my/lisp-conf.el"))
 (load-file (concat user-emacs-directory "my/bindings.el"))
