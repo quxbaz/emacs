@@ -37,6 +37,7 @@
          (:map calc-mode-map ("l l" . calc-float))
          (:map calc-mode-map ("l c" . calc-fraction))
          ;; Algebraic operations
+         (:map calc-mode-map ("O" . calc-no-simplify-mode))
          (:map calc-mode-map ("x" . calc-expand))
          (:map calc-mode-map ("a e" . calc-simplify))
          (:map calc-mode-map ("a s" . calc-simplify-extended))
