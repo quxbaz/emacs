@@ -76,6 +76,7 @@
             (keymap-set calc-edit-mode-map "M-n" 'my/calc-edit-history-next)
             (keymap-set calc-edit-mode-map "RET" 'my/calc-edit-finish)
             (keymap-set calc-edit-mode-map "S-<return>" 'my/calc-edit-newline)
+            (keymap-set calc-edit-mode-map "M-<return>" 'my/calc-edit-duplicate)
             (keymap-set calc-edit-mode-map "C-c C-c" 'my/calc-edit-finish)
             (keymap-set calc-edit-mode-map "S-<up>" 'my/calc-toggle-brackets)
             (keymap-set calc-edit-mode-map "S-<down>" 'my/calc-toggle-brackets)
