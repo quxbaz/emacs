@@ -221,3 +221,12 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
   (search-forward-regexp "#")
   (backward-char)
   (call-interactively 'calc-unselect))
+
+(defun my/calc-sel-negate ()
+  "Like calc-sel-negate, but unselects afterwards."
+  (interactive)
+  (let ((saved-point (point)))
+    (unwind-protect
+        (call-interactively 'calc-sel-negate)
+      (call-interactively 'calc-unselect)
+      (setf (point) saved-point))))
