@@ -105,7 +105,7 @@ just the region."
   (interactive)
   (funcall (kmacro "I Q")))
 
-(defun my/calc-square-dwim ()
+(defun my/calc-edit-square-dwim ()
   "Inserts ^2. Subsequent invocations increment the exponent value."
   (interactive))
 
