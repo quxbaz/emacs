@@ -1,4 +1,4 @@
 # name: margin-inline
 # key: mi
 # --
-margin-inline: auto;
+margin-inline: ${1:auto};
