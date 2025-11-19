@@ -105,7 +105,11 @@ just the region."
   (interactive)
   (funcall (kmacro "I Q")))
 
-(defun my/calc-sqrt-dwim ()
+(defun my/calc-square-dwim ()
+  "Inserts ^2. Subsequent invocations increment the exponent value."
+  (interactive))
+
+(defun my/calc-edit-sqrt-dwim ()
   "Applies square root to the preceeding expression or to the expression in region.
 Treats / as a separator (only applies sqrt after /), but keeps x:y together."
   (interactive)
