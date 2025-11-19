@@ -55,7 +55,7 @@
          (:map calc-mode-map ("j l" . calc-commute-left))
          (:map calc-mode-map ("j r" . calc-commute-right))
          (:map calc-mode-map ("X" . my/calc-commute))
-         (:map calc-mode-map ("N" . calc-sel-negate))
+         (:map calc-mode-map ("N" . my/calc-sel-negate))
          (:map calc-mode-map ("C-d" . calc-del-selection))
          ;; Statistics and vectors
          (:map calc-mode-map ("w" . my/calc-vector-edit))
