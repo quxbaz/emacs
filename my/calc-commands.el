@@ -106,7 +106,8 @@ just the region."
   (funcall (kmacro "I Q")))
 
 (defun my/calc-sqrt-dwim ()
-  "Applies square root to the preceeding expression or to the expression in region."
+  "Applies square root to the preceeding expression or to the expression in region.
+Treats / as a separator (only applies sqrt after /), but keeps x:y together."
   (interactive)
   (if (use-region-p)
       (let* ((start (region-beginning))
@@ -115,11 +116,14 @@ just the region."
         (delete-region start end)
         (insert (format "sqrt(%s)" expr))
         (deactivate-mark))
-    (let ((bounds (bounds-of-thing-at-point 'sexp)))
-      (when bounds
-        (let ((expr (buffer-substring-no-properties (car bounds) (cdr bounds))))
-          (delete-region (car bounds) (cdr bounds))
-          (insert (format "sqrt(%s)" expr)))))))
+    (let* ((end (point))
+           (start (save-excursion
+                    (skip-chars-backward "a-zA-Z0-9:._")
+                    (point)))
+           (expr (buffer-substring-no-properties start end)))
+      (when (> (length expr) 0)
+        (delete-region start end)
+        (insert (format "sqrt(%s)" expr))))))
 
 (defun my/calc-vector-edit ()
   "Begins a vector entry."
