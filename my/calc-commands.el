@@ -107,7 +107,18 @@ just the region."
 
 (defun my/calc-edit-square-dwim ()
   "Inserts ^2. Subsequent invocations increment the exponent value."
-  (interactive))
+  (interactive)
+  (if (looking-back "\\^[0-9]+" (line-beginning-position))
+      ;; We're right after an exponent, increment it
+      (let* ((end (point))
+             (start (save-excursion
+                      (skip-chars-backward "0-9")
+                      (point)))
+             (exponent (string-to-number (buffer-substring-no-properties start end))))
+        (delete-region start end)
+        (insert (number-to-string (1+ exponent))))
+    ;; No exponent before point, insert ^2
+    (insert "^2")))
 
 (defun my/calc-edit-sqrt-dwim ()
   "Applies square root to the preceeding expression or to the expression in region.
