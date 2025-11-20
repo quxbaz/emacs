@@ -29,7 +29,6 @@
          (:map calc-mode-map ("S-<return>" . calc-enter))
          (:map calc-mode-map ("M-=" . calc-evaluate))
          (:map calc-mode-map ("=" . my/calc-evaluate))
-         (:map calc-mode-map ("C-c C-c" . my/calc-evaluate))
          (:map calc-mode-map ("o" . calc-inv))
          (:map calc-mode-map ("\\" . calc-sqrt))
          (:map calc-mode-map ("W" . my/calc-square))
