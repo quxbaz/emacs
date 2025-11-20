@@ -17,8 +17,7 @@
 (eval-after-load 'calc
   '(progn
      (keymap-set calc-mode-map "M-w" 'my/calc-kill-ring-save-dwim)
-     (keymap-set calc-mode-map "SPC" 'my/calc-edit)
-     (keymap-set calc-mode-map "\\" 'calc-sqrt)))
+     (keymap-set calc-mode-map "SPC" 'my/calc-edit)))
 
 (use-package calc-ext
   :defer t
@@ -32,6 +31,7 @@
          (:map calc-mode-map ("=" . my/calc-evaluate))
          (:map calc-mode-map ("C-c C-c" . my/calc-evaluate))
          (:map calc-mode-map ("o" . calc-inv))
+         (:map calc-mode-map ("\\" . calc-sqrt))
          (:map calc-mode-map ("W" . my/calc-square))
          ;; Conversions
          (:map calc-mode-map ("l d" . calc-to-degrees))
