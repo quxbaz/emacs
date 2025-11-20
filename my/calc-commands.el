@@ -105,6 +105,12 @@ just the region."
   (interactive)
   (funcall (kmacro "I Q")))
 
+(defun my/calc-pi ()
+  "Multiplies by pi."
+  (interactive)
+  (calc-wrapper
+   (calc-enter-result 1 "pi*" (math-mul (calc-top-n 1) '(var pi var-pi)))))
+
 (defun my/calc-edit-square-dwim ()
   "Inserts ^2. Subsequent invocations increment the exponent value."
   (interactive)
