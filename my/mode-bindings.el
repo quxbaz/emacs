@@ -18,12 +18,12 @@
   '(progn
      (keymap-set calc-mode-map "M-w" 'my/calc-kill-ring-save-dwim)
      (keymap-set calc-mode-map "SPC" 'my/calc-edit)
-     (keymap-set calc-mode-map "q" 'calc-sqrt)))
+     (keymap-set calc-mode-map "\\" 'calc-sqrt)))
 
 (use-package calc-ext
   :defer t
   :bind (;; Basic operations
-         (:map calc-mode-map ("<escape> DEL" . calc-quit))
+         ;; (:map calc-mode-map ("<escape> DEL" . calc-quit))
          (:map calc-mode-map ("C-a" . my/calc-beginning-of-expression))
          (:map calc-mode-map ("M-w" . my/calc-kill-ring-save-dwim))
          (:map calc-mode-map ("RET" . my/calc-duplicate))
