@@ -47,6 +47,7 @@
          (:map calc-mode-map ("i" . calc-solve-for))
          (:map calc-mode-map ("M-." . calc-remove-equal))
          (:map calc-mode-map ("a m" . calc-map-equation))
+         (:map calc-mode-map ("a o" . calc-collect))
          ;; Variables
          (:map calc-mode-map ("p" . calc-recall))
          (:map calc-mode-map ("s a" . calc-edit-variable))
