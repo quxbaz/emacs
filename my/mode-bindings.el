@@ -32,7 +32,7 @@
          (:map calc-mode-map ("o" . calc-inv))
          (:map calc-mode-map ("\\" . calc-sqrt))
          (:map calc-mode-map ("W" . my/calc-square))
-         (:map calc-mode-map ("P" . my/calc-pi))
+         ;; (:map calc-mode-map ("P" . my/calc-pi))
          ;; Conversions
          (:map calc-mode-map ("l d" . calc-to-degrees))
          (:map calc-mode-map ("l r" . calc-to-radians))
