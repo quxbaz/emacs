@@ -54,6 +54,14 @@
     (let ((line (string-trim (substring-no-properties (thing-at-point 'line)))))
       (string= line "."))))
 
+(defun my/calc-roll-to-top ()
+  "Moves the current entry to the top of the stack."
+  (interactive)
+  (calc-wrapper
+   (let ((n (calc-locate-cursor-element (point))))
+     (when (and n (> n 0))
+       (calc-roll-up n)))))
+
 (defun my/calc-duplicate ()
   "Duplicates the nearest entry at point. If region is active, duplicate
 just the region."
