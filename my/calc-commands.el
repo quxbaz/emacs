@@ -82,10 +82,12 @@ just the region."
 (defun my/calc-duplicate-no-move ()
   "Like my/calc-duplicate, but doesn't move point."
   (interactive)
-  (let ((saved-position (copy-marker (point))))
-    (unwind-protect
-        (call-interactively 'my/calc-duplicate)
-      (setf (point) saved-position))))
+  (let ((n (calc-locate-cursor-element (point)))
+        (col (current-column)))
+    (call-interactively 'my/calc-duplicate)
+    (when (and n (> n 0))
+      (calc-cursor-stack-index (1+ n))
+      (move-to-column col))))
 
 (defun my/calc-edit-duplicate (arg)
   "Duplicates the current line. Adds a comma if necessary."
