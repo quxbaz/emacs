@@ -79,6 +79,14 @@ just the region."
             (calc-push (math-read-expr no-prefix-line)))
            (setf (point) (- (point-max) 2))))))
 
+(defun my/calc-duplicate-no-move ()
+  "Like my/calc-duplicate, but doesn't move point."
+  (interactive)
+  (let ((saved-position (copy-marker (point))))
+    (unwind-protect
+        (call-interactively 'my/calc-duplicate)
+      (setf (point) saved-position))))
+
 (defun my/calc-edit-duplicate (arg)
   "Duplicates the current line. Adds a comma if necessary."
   (interactive "p")
