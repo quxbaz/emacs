@@ -62,6 +62,15 @@
      (when (and n (> n 0))
        (calc-roll-up n)))))
 
+(defun my/calc-pop ()
+  "Pops an entry from the stack. Shows message if stack is empty."
+  (interactive)
+  (calc-wrapper
+   (if (> (calc-stack-size) 0)
+       (calc-pop 1)
+     (deactivate-mark)
+     (message "Stack is empty."))))
+
 (defun my/calc-duplicate ()
   "Duplicates the nearest entry at point. If region is active, duplicate
 just the region."
