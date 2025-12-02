@@ -26,6 +26,7 @@
          (:map calc-mode-map ("C-j" . ignore))
          (:map calc-mode-map ("C-a" . my/calc-beginning-of-expression))
          (:map calc-mode-map ("M-w" . my/calc-kill-ring-save-dwim))
+         (:map calc-mode-map ("DEL" . my/calc-pop))
          (:map calc-mode-map ("RET" . my/calc-duplicate))
          (:map calc-mode-map ("C-<return>" . my/calc-duplicate-no-move))
          (:map calc-mode-map ("S-<return>" . my/calc-roll-to-top))
