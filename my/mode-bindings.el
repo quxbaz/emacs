@@ -44,7 +44,7 @@
          (:map calc-mode-map ("l c" . calc-fraction))
          ;; Algebraic operations
          (:map calc-mode-map ("O" . calc-no-simplify-mode))
-         (:map calc-mode-map ("X" . calc-expand))
+         (:map calc-mode-map ("x" . calc-expand))
          (:map calc-mode-map ("a e" . calc-simplify))
          (:map calc-mode-map ("a s" . calc-simplify-extended))
          ;; Solving
@@ -61,7 +61,7 @@
          (:map calc-mode-map ("j e" . my/calc-sel-jump-equals))
          (:map calc-mode-map ("j l" . calc-commute-left))
          (:map calc-mode-map ("j r" . calc-commute-right))
-         (:map calc-mode-map ("x" . my/calc-commute))
+         (:map calc-mode-map ("X" . my/calc-commute))
          (:map calc-mode-map ("N" . my/calc-sel-negate))
          (:map calc-mode-map ("C-d" . calc-del-selection))
          ;; Statistics and vectors
