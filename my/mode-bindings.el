@@ -32,7 +32,7 @@
          (:map calc-mode-map ("S-<return>" . my/calc-roll-to-top))
          (:map calc-mode-map ("M-=" . calc-evaluate))
          (:map calc-mode-map ("=" . my/calc-evaluate))
-         (:map calc-mode-map ("o" . calc-inv))
+         (:map calc-mode-map ("x" . calc-inv))
          (:map calc-mode-map ("\\" . calc-sqrt))
          (:map calc-mode-map ("W" . my/calc-square))
          (:map calc-mode-map ("d ," . calc-group-digits))
@@ -61,7 +61,7 @@
          (:map calc-mode-map ("j e" . my/calc-sel-jump-equals))
          (:map calc-mode-map ("j l" . calc-commute-left))
          (:map calc-mode-map ("j r" . calc-commute-right))
-         (:map calc-mode-map ("x" . my/calc-commute))
+         (:map calc-mode-map ("o" . my/calc-commute))
          (:map calc-mode-map ("N" . my/calc-sel-negate))
          (:map calc-mode-map ("C-d" . calc-del-selection))
          ;; Statistics and vectors
