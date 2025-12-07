@@ -1,5 +1,5 @@
 # name: php-associative-array
-# key: obj
+# key: map
 # --
 [
   '${KEY}' => ${VALUE},$0
