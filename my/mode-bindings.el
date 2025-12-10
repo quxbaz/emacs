@@ -98,6 +98,7 @@
             (keymap-set calc-edit-mode-map "M-q" (kmacro "s q r t ( ) C-b"))
             ;; (keymap-set calc-edit-mode-map "\"" (my/cmd (insert "'")))
             (keymap-set calc-edit-mode-map "'" 'my/calc-edit-square-dwim)
+            (keymap-set calc-edit-mode-map "W" 'my/calc-edit-square-dwim)
             (keymap-set calc-edit-mode-map "\\" 'my/calc-edit-sqrt-dwim)))
 
 (eval-after-load 'calendar
