@@ -7,3 +7,6 @@
 (setq calc-prefer-frac t)
 ;; (setq calc-vector-commas nil)
 ;;; End of mode settings
+
+;;; Variable "var-eq-of-parabola" stored by Calc on Wed Dec 10 12:05:12 2025
+(setq var-eq-of-parabola '(calcFunc-eq (^ (- (var x var-x) (var h var-h)) 2) (* 4 (* (var p var-p) (- (var y var-y) (var k var-k))))))
