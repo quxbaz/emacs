@@ -10,3 +10,6 @@
 
 ;;; Variable "var-eq-of-parabola" stored by Calc on Wed Dec 10 12:05:12 2025
 (setq var-eq-of-parabola '(calcFunc-eq (^ (- (var x var-x) (var h var-h)) 2) (* 4 (* (var p var-p) (- (var y var-y) (var k var-k))))))
+
+;;; Variable "var-log-power-rule" stored by Calc on Thu Dec 11 23:07:40 2025
+(setq var-log-power-rule '(calcFunc-assign (calcFunc-ln (^ (var a var-a) (var b var-b))) (* (var b var-b) (calcFunc-ln (var a var-a)))))
