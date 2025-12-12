@@ -268,3 +268,11 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
         (call-interactively 'calc-sel-negate)
       (call-interactively 'calc-unselect)
       (setf (point) saved-point))))
+
+
+;; Rewrite Rules
+
+(defun my/calc-log-power-rule ()
+  "Applies logarithm power rule."
+  (interactive)
+  (calc-rewrite "ln(a^b) := b * ln(a)" nil))
