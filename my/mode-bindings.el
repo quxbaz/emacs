@@ -49,6 +49,7 @@
          (:map calc-mode-map ("x" . calc-expand))
          (:map calc-mode-map ("a e" . calc-simplify))
          (:map calc-mode-map ("a s" . calc-simplify-extended))
+         (:map calc-mode-map ("X" . my/calc-log-power-rule))
          ;; Solving
          (:map calc-mode-map ("i" . calc-solve-for))
          (:map calc-mode-map ("a l" . calc-poly-roots))
