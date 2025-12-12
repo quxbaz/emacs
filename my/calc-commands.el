@@ -275,4 +275,7 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
 (defun my/calc-log-power-rule ()
   "Applies logarithm power rule."
   (interactive)
-  (calc-rewrite "ln(a^b) := b * ln(a)" nil))
+  (let ((rules (list "ln(x^p) := p * ln(x)"
+                     "log(x^p, b) := p * log(x, b)")))
+    (calc-wrapper
+     (calc-rewrite (s-join "," rules) nil))))
