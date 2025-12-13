@@ -293,3 +293,18 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
   (let ((rules (list "d := d * pi / 180")))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
+
+(defun my/calc-complete-the-square ()
+  "Completes the square given the form:
+
+    (c*a^2 +/- ba)
+
+where c is a constant.
+"
+  (interactive)
+  (let ((rules (list "a^2 + b*a := (a + b/2)^2 - (b/2)^2"
+                     "a^2 - b*a := (a - b/2)^2 - (b/2)^2"
+                     "c*a^2 + b*a := c * ((a - b/2*c)^2 - (b/2*c)^2)"
+                     "c*a^2 - b*a := c * ((a - b/2*c)^2 - (b/2*c)^2)")))
+    (calc-wrapper
+     (calc-rewrite (s-join "," rules) 1))))
