@@ -49,7 +49,6 @@
          (:map calc-mode-map ("x" . calc-expand))
          (:map calc-mode-map ("a e" . calc-simplify))
          (:map calc-mode-map ("a s" . calc-simplify-extended))
-         (:map calc-mode-map ("X" . my/calc-log-power-rule))
          ;; Solving
          (:map calc-mode-map ("i" . calc-solve-for))
          (:map calc-mode-map ("a l" . calc-poly-roots))
@@ -75,6 +74,9 @@
          (:map calc-mode-map ("u D" . calc-vector-median))
          (:map calc-mode-map ("v o" . calc-sort))
          (:map calc-mode-map ("M-u" . calc-unpack))
+         ;; Rewrite rules
+         (:map calc-mode-map ("X" . my/calc-log-power-rule))
+         (:map calc-mode-map ("k s" . my/calc-complete-the-square))
          ;; Trail
          (:map calc-mode-map ("t o" . calc-trail-in))
          (:map calc-trail-mode-map ("t o" . calc-trail-out))))
