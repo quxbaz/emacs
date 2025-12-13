@@ -40,8 +40,8 @@
          (:map calc-mode-map ("d ," . calc-group-digits))
          ;; (:map calc-mode-map ("P" . my/calc-pi))
          ;; Conversions
-         (:map calc-mode-map ("l d" . calc-to-degrees))
-         (:map calc-mode-map ("l r" . calc-to-radians))
+         (:map calc-mode-map ("l d" . my/calc-to-degrees))
+         (:map calc-mode-map ("l r" . my/calc-to-radians))
          (:map calc-mode-map ("l l" . calc-float))
          (:map calc-mode-map ("l c" . calc-fraction))
          ;; Algebraic operations
