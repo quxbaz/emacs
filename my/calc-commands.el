@@ -278,7 +278,7 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
   (let ((rules (list "ln(x^p) := p * ln(x)"
                      "log(x^p, b) := p * log(x, b)")))
     (calc-wrapper
-     (calc-rewrite (s-join "," rules) nil))))
+     (calc-rewrite (s-join "," rules) 1))))
 
 (defun my/calc-to-degrees ()
   "Converts radian value to degree."
