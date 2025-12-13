@@ -302,9 +302,9 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
 where c is a constant.
 "
   (interactive)
-  (let ((rules (list "a^2 + b*a := (a + b/2)^2 - (b/2)^2"
-                     "a^2 - b*a := (a - b/2)^2 - (b/2)^2"
-                     "c*a^2 + b*a := c * ((a - b/2*c)^2 - (b/2*c)^2)"
-                     "c*a^2 - b*a := c * ((a - b/2*c)^2 - (b/2*c)^2)")))
+  (let ((rules (list "a^2 + b*a := (a + b/2)^2 - (b/2)^2 :: variable(a)"
+                     "a^2 - b*a := (a - b/2)^2 - (b/2)^2 :: variable(a)"
+                     "c * a^2 + b*a := c * ((a + b/2*c)^2 - (b/2*c)^2) :: variable(a)"
+                     "c * a^2 - b*a := c * ((a - b/2*c)^2 - (b/2*c)^2) :: variable(a)")))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
