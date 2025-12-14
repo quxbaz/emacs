@@ -16,3 +16,9 @@
 
 ;;; Variable "var-eq-of-circle" stored by Calc on Fri Dec 12 16:36:29 2025
 (setq var-eq-of-circle '(calcFunc-eq (+ (^ (- (var x var-x) (var h var-h)) 2) (^ (- (var y var-y) (var k var-k)) 2)) (^ (var r var-r) 2)))
+
+;;; Variable "var-eq-law-of-cos-1" stored by Calc on Sun Dec 14 13:47:42 2025
+(setq var-eq-law-of-cos-1 '(calcFunc-eq (^ (var c var-c) 2) (- (+ (^ (var a var-a) 2) (^ (var b var-b) 2)) (* 2 (* (var a var-a) (* (var b var-b) (calcFunc-cos (var C var-C))))))))
+
+;;; Variable "var-eq-law-of-cos-2" stored by Calc on Sun Dec 14 13:47:47 2025
+(setq var-eq-law-of-cos-2 '(calcFunc-eq (calcFunc-cos (var C var-C)) (/ (- (+ (^ (var a var-a) 2) (^ (var b var-b) 2)) (^ (var c var-c) 2)) (* 2 (* (var a var-a) (var b var-b))))))
