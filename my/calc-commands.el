@@ -295,11 +295,9 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
      (calc-rewrite (s-join "," rules) 1))))
 
 (defun my/calc-complete-the-square ()
-  "Completes the square given the form:
+  "Completes the square:
 
-    (c*a^2 +/- ba)
-
-where c is a constant."
+    x^2 + kx  ->  (x + k/2)^2 - (k/2)^2 "
   (interactive)
   (let ((rules (list "a^2 + b*a := (a + b/2)^2 - (b/2)^2 :: variable(a)"
                      "a^2 - b*a := (a - b/2)^2 - (b/2)^2 :: variable(a)"
@@ -309,11 +307,9 @@ where c is a constant."
      (calc-rewrite (s-join "," rules) 1))))
 
 (defun my/calc-factor-difference-of-squares ()
-  "Given an expression in the form:
+  "Factors an expression in the form of a difference of squares:
 
-    a^2 - b^2
-
-factors it as a difference of squares."
+    a^2 - b^2  ->  (a+b)(a-b)"
   (interactive)
   (let ((rules (list "a^2 - b^2 := (a + b)(a - b)"
                      "a^2 + b^2 := (b + a*i)(b - a*i)"
