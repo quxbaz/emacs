@@ -303,10 +303,9 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
                      "x^2 - b*x := (x - b/2)^2 - (b/2)^2 :: variable(x)"
                      "a*x^2 + b*x := a * ((x + b/2*a)^2 - (b/2*a)^2) :: variable(x)"
                      "a*x^2 - b*x := a * ((x - b/2*a)^2 - (b/2*a)^2) :: variable(x)"
-                     ;; This rule is meant to complete a square when the
-                     ;; exponent is greater than 2, but it isn't too useful.
-                     ;; "x^p + b*x^q := x^(p-2) * ((x + b/2)^2 - (b/2)^2) ::
-                     ;; variable(x) :: p>2 :: p>q :: q=p-1"
+                     ;; This rule is meant to complete a square when the exponent is
+                     ;; greater than 2, but it isn't too useful.
+                     ;; "x^p + b*x^q := x^(p-2) * ((x + b/2)^2 - (b/2)^2) :: variable(x) :: p>2 :: p>q :: q=p-1"
                      )))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
