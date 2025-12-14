@@ -299,10 +299,11 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
 
     x^2 + kx  ->  (x + k/2)^2 - (k/2)^2 "
   (interactive)
-  (let ((rules (list "a^2 + b*a := (a + b/2)^2 - (b/2)^2 :: variable(a)"
-                     "a^2 - b*a := (a - b/2)^2 - (b/2)^2 :: variable(a)"
-                     "c * a^2 + b*a := c * ((a + b/2*c)^2 - (b/2*c)^2) :: variable(a)"
-                     "c * a^2 - b*a := c * ((a - b/2*c)^2 - (b/2*c)^2) :: variable(a)")))
+  (let ((rules (list "x^2 + b*x := (x + b/2)^2 - (b/2)^2 :: variable(x)"
+                     "x^2 - b*x := (x - b/2)^2 - (b/2)^2 :: variable(x)"
+                     "a*x^2 + b*x := a * ((x + b/2*a)^2 - (b/2*a)^2) :: variable(x)"
+                     "a*x^2 - b*x := a * ((x - b/2*a)^2 - (b/2*a)^2) :: variable(x)"
+                     "x^p + b*x^q := (x^(p/2) + b*x/2)^2 - (b*x/2)^2 :: variable(x) :: p>q :: q=p-1")))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
 
