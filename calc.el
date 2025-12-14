@@ -28,3 +28,6 @@
 
 ;;; Variable "var-eq-area-of-circular-sector" stored by Calc on Sun Dec 14 14:59:45 2025
 (setq var-eq-area-of-circular-sector '(calcFunc-eq (var A var-A) (/ (* (var a var-a) (^ (var r var-r) 2)) 2)))
+
+;;; Variable "var-eq-general-area-of-triangle" stored by Calc on Sun Dec 14 15:07:09 2025
+(setq var-eq-general-area-of-triangle '(calcFunc-eq (var A var-A) (/ (* (var a var-a) (* (var b var-b) (calcFunc-sin (var C var-C)))) 2)))
