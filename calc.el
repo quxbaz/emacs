@@ -25,3 +25,6 @@
 
 ;;; Variable "var-eq-py-trig-id" stored by Calc on Sun Dec 14 14:15:40 2025
 (setq var-eq-py-trig-id '(calcFunc-eq (+ (^ (calcFunc-cos (var a var-a)) 2) (^ (calcFunc-sin (var a var-a)) 2)) 1))
+
+;;; Variable "var-eq-pyramid-lat-surface-area" stored by Calc on Sun Dec 14 14:46:46 2025
+(setq var-eq-pyramid-lat-surface-area '(calcFunc-eq (var sl var-sl) (/ (* (var l var-l) (var p var-p)) 2)))
