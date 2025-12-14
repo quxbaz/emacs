@@ -22,3 +22,6 @@
 
 ;;; Variable "var-eq-law-of-cos-2" stored by Calc on Sun Dec 14 13:47:47 2025
 (setq var-eq-law-of-cos-2 '(calcFunc-eq (calcFunc-cos (var C var-C)) (/ (- (+ (^ (var a var-a) 2) (^ (var b var-b) 2)) (^ (var c var-c) 2)) (* 2 (* (var a var-a) (var b var-b))))))
+
+;;; Variable "var-eq-py-trig-id" stored by Calc on Sun Dec 14 14:15:40 2025
+(setq var-eq-py-trig-id '(calcFunc-eq (+ (^ (calcFunc-cos (var a var-a)) 2) (^ (calcFunc-sin (var a var-a)) 2)) 1))
