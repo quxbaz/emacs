@@ -28,3 +28,6 @@
 
 ;;; Variable "var-eq-pyramid-lat-surface-area" stored by Calc on Sun Dec 14 14:46:46 2025
 (setq var-eq-pyramid-lat-surface-area '(calcFunc-eq (var sl var-sl) (/ (* (var l var-l) (var p var-p)) 2)))
+
+;;; Variable "var-eq-area-of-circular-sector" stored by Calc on Sun Dec 14 14:59:45 2025
+(setq var-eq-area-of-circular-sector '(calcFunc-eq (var A var-A) (/ (* (var a var-a) (^ (var r var-r) 2)) 2)))
