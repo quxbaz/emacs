@@ -299,8 +299,7 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
 
     (c*a^2 +/- ba)
 
-where c is a constant.
-"
+where c is a constant."
   (interactive)
   (let ((rules (list "a^2 + b*a := (a + b/2)^2 - (b/2)^2 :: variable(a)"
                      "a^2 - b*a := (a - b/2)^2 - (b/2)^2 :: variable(a)"
