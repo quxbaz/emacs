@@ -307,3 +307,20 @@ where c is a constant."
                      "c * a^2 - b*a := c * ((a - b/2*c)^2 - (b/2*c)^2) :: variable(a)")))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
+
+(defun my/calc-factor-difference-of-squares ()
+  "Given an expression in the form:
+
+    a^2 - b^2
+
+factors it as a difference of squares."
+  (interactive)
+  (let ((rules (list "a^2 - b^2 := (a + b)(a - b)"
+                     "a^2 + b^2 := (b + a*i)(b - a*i)"
+                     "a^2 - b := (a + sqrt(b))(a - sqrt(b))"
+                     "a^2 + b := (a + sqrt(b)*i)(a - sqrt(b)*i)"
+                     ;; With coefficient
+                     "c * a^2 - b := c * (a + sqrt(b/c))(a - sqrt(b/c))"
+                     "c * a^2 + b := c * (a + sqrt(b/c)*i)(a - sqrt(b/c)*i)")))
+    (calc-wrapper
+     (calc-rewrite (s-join "," rules) 1))))
