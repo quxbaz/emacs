@@ -31,3 +31,6 @@
 
 ;;; Variable "var-eq-general-area-of-triangle" stored by Calc on Sun Dec 14 15:07:09 2025
 (setq var-eq-general-area-of-triangle '(calcFunc-eq (var A var-A) (/ (* (var a var-a) (* (var b var-b) (calcFunc-sin (var C var-C)))) 2)))
+
+;;; Variable "var-eq-volume-of-pyramid" stored by Calc on Mon Dec 15 13:05:06 2025
+(setq var-eq-volume-of-pyramid '(calcFunc-eq (var V var-V) (/ (* (var B var-B) (var h var-h)) 3)))
