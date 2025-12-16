@@ -34,3 +34,9 @@
 
 ;;; Variable "var-eq-volume-of-pyramid" stored by Calc on Mon Dec 15 13:05:06 2025
 (setq var-eq-volume-of-pyramid '(calcFunc-eq (var V var-V) (/ (* (var B var-B) (var h var-h)) 3)))
+
+;;; Variable "var-eq-surface-area-of-conical-frustrum" stored by Calc on Tue Dec 16 11:31:37 2025
+(setq var-eq-surface-area-of-conical-frustrum '(calcFunc-eq (var S var-S) (+ (+ (* (var pi var-pi) (* (var s var-s) (+ (var r1 var-r1) (var r2 var-r2)))) (* (var pi var-pi) (^ (var r1 var-r1) (cplx 2 0)))) (* (var pi var-pi) (^ (var r2 var-r2) (cplx 2 0))))))
+
+;;; Variable "var-eq-lateral-surface-area-of-conical-frustrum" stored by Calc on Tue Dec 16 11:31:43 2025
+(setq var-eq-lateral-surface-area-of-conical-frustrum '(calcFunc-eq (var S var-S) (* (var pi var-pi) (* (var s var-s) (+ (var r1 var-r1) (var r2 var-r2))))))
