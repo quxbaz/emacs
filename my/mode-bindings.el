@@ -48,6 +48,7 @@
          (:map calc-mode-map ("l c" . calc-fraction))
          ;; Algebraic operations
          (:map calc-mode-map ("m o" . calc-no-simplify-mode))
+         (:map calc-mode-map ("e" . calc-equal-to))
          (:map calc-mode-map ("=" . calc-equal-to))
          (:map calc-mode-map ("x" . calc-expand))
          (:map calc-mode-map ("a e" . calc-simplify))
