@@ -186,6 +186,29 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
         (insert "sqrt()")
         (backward-char)))))
 
+(defun my/calc-edit-ln ()
+  "Applies natural log to the preceeding expression or to the expression in region.
+Treats / as a separator (only applies sqrt after /), but keeps x:y together."
+  (interactive)
+  (if (use-region-p)
+      (let* ((start (region-beginning))
+             (end (region-end))
+             (expr (buffer-substring-no-properties start end)))
+        (delete-region start end)
+        (insert (format "ln(%s)" expr))
+        (deactivate-mark))
+    (let* ((end (point))
+           (start (save-excursion
+                    (skip-chars-backward "a-zA-Z0-9:._")
+                    (point)))
+           (expr (buffer-substring-no-properties start end)))
+      (if (> (length expr) 0)
+          (progn
+            (delete-region start end)
+            (insert (format "ln(%s)" expr)))
+        (insert "ln()")
+        (backward-char)))))
+
 (defun my/calc-vector-edit ()
   "Begins a vector entry."
   (interactive)
