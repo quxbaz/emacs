@@ -295,9 +295,12 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
      (calc-rewrite (s-join "," rules) 1))))
 
 (defun my/calc-complete-the-square ()
-  "Completes the square:
+  "Completes the square for quadratic expressions and equations.
 
-    x^2 + kx  ->  (x + k/2)^2 - (k/2)^2 "
+Handles forms like:
+    x^2 + bx          ->  (x + b/2)^2 - (b/2)^2
+    ax^2 + bx         ->  a*((x + b/2a)^2 - (b/2a)^2)
+    ax^2 + bx = y     ->  (x + b/2a)^2 - (b/2a)^2 = y/a"
   (interactive)
   (let ((rules (list
                 ;; x^2 ± x
@@ -323,9 +326,15 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
      (calc-rewrite (s-join "," rules) 1))))
 
 (defun my/calc-factor-difference-of-squares ()
-  "Factors an expression in the form of a difference of squares:
+  "Factors expressions as difference/sum of squares.
 
-    a^2 - b^2  ->  (a+b)(a-b)"
+Handles forms like:
+    a^2 - b^2         ->  (a + b)(a - b)
+    a^2 + b^2         ->  (b + a*i)(b - a*i)
+    a^2 - b           ->  (a + sqrt(b))(a - sqrt(b))
+    c*a^2 - b         ->  c*(a + sqrt(b/c))(a - sqrt(b/c))
+
+Uses complex numbers for sums of squares and square roots for non-square terms."
   (interactive)
   (let ((rules (list
                 ;; a^2 - b^2
