@@ -39,6 +39,8 @@
          (:map calc-mode-map ("W" . my/calc-square))
          (:map calc-mode-map ("d ," . calc-group-digits))
          ;; (:map calc-mode-map ("P" . my/calc-pi))
+         ;; Display, modes
+         (:map calc-mode-map ("G" . my/calc-toggle-big-language))
          ;; Conversions
          (:map calc-mode-map ("l d" . my/calc-to-degrees))
          (:map calc-mode-map ("l r" . my/calc-to-radians))
