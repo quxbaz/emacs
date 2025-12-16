@@ -327,13 +327,19 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
 
     a^2 - b^2  ->  (a+b)(a-b)"
   (interactive)
-  (let ((rules (list "a^2 - b^2 := (a + b)(a - b)"
-                     "a^2 + b^2 := (b + a*i)(b - a*i)"
-                     "a^2 - b := (a + sqrt(b))(a - sqrt(b))"
-                     "a^2 + b := (a + sqrt(b)*i)(a - sqrt(b)*i)"
-                     ;; With coefficient
-                     "c * a^2 - b := c * (a + sqrt(b/c))(a - sqrt(b/c))"
-                     "c * a^2 + b := c * (a + sqrt(b/c)*i)(a - sqrt(b/c)*i)"
-                     )))
+  (let ((rules (list
+                ;; a^2 - b^2
+                "a^2 - b^2 := (a + b)(a - b)"
+                ;; a^2 + b^2 (complex)
+                "a^2 + b^2 := (b + a*i)(b - a*i)"
+                ;; a^2 - b
+                "a^2 - b := (a + sqrt(b))(a - sqrt(b))"
+                ;; a^2 + b (complex)
+                "a^2 + b := (a + sqrt(b)*i)(a - sqrt(b)*i)"
+                ;; c*a^2 - b
+                "c * a^2 - b := c * (a + sqrt(b/c))(a - sqrt(b/c))"
+                ;; c*a^2 + b (complex)
+                "c * a^2 + b := c * (a + sqrt(b/c)*i)(a - sqrt(b/c)*i)"
+                )))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
