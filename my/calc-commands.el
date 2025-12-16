@@ -140,6 +140,14 @@ just the region."
        (calc-push '(var pi var-pi))
      (calc-enter-result 1 "pi*" (math-mul (calc-top-n 1) '(var pi var-pi))))))
 
+(defun my/calc-toggle-big-language ()
+  "Toggle between big language and normal display mode."
+  (interactive)
+  (calc-wrapper
+   (if (eq calc-language 'big)
+       (calc-normal-language)
+     (calc-big-language))))
+
 (defun my/calc-edit-square-dwim ()
   "Inserts ^2. Subsequent invocations increment the exponent value."
   (interactive)
