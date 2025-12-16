@@ -299,14 +299,26 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
 
     x^2 + kx  ->  (x + k/2)^2 - (k/2)^2 "
   (interactive)
-  (let ((rules (list "x^2 + x := (x + 1/2)^2 - (1/4) :: variable(x)"
-                     "x^2 - x := (x - 1/2)^2 - (1/4) :: variable(x)"
-                     "x^2 + b*x := (x + b/2)^2 - (b/2)^2 :: variable(x)"
-                     "x^2 - b*x := (x - b/2)^2 - (b/2)^2 :: variable(x)"
-                     "a*x^2 + x := a * ((x + 1/2*a)^2 - (1/2*a)^2) :: variable(x)"
-                     "a*x^2 - x := a * ((x - 1/2*a)^2 - (1/2*a)^2) :: variable(x)"
-                     "a*x^2 + b*x := a * ((x + b/2*a)^2 - (b/2*a)^2) :: variable(x)"
-                     "a*x^2 - b*x := a * ((x - b/2*a)^2 - (b/2*a)^2) :: variable(x)")))
+  (let ((rules (list
+                ;; x^2 ± x
+                "x^2 + x := (x + 1/2)^2 - (1/4) :: variable(x)"
+                "x^2 - x := (x - 1/2)^2 - (1/4) :: variable(x)"
+                ;; x^2 ± bx
+                "x^2 + b*x := (x + b/2)^2 - (b/2)^2 :: variable(x)"
+                "x^2 - b*x := (x - b/2)^2 - (b/2)^2 :: variable(x)"
+                ;; ax^2 ± x = y
+                "a*x^2 + x = y := (x + 1/2a)^2 - (1/2a)^2 = y/a :: variable(x)"
+                "a*x^2 - x = y := (x - 1/2a)^2 - (1/2a)^2 = y/a :: variable(x)"
+                ;; ax^2 ± bx = y
+                "a*x^2 + b*x = y := (x + b/2a)^2 - (b/2a)^2 = y/a :: variable(x)"
+                "a*x^2 - b*x = y := (x - b/2a)^2 - (b/2a)^2 = y/a :: variable(x)"
+                ;; ax^2 ± x (factored)
+                "a*x^2 + x := a * ((x + 1/2*a)^2 - (1/2*a)^2) :: variable(x)"
+                "a*x^2 - x := a * ((x - 1/2*a)^2 - (1/2*a)^2) :: variable(x)"
+                ;; ax^2 ± bx (factored)
+                "a*x^2 + b*x := a * ((x + b/2*a)^2 - (b/2*a)^2) :: variable(x)"
+                "a*x^2 - b*x := a * ((x - b/2*a)^2 - (b/2*a)^2) :: variable(x)"
+                )))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
 
