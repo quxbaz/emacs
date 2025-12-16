@@ -41,5 +41,5 @@
 ;;; Variable "var-eq-lateral-surface-area-of-conical-frustrum" stored by Calc on Tue Dec 16 11:31:43 2025
 (setq var-eq-lateral-surface-area-of-conical-frustrum '(calcFunc-eq (var S var-S) (* (var pi var-pi) (* (var s var-s) (+ (var r1 var-r1) (var r2 var-r2))))))
 
-;;; Variable "var-eq-volume-of-conical-frustrum" stored by Calc on Tue Dec 16 12:35:25 2025
-(setq var-eq-volume-of-conical-frustrum '(calcFunc-eq (var V var-V) (/ (* (var pi var-pi) (calcFunc-h (+ (+ (^ (var R var-R) 2) (^ (var r var-r) 2)) (* (var R var-R) (var r var-r))))) 3)))
+;;; Variable "var-eq-volume-of-conical-frustrum" stored by Calc on Tue Dec 16 12:36:50 2025
+(setq var-eq-volume-of-conical-frustrum '(calcFunc-eq (var V var-V) (/ (* (var h var-h) (* (var pi var-pi) (+ (+ (^ (var R var-R) 2) (^ (var r var-r) 2)) (* (var R var-R) (var r var-r))))) 3)))
