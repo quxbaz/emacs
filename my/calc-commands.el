@@ -333,6 +333,7 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
                      "a^2 + b := (a + sqrt(b)*i)(a - sqrt(b)*i)"
                      ;; With coefficient
                      "c * a^2 - b := c * (a + sqrt(b/c))(a - sqrt(b/c))"
-                     "c * a^2 + b := c * (a + sqrt(b/c)*i)(a - sqrt(b/c)*i)")))
+                     "c * a^2 + b := c * (a + sqrt(b/c)*i)(a - sqrt(b/c)*i)"
+                     )))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
