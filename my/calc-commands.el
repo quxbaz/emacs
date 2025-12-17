@@ -42,7 +42,8 @@
   (interactive)
   (let ((line (substring-no-properties (thing-at-point 'line))))
     (if (string-match "[0-9]+:" line)
-        (funcall (kmacro "j`"))
+        (progn (funcall (kmacro "j`"))
+               (move-end-of-line nil))
       (funcall (kmacro "'`")))))
 
 (defun my/calc-point-gte-last-entry-p ()
