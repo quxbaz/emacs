@@ -2,7 +2,8 @@
 
 
 (setq my/init-files (list user-init-file
-                          (concat user-emacs-directory "bugs.el")
+                          ;; (concat user-emacs-directory "bugs.el")
+                          (concat user-emacs-directory "calc.el")
                           (concat user-emacs-directory "scratch.el")
                           (concat user-emacs-directory "sql-notebook.el")
                           "~/.stumpwm.d/init.lisp"
