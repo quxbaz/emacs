@@ -287,14 +287,15 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
   "Like calc-sel-jump-equals, but unselects after jumping."
   (interactive)
   (let ((saved/calc-show-selections calc-show-selections))
-    (calc-show-selections -1)
     (unwind-protect
-        (progn (call-interactively 'calc-sel-jump-equals)
+        (progn (calc-show-selections -1)
+               (call-interactively 'calc-sel-jump-equals)
                (beginning-of-line)
                (search-forward-regexp "#")
                (backward-char))
       (call-interactively 'calc-unselect)
-      (calc-show-selections saved/calc-show-selections))))
+      (if (eq saved/calc-show-selections t)
+          (calc-show-selections t)))))
 
 (defun my/calc-sel-negate ()
   "Like calc-sel-negate, but unselects afterwards."
