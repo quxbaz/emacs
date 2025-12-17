@@ -383,3 +383,29 @@ Uses complex numbers for sums of squares and square roots for non-square terms."
                 )))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
+
+(defun my/calc-factor-difference-of-cubes ()
+  "Factors expressions as sum/difference of cubes.
+
+Handles forms like:
+    a^3 + b^3         ->  (a + b)(a^2 - ab + b^2)
+    a^3 - b^3         ->  (a - b)(a^2 + ab + b^2)
+    a^3 ± b           ->  Uses cube roots for non-cube terms
+    c*a^3 ± b^3       ->  With coefficients"
+  (interactive)
+  (let ((rules (list
+                ;; a^3 + b^3
+                "a^3 + b^3 := (a + b)(a^2 - a*b + b^2)"
+                ;; a^3 - b^3
+                "a^3 - b^3 := (a - b)(a^2 + a*b + b^2)"
+                ;; a^3 + b (with cube root)
+                "a^3 + b := (a + b^(1/3))(a^2 - a*b^(1/3) + b^(2/3))"
+                ;; a^3 - b (with cube root)
+                "a^3 - b := (a - b^(1/3))(a^2 + a*b^(1/3) + b^(2/3))"
+                ;; c*a^3 + b^3
+                "c*a^3 + b^3 := ((c^(1/3))*a + b)((c^(2/3))*a^2 - (c^(1/3))*a*b + b^2)"
+                ;; c*a^3 - b^3
+                "c*a^3 - b^3 := ((c^(1/3))*a - b)((c^(2/3))*a^2 + (c^(1/3))*a*b + b^2)"
+                )))
+    (calc-wrapper
+     (calc-rewrite (s-join "," rules) 1))))
