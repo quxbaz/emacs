@@ -22,7 +22,7 @@
 (use-package calc-ext
   :defer t
   :bind (;; Basic operations
-         ;; (:map calc-mode-map ("<escape> DEL" . calc-quit))
+         (:map calc-mode-map ("q" . my/calc-unselect-or-quit))
          (:map calc-mode-map ("C-c C-s" . calc-reset))
          (:map calc-mode-map ("C-j" . ignore))
          (:map calc-mode-map ("C-a" . my/calc-beginning-of-expression))
