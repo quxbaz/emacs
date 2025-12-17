@@ -62,6 +62,7 @@
          (:map calc-mode-map ("p" . calc-recall))
          (:map calc-mode-map ("s a" . calc-edit-variable))
          ;; Selection operations
+         (:map calc-mode-map ("j c" . my/calc-clear-selections))
          (:map calc-mode-map ("j i" . calc-sel-isolate))
          (:map calc-mode-map ("j e" . my/calc-sel-jump-equals))
          (:map calc-mode-map ("j l" . calc-commute-left))
