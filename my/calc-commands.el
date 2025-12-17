@@ -381,6 +381,10 @@ and handles coefficients."
                 "c * a^2 - b := c * (a + sqrt(b/c))(a - sqrt(b/c))"
                 ;; Squares: c*a^2 + b (complex)
                 "c * a^2 + b := c * (a + sqrt(b/c)*i)(a - sqrt(b/c)*i)"
+                ;; Squares: b - a^2 (reverse order)
+                "b - a^2 := (sqrt(b) + a)(sqrt(b) - a)"
+                ;; Squares: b - c*a^2 (reverse order with coefficient)
+                "b - c*a^2 := (sqrt(b) + sqrt(c)*a)(sqrt(b) - sqrt(c)*a)"
                 ;; Cubes: a^3 + b^3
                 "plain(a^3 + b^3) := (a + b)(a^2 - a*b + b^2)"
                 ;; Cubes: a^3 - b^3
