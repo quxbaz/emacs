@@ -386,13 +386,13 @@ and handles coefficients."
                 ;; Cubes: a^3 - b^3
                 "a^3 - b^3 := (a - b)(a^2 + a*b + b^2)"
                 ;; Cubes: a^3 + b (with cube root)
-                "a^3 + b := (a + b^(1/3))(a^2 - a*b^(1/3) + b^(2/3))"
+                "a^3 + b := (a + b^1:3)(a^2 - a*b^1:3 + b^2:3)"
                 ;; Cubes: a^3 - b (with cube root)
-                "a^3 - b := (a - b^(1/3))(a^2 + a*b^(1/3) + b^(2/3))"
+                "a^3 - b := (a - b^1:3)(a^2 + a*b^1:3 + b^2:3)"
                 ;; Cubes: c*a^3 + b^3
-                "c*a^3 + b^3 := ((c^(1/3))*a + b)((c^(2/3))*a^2 - (c^(1/3))*a*b + b^2)"
+                "c*a^3 + b^3 := ((c^1:3)*a + b)((c^2:3)*a^2 - (c^1:3)*a*b + b^2)"
                 ;; Cubes: c*a^3 - b^3
-                "c*a^3 - b^3 := ((c^(1/3))*a - b)((c^(2/3))*a^2 + (c^(1/3))*a*b + b^2)"
+                "c*a^3 - b^3 := ((c^1:3)*a - b)((c^2:3)*a^2 + (c^1:3)*a*b + b^2)"
                 )))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
