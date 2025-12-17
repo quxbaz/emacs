@@ -300,6 +300,16 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
       (call-interactively 'calc-unselect)
       (setf (point) saved-point))))
 
+(defun my/calc-unselect-or-quit ()
+  "Unselect if selection is active, otherwise quit calc."
+  (interactive)
+  (let ((before-state (buffer-substring-no-properties (point-min) (point-max))))
+    (call-interactively 'calc-unselect)
+    (let ((after-state (buffer-substring-no-properties (point-min) (point-max))))
+      (when (string= before-state after-state)
+        ;; No selection was active, quit calc
+        (calc-quit)))))
+
 
 ;; Rewrite Rules
 
