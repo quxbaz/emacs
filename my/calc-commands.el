@@ -393,6 +393,10 @@ and handles coefficients."
                 "plain(c*a^3 + b^3) := ((c^1:3)*a + b)((c^2:3)*a^2 - (c^1:3)*a*b + b^2)"
                 ;; Cubes: c*a^3 - b^3
                 "plain(c*a^3 - b^3) := ((c^1:3)*a - b)((c^2:3)*a^2 + (c^1:3)*a*b + b^2)"
+                ;; Cubes: c*a^3 + d (both with cube roots)
+                "plain(c*a^3 + d) := ((c^1:3)*a + d^1:3)((c^2:3)*a^2 - (c^1:3)*(d^1:3)*a + d^2:3)"
+                ;; Cubes: c*a^3 - d (both with cube roots)
+                "plain(c*a^3 - d) := ((c^1:3)*a - d^1:3)((c^2:3)*a^2 + (c^1:3)*(d^1:3)*a + d^2:3)"
                 )))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
