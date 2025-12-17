@@ -273,6 +273,14 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
 
 ;; Expression Manipulation
 
+(defun my/calc-clear-selections ()
+  "Like calc-clear-selections, but retains point position."
+  (interactive)
+  (let ((saved-point (point)))
+    (unwind-protect
+        (calc-clear-selections)
+      (setf (point) saved-point))))
+
 (defun my/calc-commute ()
   "Like calc-sel-commute, but works on the line instead of the current selection."
   (interactive)
