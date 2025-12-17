@@ -43,3 +43,9 @@
 
 ;;; Variable "var-eq-volume-of-conical-frustrum" stored by Calc on Tue Dec 16 12:36:50 2025
 (setq var-eq-volume-of-conical-frustrum '(calcFunc-eq (var V var-V) (/ (* (var h var-h) (* (var pi var-pi) (+ (+ (^ (var R var-R) 2) (^ (var r var-r) 2)) (* (var R var-R) (var r var-r))))) 3)))
+
+;;; Variable "var-eq-surface-area-of-sphere" stored by Calc on Wed Dec 17 14:56:06 2025
+(setq var-eq-surface-area-of-sphere '(calcFunc-eq (var S var-S) (* 4 (* (var pi var-pi) (^ (var r var-r) 2)))))
+
+;;; Variable "var-eq-volume-of-sphere" stored by Calc on Wed Dec 17 14:56:52 2025
+(setq var-eq-volume-of-sphere '(calcFunc-eq (var V var-V) (* (frac 4 3) (* (var pi var-pi) (^ (var r var-r) 3)))))
