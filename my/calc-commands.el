@@ -356,55 +356,42 @@ Handles forms like:
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
 
-(defun my/calc-factor-difference-of-squares ()
-  "Factors expressions as difference/sum of squares.
+(defun my/calc-factor-powers ()
+  "Factors expressions as sums/differences of squares and cubes.
 
 Handles forms like:
     a^2 - b^2         ->  (a + b)(a - b)
     a^2 + b^2         ->  (b + a*i)(b - a*i)
-    a^2 - b           ->  (a + sqrt(b))(a - sqrt(b))
-    c*a^2 - b         ->  c*(a + sqrt(b/c))(a - sqrt(b/c))
-
-Uses complex numbers for sums of squares and square roots for non-square terms."
-  (interactive)
-  (let ((rules (list
-                ;; a^2 - b^2
-                "a^2 - b^2 := (a + b)(a - b)"
-                ;; a^2 + b^2 (complex)
-                "a^2 + b^2 := (b + a*i)(b - a*i)"
-                ;; a^2 - b
-                "a^2 - b := (a + sqrt(b))(a - sqrt(b))"
-                ;; a^2 + b (complex)
-                "a^2 + b := (a + sqrt(b)*i)(a - sqrt(b)*i)"
-                ;; c*a^2 - b
-                "c * a^2 - b := c * (a + sqrt(b/c))(a - sqrt(b/c))"
-                ;; c*a^2 + b (complex)
-                "c * a^2 + b := c * (a + sqrt(b/c)*i)(a - sqrt(b/c)*i)"
-                )))
-    (calc-wrapper
-     (calc-rewrite (s-join "," rules) 1))))
-
-(defun my/calc-factor-difference-of-cubes ()
-  "Factors expressions as sum/difference of cubes.
-
-Handles forms like:
     a^3 + b^3         ->  (a + b)(a^2 - ab + b^2)
     a^3 - b^3         ->  (a - b)(a^2 + ab + b^2)
-    a^3 ± b           ->  Uses cube roots for non-cube terms
-    c*a^3 ± b^3       ->  With coefficients"
+
+Uses complex numbers for sums of squares, cube roots for non-cube terms,
+and handles coefficients."
   (interactive)
   (let ((rules (list
-                ;; a^3 + b^3
+                ;; Squares: a^2 - b^2
+                "a^2 - b^2 := (a + b)(a - b)"
+                ;; Squares: a^2 + b^2 (complex)
+                "a^2 + b^2 := (b + a*i)(b - a*i)"
+                ;; Squares: a^2 - b
+                "a^2 - b := (a + sqrt(b))(a - sqrt(b))"
+                ;; Squares: a^2 + b (complex)
+                "a^2 + b := (a + sqrt(b)*i)(a - sqrt(b)*i)"
+                ;; Squares: c*a^2 - b
+                "c * a^2 - b := c * (a + sqrt(b/c))(a - sqrt(b/c))"
+                ;; Squares: c*a^2 + b (complex)
+                "c * a^2 + b := c * (a + sqrt(b/c)*i)(a - sqrt(b/c)*i)"
+                ;; Cubes: a^3 + b^3
                 "a^3 + b^3 := (a + b)(a^2 - a*b + b^2)"
-                ;; a^3 - b^3
+                ;; Cubes: a^3 - b^3
                 "a^3 - b^3 := (a - b)(a^2 + a*b + b^2)"
-                ;; a^3 + b (with cube root)
+                ;; Cubes: a^3 + b (with cube root)
                 "a^3 + b := (a + b^(1/3))(a^2 - a*b^(1/3) + b^(2/3))"
-                ;; a^3 - b (with cube root)
+                ;; Cubes: a^3 - b (with cube root)
                 "a^3 - b := (a - b^(1/3))(a^2 + a*b^(1/3) + b^(2/3))"
-                ;; c*a^3 + b^3
+                ;; Cubes: c*a^3 + b^3
                 "c*a^3 + b^3 := ((c^(1/3))*a + b)((c^(2/3))*a^2 - (c^(1/3))*a*b + b^2)"
-                ;; c*a^3 - b^3
+                ;; Cubes: c*a^3 - b^3
                 "c*a^3 - b^3 := ((c^(1/3))*a - b)((c^(2/3))*a^2 + (c^(1/3))*a*b + b^2)"
                 )))
     (calc-wrapper
