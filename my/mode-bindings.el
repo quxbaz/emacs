@@ -91,6 +91,8 @@
           (lambda ()
             (push 34 (cl-getf autopair-dont-pair :never))  ;; Don't autopair double quotes.
             (setq my/calc-history-index -1)
+            (keymap-set calc-edit-mode-map "M-w" 'my/lisp-kill-ring-save-dwim)
+            (keymap-set calc-edit-mode-map "C-M-." 'my/mark-list-command)
             (keymap-set calc-edit-mode-map "M-p" 'my/calc-edit-history-prev)
             (keymap-set calc-edit-mode-map "M-n" 'my/calc-edit-history-next)
             (keymap-set calc-edit-mode-map "RET" 'my/calc-edit-finish)
