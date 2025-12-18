@@ -440,9 +440,13 @@ and handles coefficients."
                 "plain(c*a^3 + d) := ((c^1:3)*a + d^1:3)((c^2:3)*a^2 - (c^1:3)*(d^1:3)*a + d^2:3)"
                 ;; Cubes: c*a^3 - d (both with cube roots)
                 "plain(c*a^3 - d) := ((c^1:3)*a - d^1:3)((c^2:3)*a^2 + (c^1:3)*(d^1:3)*a + d^2:3)"
-                ;; Higher powers: a^(2n) as difference of squares
+                ;; Higher powers: a^n as difference of squares
                 "plain(a^n - b) := ((a^(n/2)) + sqrt(b))((a^(n/2)) - sqrt(b)) :: n > 3"
                 "plain(a^n + b) := ((a^(n/2)) + sqrt(b)*i)((a^(n/2)) - sqrt(b)*i) :: n > 3"
+                ;; Higher powers: c*a^m - b^n as difference of squares
+                "plain(c*a^m - b^n) := (sqrt(c)*a^(m/2) + b^(m/2))(sqrt(c)*a^(m/2) - b^(m/2)) :: m > 3"
+                ;; Higher powers: c*a^m - d*b^n as difference of squares
+                "plain(c*a^m - d*b^n) := (sqrt(c)*a^(m/2) + sqrt(d)*b^(m/2))(sqrt(c)*a^(m/2) - sqrt(d)*b^(m/2)) :: m > 3"
                 )))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
