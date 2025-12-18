@@ -380,8 +380,7 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
   "Applies modulo 360 (degrees)."
   (interactive)
   (calc-wrapper
-   (calc-push 360)
-   (call-interactively 'calc-mod)))
+   (calc-enter-result 1 "m360" (math-mod (calc-top-n 1) 360))))
 
 (defun my/calc-complete-the-square ()
   "Completes the square for quadratic expressions and equations.
