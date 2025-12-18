@@ -45,6 +45,7 @@
          (:map calc-mode-map ("l r" . my/calc-to-radians))
          (:map calc-mode-map ("l l" . calc-float))
          (:map calc-mode-map ("l c" . calc-fraction))
+         (:map calc-mode-map ("M-c" . my/calc-mod-360))
          ;; Algebraic operations
          (:map calc-mode-map ("@" . calc-no-simplify-mode))
          (:map calc-mode-map ("=" . calc-equal-to))

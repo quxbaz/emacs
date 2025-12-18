@@ -376,6 +376,13 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
 
+(defun my/calc-mod-360 ()
+  "Applies modulo 360 (degrees)."
+  (interactive)
+  (calc-wrapper
+   (calc-push 360)
+   (call-interactively 'calc-mod)))
+
 (defun my/calc-complete-the-square ()
   "Completes the square for quadratic expressions and equations.
 
