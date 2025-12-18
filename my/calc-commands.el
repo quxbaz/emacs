@@ -382,6 +382,15 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
   (calc-wrapper
    (calc-enter-result 1 "m360" (math-mod (calc-top-n 1) 360))))
 
+(defun my/calc-mod-360-minibuffer ()
+  "Applies modulo 360 (degrees)."
+  (interactive)
+  (let ((minibuffer-digit-value (math-read-number (minibuffer-contents))))
+    (message "%s" minibuffer-digit-value))
+  (calc-wrapper
+   ;; TODO
+   ))
+
 (defun my/calc-complete-the-square ()
   "Completes the square for quadratic expressions and equations.
 
