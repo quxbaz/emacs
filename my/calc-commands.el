@@ -151,6 +151,18 @@ just the region."
        (calc-push '(var pi var-pi))
      (calc-enter-result 1 "pi*" (math-mul (calc-top-n 1) '(var pi var-pi))))))
 
+(defun my/calc-quick-variable ()
+  "Reads a character and pushes it as a variable onto the calc stack."
+  (interactive)
+  (let ((char (read-char-from-minibuffer "Enter a variable: ")))
+    (if (or (and (>= char ?a) (<= char ?z))
+            (and (>= char ?A) (<= char ?Z)))
+        (let* ((var-name (intern (char-to-string char)))
+               (var-symbol (intern (concat "var-" (char-to-string char)))))
+          (calc-wrapper
+           (calc-push (list 'var var-name var-symbol))))
+      (message "Invalid character. Must be a-z or A-Z."))))
+
 (defun my/calc-toggle-big-language ()
   "Toggle between big language and normal display mode."
   (interactive)

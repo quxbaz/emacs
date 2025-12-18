@@ -59,6 +59,7 @@
          (:map calc-mode-map ("a m" . calc-map-equation))
          (:map calc-mode-map ("a o" . calc-collect))
          ;; Variables
+         (:map calc-mode-map ("," . my/calc-quick-variable))
          (:map calc-mode-map ("p" . calc-recall))
          (:map calc-mode-map ("s a" . calc-edit-variable))
          ;; Selection operations
