@@ -87,6 +87,7 @@
 
 (add-hook 'calc-edit-mode-hook
           (lambda ()
+            (push 34 (cl-getf autopair-dont-pair :never))  ;; Don't autopair double quotes.
             (setq my/calc-history-index -1)
             (keymap-set calc-edit-mode-map "M-p" 'my/calc-edit-history-prev)
             (keymap-set calc-edit-mode-map "M-n" 'my/calc-edit-history-next)
@@ -107,6 +108,7 @@
             ;; (keymap-set calc-edit-mode-map "\"" (my/cmd (insert "'")))
             (keymap-set calc-edit-mode-map "'" 'my/calc-edit-square-dwim)
             (keymap-set calc-edit-mode-map "W" 'my/calc-edit-square-dwim)
+            (keymap-set calc-edit-mode-map "\"" 'my/calc-edit-cube-dwim)
             (keymap-set calc-edit-mode-map "\\" 'my/calc-edit-sqrt-dwim)
             (keymap-set calc-edit-mode-map "L" 'my/calc-edit-ln)))
 
