@@ -446,7 +446,7 @@ and handles coefficients."
                 ;; Higher powers: c*a^m - b^n as difference of squares
                 "plain(c*a^m - b^n) := (sqrt(c)*a^(m/2) + b^(m/2))(sqrt(c)*a^(m/2) - b^(m/2)) :: m > 3"
                 ;; Higher powers: c*a^m - d*b^n as difference of squares
-                "plain(c*a^m - d*b^n) := (sqrt(c)*a^(m/2) + sqrt(d)*b^(m/2))(sqrt(c)*a^(m/2) - sqrt(d)*b^(m/2)) :: m > 3"
+                "plain(c*a^m - d*b^n) := (sqrt(c)*a^(m/2) + sqrt(d)*b^(n/2))(sqrt(c)*a^(m/2) - sqrt(d)*b^(n/2)) :: m > 3"
                 )))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
