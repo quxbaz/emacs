@@ -307,6 +307,19 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
         ((looking-at "\\]")
          (delete-char 1) (insert ")") (backward-char 1))))
 
+(defun my/calc-duplicate-paren-expr ()
+  "Duplicates the innermost parenthesized expression surrounding point.
+
+The duplicate is inserted immediately after the closing parenthesis.
+Point is moved to the corresponding position within the duplicate."
+  (interactive)
+  (when (> (nth 0 (syntax-ppss)) 0)
+    (let ((expr (thing-at-point 'list))
+          (offset (my/distance-from-opening-paren)))
+      (goto-char (my/closing-paren-position))
+      (insert expr) (backward-char)
+      (goto-char (+ (my/opening-paren-position) offset)))))
+
 
 ;; Expression Manipulation
 
