@@ -49,3 +49,6 @@
 
 ;;; Variable "var-eq-volume-of-sphere" stored by Calc on Wed Dec 17 14:56:52 2025
 (setq var-eq-volume-of-sphere '(calcFunc-eq (var V var-V) (* (frac 4 3) (* (var pi var-pi) (^ (var r var-r) 3)))))
+
+;;; Variable "var-eq-volume-of-cylinder" stored by Calc on Thu Dec 18 22:06:41 2025
+(setq var-eq-volume-of-cylinder '(calcFunc-eq (var V var-V) (* (var pi var-pi) (* (^ (var r var-r) (cplx 2 0)) (var h var-h)))))
