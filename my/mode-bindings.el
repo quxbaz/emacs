@@ -21,7 +21,7 @@
 
 (with-eval-after-load 'calc
   (define-key calc-digit-map ";" (my/cmd (insert ":")))
-  (define-key calc-digit-map "o" 'my/calc-mod-360-minibuffer))
+  (define-key calc-digit-map "o" 'my/calc-mod-360-from-minibuffer))
 
 (use-package calc-ext
   :defer t

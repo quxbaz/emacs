@@ -382,7 +382,7 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
   (calc-wrapper
    (calc-enter-result 1 "norm" (math-mod (calc-top-n 1) 360))))
 
-(defun my/calc-mod-360-minibuffer ()
+(defun my/calc-mod-360-from-minibuffer ()
   "Applies modulo 360 (degrees) from minibuffer."
   (interactive)
   (let ((input (math-read-number (minibuffer-contents))))
