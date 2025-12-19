@@ -380,7 +380,7 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
   "Applies modulo 360 (degrees)."
   (interactive)
   (calc-wrapper
-   (calc-enter-result 1 "m360" (math-mod (calc-top-n 1) 360))))
+   (calc-enter-result 1 "norm" (math-mod (calc-top-n 1) 360))))
 
 (defun my/calc-mod-360-minibuffer ()
   "Applies modulo 360 (degrees)."
