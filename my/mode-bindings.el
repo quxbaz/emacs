@@ -23,6 +23,9 @@
   (define-key calc-digit-map ";" 'my/calc-insert-colon)
   (define-key calc-digit-map "o" 'my/calc-mod-360-from-minibuffer))
 
+(with-eval-after-load 'calc-store
+  (define-key calc-var-name-map ";" 'my/calc-insert-colon))
+
 (use-package calc-ext
   :defer t
   :bind (;; Basic operations
