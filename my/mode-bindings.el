@@ -20,7 +20,7 @@
      (keymap-set calc-mode-map "SPC" 'my/calc-edit)))
 
 (with-eval-after-load 'calc
-  (define-key calc-digit-map ";" (my/cmd (insert ":")))
+  (define-key calc-digit-map ";" 'my/calc-insert-colon)
   (define-key calc-digit-map "o" 'my/calc-mod-360-from-minibuffer))
 
 (use-package calc-ext
