@@ -323,7 +323,11 @@ Point is moved to the corresponding position within the duplicate."
           (offset (my/distance-from-opening-paren)))
       (goto-char (my/closing-paren-position))
       (insert expr) (backward-char)
-      (goto-char (+ (my/opening-paren-position) offset)))))
+      (goto-char (+ (my/opening-paren-position) offset))
+      (let ((char (read-char-from-minibuffer "Replace character at point: ")))
+        (unless (= char 0)
+          (delete-char 1)
+          (insert char))))))
 
 
 ;; Expression Manipulation
