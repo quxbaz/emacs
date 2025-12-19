@@ -19,6 +19,10 @@
      (keymap-set calc-mode-map "M-w" 'my/calc-kill-ring-save-dwim)
      (keymap-set calc-mode-map "SPC" 'my/calc-edit)))
 
+(with-eval-after-load 'calc
+  (define-key calc-digit-map ";" (my/cmd (insert ":")))
+  (define-key calc-digit-map "o" 'my/calc-mod-360-minibuffer))
+
 (use-package calc-ext
   :defer t
   :bind (;; Basic operations
