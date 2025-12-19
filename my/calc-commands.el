@@ -18,6 +18,11 @@
         (t
          (call-interactively 'calc))))
 
+(defun my/calc-insert-colon ()
+  "Inserts a colon character."
+  (interactive)
+  (insert ":"))
+
 (defun my/calc-beginning-of-expression ()
   "Moves point to beginning of expression on current line."
   (interactive)
