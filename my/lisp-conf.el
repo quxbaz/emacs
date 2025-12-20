@@ -1,6 +1,5 @@
 ;; -*- lexical-binding: t; -*-
-
-
+;;
 ;; Lisp config
 
 
