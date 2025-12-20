@@ -1,4 +1,4 @@
-# name: err-condition-case
+# name: condition-case
 # key: try
 # --
 (condition-case ${1:nil}
