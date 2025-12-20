@@ -1,0 +1,4 @@
+# name: seq-mapc
+# key: ,
+# --
+(mapc ${1:FUNCTION} ${2:SEQUENCE})
