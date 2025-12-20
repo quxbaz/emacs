@@ -1,0 +1,4 @@
+# name: ignore-errors
+# key: try
+# --
+(ignore-errors $0)
