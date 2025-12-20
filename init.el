@@ -20,14 +20,13 @@
 (load-file (concat user-emacs-directory "my/lib-js.el"))
 (load-file (concat user-emacs-directory "my/util.el"))
 (load-file (concat user-emacs-directory "my/commands.el"))
-(load-file (concat user-emacs-directory "my/calc-commands.el"))
 (load-file (concat user-emacs-directory "my/lisp-commands.el"))
 (load-file (concat user-emacs-directory "my/lisp-conf.el"))
 (load-file (concat user-emacs-directory "my/bindings.el"))
 (load-file (concat user-emacs-directory "my/mode-bindings.el"))
 (load-file (concat user-emacs-directory "my/kmacros.el"))
 (load-file (concat user-emacs-directory "my/hooks.el"))
-(load-file (concat user-emacs-directory "my/lisp-conf.el"))
+(load-file (concat user-emacs-directory "my/calc/index.el"))
 
 ;; Autoloads
 (autoload 'sql-lisp-mode (concat user-emacs-directory "my/lib-sql.el") "A mode for SQL interaction through evaluation of Emacs Lisp forms." t)
