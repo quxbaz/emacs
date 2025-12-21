@@ -8,6 +8,17 @@
   (interactive)
   (insert ":"))
 
+(defun my/calc-insert-pi-from-minibuffer ()
+  "Pushes entry and multiplies by pi."
+  (interactive)
+  (let ((input (math-read-number (minibuffer-contents))))
+    (delete-minibuffer-contents)
+    (calc-wrapper
+     (calc-push-list (list input))
+     (calc-pop-push-record 0 "pi" '(var pi var-pi))
+     (calc-binary-op "*" 'calcFunc-mul 2 1 nil '*))
+    (exit-minibuffer)))
+
 (defun my/calc-equal-to-from-minibuffer ()
   "Applies equal-to from minibuffer."
   (interactive)
