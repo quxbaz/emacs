@@ -18,15 +18,6 @@
      (call-interactively 'calc-equal-to))
     (exit-minibuffer)))
 
-(defun my/calc-power-from-minibuffer ()
-  "Applies power from minibuffer."
-  (interactive)
-  (let ((input (math-read-number (minibuffer-contents))))
-    (delete-minibuffer-contents)
-    (calc-wrapper
-     (calc-enter-result 1 "^" (calcFunc-pow (calc-top) input)))
-    (exit-minibuffer)))
-
 (defun my/calc-mod-360-from-minibuffer ()
   "Applies modulo 360 (degrees) from minibuffer."
   (interactive)
