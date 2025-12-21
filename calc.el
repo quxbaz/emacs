@@ -67,3 +67,6 @@
 
 ;;; Variable "var-eq-lateral-surface-area-of-cone" stored by Calc on Sun Dec 21 15:14:49 2025
 (setq var-eq-lateral-surface-area-of-cone '(calcFunc-eq (var S var-S) (* (var pi var-pi) (* (var r var-r) (var s var-s)))))
+
+;;; Variable "var-eq-surface-area-of-cone" stored by Calc on Sun Dec 21 15:14:56 2025
+(setq var-eq-surface-area-of-cone '(calcFunc-eq (var S var-S) (+ (* (var pi var-pi) (* (var r var-r) (var s var-s))) (* (var pi var-pi) (^ (var r var-r) 2)))))
