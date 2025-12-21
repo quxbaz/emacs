@@ -61,3 +61,6 @@
 
 ;;; Variable "var-eq-lateral-surface-area-of-cylinder" stored by Calc on Sat Dec 20 20:26:20 2025
 (setq var-eq-lateral-surface-area-of-cylinder '(calcFunc-eq (var S var-S) (* 2 (* (var h var-h) (* (var pi var-pi) (var r var-r))))))
+
+;;; Variable "var-eq-sum-of-interior-polygon-angles" stored by Calc on Sat Dec 20 22:01:55 2025
+(setq var-eq-sum-of-interior-polygon-angles '(calcFunc-eq (var S var-S) (- (* 180 (var n var-n)) 360)))
