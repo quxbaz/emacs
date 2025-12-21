@@ -132,14 +132,14 @@
 
             ;; Power shortcuts
             (keymap-set calc-edit-mode-map ":" 'my/calc-edit-power)
-            (keymap-set calc-edit-mode-map "M-2" (kmacro "^ 2"))
-            (keymap-set calc-edit-mode-map "M-3" (kmacro "^ 3"))
-            (keymap-set calc-edit-mode-map "M-4" (kmacro "^ 4"))
-            (keymap-set calc-edit-mode-map "M-5" (kmacro "^ 5"))
-            (keymap-set calc-edit-mode-map "M-6" (kmacro "^ 6"))
-            (keymap-set calc-edit-mode-map "M-7" (kmacro "^ 7"))
-            (keymap-set calc-edit-mode-map "M-8" (kmacro "^ 8"))
-            (keymap-set calc-edit-mode-map "M-9" (kmacro "^ 9"))
+            (keymap-set calc-edit-mode-map "M-2" (my/cmd (insert "^2")))
+            (keymap-set calc-edit-mode-map "M-3" (my/cmd (insert "^3")))
+            (keymap-set calc-edit-mode-map "M-4" (my/cmd (insert "^4")))
+            (keymap-set calc-edit-mode-map "M-5" (my/cmd (insert "^5")))
+            (keymap-set calc-edit-mode-map "M-6" (my/cmd (insert "^6")))
+            (keymap-set calc-edit-mode-map "M-7" (my/cmd (insert "^7")))
+            (keymap-set calc-edit-mode-map "M-8" (my/cmd (insert "^8")))
+            (keymap-set calc-edit-mode-map "M-9" (my/cmd (insert "^9")))
 
             ;; Math operations
             (keymap-set calc-edit-mode-map "'" 'my/calc-edit-square-dwim)
