@@ -8,6 +8,16 @@
   (interactive)
   (insert ":"))
 
+(defun my/calc-equal-to-from-minibuffer ()
+  "Applies equal-to from minibuffer."
+  (interactive)
+  (let ((input (math-read-number (minibuffer-contents))))
+    (delete-minibuffer-contents)
+    (calc-wrapper
+     (calc-push input)
+     (call-interactively 'calc-equal-to))
+    (exit-minibuffer)))
+
 (defun my/calc-power-from-minibuffer ()
   "Applies power from minibuffer."
   (interactive)

@@ -12,6 +12,7 @@
 ;; calc-digit-map (minibuffer input)
 (with-eval-after-load 'calc
   (define-key calc-digit-map ";" 'my/calc-insert-colon)
+  (define-key calc-digit-map "e" 'my/calc-equal-to-from-minibuffer)
   (define-key calc-digit-map ":" 'my/calc-power-from-minibuffer)
   (define-key calc-digit-map "o" 'my/calc-mod-360-from-minibuffer))
 
