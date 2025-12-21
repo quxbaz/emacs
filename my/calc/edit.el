@@ -66,6 +66,12 @@
     (when (looking-back "," (line-beginning-position))
       (delete-char -1))))
 
+(defun my/calc-edit-power ()
+  "Inserts ^"
+  (interactive)
+  (if (not (looking-back "\\^" (line-beginning-position)))
+      (insert "^")))
+
 (defun my/calc-edit-square-dwim ()
   "Inserts ^2. Subsequent invocations increment the exponent value."
   (interactive)

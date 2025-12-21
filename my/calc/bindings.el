@@ -12,6 +12,7 @@
 ;; calc-digit-map (minibuffer input)
 (with-eval-after-load 'calc
   (define-key calc-digit-map ";" 'my/calc-insert-colon)
+  (define-key calc-digit-map ":" 'my/calc-power-from-minibuffer)
   (define-key calc-digit-map "o" 'my/calc-mod-360-from-minibuffer))
 
 ;; calc-var-name-map (minibuffer input)
@@ -37,6 +38,7 @@
          (:map calc-mode-map ("M-=" . calc-evaluate))
          (:map calc-mode-map ("k k" . my/calc-evaluate))
          (:map calc-mode-map ("o" . calc-inv))
+         (:map calc-mode-map (":" . calc-power))
          (:map calc-mode-map ("\\" . calc-sqrt))
          (:map calc-mode-map ("W" . my/calc-square))
 
@@ -128,6 +130,7 @@
             (keymap-set calc-edit-mode-map "P" (kmacro "p i"))
 
             ;; Power shortcuts
+            (keymap-set calc-edit-mode-map ":" 'my/calc-edit-power)
             (keymap-set calc-edit-mode-map "M-2" (kmacro "^ 2"))
             (keymap-set calc-edit-mode-map "M-3" (kmacro "^ 3"))
             (keymap-set calc-edit-mode-map "M-4" (kmacro "^ 4"))
