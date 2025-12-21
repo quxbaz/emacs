@@ -119,6 +119,12 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
         (insert "sqrt()")
         (backward-char)))))
 
+(defun my/calc-edit-insert-sqrt ()
+  "Inserts sqrt()."
+  (interactive)
+  (insert "sqrt()")
+  (backward-char))
+
 (defun my/calc-edit-ln ()
   "Applies natural log to the preceeding expression or to the expression in region.
 Treats / as a separator (only applies sqrt after /), but keeps x:y together."

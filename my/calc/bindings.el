@@ -144,6 +144,7 @@
             (keymap-set calc-edit-mode-map "W" 'my/calc-edit-square-dwim)
             (keymap-set calc-edit-mode-map "\"" 'my/calc-edit-cube-dwim)
             (keymap-set calc-edit-mode-map "\\" 'my/calc-edit-sqrt-dwim)
+            (keymap-set calc-edit-mode-map "M-q" 'my/calc-edit-insert-sqrt)
             (keymap-set calc-edit-mode-map "L" 'my/calc-edit-ln)))
 
 (provide 'my/calc/bindings)
