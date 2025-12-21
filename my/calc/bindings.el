@@ -127,8 +127,8 @@
             (keymap-set calc-edit-mode-map "@" 'calc-no-simplify-mode)
 
             ;; Special characters and shortcuts
-            (keymap-set calc-edit-mode-map ";" (kmacro ":"))
-            (keymap-set calc-edit-mode-map "P" (kmacro "p i"))
+            (keymap-set calc-edit-mode-map ";" (my/cmd (insert ":")))
+            (keymap-set calc-edit-mode-map "P" (my/cmd (insert "pi")))
 
             ;; Power shortcuts
             (keymap-set calc-edit-mode-map ":" 'my/calc-edit-power)
