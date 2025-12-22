@@ -5,12 +5,12 @@
 
 (defun my/calc-no-selection-p ()
   "Returns t if there are no active selections."
-  (and calc-use-selections
-       (seq-some (lambda (elt) (nth 2 elt)) calc-stack)))
+  (not (my/calc-no-selection-p)))
 
 (defun my/calc-active-selection-p ()
   "Returns t if there are any active selections."
-  (not (my/calc-no-selection-p)))
+  (and calc-use-selections
+       (seq-some (lambda (elt) (nth 2 elt)) calc-stack)))
 
 (defun my/calc-clear-selections ()
   "Like calc-clear-selections, but retains point position."
