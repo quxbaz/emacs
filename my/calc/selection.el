@@ -53,10 +53,12 @@
 (defun my/calc-sel-negate ()
   "Like calc-sel-negate, but unselects afterwards."
   (interactive)
-  (let ((saved-point (point)))
-    (unwind-protect
-        (call-interactively 'calc-sel-negate)
-      (call-interactively 'calc-unselect)
-      (setf (point) saved-point))))
+  (if (my/calc-active-selection-p)
+      (call-interactively 'calc-sel-negate)
+    (let ((saved-point (point)))
+      (unwind-protect
+          (call-interactively 'calc-sel-negate)
+        (call-interactively 'calc-unselect)
+        (setf (point) saved-point)))))
 
 (provide 'my/calc/selection)
