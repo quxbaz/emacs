@@ -64,12 +64,9 @@
 (defun my/calc-ret ()
   "Duplicates the line. If selection is active, exit selection mode instead."
   (interactive)
-  (let ((before-state (buffer-substring-no-properties (point-min) (point-max))))
-    (my/calc-clear-selections)
-    (let ((after-state (buffer-substring-no-properties (point-min) (point-max))))
-      (when (string= before-state after-state)
-        ;; No selection was active, duplicate the line.
-        (my/calc-duplicate)))))
+  (if (my/calc-active-selection-p)
+      (my/calc-clear-selections)
+    (my/calc-duplicate)))
 
 (defun my/calc-duplicate ()
   "Duplicates the nearest entry at point. If region is active, duplicate
