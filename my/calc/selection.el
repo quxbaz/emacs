@@ -5,14 +5,8 @@
 
 (defun my/calc-no-selection-p ()
   "Returns t if there are no active selections."
-  (let ((buffer (buffer-substring-no-properties (point-min) (point-max))))
-    (and
-     ;; Check for appearance of active selection marker (*).
-     (not (string-match "^[0-9]+\\*" buffer))
-     ;; Check for nil values corresponding to inactive selection state.
-     (or (null calc-selection-cache-entry)
-         ;; (not (equal (nthcdr 2 calc-selection-cache-entry) '(nil)))
-         (null (nth 2 calc-selection-cache-entry))))))
+  (and calc-use-selections
+       (seq-some (lambda (elt) (nth 2 elt)) calc-stack)))
 
 (defun my/calc-active-selection-p ()
   "Returns t if there are any active selections."
