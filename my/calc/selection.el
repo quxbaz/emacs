@@ -3,6 +3,10 @@
 ;; Selection functions
 
 
+(defun my/calc-active-selection-p ()
+  "Returns t if there are any active selections."
+  (not (equal (nthcdr 2 calc-selection-cache-entry) '(nil))))
+
 (defun my/calc-clear-selections ()
   "Like calc-clear-selections, but retains point position."
   (interactive)
