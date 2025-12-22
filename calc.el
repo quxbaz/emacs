@@ -71,5 +71,5 @@
 ;;; Variable "var-eq-surface-area-of-cone" stored by Calc on Sun Dec 21 15:14:56 2025
 (setq var-eq-surface-area-of-cone '(calcFunc-eq (var S var-S) (+ (* (var pi var-pi) (* (var r var-r) (var s var-s))) (* (var pi var-pi) (^ (var r var-r) 2)))))
 
-;;; Variable "var-eq-standard-equation-of-reciprocal-function" stored by Calc on Sun Dec 21 15:59:21 2025
-(setq var-eq-standard-equation-of-reciprocal-function '(calcFunc-eq (var y var-y) (+ (/ 1 (- (var x var-x) (var h var-h))) (var k var-k))))
+;;; Variable "var-eq-standard-equation-of-reciprocal-function" stored by Calc on Sun Dec 21 22:25:35 2025
+(setq var-eq-standard-equation-of-reciprocal-function '(calcFunc-eq (var y var-y) (+ (/ (var a var-a) (- (var x var-x) (var h var-h))) (var k var-k))))
