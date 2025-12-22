@@ -104,7 +104,7 @@
 ;; Edit mode bindings
 (add-hook 'calc-edit-mode-hook
           (lambda ()
-            ;; Init.
+            ;; Init
             (setq my/calc-history-index -1)
 
             ;; Config
