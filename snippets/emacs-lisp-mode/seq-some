@@ -1,0 +1,4 @@
+# name: seq-some
+# key: ,
+# --
+(seq-some ${1:PRED} ${2:SEQUENCE})
