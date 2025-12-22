@@ -110,6 +110,9 @@
             ;; Config
             (push 34 (cl-getf autopair-dont-pair :never))  ;; Don't autopair double quotes.
 
+            ;; Ignore
+            (keymap-set calc-edit-mode-map "<escape> RET" 'ignore)
+
             ;; Basic editing
             (keymap-set calc-edit-mode-map "M-w" 'my/lisp-kill-ring-save-dwim)
             (keymap-set calc-edit-mode-map "C-M-." 'my/mark-list-command)
