@@ -57,4 +57,15 @@
         (call-interactively 'calc-unselect)
         (setf (point) saved-point)))))
 
+(defun my/calc-sel-distribute ()
+  "Like calc-sel-distribute, but unselects afterwards."
+  (interactive)
+  (if (my/calc-active-selection-p)
+      (call-interactively 'calc-sel-distribute)
+    (let ((saved-point (point)))
+      (unwind-protect
+          (call-interactively 'calc-sel-distribute)
+        (call-interactively 'calc-unselect)
+        (setf (point) saved-point)))))
+
 (provide 'my/calc/selection)

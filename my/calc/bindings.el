@@ -74,6 +74,7 @@
          (:map calc-mode-map ("s a" . calc-edit-variable))
 
          ;; Selection operations
+         (:map calc-mode-map ("C-d" . calc-del-selection))
          (:map calc-mode-map ("j c" . my/calc-clear-selections))
          (:map calc-mode-map ("j i" . calc-sel-isolate))
          (:map calc-mode-map ("j e" . my/calc-sel-jump-equals))
@@ -81,7 +82,7 @@
          (:map calc-mode-map ("j r" . calc-commute-right))
          (:map calc-mode-map ("O" . my/calc-commute))
          (:map calc-mode-map ("N" . my/calc-sel-negate))
-         (:map calc-mode-map ("C-d" . calc-del-selection))
+         (:map calc-mode-map ("j D" . my/calc-sel-distribute))
 
          ;; Vectors and statistics
          (:map calc-mode-map ("(" . my/calc-vector-edit))
