@@ -23,6 +23,13 @@
     (call-interactively 'calc-undo)
     (setf (point) saved-point)))
 
+(defun my/calc-redo ()
+  "Like calc-redo, but retains point position."
+  (interactive)
+  (let ((saved-point (point)))
+    (call-interactively 'calc-redo)
+    (setf (point) saved-point)))
+
 (defun my/calc-beginning-of-expression ()
   "Moves point to beginning of expression on current line."
   (interactive)
