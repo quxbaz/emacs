@@ -30,6 +30,13 @@
     (call-interactively 'calc-redo)
     (setf (point) saved-point)))
 
+(defun my/calc-kill ()
+  "Like calc-kill, but retains point position."
+  (interactive)
+  (let ((saved-point (point)))
+    (call-interactively 'calc-kill)
+    (setf (point) saved-point)))
+
 (defun my/calc-beginning-of-expression ()
   "Moves point to beginning of expression on current line."
   (interactive)

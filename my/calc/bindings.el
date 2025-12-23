@@ -30,6 +30,7 @@
          (:map calc-mode-map ("C-c C-k" . calc-reset))
          (:map calc-mode-map ("U" . my/calc-undo))
          (:map calc-mode-map ("D" . my/calc-redo))
+         (:map calc-mode-map ("C-k" . my/calc-kill))
          (:map calc-mode-map ("C-a" . my/calc-beginning-of-expression))
          (:map calc-mode-map ("M-w" . my/calc-kill-ring-save-dwim))
          (:map calc-mode-map ("DEL" . my/calc-pop))
