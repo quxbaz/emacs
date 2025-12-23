@@ -54,7 +54,7 @@
          (:map calc-mode-map ("M-o" . my/calc-mod-360))
 
          ;; Algebraic operations
-         (:map calc-mode-map ("@" . calc-no-simplify-mode))
+         (:map calc-mode-map ("@" . my/calc-no-simplify-mode))
          (:map calc-mode-map ("=" . calc-equal-to))
          (:map calc-mode-map ("e" . calc-equal-to))
          (:map calc-mode-map ("x" . calc-expand))
@@ -128,7 +128,7 @@
             (keymap-set calc-edit-mode-map "M-n" 'my/calc-edit-history-next)
 
             ;; Toggle operations
-            (keymap-set calc-edit-mode-map "@" 'calc-no-simplify-mode)
+            (keymap-set calc-edit-mode-map "@" 'my/calc-no-simplify-mode)
 
             ;; Special characters and shortcuts
             (keymap-set calc-edit-mode-map ";" (my/cmd (insert ":")))

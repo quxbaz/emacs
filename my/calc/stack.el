@@ -123,6 +123,14 @@ just the region."
            (calc-push (list 'var var-name var-symbol))))
       (message "Invalid character. Must be a-z or A-Z."))))
 
+(defun my/calc-no-simplify-mode ()
+  "Like calc-no-simplify-mode, but retains point."
+  (interactive)
+  (let ((pos (point)))
+    (call-interactively 'calc-no-simplify-mode)
+    (setf (point) pos)
+    (my/flash-mode-line)))
+
 (defun my/calc-toggle-big-language ()
   "Toggle between big language and normal display mode."
   (interactive)
