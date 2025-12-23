@@ -74,7 +74,6 @@
          (:map calc-mode-map ("s a" . calc-edit-variable))
 
          ;; Selection operations
-         (:map calc-mode-map ("j SPC" . calc-select-here))
          (:map calc-mode-map ("j c" . my/calc-clear-selections))
          (:map calc-mode-map ("j i" . calc-sel-isolate))
          (:map calc-mode-map ("j e" . my/calc-sel-jump-equals))
