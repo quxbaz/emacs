@@ -27,7 +27,7 @@
          (:map calc-mode-map ("C-j" . ignore))
 
          ;; Basic stack operations
-         (:map calc-mode-map ("C-c C-s" . calc-reset))
+         (:map calc-mode-map ("C-c C-k" . calc-reset))
          (:map calc-mode-map ("C-a" . my/calc-beginning-of-expression))
          (:map calc-mode-map ("M-w" . my/calc-kill-ring-save-dwim))
          (:map calc-mode-map ("DEL" . my/calc-pop))
