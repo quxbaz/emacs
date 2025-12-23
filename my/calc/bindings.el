@@ -84,6 +84,7 @@
          (:map calc-mode-map ("j e" . my/calc-sel-jump-equals))
          (:map calc-mode-map ("j l" . calc-commute-left))
          (:map calc-mode-map ("j r" . calc-commute-right))
+         (:map calc-mode-map ("j j" . calc-select-more))
          (:map calc-mode-map ("j k" . calc-select-less))
          (:map calc-mode-map ("O" . my/calc-commute))
          (:map calc-mode-map ("N" . my/calc-sel-negate))
