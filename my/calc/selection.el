@@ -68,4 +68,15 @@
         (call-interactively 'calc-unselect)
         (setf (point) saved-point)))))
 
+(defun my/calc-sel-merge ()
+  "Like calc-sel-merge, but unselects afterwards."
+  (interactive)
+  (if (my/calc-active-selection-p)
+      (call-interactively 'calc-sel-merge)
+    (let ((saved-point (point)))
+      (unwind-protect
+          (call-interactively 'calc-sel-merge)
+        (call-interactively 'calc-unselect)
+        (setf (point) saved-point)))))
+
 (provide 'my/calc/selection)

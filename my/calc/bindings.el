@@ -83,6 +83,7 @@
          (:map calc-mode-map ("O" . my/calc-commute))
          (:map calc-mode-map ("N" . my/calc-sel-negate))
          (:map calc-mode-map ("j D" . my/calc-sel-distribute))
+         (:map calc-mode-map ("j M" . my/calc-sel-merge))
 
          ;; Vectors and statistics
          (:map calc-mode-map ("(" . my/calc-vector-edit))
