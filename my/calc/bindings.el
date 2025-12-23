@@ -25,6 +25,7 @@
   :defer t
   :bind (;; Unbind
          (:map calc-mode-map ("C-j" . ignore))
+         (:map calc-mode-map ("J" . ignore))
 
          ;; Basic stack operations
          (:map calc-mode-map ("C-c C-k" . calc-reset))
