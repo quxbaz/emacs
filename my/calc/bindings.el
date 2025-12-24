@@ -43,7 +43,7 @@
          (:map calc-mode-map ("S-<return>" . my/calc-roll-to-top))
          (:map calc-mode-map ("C-M-<return>" . my/calc-duplicate-stack))
          (:map calc-mode-map ("s RET" . my/calc-store-stack))
-         (:map calc-mode-map ("r RET" . my/calc-restore-stack))
+         (:map calc-mode-map ("r RET" . my/calc-recall-stack))
 
          ;; Math operations
          (:map calc-mode-map ("M-=" . calc-evaluate))

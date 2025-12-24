@@ -121,7 +121,7 @@ just the region."
   (message "Saved calc stack.")
   (my/flash-mode-line))
 
-(defun my/calc-restore-stack ()
+(defun my/calc-recall-stack ()
   "Restores the saved calc stack."
   (interactive)
   (calc-wrapper
