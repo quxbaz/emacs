@@ -122,7 +122,7 @@ just the region."
   (my/flash-mode-line))
 
 (defun my/calc-recall-stack ()
-  "Restores the saved calc stack."
+  "Recalls the stored calc stack."
   (interactive)
   (calc-wrapper
    (setq calc-stack `(,(car calc-stack) ,@my/calc-stored-stack ,@(cdr calc-stack))))
