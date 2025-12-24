@@ -117,17 +117,17 @@ just the region."
 (defun my/calc-store-stack ()
   "Stores the current calc stack in memory."
   (interactive)
-  (setq my/calc-saved-stack (cdr calc-stack))
-  (message "Saved calc stack.")
+  (setq my/calc-stored-stack (cdr calc-stack))
+  (message "Stored calc stack.")
   (my/flash-mode-line))
 
 (defun my/calc-recall-stack ()
   "Restores the saved calc stack."
   (interactive)
   (calc-wrapper
-   (setq calc-stack `(,(car calc-stack) ,@my/calc-saved-stack ,@(cdr calc-stack))))
+   (setq calc-stack `(,(car calc-stack) ,@my/calc-stored-stack ,@(cdr calc-stack))))
   (calc-refresh)
-  (message "Restored saved calc stack."))
+  (message "Recalled calc stack."))
 
 (defun my/calc-evaluate ()
   "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
