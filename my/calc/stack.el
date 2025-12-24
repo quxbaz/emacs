@@ -114,6 +114,21 @@ just the region."
    (setq calc-stack `(,(car calc-stack) ,@(cdr calc-stack) ,@(cdr calc-stack))))
   (calc-refresh))
 
+(defun my/calc-save-stack ()
+  "Saves the current calc stack in memory."
+  (interactive)
+  (setq my/calc-saved-stack (cdr calc-stack))
+  (message "Saved calc stack.")
+  (my/flash-mode-line))
+
+(defun my/calc-restore-stack ()
+  "Restores the saved calc stack."
+  (interactive)
+  (calc-wrapper
+   (setq calc-stack `(,(car calc-stack) ,@my/calc-saved-stack ,@(cdr calc-stack))))
+  (calc-refresh)
+  (message "Restored saved calc stack."))
+
 (defun my/calc-evaluate ()
   "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
   (interactive)
