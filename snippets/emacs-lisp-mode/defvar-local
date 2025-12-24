@@ -1,0 +1,4 @@
+# name: defvar-local
+# key: dv
+# --
+(defvar-local ${1:VAR} ${2:VAL}${3: &optional "${4:DOCSTRING}"})
