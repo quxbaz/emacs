@@ -3,9 +3,6 @@
 ;; Calc edit mode operations
 
 
-(defvar-local my/calc-edit-saved-point nil
-  "Variable used to restore point in some cases after exiting edit-mode.")
-
 (defun my/calc-edit ()
   "Opens edit mode or edits the current entry."
   (interactive)
@@ -58,8 +55,7 @@
   (when (my/calc-active-selection-p)
     (call-interactively 'calc-clear-selections)
     (when my/calc-edit-saved-point
-      (setf (point) my/calc-edit-saved-point)
-      (message "RESTORE POINT"))))
+      (setf (point) my/calc-edit-saved-point))))
 
 (defun my/calc-edit-newline ()
   "Like newline, but also sets indentation."
