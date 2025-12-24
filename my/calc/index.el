@@ -7,6 +7,7 @@
 
 ;; Load all calc modules
 (let ((calc-dir (file-name-directory (or load-file-name buffer-file-name))))
+  (load (concat calc-dir "var.el"))
   (load (concat calc-dir "lib.el"))
   (load (concat calc-dir "stack.el"))
   (load (concat calc-dir "edit.el"))
