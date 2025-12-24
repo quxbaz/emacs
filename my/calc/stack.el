@@ -114,8 +114,8 @@ just the region."
    (setq calc-stack `(,(car calc-stack) ,@(cdr calc-stack) ,@(cdr calc-stack))))
   (calc-refresh))
 
-(defun my/calc-save-stack ()
-  "Saves the current calc stack in memory."
+(defun my/calc-store-stack ()
+  "Stores the current calc stack in memory."
   (interactive)
   (setq my/calc-saved-stack (cdr calc-stack))
   (message "Saved calc stack.")
