@@ -3,6 +3,21 @@
 ;; Calc edit mode operations
 
 
+(defvar-local my/calc-edit-saved-point nil
+  "Variable used to restore point in some cases after exiting edit-mode.")
+
+(defun my/calc-edit ()
+  "Opens edit mode or edits the current entry."
+  (interactive)
+  (setq my/calc-edit-saved-point (point))
+  (if (my/calc-active-selection-p)
+      (call-interactively 'calc-edit)
+    (let ((line (substring-no-properties (thing-at-point 'line))))
+      (if (string-match "[0-9]+:" line)
+          (progn (funcall (kmacro "j`"))
+                 (move-end-of-line nil))
+        (funcall (kmacro "'`"))))))
+
 (defun my/calc-edit-history-prev ()
   "Recall previous calc history entry."
   (interactive)
@@ -39,7 +54,12 @@
             ((string= text "[]") (delete-region (line-beginning-position) (1+ (line-end-position))))
             ((string= text (cadr calc-alg-entry-history)) nil)  ;; Don't save string to history if it's a duplicate of the previous entry.
             (t (push text calc-alg-entry-history)))))
-  (calc-edit-finish))
+  (calc-edit-finish)
+  (when (my/calc-active-selection-p)
+    (call-interactively 'calc-clear-selections)
+    (when my/calc-edit-saved-point
+      (setf (point) my/calc-edit-saved-point)
+      (message "RESTORE POINT"))))
 
 (defun my/calc-edit-newline ()
   "Like newline, but also sets indentation."

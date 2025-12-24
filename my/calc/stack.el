@@ -56,15 +56,6 @@
       (kill-new no-prefix-line)))
   (message "%s" (string-trim (car kill-ring))))
 
-(defun my/calc-edit ()
-  "Opens edit mode or edits the current entry."
-  (interactive)
-  (let ((line (substring-no-properties (thing-at-point 'line))))
-    (if (string-match "[0-9]+:" line)
-        (progn (funcall (kmacro "j`"))
-               (move-end-of-line nil))
-      (funcall (kmacro "'`")))))
-
 (defun my/calc-roll-to-top ()
   "Moves the current entry to the top of the stack."
   (interactive)
