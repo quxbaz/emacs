@@ -107,6 +107,13 @@ just the region."
       (calc-cursor-stack-index (1+ n))
       (move-to-column col))))
 
+(defun my/calc-duplicate-stack ()
+  "Duplicates the entire calc stack."
+  (interactive)
+  (calc-wrapper
+   (setq calc-stack `(,(car calc-stack) ,@(cdr calc-stack) ,@(cdr calc-stack))))
+  (calc-refresh))
+
 (defun my/calc-evaluate ()
   "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
   (interactive)
