@@ -1,4 +1,4 @@
 # name: defvar
 # key: dv
 # --
-(defvar ${1:SYMBOL} ${2:INITVALUE}${3: &optional ${4:DOCSTRING}})
+(defvar ${1:SYMBOL} ${2:INITVALUE} ${3:DOCSTRING})
