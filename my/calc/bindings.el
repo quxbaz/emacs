@@ -30,6 +30,7 @@
 
          ;; Basic stack operations
          (:map calc-mode-map ("C-c C-k" . calc-reset))
+         (:map calc-mode-map ("C-/" . my/calc-undo))
          (:map calc-mode-map ("U" . my/calc-undo))
          (:map calc-mode-map ("D" . my/calc-redo))
          (:map calc-mode-map ("C-k" . my/calc-kill))
@@ -48,6 +49,8 @@
          (:map calc-mode-map ("W" . my/calc-square))
 
          ;; Display and modes
+         (:map calc-mode-map (">" . calc-scroll-left))
+         (:map calc-mode-map ("<" . calc-scroll-right))
          (:map calc-mode-map ("G" . my/calc-toggle-big-language))
          (:map calc-mode-map ("d ," . calc-group-digits))
 
