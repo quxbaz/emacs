@@ -125,8 +125,7 @@ just the region."
   "Recalls the stored calc stack."
   (interactive)
   (calc-wrapper
-   (setq calc-stack `(,(car calc-stack) ,@my/calc-stored-stack ,@(cdr calc-stack))))
-  (calc-refresh)
+   (calc-push-list (reverse (mapcar #'car my/calc-stored-stack))))
   (message "Recalled calc stack."))
 
 (defun my/calc-evaluate ()
