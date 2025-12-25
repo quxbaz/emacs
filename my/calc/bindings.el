@@ -111,7 +111,7 @@
          (:map calc-mode-map ("M-u" . calc-unpack))
 
          ;; Rewrite rules
-         (:map calc-mode-map ("X" . my/calc-log-power-rule))
+         (:map calc-mode-map ("X" . my/calc-log-exp-rules))
          (:map calc-mode-map ("k s" . my/calc-complete-the-square))
          (:map calc-mode-map ("k d" . my/calc-factor-powers))
 

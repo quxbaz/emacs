@@ -23,10 +23,16 @@
   (calc-wrapper
    (calc-enter-result 1 "norm" (math-mod (calc-top-n 1) 360))))
 
-(defun my/calc-log-power-rule ()
-  "Applies logarithm power rule."
+(defun my/calc-log-exp-rules ()
+  "Applies logarithm and exponential identities.
+
+Applies the following rules:
+  - b^log(x, b) = x             (exponential-logarithm identity)
+  - ln(x^p) = p * ln(x)         (logarithm power rule)
+  - log(x^p, b) = p * log(x, b) (logarithm power rule)"
   (interactive)
-  (let ((rules (list "ln(x^p) := p * ln(x)"
+  (let ((rules (list "b^log(x, b) := x"
+                     "ln(x^p) := p * ln(x)"
                      "log(x^p, b) := p * log(x, b)")))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
