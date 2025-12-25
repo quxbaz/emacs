@@ -111,8 +111,7 @@ just the region."
   "Duplicates the entire calc stack."
   (interactive)
   (calc-wrapper
-   (setq calc-stack `(,(car calc-stack) ,@(cdr calc-stack) ,@(cdr calc-stack))))
-  (calc-refresh))
+   (calc-push-list (reverse (mapcar #'car (cdr calc-stack))))))
 
 (defun my/calc-store-stack ()
   "Stores the current calc stack in memory."
