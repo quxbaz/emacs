@@ -16,7 +16,8 @@
     (calc-wrapper
      (calc-push-list (list input))
      (calc-pop-push-record 0 "pi" '(var pi var-pi))
-     (calc-binary-op "*" 'calcFunc-mul 2 1 nil '*))
+     (calc-binary-op "*" 'calcFunc-mul 2 1 nil '*)
+     (calc-simplify))
     (exit-minibuffer)))
 
 (defun my/calc-equal-to-from-minibuffer ()
