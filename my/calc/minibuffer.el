@@ -13,11 +13,7 @@
   (interactive)
   (let ((input (math-read-number (minibuffer-contents))))
     (delete-minibuffer-contents)
-    (calc-wrapper
-     (calc-push-list (list input))
-     (calc-pop-push-record 0 "pi" '(var pi var-pi))
-     (calc-binary-op "*" 'calcFunc-mul 2 1 nil '*)
-     (calc-simplify))
+    (calc-push (math-mul input '(var pi var-pi)))
     (exit-minibuffer)))
 
 (defun my/calc-equal-to-from-minibuffer ()
