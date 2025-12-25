@@ -28,6 +28,7 @@
          (:map calc-mode-map ("J" . ignore))
          (:map calc-mode-map ("j m" . ignore))
          (:map calc-mode-map ("<escape> RET" . ignore))
+         (:map calc-mode-map ("v x" . ignore))
 
          ;; Basic stack operations
          (:map calc-mode-map ("C-c C-k" . calc-reset))
