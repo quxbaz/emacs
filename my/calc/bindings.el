@@ -101,6 +101,7 @@
 
          ;; Vectors and statistics
          (:map calc-mode-map ("(" . my/calc-vector-edit))
+         (:map calc-mode-map ("v RET" . calc-index))
          (:map calc-mode-map ("F" . calc-reduce))
          (:map calc-mode-map ("k t" . calc-perm))
          (:map calc-mode-map ("M" . calc-map))
