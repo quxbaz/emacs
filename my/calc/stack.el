@@ -123,9 +123,12 @@ just the region."
 (defun my/calc-recall-stack ()
   "Recalls the stored calc stack."
   (interactive)
-  (calc-wrapper
-   (calc-push-list (reverse (mapcar #'car my/calc-stored-stack))))
-  (message "Recalled calc stack."))
+  (if my/calc-stored-stack
+      (progn
+        (calc-wrapper
+         (calc-push-list (reverse (mapcar #'car my/calc-stored-stack))))
+        (message "Recalled calc stack."))
+    (message "Stored stack not found.")))
 
 (defun my/calc-evaluate ()
   "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
