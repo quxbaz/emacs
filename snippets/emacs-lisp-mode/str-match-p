@@ -1,0 +1,4 @@
+# name: str-match-p
+# key: r
+# --
+(string-match-p ${1:REGEXP} ${2:STRING})
