@@ -6,8 +6,7 @@
 (defun my/calc ()
   "Starts calc."
   (interactive)
-  (cond ((and (string= (buffer-name) "*scratch*")
-              (= (count-windows) 1))
+  (cond ((string-match-p "^[*]" (buffer-name))
          (calc nil t t))
         ((= (count-windows) 1)
          (split-window-right)
