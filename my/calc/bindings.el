@@ -32,7 +32,7 @@
          (:map calc-mode-map ("v x" . ignore))
 
          ;; Basic stack operations
-         (:map calc-mode-map ("C-c C-k" . calc-reset))
+         (:map calc-mode-map ("C-M-k" . calc-reset))
          (:map calc-mode-map ("C-/" . my/calc-undo))
          (:map calc-mode-map ("U" . my/calc-undo))
          (:map calc-mode-map ("D" . my/calc-redo))
