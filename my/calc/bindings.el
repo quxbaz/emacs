@@ -13,6 +13,7 @@
 (with-eval-after-load 'calc
   (define-key calc-digit-map ";" 'my/calc-insert-colon)
   (define-key calc-digit-map "p" 'my/calc-insert-pi-from-minibuffer)
+  (define-key calc-digit-map "P" 'my/calc-insert-pi-from-minibuffer)
   (define-key calc-digit-map "e" 'my/calc-equal-to-from-minibuffer)
   (define-key calc-digit-map "o" 'my/calc-mod-360-from-minibuffer))
 
