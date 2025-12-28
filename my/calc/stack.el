@@ -145,6 +145,17 @@ just the region."
   (interactive)
   (funcall (kmacro "I Q")))
 
+(defun my/calc-factor-by ()
+  "Factors the stack by an argument."
+  (interactive)
+  (let* ((a (calc-top-n 2))
+         (b (calc-top-n 1))
+         (divided (calcFunc-expand (calcFunc-div a b)))
+         (product (calcFunc-mul divided b)))
+    (calc-wrapper
+     (calc-pop-stack 2)
+     (calc-push (math-simplify product)))))
+
 (defun my/calc-quick-variable ()
   "Reads a character and pushes it as a variable onto the calc stack."
   (interactive)
