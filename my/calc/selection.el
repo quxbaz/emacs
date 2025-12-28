@@ -6,20 +6,17 @@
 (defun my/calc-clear-selections ()
   "Like calc-clear-selections, but retains point position."
   (interactive)
-  (let ((saved-point (point)))
-    (unwind-protect
-        (calc-clear-selections)
-      (setf (point) saved-point))))
+  (my/restore-point
+   (unwind-protect (calc-clear-selections))))
 
 (defun my/calc-commute ()
   "Like calc-sel-commute, but works on the line instead of the current selection."
   (interactive)
-  (let ((saved-point (point)))
-    (unwind-protect
-        (progn
-          (move-end-of-line nil)
-          (call-interactively 'calc-sel-commute))
-      (setf (point) saved-point))))
+  (my/restore-point
+   (unwind-protect
+       (progn
+         (move-end-of-line nil)
+         (call-interactively 'calc-sel-commute)))))
 
 (defun my/calc-sel-jump-equals ()
   "Like calc-sel-jump-equals, but unselects after jumping."
@@ -40,32 +37,29 @@
   (interactive)
   (if (my/calc-active-selection-p)
       (call-interactively 'calc-sel-negate)
-    (let ((saved-point (point)))
-      (unwind-protect
-          (call-interactively 'calc-sel-negate)
-        (call-interactively 'calc-unselect)
-        (setf (point) saved-point)))))
+    (my/restore-point
+     (unwind-protect
+         (call-interactively 'calc-sel-negate)
+       (call-interactively 'calc-unselect)))))
 
 (defun my/calc-sel-distribute ()
   "Like calc-sel-distribute, but unselects afterwards."
   (interactive)
   (if (my/calc-active-selection-p)
       (call-interactively 'calc-sel-distribute)
-    (let ((saved-point (point)))
-      (unwind-protect
-          (call-interactively 'calc-sel-distribute)
-        (call-interactively 'calc-unselect)
-        (setf (point) saved-point)))))
+    (my/restore-point
+     (unwind-protect
+         (call-interactively 'calc-sel-distribute)
+       (call-interactively 'calc-unselect)))))
 
 (defun my/calc-sel-merge ()
   "Like calc-sel-merge, but unselects afterwards."
   (interactive)
   (if (my/calc-active-selection-p)
       (call-interactively 'calc-sel-merge)
-    (let ((saved-point (point)))
-      (unwind-protect
-          (call-interactively 'calc-sel-merge)
-        (call-interactively 'calc-unselect)
-        (setf (point) saved-point)))))
+    (my/restore-point
+     (unwind-protect
+         (call-interactively 'calc-sel-merge)
+       (call-interactively 'calc-unselect)))))
 
 (provide 'my/calc/selection)

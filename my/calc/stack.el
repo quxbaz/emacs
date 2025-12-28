@@ -18,23 +18,17 @@
 (defun my/calc-undo ()
   "Like calc-undo, but retains point position."
   (interactive)
-  (let ((saved-point (point)))
-    (call-interactively 'calc-undo)
-    (setf (point) saved-point)))
+  (my/restore-point (call-interactively 'calc-undo)))
 
 (defun my/calc-redo ()
   "Like calc-redo, but retains point position."
   (interactive)
-  (let ((saved-point (point)))
-    (call-interactively 'calc-redo)
-    (setf (point) saved-point)))
+  (my/restore-point (call-interactively 'calc-redo)))
 
 (defun my/calc-kill ()
   "Like calc-kill, but retains point position."
   (interactive)
-  (let ((saved-point (point)))
-    (call-interactively 'calc-kill)
-    (setf (point) saved-point)))
+  (my/restore-point (call-interactively 'calc-kill)))
 
 (defun my/calc-beginning-of-expression ()
   "Moves point to beginning of expression on current line."
@@ -176,10 +170,9 @@ just the region."
 (defun my/calc-no-simplify-mode ()
   "Like calc-no-simplify-mode, but retains point."
   (interactive)
-  (let ((pos (point)))
-    (call-interactively 'calc-no-simplify-mode)
-    (setf (point) pos)
-    (my/flash-mode-line)))
+  (my/restore-point
+   (call-interactively 'calc-no-simplify-mode)
+   (my/flash-mode-line)))
 
 (defun my/calc-toggle-big-language ()
   "Toggle between big language and normal display mode."
