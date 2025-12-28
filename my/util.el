@@ -63,6 +63,13 @@ FILENAME is a path to an actual image file."
 
 ;; Macros
 
+(defmacro my/save-point (&rest forms)
+  "Restores point after execution of forms."
+  `(let ((point (point)))
+     (prog1
+         (progn ,@forms)
+       (setf (point) point))))
+
 (defmacro my/if-buffer-changed (body then &optional else)
   "Executes BODY. If the execution of BODY causes any change in the buffer,
 execute THEN. Otherwise execute ELSE."
