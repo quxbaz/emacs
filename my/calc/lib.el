@@ -18,4 +18,16 @@
        ;; selection is active.
        (seq-some (lambda (elt) (nth 2 elt)) calc-stack)))
 
+(defmacro my/calc-dont-simplify (&rest forms)
+  "Execute FORMS with `calc-simplify-mode' temporarily set to \\='none.
+
+The previous simplification mode is restored afterwards, even if
+FORMS signals an error. Returns the value of the last form in FORMS."
+  `(let ((mode calc-simplify-mode))
+     (unwind-protect
+         (progn
+           (calc-change-mode 'calc-simplify-mode 'none)
+           ,@forms)
+       (calc-change-mode 'calc-simplify-mode mode))))
+
 (provide 'my/calc/lib)
