@@ -1,5 +1,5 @@
 # name: defmacro
 # key: dm
 # --
-(defmacro ${1:NAME} ($2)
+(defmacro ${1:NAME} (${2:&rest forms})
   ($0))
