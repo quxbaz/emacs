@@ -142,18 +142,14 @@ just the region."
 (defun my/calc-factor-by ()
   "Factors the stack by an argument."
   (interactive)
-  (calc-wrapper
-   (let ((mode calc-simplify-mode))
-     (unwind-protect
-         (progn
-           (calc-change-mode 'calc-simplify-mode 'none)
-           (let* ((a (calc-top-n 2))
-                  (b (calc-top-n 1))
-                  (divided (math-simplify (calcFunc-expand (calcFunc-div a b))))
-                  (product (calcFunc-mul b divided)))
-             (calc-pop-stack 2)
-             (calc-push product)))
-       (calc-change-mode 'calc-simplify-mode mode)))))
+  (my/calc-dont-simplify
+   (calc-wrapper
+    (let* ((a (calc-top-n 2))
+           (b (calc-top-n 1))
+           (divided (math-simplify (calcFunc-expand (calcFunc-div a b))))
+           (product (calcFunc-mul b divided)))
+      (calc-pop-stack 2)
+      (calc-push product)))))
 
 (defun my/calc-quick-variable ()
   "Reads a character and pushes it as a variable onto the calc stack."
