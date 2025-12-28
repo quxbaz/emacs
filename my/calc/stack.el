@@ -143,11 +143,11 @@ just the region."
   "Factors the stack by an argument."
   (interactive)
   (my/calc-dont-simplify
-   (calc-wrapper
-    (let* ((a (calc-top-n 2))
-           (b (calc-top-n 1))
-           (divided (math-simplify (calcFunc-expand (calcFunc-div a b))))
-           (product (calcFunc-mul b divided)))
+   (let* ((a (calc-top-n 2))
+          (b (calc-top-n 1))
+          (divided (math-simplify (calcFunc-expand (calcFunc-div a b))))
+          (product (calcFunc-mul b divided)))
+     (calc-wrapper
       (calc-pop-stack 2)
       (calc-push product)))))
 
