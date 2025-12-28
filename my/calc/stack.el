@@ -153,7 +153,7 @@ just the region."
          (a (calc-top-n 2))
          (b (calc-top-n 1))
          (divided (math-simplify (calcFunc-expand (calcFunc-div a b))))
-         (product (calcFunc-mul divided b)))
+         (product (calcFunc-mul b divided)))
     (calc-wrapper
      (calc-pop-stack 2)
      (calc-push product)
