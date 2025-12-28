@@ -161,6 +161,7 @@
             (keymap-set calc-edit-mode-map "M-7" (my/cmd (insert "^7")))
             (keymap-set calc-edit-mode-map "M-8" (my/cmd (insert "^8")))
             (keymap-set calc-edit-mode-map "M-9" (my/cmd (insert "^9")))
+            (keymap-set calc-edit-mode-map "M-'" (my/cmd (insert "^()") (backward-char)))
 
             ;; Math operations
             (keymap-set calc-edit-mode-map "'" 'my/calc-edit-square-dwim)
