@@ -63,7 +63,7 @@ FILENAME is a path to an actual image file."
 
 ;; Macros
 
-(defmacro my/restore-point (&rest forms)
+(defmacro my/preserve-point (&rest forms)
   "Execute FORMS and restore point to its original position afterwards, even
 if FORMS signals an error. Returns the value of the last form in FORMS."
   `(let ((point (point)))

@@ -18,17 +18,17 @@
 (defun my/calc-undo ()
   "Like calc-undo, but retains point position."
   (interactive)
-  (my/restore-point (call-interactively 'calc-undo)))
+  (my/preserve-point (call-interactively 'calc-undo)))
 
 (defun my/calc-redo ()
   "Like calc-redo, but retains point position."
   (interactive)
-  (my/restore-point (call-interactively 'calc-redo)))
+  (my/preserve-point (call-interactively 'calc-redo)))
 
 (defun my/calc-kill ()
   "Like calc-kill, but retains point position."
   (interactive)
-  (my/restore-point (call-interactively 'calc-kill)))
+  (my/preserve-point (call-interactively 'calc-kill)))
 
 (defun my/calc-beginning-of-expression ()
   "Moves point to beginning of expression on current line."
@@ -166,7 +166,7 @@ just the region."
 (defun my/calc-no-simplify-mode ()
   "Like calc-no-simplify-mode, but retains point."
   (interactive)
-  (my/restore-point
+  (my/preserve-point
    (call-interactively 'calc-no-simplify-mode)
    (my/flash-mode-line)))
 

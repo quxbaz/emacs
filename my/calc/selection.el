@@ -6,13 +6,13 @@
 (defun my/calc-clear-selections ()
   "Like calc-clear-selections, but retains point position."
   (interactive)
-  (my/restore-point
+  (my/preserve-point
    (unwind-protect (calc-clear-selections))))
 
 (defun my/calc-commute ()
   "Like calc-sel-commute, but works on the line instead of the current selection."
   (interactive)
-  (my/restore-point
+  (my/preserve-point
    (unwind-protect
        (progn
          (move-end-of-line nil)
@@ -37,7 +37,7 @@
   (interactive)
   (if (my/calc-active-selection-p)
       (call-interactively 'calc-sel-negate)
-    (my/restore-point
+    (my/preserve-point
      (unwind-protect
          (call-interactively 'calc-sel-negate)
        (call-interactively 'calc-unselect)))))
@@ -47,7 +47,7 @@
   (interactive)
   (if (my/calc-active-selection-p)
       (call-interactively 'calc-sel-distribute)
-    (my/restore-point
+    (my/preserve-point
      (unwind-protect
          (call-interactively 'calc-sel-distribute)
        (call-interactively 'calc-unselect)))))
@@ -57,7 +57,7 @@
   (interactive)
   (if (my/calc-active-selection-p)
       (call-interactively 'calc-sel-merge)
-    (my/restore-point
+    (my/preserve-point
      (unwind-protect
          (call-interactively 'calc-sel-merge)
        (call-interactively 'calc-unselect)))))
