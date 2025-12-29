@@ -38,7 +38,7 @@ With selection active: factors the selected sub-expression by the top of stack."
               (factor (calc-top-n 1))
               (divided (math-simplify (calcFunc-expand (calcFunc-div expr factor))))
               (product (calcFunc-mul factor divided))
-              (replacement-expr (nth 2 (calc-replace-sub-formula stack expr product))))
+              (replacement-expr (calc-replace-sub-formula expr expr product)))
          (calc-wrapper
           (calc-pop-push-record-list 1 "fctr" replacement-expr m)
           (calc-pop-stack 1)))
