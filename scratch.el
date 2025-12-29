@@ -2,6 +2,10 @@
 ;;
 ;;
 
+(with-current-buffer (calc-select-buffer)
+  (pp calc-stack)
+  nil)
+
 (math-format-stack-value (cdr calc-stack))
 (math-format-stack-value (cadr calc-stack))
 (calc-locate-cursor-element (point))
