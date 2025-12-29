@@ -140,16 +140,30 @@ just the region."
   (funcall (kmacro "I Q")))
 
 (defun my/calc-factor-by ()
-  "Factors the stack by an argument."
+  "Factors an expression by an argument.
+With no selection: factors stack level 2 by stack level 1.
+With selection active: factors the selected sub-expression by the top of stack."
   (interactive)
   (my/calc-dont-simplify
-   (let* ((a (calc-top-n 2))
-          (b (calc-top-n 1))
-          (divided (math-simplify (calcFunc-expand (calcFunc-div a b))))
-          (product (calcFunc-mul b divided)))
-     (calc-wrapper
-      (calc-pop-stack 2)
-      (calc-push product)))))
+   (if (my/calc-active-selection-at-cursor-p)
+       ;; Factor the selection by top of stack.
+       (let* ((m (calc-locate-cursor-element (point)))
+              (stack (nth m calc-stack))
+              (expr (nth 2 stack))
+              (factor (calc-top-n 1))
+              (divided (math-simplify (calcFunc-expand (calcFunc-div expr factor))))
+              (product (calcFunc-mul factor divided))
+              (replacement-expr (nth 2 (calc-replace-sub-formula stack expr product))))
+         (calc-wrapper
+          (calc-pop-push-record-list 1 "fctr" replacement-expr m)
+          (calc-pop-stack 1)))
+     ;; No selection: factor top two stack items.
+     (let* ((expr (calc-top-n 2))
+            (factor (calc-top-n 1))
+            (divided (math-simplify (calcFunc-expand (calcFunc-div expr factor))))
+            (product (calcFunc-mul factor divided)))
+       (calc-wrapper
+        (calc-pop-push-record-list 2 "fctr" product))))))
 
 (defun my/calc-quick-variable ()
   "Reads a character and pushes it as a variable onto the calc stack."
