@@ -18,17 +18,26 @@
        ;; selection is active.
        (seq-some (lambda (elt) (nth 2 elt)) calc-stack)))
 
-(defun my/calc-active-selection-at-cursor-p ()
+(defun my/calc-active-selection-at-line-p ()
   "Returns t if there are any active selections at point."
   (let ((m (calc-locate-cursor-element (point))))
     (nth 2 (nth m calc-stack))))
 
 (defun my/calc-first-active-entry ()
-  "Returns the first entry with an active selection beginning from the top
-of the stack, or nil if there are no active selections."
+  "Returns the first stack entry with an active selection beginning from
+the top of the stack, or nil if there are no active selections."
   ;; If any stack element has a non-nil value at (nth 2 elt), then selection is
   ;; active.
   (seq-find (lambda (elt) (nth 2 elt)) calc-stack))
+
+(defun my/calc-first-active-entry-m ()
+  "Returns the POSITION of the first stack entry with an active selection
+beginning from the top of the stack, or nil if there are no active selections."
+  ;; If any stack element has a non-nil value at (nth 2 elt), then selection is
+  ;; active.
+  (cl-loop for i from 1 below (length calc-stack)
+           when (nth 2 (nth i calc-stack))
+           return i))
 
 (defmacro my/calc-dont-simplify (&rest forms)
   "Execute FORMS with `calc-simplify-mode' temporarily set to \\='none.
