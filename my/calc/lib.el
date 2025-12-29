@@ -18,7 +18,12 @@
        ;; selection is active.
        (seq-some (lambda (elt) (nth 2 elt)) calc-stack)))
 
-(defun my/calc-active-entry ()
+(defun my/calc-active-selection-at-cursor-p ()
+  "Returns t if there are any active selections at point."
+  (let ((m (calc-locate-cursor-element (point))))
+    (nth 2 (nth m calc-stack))))
+
+(defun my/calc-first-active-entry ()
   "Returns the first entry with an active selection beginning from the top
 of the stack, or nil if there are no active selections."
   ;; If any stack element has a non-nil value at (nth 2 elt), then selection is
