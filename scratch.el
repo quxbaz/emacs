@@ -119,21 +119,37 @@ With selection active: factors the selected sub-expression by the top of stack."
 
 ;; My edits
 (defun calc-push-list (vals &optional m sels)
+  ;; Loop through vals until list is empty.
   (while vals
     (save-excursion
+
+      ;; Switch context to the calc buffer.
 	    (calc-select-buffer)
+
 	    (let* ((val (car vals))
 	           (entry (list val 1 (car sels)))
+             ;; mm has something to do with with the insertion position of the new entry.
 	           (mm (+ (or m 1) calc-stack-top)))
+
 	      (calc-cursor-stack-index (1- (or m 1)))
+
+        ;; Enter the new stack entry either at the top of the stack or in the middle somewhere.
 	      (if (> mm 1)
 	          (setcdr (nthcdr (- mm 2) calc-stack)
 		                (cons entry (nthcdr (1- mm) calc-stack)))
 	        (setq calc-stack (cons entry calc-stack)))
+
+        ;; Insert a visual linebreak after the new entry.
 	      (let ((buffer-read-only nil))
 	        (insert (math-format-stack-value entry) "\n"))
+
+        ;; Allow operation to be undoable.
 	      (calc-record-undo (list 'push mm))
+
+        ;; Renumber the stack.
 	      (calc-set-command-flag 'renum-stack)))
+
+    ;; Loop to the next item.
     (setq vals (cdr vals)
 	        sels (cdr sels))))
 
