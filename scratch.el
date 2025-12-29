@@ -96,6 +96,47 @@ With selection active: factors the selected sub-expression by the top of stack."
 	         (calc-push val)
 	         (error "Original selection has been lost")))))))
 
+(defun calc-push-list (vals &optional m sels)
+  (while vals
+    (if calc-executing-macro
+	      (calc-push-list-in-macro vals m sels)
+      (save-excursion
+	      (calc-select-buffer)
+	      (let* ((val (car vals))
+	             (entry (list val 1 (car sels)))
+	             (mm (+ (or m 1) calc-stack-top)))
+	        (calc-cursor-stack-index (1- (or m 1)))
+	        (if (> mm 1)
+	            (setcdr (nthcdr (- mm 2) calc-stack)
+		                  (cons entry (nthcdr (1- mm) calc-stack)))
+	          (setq calc-stack (cons entry calc-stack)))
+	        (let ((buffer-read-only nil))
+	          (insert (math-format-stack-value entry) "\n"))
+	        (calc-record-undo (list 'push mm))
+	        (calc-set-command-flag 'renum-stack))))
+    (setq vals (cdr vals)
+	        sels (cdr sels))))
+
+;; My edits
+(defun calc-push-list (vals &optional m sels)
+  (while vals
+    (save-excursion
+	    (calc-select-buffer)
+	    (let* ((val (car vals))
+	           (entry (list val 1 (car sels)))
+	           (mm (+ (or m 1) calc-stack-top)))
+	      (calc-cursor-stack-index (1- (or m 1)))
+	      (if (> mm 1)
+	          (setcdr (nthcdr (- mm 2) calc-stack)
+		                (cons entry (nthcdr (1- mm) calc-stack)))
+	        (setq calc-stack (cons entry calc-stack)))
+	      (let ((buffer-read-only nil))
+	        (insert (math-format-stack-value entry) "\n"))
+	      (calc-record-undo (list 'push mm))
+	      (calc-set-command-flag 'renum-stack)))
+    (setq vals (cdr vals)
+	        sels (cdr sels))))
+
 (defun calc-delete-selection (n)
   (let ((entry (calc-top n 'entry)))
     (if (nth 2 entry)
