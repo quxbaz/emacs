@@ -2,6 +2,10 @@
 ;;
 ;;
 
+(math-format-stack-value (cdr calc-stack))
+(math-format-stack-value (cadr calc-stack))
+(calc-locate-cursor-element (point))
+
 (let* ((entry (calc-top 1 'entry))
        (parent (calc-find-parent-formula (car entry) (nth 2 entry))))
   (let* ((new (calc-replace-sub-formula (car entry) (nth 2 entry) 99)))
@@ -26,24 +30,25 @@ With no selection: factors stack level 2 by stack level 1.
 With selection active: factors the selected sub-expression by the top of stack."
   (interactive)
   (my/calc-dont-simplify
-   (if (my/calc-active-selection-p)
-       ;; Factor the selection by top of stack
+   (if (my/calc-active-selection-at-cursor-p)
+       ;; Factor the selection by top of stack.
+       (let* ((m (calc-locate-cursor-element (point)))
+              (stack (nth m calc-stack))
+              (expr (nth 2 stack))
+              (factor (calc-top-n 1))
+              (divided (math-simplify (calcFunc-expand (calcFunc-div expr factor))))
+              (product (calcFunc-mul factor divided))
+              (replacement-expr (nth 2 (calc-replace-sub-formula stack expr product))))
+         (calc-wrapper
+          (calc-pop-push-record-list 1 "fctr" replacement-expr m)
+          (calc-pop-stack 1)))
+     ;; No selection: factor top two stack items.
+     (let* ((expr (calc-top-n 2))
+            (factor (calc-top-n 1))
+            (divided (math-simplify (calcFunc-expand (calcFunc-div expr factor))))
+            (product (calcFunc-mul factor divided)))
        (calc-wrapper
-        (let* ((selection (calc-find-selected-part))
-               (factor (calc-top-n 2))
-               (divided (math-simplify (calcFunc-expand (calcFunc-div selection factor))))
-               (product (calcFunc-mul factor divided)))
-          (calc-pop-stack 1)
-          (calc-replace-sub-formula (calc-top-n 1) selection product)
-          (calc-pop-push 1 product)))
-     ;; No selection: factor top two stack items
-     (let* ((a (calc-top-n 2))
-            (b (calc-top-n 1))
-            (divided (math-simplify (calcFunc-expand (calcFunc-div a b))))
-            (product (calcFunc-mul b divided)))
-       (calc-wrapper
-        (calc-pop-stack 2)
-        (calc-push product))))))
+        (calc-pop-push-record-list 2 "fctr" product))))))
 
 (defun my/calc-factor-by ()
   "Factors the stack by an argument."
