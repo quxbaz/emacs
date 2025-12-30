@@ -5,7 +5,6 @@
 (calc-encase-atoms 42)  ;; -> (cplex 42 0)
 (calc-encase-atoms '(42 42 42))  ;; -> (42 (cplx 42 0) (cplx 42 0))
 
-
 (with-current-buffer (calc-select-buffer)
   (pp calc-stack)
   nil)
