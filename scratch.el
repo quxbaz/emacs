@@ -6,6 +6,9 @@
 (calc-encase-atoms '(42 42 42))  ;; -> (42 (cplx 42 0) (cplx 42 0))
 
 (with-current-buffer (calc-select-buffer)
+  (math-format-stack-value (nth 1 calc-stack)))
+
+(with-current-buffer (calc-select-buffer)
   (pp calc-stack)
   nil)
 
