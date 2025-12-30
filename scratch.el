@@ -302,3 +302,16 @@ With selection active: factors the selected sub-expression by the top of stack."
        (with-current-buffer (aref calc-embedded-info 1)
 	       (calc-refresh align)))
   (setq calc-refresh-count (1+ calc-refresh-count)))
+
+(defmacro my/foo (bindings &rest body)
+  (declare (indent 1))
+  `(let ((,(nth 0 bindings) "FOO")
+         (,(nth 1 bindings) "BAR"))
+     ,@body))
+
+(my/foo (a b)
+  (message "%s | %s" a b))
+
+(macroexpand-all
+ '(my/foo (a b)
+    (message "%s | %s" a b)))
