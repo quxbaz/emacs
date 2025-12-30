@@ -4,9 +4,14 @@
 
 (calc-encase-atoms 42)  ;; -> (cplex 42 0)
 (calc-encase-atoms '(42 42 42))  ;; -> (42 (cplx 42 0) (cplx 42 0))
+(math-format-flat-expr x 0)
+(math-format-nice-expr x (frame-width))
 
 (with-current-buffer (calc-select-buffer)
   (math-format-stack-value (nth 1 calc-stack)))
+
+(with-current-buffer (calc-select-buffer)
+  (insert (calc-top)))
 
 (with-current-buffer (calc-select-buffer)
   (pp calc-stack)
@@ -31,6 +36,7 @@
 (math-format-stack-value (cdr calc-stack))
 (math-format-stack-value (cadr calc-stack))
 (calc-locate-cursor-element (point))
+calc-edit-top
 
 (let* ((entry (calc-top 1 'entry))
        (parent (calc-find-parent-formula (car entry) (nth 2 entry))))
