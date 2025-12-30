@@ -76,3 +76,6 @@
 
 ;;; Variable "var-eq-surface-area-of-pyramid" stored by Calc on Tue Dec 23 14:39:08 2025
 (setq var-eq-surface-area-of-pyramid '(calcFunc-eq (var S var-S) (+ (var B var-B) (/ (* (var p var-p) (var s var-s)) (cplx 2 0)))))
+
+;;; Variable "var-eq-area-of-trapezoid" stored by Calc on Mon Dec 29 23:09:32 2025
+(setq var-eq-area-of-trapezoid '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (+ (var b1 var-b1) (var b2 var-b2)) (var h var-h)))))
