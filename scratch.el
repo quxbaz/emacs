@@ -226,3 +226,36 @@ With selection active: factors the selected sub-expression by the top of stack."
 								                                                 parent)))))
 			                        n)))))
       (calc-pop-stack 1 n t))))
+
+(defun calc-refresh (&optional align)
+  (interactive)
+  (and (derived-mode-p 'calc-mode)
+       (not calc-executing-macro)
+       (let* ((inhibit-read-only t)
+	            (save-point (point))
+	            (save-mark (ignore-errors (mark)))
+	            (save-aligned (looking-at "\\.$"))
+	            (thing calc-stack)
+	            (calc-any-evaltos nil))
+	       (setq calc-any-selections nil)
+	       (erase-buffer)
+         (when calc-show-banner
+           (calc--header-line  "Emacs Calculator Mode" "Emacs Calc"
+                               (* 2 (/ (window-width) 3)) -3))
+	       (while thing
+	         (goto-char (point-min))
+	         (insert (math-format-stack-value (car thing)) "\n")
+	         (setq thing (cdr thing)))
+	       (calc-renumber-stack)
+	       (if calc-display-dirty
+	           (calc-wrapper (setq calc-display-dirty nil)))
+	       (and calc-any-evaltos calc-auto-recompute
+	            (calc-wrapper (calc-refresh-evaltos)))
+	       (if (or align save-aligned)
+	           (calc-align-stack-window)
+	         (goto-char save-point))
+	       (if save-mark (set-mark save-mark))))
+  (and calc-embedded-info (not (derived-mode-p 'calc-mode))
+       (with-current-buffer (aref calc-embedded-info 1)
+	       (calc-refresh align)))
+  (setq calc-refresh-count (1+ calc-refresh-count)))
