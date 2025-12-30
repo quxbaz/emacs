@@ -7,6 +7,9 @@
 (math-format-flat-expr x 0)
 (math-format-nice-expr x (frame-width))
 
+;; -> 120 x^2 + 60 x + 30
+(math-format-value '(+ (+ (* 120 (^ (var x var-x) 2)) (* 60 (var x var-x))) 30))
+
 (with-current-buffer (calc-select-buffer)
   (math-format-stack-value (nth 1 calc-stack)))
 
