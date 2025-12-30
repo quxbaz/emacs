@@ -157,7 +157,7 @@ With selection active: factors the selected sub-expression by the top of stack."
               ;; The selection aka subformula.
               (sel (nth 2 entry))
               (factor (calc-top-n 1))
-              (divided (math-simplify (calcFunc-expand (calcFunc-div sel factor))))
+              (divided (math-simplify (calcFunc-nrat (calcFunc-expand (calcFunc-div sel factor)))))
               ;; The replacement expression.
               (product (calcFunc-mul factor divided))
               ;; The replacement formula. From within the original formula (car
@@ -180,7 +180,7 @@ With selection active: factors the selected sub-expression by the top of stack."
      ;; as the factor.
      (let* ((expr (calc-top-n 2))
             (factor (calc-top-n 1))
-            (divided (math-simplify (calcFunc-expand (calcFunc-div expr factor))))
+            (divided (math-simplify (calcFunc-nrat (calcFunc-expand (calcFunc-div expr factor)))))
             (product (calcFunc-mul factor divided)))
        (calc-wrapper
         (calc-pop-push-record-list 2 "fctr" product))))))
