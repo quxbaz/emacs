@@ -6,6 +6,22 @@
   (pp calc-stack)
   nil)
 
+(with-current-buffer (calc-select-buffer)
+  ;; (calc-replace-sub-formula (nth 1 calc-stack) expr product)
+  (calc-wrapper
+   (let ((entry '((+ (+ 42 42) (var x var-x)) 1 nil)))
+     (calc-pop-push-record-list 1 "op" (car entry) 1 '((var x var-x))))))
+
+(with-current-buffer (calc-select-buffer)
+  ;; (calc-replace-sub-formula (nth 1 calc-stack) expr product)
+  (calc-wrapper
+   (let* ((entry (my/calc-first-active-entry))
+          (sel (nth 2 entry)))
+     (print sel)
+     (calc-pop-push-record-list 1 "op" (car entry) 1 sel)
+     ;; (calc-pop-push-record-list 1 "op" (car entry) 1 '(cplx 42))
+     )))
+
 (math-format-stack-value (cdr calc-stack))
 (math-format-stack-value (cadr calc-stack))
 (calc-locate-cursor-element (point))
