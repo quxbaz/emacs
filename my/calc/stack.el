@@ -147,25 +147,29 @@ With selection active: factors the selected sub-expression by the top of stack."
   (my/calc-dont-simplify
    ;; Factor the selection (using the top stack entry as the factor).
    (if (my/calc-active-selection-p)
-       (let* (;; Stack position of the selection. Use either the selection at
-              ;; the current line, or the active selection closest to the stack top.
+       (let* (;; Stack position of the selection. Use either the selection at the
+              ;; current line, or the active selection closest to the stack top.
               (m (if (my/calc-active-selection-at-line-p)
                      (calc-locate-cursor-element (point))
                    (my/calc-first-active-entry-m)))
+              ;; (formula, height [in lines], selection [or nil])
               (entry (nth m calc-stack))
-              (expr (nth 2 entry))
+              ;; The selection aka subformula.
+              (sel (nth 2 entry))
               (factor (calc-top-n 1))
-              (divided (math-simplify (calcFunc-expand (calcFunc-div expr factor))))
+              (divided (math-simplify (calcFunc-expand (calcFunc-div sel factor))))
+              ;; The replacement expression.
               (product (calcFunc-mul factor divided))
-              ;; Replace the old expr with the new factored expression. The
-              ;; first `expr` argument is usually the parent or entire formula
-              ;; to operate on, but since we're operating on a selection
-              ;; (sub-formula), the context (formula) and target (subformula)
-              ;; are the same.
-              (new-expr (calc-replace-sub-formula expr expr product)))
-         (calc-wrapper
-          (calc-pop-push-record-list 1 "fctr" new-expr m)
-          (calc-pop-stack 1)))
+              ;; The replacement formula. From within the original formula (car
+              ;; entry), replace the selection (sel) with the factored
+              ;; expression (product).
+              (new-formula (calc-replace-sub-formula (car entry) sel product)))
+         (my/preserve-point
+          (calc-wrapper
+           ;; Push the new formula at the line position of the selection (m) and
+           ;; reselect the new subformula (product).
+           (calc-pop-push-record-list 1 "fctr" new-formula m product)
+           (calc-pop-stack 1))))
      ;; No selection: Factor the second stack entry using the top stack entry
      ;; as the factor.
      (let* ((expr (calc-top-n 2))
