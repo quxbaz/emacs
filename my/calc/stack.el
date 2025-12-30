@@ -169,6 +169,12 @@ With selection active: factors the selected sub-expression by the top of stack."
            ;; Push the new formula at the line position of the selection (m) and
            ;; reselect the new subformula (product).
            (calc-pop-push-record-list 1 "fctr" new-formula m product)
+
+           ;; Uncomment to disable reselect.
+           ;; (calc-prepare-selection m)
+	         ;; (calc-change-current-selection nil)
+
+           ;; Pop the factor.
            (calc-pop-stack 1))))
      ;; No selection: Factor the second stack entry using the top stack entry
      ;; as the factor.
