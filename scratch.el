@@ -6,6 +6,7 @@
 (calc-encase-atoms '(42 42 42))  ;; -> (42 (cplx 42 0) (cplx 42 0))
 (math-format-flat-expr x 0)
 (math-format-nice-expr x (frame-width))
+(calc-rewrite-selection "MergeRules" many "merg")
 
 ;; -> 120 x^2 + 60 x + 30
 (math-format-value '(+ (+ (* 120 (^ (var x var-x) 2)) (* 60 (var x var-x))) 30))
@@ -52,6 +53,25 @@
 (math-format-stack-value (cadr calc-stack))
 (calc-locate-cursor-element (point))
 calc-edit-top
+
+(defun calc-sel-evaluate (arg)
+  (interactive "p")
+  (calc-slow-wrapper
+   (calc-preserve-point)
+   (let* ((num (max 1 (calc-locate-cursor-element (point))))
+	        (calc-sel-reselect calc-keep-selection)
+	        (entry (calc-top num 'entry))
+	        (sel (or (calc-auto-selection entry) (car entry))))
+     (calc-with-default-simplification
+      (let ((math-simplify-only nil))
+	      (calc-modify-simplify-mode arg)
+	      (let ((val (calc-encase-atoms (calc-normalize sel))))
+	        (calc-pop-push-record-list 1 "jsmp"
+				                             (list (calc-replace-sub-formula
+					                                  (car entry) sel val))
+				                             num
+				                             (list (and calc-sel-reselect val))))))
+     (calc-handle-whys))))
 
 (let* ((entry (calc-top 1 'entry))
        (parent (calc-find-parent-formula (car entry) (nth 2 entry))))
