@@ -10,6 +10,18 @@
 ;; -> 120 x^2 + 60 x + 30
 (math-format-value '(+ (+ (* 120 (^ (var x var-x) 2)) (* 60 (var x var-x))) 30))
 
+;; Apply sqrt function over `n` entries.
+(with-current-buffer (calc-select-buffer)
+  (let ((n 2))
+    (calc-wrapper
+     (calc-unary-op "sqrt" 'calcFunc-sqrt n))))
+
+;; Applies power function over `n` entries, starting from the top of the stack.
+(with-current-buffer (calc-select-buffer)
+  (let ((n 3))
+    (calc-wrapper
+     (calc-binary-op "^" 'calcFunc-pow n))))
+
 (with-current-buffer (calc-select-buffer)
   (math-format-stack-value (nth 1 calc-stack)))
 
