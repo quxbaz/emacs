@@ -2,28 +2,7 @@
 ;; Generalizing factor function. Needs more testing.
 ;;
 
-(defmacro my/calc-apply-sel-or-top (bindings options &rest body)
-  (declare (indent 2))
-  (let ((expr (or (nth 0 bindings) (gensym)))
-        (replace-expr (or (nth 1 bindings) (gensym)))
-        (sel-is-active (or (nth 2 bindings) (gensym)))
-        (m (or (car (alist-get 'm options)) 1))
-        (prefix (or (car (alist-get 'prefix options)) "")))
-    `(let* ((,sel-is-active (my/calc-active-selection-p))
-            (m (cond (,sel-is-active
-                      (if (my/calc-active-selection-at-line-p)
-                          (calc-locate-cursor-element (point))
-                        (my/calc-first-active-entry-m)))
-                     (t ,m)))
-            (entry (nth m calc-stack))
-            (,expr (if ,sel-is-active (nth 2 entry) (calc-top-n m)))
-            (,replace-expr (lambda (new-expr)
-                             (if ,sel-is-active
-                                 (let ((new-formula (calc-replace-sub-formula (car entry) ,expr new-expr)))
-                                   (calc-pop-push-record-list 1 ,prefix new-formula m new-expr))
-                               (calc-pop-push-record-list 1 ,prefix new-expr m)))))
-       ,@body)))
-
+;; TODO: Add comments.
 (defmacro my/calc-apply-sel-or-top (bindings options &rest body)
   (declare (indent 2))
   (let ((expr (or (nth 0 bindings) (gensym)))
@@ -35,20 +14,16 @@
        (cond (,sel-is-active
               (let* ((m (my/calc-active-entry-m-dwim))
                      (entry (nth m calc-stack))
-                     (,expr (nth 2 entry))
-                     (,replace-expr))
-                (fset ',replace-expr
-                      (lambda (new-expr)
-                        (let ((new-formula (calc-replace-sub-formula (car entry) ,expr new-expr)))
-                          (calc-pop-push-record-list 1 ,prefix new-formula m new-expr))))
-                ,@body))
+                     (,expr (nth 2 entry)))
+                (cl-flet ((,replace-expr (new-expr)
+                            (let ((new-formula (calc-replace-sub-formula (car entry) ,expr new-expr)))
+                              (calc-pop-push-record-list 1 ,prefix new-formula m new-expr))))
+                  ,@body)))
              (t
-              (let* ((,expr (calc-top-n ,m))
-                     (,replace-expr))
-                (fset ',replace-expr
-                      (lambda (new-expr)
-                        (calc-pop-push-record-list 1 ,prefix new-expr ,m)))
-                ,@body))))))
+              (let ((,expr (calc-top-n ,m)))
+                (cl-flet ((,replace-expr (new-expr)
+                            (calc-pop-push-record-list 1 ,prefix new-expr ,m)))
+                  ,@body)))))))
 
 (defun my/calc-factor-by ()
   (interactive)
