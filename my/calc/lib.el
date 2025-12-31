@@ -39,6 +39,16 @@ beginning from the top of the stack, or nil if there are no active selections."
            when (nth 2 (nth i calc-stack))
            return i))
 
+(defun my/calc-active-entry-m-dwim ()
+  "Return the POSITION of the active stack entry at the current line. If
+there is no active selection at the current line, return the active entry
+closest to the stack. Return nil if there are no active entries."
+  ;; If any stack element has a non-nil value at (nth 2 elt), then selection is
+  ;; active.
+  (if (my/calc-active-selection-at-line-p)
+      (calc-locate-cursor-element (point))
+    (my/calc-first-active-entry-m)))
+
 (defmacro my/calc-dont-simplify (&rest forms)
   "Execute FORMS with `calc-simplify-mode' temporarily set to \\='none.
 
