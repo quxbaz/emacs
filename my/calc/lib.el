@@ -40,9 +40,12 @@ beginning from the top of the stack, or nil if there are no active selections."
            return i))
 
 (defun my/calc-active-entry-m-dwim ()
-  "Return the POSITION of the active stack entry at the current line. If
-there is no active selection at the current line, return the active entry
-closest to the stack. Return nil if there are no active entries."
+  "Return stack POSITION of active selection at point, or topmost selection.
+
+Returns the stack position (m) of the active selection at the current
+line. If no selection exists at point, returns the position of the first
+active selection from the top of the stack. Returns nil if no selections
+are active."
   ;; If any stack element has a non-nil value at (nth 2 elt), then selection is
   ;; active.
   (if (my/calc-active-selection-at-line-p)
