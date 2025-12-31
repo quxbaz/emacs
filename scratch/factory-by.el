@@ -60,8 +60,7 @@
        (my/preserve-point
         (calc-wrapper
          (replace-expr product)
-         (calc-pop-stack 1))
-        )))))
+         (calc-pop-stack 1)))))))
 
 (my/calc-apply-sel-or-top (expr replace-expr) ((m 2) (prefix "fctr"))
   (my/calc-dont-simplify
