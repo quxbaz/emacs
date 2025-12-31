@@ -33,12 +33,17 @@
         (prefix (or (car (alist-get 'prefix options)) "")))
     `(let ((,sel-is-active (my/calc-active-selection-p)))
        (cond (,sel-is-active
-              (let* ((m (if (my/calc-active-selection-at-line-p)
-                            (calc-locate-cursor-element (point))
-                          (my/calc-first-active-entry-m))))
-                nil))
+              (let* ((m (my/calc-active-entry-m-dwim))
+                     (entry (nth m calc-stack))
+                     (,expr (nth 2 entry))
+                     (,replace-expr))
+                (fset ',replace-expr
+                      (lambda (new-expr)
+                        (let ((new-formula (calc-replace-sub-formula (car entry) ,expr new-expr)))
+                          (calc-pop-push-record-list 1 ,prefix new-formula m new-expr))))
+                ,@body))
              (t
-              (let* ((expr (calc-top-n ,m))
+              (let* ((,expr (calc-top-n ,m))
                      (,replace-expr))
                 (fset ',replace-expr
                       (lambda (new-expr)
@@ -55,7 +60,8 @@
        (my/preserve-point
         (calc-wrapper
          (replace-expr product)
-         (calc-pop-stack 1)))))))
+         (calc-pop-stack 1))
+        )))))
 
 (my/calc-apply-sel-or-top (expr replace-expr) ((m 2) (prefix "fctr"))
   (my/calc-dont-simplify
