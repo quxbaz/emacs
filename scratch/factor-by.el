@@ -27,15 +27,17 @@
 
 (defun my/calc-factor-by ()
   (interactive)
-  (my/calc-apply-sel-or-top (expr replace-expr) ((m 2) (prefix "fctr"))
+  (my/calc-apply-sel-or-top (expr replace-expr sel-is-active) ((m 2) (prefix "fctr"))
     (my/calc-dont-simplify
-     (let* ((factor (calc-top-n 1))
+     (let* ((saved-point (point))
+            (factor (calc-top-n 1))
             (divided (math-simplify (calcFunc-nrat (calcFunc-expand (calcFunc-div expr factor)))))
             (product (calcFunc-mul factor divided)))
-       (my/preserve-point
-        (calc-wrapper
-         (replace-expr product)
-         (calc-pop-stack 1)))))))
+       (calc-wrapper
+        (replace-expr product)
+        (calc-pop-stack 1))
+       (if sel-is-active
+           (setf (point) saved-point))))))
 
 (my/calc-apply-sel-or-top (expr replace-expr) ((m 2) (prefix "fctr"))
   (my/calc-dont-simplify
