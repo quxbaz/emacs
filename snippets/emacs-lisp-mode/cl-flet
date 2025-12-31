@@ -1,0 +1,5 @@
+# name: cl-flet
+# key: fl
+# --
+(cl-flet ((${1:NAME} (${2:ARGS}) ${3:BODY}))
+   $0)
