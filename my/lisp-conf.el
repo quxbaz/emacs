@@ -55,6 +55,7 @@
 (keymap-set emacs-lisp-mode-map "C-c C-c" 'my/eval-dwim)
 (keymap-set emacs-lisp-mode-map "C-c C-." 'my/eval-here)
 (keymap-set emacs-lisp-mode-map "C-c C-x" 'my/eval-kill-ring)
+(keymap-set emacs-lisp-mode-map "C-c RET" 'pp-macroexpand-last-sexp)
 
 ;;
 ;; # Paredit config
