@@ -2,7 +2,6 @@
 ;; Generalizing factor function. Needs more testing.
 ;;
 
-;; TODO: Add comments.
 (defmacro my/calc-apply-sel-or-top (bindings options &rest body)
   "Execute BODY with bindings for operating on calc selections or stack entries.
 
