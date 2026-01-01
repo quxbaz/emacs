@@ -50,7 +50,7 @@ Takes the square root of the active selection or stack level 2."
         (opt-prefix (alist-get 'prefix options ""))
         ;;  Controls point preservation. Preserve point unless set to -1 (default: t).
         (opt-keep-point (alist-get 'keep-point options t)))
-    `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to `t` if selection is active.
+    `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
            (saved-point (point)))  ;; Restore point later if `opt-keep-point` is true.
        (cond (,sym-sel-is-active
               (let* ((m (my/calc-active-entry-m-dwim))
