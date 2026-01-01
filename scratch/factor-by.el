@@ -52,21 +52,22 @@ Takes the square root of the active selection or stack level 2."
         (opt-keep-point (alist-get 'keep-point options t)))
     `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
            (saved-point (point)))  ;; Restore point later if `opt-keep-point` is true.
-       (cond (,sym-sel-is-active
-              (let* ((m (my/calc-active-entry-m-dwim))
-                     (entry (nth m calc-stack))
-                     (,sym-expr (nth 2 entry)))
-                (cl-flet ((,sym-replace-expr (new-expr)
-                            (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
-                              (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
-                  ,@body)))
-             (t
-              (let ((,sym-expr (calc-top-n ,opt-m)))
-                (cl-flet ((,sym-replace-expr (new-expr)
-                            (calc-pop-push-record-list 1 ,opt-prefix new-expr ,opt-m)))
-                  ,@body))))
-       (unless (eq ,opt-keep-point -1)
-         (setf (point) saved-point)))))
+       (prog1 ;; Return value from `body`.
+           (cond (,sym-sel-is-active
+                  (let* ((m (my/calc-active-entry-m-dwim))
+                         (entry (nth m calc-stack))
+                         (,sym-expr (nth 2 entry)))
+                    (cl-flet ((,sym-replace-expr (new-expr)
+                                (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
+                                  (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
+                      ,@body)))
+                 (t
+                  (let ((,sym-expr (calc-top-n ,opt-m)))
+                    (cl-flet ((,sym-replace-expr (new-expr)
+                                (calc-pop-push-record-list 1 ,opt-prefix new-expr ,opt-m)))
+                      ,@body))))
+         (unless (eq ,opt-keep-point -1)
+           (setf (point) saved-point))))))
 
 (defun my/calc-factor-by ()
   (interactive)
