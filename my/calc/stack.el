@@ -142,48 +142,16 @@ just the region."
 (defun my/calc-factor-by ()
   "Factors an expression by an argument.
 With no selection: factors stack level 2 by stack level 1.
-With selection active: factors the selected sub-expression by the top of stack."
+With selection active: factors the selected expression by the top of stack."
   (interactive)
-  (my/calc-dont-simplify
-   ;; Factor the selection (using the top stack entry as the factor).
-   (if (my/calc-active-selection-p)
-       (let* (;; Stack position of the selection. Use either the selection at the
-              ;; current line, or the active selection closest to the stack top.
-              (m (if (my/calc-active-selection-at-line-p)
-                     (calc-locate-cursor-element (point))
-                   (my/calc-first-active-entry-m)))
-              ;; (formula, height [in lines], selection [or nil])
-              (entry (nth m calc-stack))
-              ;; The selection aka subformula.
-              (sel (nth 2 entry))
-              (factor (calc-top-n 1))
-              (divided (math-simplify (calcFunc-nrat (calcFunc-expand (calcFunc-div sel factor)))))
-              ;; The replacement expression.
-              (product (calcFunc-mul factor divided))
-              ;; The replacement formula. From within the original formula (car
-              ;; entry), replace the selection (sel) with the factored
-              ;; expression (product).
-              (new-formula (calc-replace-sub-formula (car entry) sel product)))
-         (my/preserve-point
-          (calc-wrapper
-           ;; Push the new formula at the line position of the selection (m) and
-           ;; reselect the new subformula (product).
-           (calc-pop-push-record-list 1 "fctr" new-formula m product)
-
-           ;; Uncomment to disable reselect.
-           ;; (calc-prepare-selection m)
-	         ;; (calc-change-current-selection nil)
-
-           ;; Pop the factor.
-           (calc-pop-stack 1))))
-     ;; No selection: Factor the second stack entry using the top stack entry
-     ;; as the factor.
-     (let* ((expr (calc-top-n 2))
-            (factor (calc-top-n 1))
+  (my/calc-apply-sel-or-top (expr replace-expr sel-is-active) ((prefix "fctr") (m 2))
+    (my/calc-dont-simplify
+     (let* ((factor (calc-top-n 1))
             (divided (math-simplify (calcFunc-nrat (calcFunc-expand (calcFunc-div expr factor)))))
             (product (calcFunc-mul factor divided)))
        (calc-wrapper
-        (calc-pop-push-record-list 2 "fctr" product))))))
+        (replace-expr product)
+        (calc-pop-stack 1))))))
 
 (defun my/calc-quick-variable ()
   "Reads a character and pushes it as a variable onto the calc stack."
