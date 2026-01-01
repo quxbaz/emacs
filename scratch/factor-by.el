@@ -48,8 +48,7 @@ Takes the square root of the active selection or stack level 2."
         (opt-m (alist-get 'm options 1))
         ;; The prefix to use in the calc trail. Defaults to the empty string "".
         (opt-prefix (alist-get 'prefix options ""))
-        ;;  Controls point preservation: t or nil preserves, -1
-        ;;  allows movement (default: t.
+        ;;  Controls point preservation: t or nil preserves, -1 allows movement (default: t).
         (opt-keep-point (alist-get 'keep-point options t)))
     `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to `t` if selection is active.
            (saved-point (point)))  ;; Restore point later if `opt-keep-point` is true.
