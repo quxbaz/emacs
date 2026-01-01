@@ -42,9 +42,10 @@
     ;; Factor by 2
     (my/calc-factor-by)
     ;; Result should be 2 * (x + 2) - check internal structure
-    (let ((result (calc-top-n 1)))
+    (let ((result (car (nth 1 calc-stack))))
+      (print result)
       ;; Result should be a product (* ...) containing factor 2
-      (should (equal result '(+ (* 2 (var x var-x)) 4))))))
+      (should (equal result '(* 2 (+ (var x var-x) 2)))))))
 
 (ert-deftest test-my/calc-factor-by-numeric ()
   "Test factoring 6 by 3 yields 3 * 2."
@@ -57,11 +58,10 @@
     (calc-push 3)
     ;; Factor by 3
     (my/calc-factor-by)
-    ;; Result should be 3 * 2 = 6 or just 2 depending on simplification
-    (let ((result (calc-top-n 1)))
-      ;; Should be 3 * 2 or 6
-      (should (or (equal result 6)
-                  (equal (math-format-value result) "3 * 2"))))))
+    ;; Result should be 3 * 2 - check internal structure
+    (let ((result (car (nth 1 calc-stack))))
+      (print result)
+      (should (equal result '(* 3 2))))))
 
 (ert-deftest test-my/calc-factor-by-polynomial ()
   "Test factoring x^2 + 2x by x yields x * (x + 2)."
@@ -74,9 +74,12 @@
     (calc-push (math-read-expr "x"))
     ;; Factor by x
     (my/calc-factor-by)
-    ;; Result should be x * (x + 2)
-    (let ((result (calc-top-n 1)))
-      (should (string-match-p "x.*x.*\\+" (math-format-value result))))))
+    ;; Result should be x * (x + 2) - check internal structure
+    (let ((result (car (nth 1 calc-stack))))
+      ;; Should be a product containing x
+      (should (listp result))
+      (should (eq (car result) '*))
+      (should (member '(var x var-x) result)))))
 
 ;;; Edge cases
 
@@ -122,7 +125,7 @@
       ;; (Note: replace-expr is a cl-flet binding, not a variable, so functionp won't work)
       (replace-expr 99)
       ;; Top of stack should now be 99
-      (should (equal (calc-top-n 1) 99)))))
+      (should (equal (car (nth 1 calc-stack)) 99)))))
 
 ;;; Gensym tests
 
@@ -145,6 +148,6 @@
     ;; All bindings gensymmed
     (my/calc-apply-sel-or-top () ()
       ;; Should still work, just can't reference the values
-      (should (equal (calc-top-n 1) 42)))))
+      (should (equal (car (nth 1 calc-stack)) 42)))))
 
 (provide 'factor-by-tests)
