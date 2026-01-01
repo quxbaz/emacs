@@ -5,12 +5,13 @@
 ;; TODO: Add comments.
 (defmacro my/calc-apply-sel-or-top (bindings options &rest body)
   (declare (indent 2))
+  (setq options (mapcar (lambda (pair) (cons (car pair) (cadr pair))) options))
   (let ((sym-expr (or (nth 0 bindings) (gensym)))
         (sym-replace-expr (or (nth 1 bindings) (gensym)))
         (sym-sel-is-active (or (nth 2 bindings) (gensym)))
-        (opt-m (alist-get :m options 1))
-        (opt-prefix (alist-get :prefix options ""))
-        (opt-keep-point (alist-get :keep-point options t)))
+        (opt-m (alist-get 'm options 1))
+        (opt-prefix (alist-get 'prefix options ""))
+        (opt-keep-point (alist-get 'keep-point options t)))
     `(let ((,sym-sel-is-active (my/calc-active-selection-p))
            (saved-point (point)))
        (cond (,sym-sel-is-active
@@ -31,8 +32,7 @@
 
 (defun my/calc-factor-by ()
   (interactive)
-  (my/calc-apply-sel-or-top (expr replace-expr sel-is-active)
-      ((:prefix . "fctr") (:m . 2) (:keep-point . t))
+  (my/calc-apply-sel-or-top (expr replace-expr sel-is-active) ((prefix "fctr") (m 2))
     (my/calc-dont-simplify
      (let* ((factor (calc-top-n 1))
             (divided (math-simplify (calcFunc-nrat (calcFunc-expand (calcFunc-div expr factor)))))
@@ -41,7 +41,7 @@
         (replace-expr product)
         (calc-pop-stack 1))))))
 
-(my/calc-apply-sel-or-top (expr replace-expr) ((:m . 2) (:prefix . "fctr"))
+(my/calc-apply-sel-or-top (expr replace-expr) ((m 2) (prefix "fctr"))
   (my/calc-dont-simplify
    (let* ((factor (calc-top-n 1))
           (divided (math-simplify (calcFunc-nrat (calcFunc-expand (calcFunc-div expr factor)))))
