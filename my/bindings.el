@@ -246,3 +246,7 @@
 ;; # yasnippet
 (global-set-key (kbd "<escape> <escape> y") (my/cmd (yas-reload-all)))
 (global-set-key (kbd "<escape> y") 'my/visit-snippet-directory)
+
+
+;; ert, testing
+(global-set-key (kbd "C-x T") (my/cmd (ert t)))
