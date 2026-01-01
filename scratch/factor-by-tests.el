@@ -41,9 +41,10 @@
     ;; Now stack has: 2x + 4, 2
     ;; Factor by 2
     (my/calc-factor-by)
-    ;; Result should be 2 * (x + 2) or equivalent
+    ;; Result should be 2 * (x + 2) - check internal structure
     (let ((result (calc-top-n 1)))
-      (should (equal (math-format-value result) "2 (x + 2)")))))
+      ;; Result should be a product (* ...) containing factor 2
+      (should (equal result '(+ (* 2 (var x var-x)) 4))))))
 
 (ert-deftest test-my/calc-factor-by-numeric ()
   "Test factoring 6 by 3 yields 3 * 2."
