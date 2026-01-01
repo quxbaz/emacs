@@ -79,13 +79,3 @@ Takes the square root of the active selection or stack level 2."
        (calc-wrapper
         (replace-expr product)
         (calc-pop-stack 1))))))
-
-(my/calc-apply-sel-or-top (expr replace-expr) ((m 2) (prefix "fctr"))
-  (my/calc-dont-simplify
-   (let* ((factor (calc-top-n 1))
-          (divided (math-simplify (calcFunc-nrat (calcFunc-expand (calcFunc-div expr factor)))))
-          (product (calcFunc-mul factor divided)))
-     (my/preserve-point
-      (calc-wrapper
-       (calc-pop-stack 1)
-       (replace-expr product))))))
