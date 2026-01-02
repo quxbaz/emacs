@@ -147,7 +147,7 @@ With selection active: factors the selected expression by the top of stack."
   (my/calc-apply-sel-or-top (expr replace-expr sel-is-active) ((prefix "fctr") (m 2))
     (my/calc-dont-simplify
      (let* ((factor (calc-top-n 1))
-            (divided (math-simplify (calcFunc-nrat (calcFunc-expand (calcFunc-div expr factor)))))
+            (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
             (product (calcFunc-mul factor divided)))
        (calc-wrapper
         (replace-expr product)
