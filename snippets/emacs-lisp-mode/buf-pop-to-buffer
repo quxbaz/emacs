@@ -1,0 +1,4 @@
+# name: pop-to-buffer
+# key: *
+# --
+(pop-to-buffer ${1:BUFFER-OR-NAME})
