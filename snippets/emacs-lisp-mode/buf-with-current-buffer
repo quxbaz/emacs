@@ -1,0 +1,5 @@
+# name: with-current-buffer
+# key: *
+# --
+(with-current-buffer ${1:BUFFER-OR-NAME}
+  $0)
