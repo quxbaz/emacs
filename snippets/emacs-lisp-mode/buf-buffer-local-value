@@ -1,0 +1,4 @@
+# name: buffer-local-value
+# key: *
+# --
+(buffer-local-value ${1:VARIABLE} ${2:BUFFER})
