@@ -1,0 +1,4 @@
+# name: set-buffer
+# key: *
+# --
+(set-buffer ${1:BUFFER-OR-NAME})
