@@ -1,0 +1,4 @@
+# name: clone-buffer
+# key: *
+# --
+(clone-buffer &optional ${1:NEWNAME} ${2:DISPLAY-FLAG})
