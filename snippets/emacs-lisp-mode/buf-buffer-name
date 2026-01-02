@@ -1,0 +1,4 @@
+# name: buffer-name
+# key: *
+# --
+(buffer-name ${1:&optional BUFFER})
