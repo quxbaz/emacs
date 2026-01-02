@@ -319,3 +319,5 @@ With selection active: factors the selected sub-expression by the top of stack."
 (macroexpand-all
  '(my/foo (a b)
     (message "%s | %s" a b)))
+
+(-> print upcase "foobar")
