@@ -1,4 +1,4 @@
 # name: alist-get
 # key: ag
 # --
-(alist-get ${1:KEY} ${2:ALIST})$0
+(alist-get ${1:KEY} ${2:ALIST})
