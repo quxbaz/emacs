@@ -1,0 +1,5 @@
+# name: with-temp-buffer
+# key: *
+# --
+(with-temp-buffer ${1:BUFFER-OR-NAME}
+  $0)
