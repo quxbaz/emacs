@@ -1,0 +1,4 @@
+# name: switch-to-buffer
+# key: *
+# --
+(switch-to-buffer ${1:BUFFER-OR-NAME})
