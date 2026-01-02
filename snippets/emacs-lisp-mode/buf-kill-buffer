@@ -1,0 +1,4 @@
+# name: kill-buffer
+# key: *
+# --
+(kill-buffer ${1:&optional BUFFER-OR-NAME})
