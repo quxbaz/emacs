@@ -5,6 +5,7 @@
 
 ;; Dependencies
 (require 's)
+(require 'dash)
 
 ;; Extensions
 (load-file (concat user-emacs-directory "ext/show-point-mode.el"))
