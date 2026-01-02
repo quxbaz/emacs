@@ -1,0 +1,6 @@
+# name: ert-deftest
+# key: dt
+# --
+(ert-deftest test-${1:NAME} ()
+  $0
+  (should nil))
