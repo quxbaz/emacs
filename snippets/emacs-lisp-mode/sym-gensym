@@ -1,0 +1,4 @@
+# name: sym-gensym
+# key: sym
+# --
+(gensym ${1:&optional PREFIX})
