@@ -1,0 +1,4 @@
+# name: generate-new-buffer
+# key: *
+# --
+(generate-new-buffer ${1:NAME})
