@@ -85,7 +85,7 @@
 
          ;; Variables
          (:map calc-mode-map ("," . my/calc-quick-variable))
-         (:map calc-mode-map ("p" . calc-recall))
+         (:map calc-mode-map ("p" . my/calc-recall))
          (:map calc-mode-map ("s a" . calc-edit-variable))
 
          ;; Selection operations
