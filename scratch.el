@@ -321,3 +321,5 @@ With selection active: factors the selected sub-expression by the top of stack."
     (message "%s | %s" a b)))
 
 (-> print upcase "foobar")
+
+(calc-align-stack-window)
