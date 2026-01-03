@@ -1,0 +1,4 @@
+# name: butlast
+# key: '
+# --
+(butlast ${1:LIST} ${2:&optional N})
