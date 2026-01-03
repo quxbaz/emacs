@@ -23,8 +23,8 @@
 ;;; Variable "var-eq-pythagorean-trigonometric-identity" stored by Calc on Sun Dec 14 14:15:40 2025
 (setq var-eq-pythagorean-trigonometric-identity '(calcFunc-eq (+ (^ (calcFunc-cos (var a var-a)) 2) (^ (calcFunc-sin (var a var-a)) 2)) 1))
 
-;;; Variable "var-eq-lateral-surface-area-of-pyramid" stored by Calc on Sun Dec 14 14:46:46 2025
-(setq var-eq-lateral-surface-area-of-pyramid '(calcFunc-eq (var sl var-sl) (/ (* (var s var-s) (var p var-p)) 2)))
+;;; Variable "var-eq-lateral-surface-area-of-pyramid" stored by Calc on Sat Jan  3 15:49:40 2026
+(setq var-eq-lateral-surface-area-of-pyramid '(calcFunc-eq (var sl var-sl) (* (frac 1 2) (* (var p var-p) (var s var-s)))))
 
 ;;; Variable "var-eq-area-of-circular-sector" stored by Calc on Sun Dec 14 14:59:45 2025
 (setq var-eq-area-of-circular-sector '(calcFunc-eq (var A var-A) (/ (* (var a var-a) (^ (var r var-r) 2)) 2)))
