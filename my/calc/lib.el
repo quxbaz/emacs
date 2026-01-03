@@ -113,6 +113,7 @@ Takes the square root of the active selection or stack level 2."
         ;;  Controls point preservation. Preserve point unless set to -1 (default: t).
         (opt-keep-point (alist-get 'keep-point options t)))
     `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
+           (keep-args calc-keep-args-flag)
            (saved-point (point)))  ;; Restore point later if `opt-keep-point` is true.
        (prog1 ;; Return value from `body`.
            (cond (,sym-sel-is-active
@@ -126,10 +127,10 @@ Takes the square root of the active selection or stack level 2."
                  (t
                   (let ((,sym-expr (calc-top-n ,opt-m)))
                     (cl-flet ((,sym-replace-expr (new-expr)
-                                (calc-pop-push-record-list 1 ,opt-prefix new-expr (if calc-keep-args-flag 1 ,opt-m))))
+                                (calc-pop-push-record-list 1 ,opt-prefix new-expr (if keep-args 1 ,opt-m))))
                       ,@body))))
          ;; Preserve point unless `calc-keep-args-flag` is t or `opt-keep-point` is -1.
-         (unless (or calc-keep-args-flag (eq ,opt-keep-point -1))
+         (unless (or keep-args (eq ,opt-keep-point -1))
            (setf (point) saved-point))))))
 
 (provide 'my/calc/lib)
