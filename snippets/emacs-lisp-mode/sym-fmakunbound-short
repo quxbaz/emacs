@@ -1,0 +1,4 @@
+# name: fmakunbound-short
+# key: fm
+# --
+(fmakunbound '${1:SYMBOL})
