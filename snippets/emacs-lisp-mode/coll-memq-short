@@ -1,0 +1,4 @@
+# name: memq-short
+# key: in
+# --
+(memq ${1:ELT} ${2:LIST})
