@@ -1,4 +1,0 @@
-# name: memq
-# key: in
-# --
-(memq ${1:ELT} ${2:LIST})
