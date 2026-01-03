@@ -134,6 +134,12 @@ just the region."
           (calc-symbolic-mode 1)
         (calc-symbolic-mode -1)))))
 
+(defun my/calc-recall ()
+  "Like calc-recall, but don't simplify."
+  (interactive)
+  (my/calc-dont-simplify
+   (call-interactively 'calc-recall)))
+
 (defun my/calc-square ()
   "Squares a number."
   (interactive)
