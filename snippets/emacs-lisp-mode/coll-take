@@ -1,0 +1,4 @@
+# name: take
+# key: '
+# --
+(take ${1:N} ${2:LIST})
