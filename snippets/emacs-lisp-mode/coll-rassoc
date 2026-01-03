@@ -1,0 +1,4 @@
+# name: rassoc
+# key: '
+# --
+(rassoc ${1:KEY} ${2:ALIST})
