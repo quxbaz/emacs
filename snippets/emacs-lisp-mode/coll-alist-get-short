@@ -1,0 +1,4 @@
+# name: alist-get-short
+# key: ag
+# --
+(alist-get ${1:KEY} ${2:ALIST} ${3:&optional DEFAULT})
