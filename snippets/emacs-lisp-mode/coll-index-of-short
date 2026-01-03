@@ -1,0 +1,4 @@
+# name: index-of-short
+# key: ind
+# --
+(seq-position ${1:SEQUENCE} ${2:ELT})
