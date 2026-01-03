@@ -1,0 +1,7 @@
+# name: nth
+# key: '
+# binding:
+# type: snippet
+# condition: t
+# --
+(nth ${N} ${LIST})
