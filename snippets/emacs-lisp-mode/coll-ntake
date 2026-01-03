@@ -1,0 +1,4 @@
+# name: ntake
+# key: '
+# --
+(ntake ${1:N} ${2:LIST})
