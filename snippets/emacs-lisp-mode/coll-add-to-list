@@ -1,0 +1,4 @@
+# name: add-to-list
+# key: '
+# --
+(add-to-list ${1:LIST-SYMBOL} ${2:ELEMENT})
