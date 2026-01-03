@@ -8,7 +8,7 @@
 (require 'cl-lib)
 
 ;; Load the code under test
-(load-file (expand-file-name "scratch/factor-by.el" user-emacs-directory))
+(load-file (expand-file-name "my/calc/stack.el" user-emacs-directory))
 (load-file (expand-file-name "my/calc/lib.el" user-emacs-directory))
 
 ;;; Macro expansion tests
@@ -43,7 +43,6 @@
     (my/calc-factor-by)
     ;; Result should be 2 * (x + 2) - check internal structure
     (let ((result (car (nth 1 calc-stack))))
-      (print result)
       ;; Result should be a product (* ...) containing factor 2
       (should (equal result '(* 2 (+ (var x var-x) 2)))))))
 
