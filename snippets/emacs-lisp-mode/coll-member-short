@@ -1,0 +1,4 @@
+# name: member-short
+# key: ine
+# --
+(member ${1:ELT} ${2:LIST})
