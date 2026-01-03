@@ -1,0 +1,4 @@
+# name: rassoc-short
+# key: ra
+# --
+(rassoc ${1:KEY} ${2:ALIST})
