@@ -20,8 +20,8 @@
 ;;; Variable "var-eq-law-of-cosines-2" stored by Calc on Sun Dec 14 13:47:47 2025
 (setq var-eq-law-of-cosines-2 '(calcFunc-eq (calcFunc-cos (var C var-C)) (/ (- (+ (^ (var a var-a) 2) (^ (var b var-b) 2)) (^ (var c var-c) 2)) (* 2 (* (var a var-a) (var b var-b))))))
 
-;;; Variable "var-eq-pythagorean-trigonometric-identity" stored by Calc on Sun Dec 14 14:15:40 2025
-(setq var-eq-pythagorean-trigonometric-identity '(calcFunc-eq (+ (^ (calcFunc-cos (var a var-a)) 2) (^ (calcFunc-sin (var a var-a)) 2)) 1))
+;;; Variable "var-eq-pythagorean-trigonometric-identity" stored by Calc on Sun Jan  4 15:35:59 2026
+(setq var-eq-pythagorean-trigonometric-identity '(calcFunc-eq (+ (^ (calcFunc-sin (var a var-a)) (cplx 2 0)) (^ (calcFunc-cos (var a var-a)) (cplx 2 0))) (cplx 1 0)))
 
 ;;; Variable "var-eq-lateral-surface-area-of-pyramid" stored by Calc on Sat Jan  3 15:49:40 2026
 (setq var-eq-lateral-surface-area-of-pyramid '(calcFunc-eq (var sl var-sl) (* (frac 1 2) (* (var p var-p) (var s var-s)))))
