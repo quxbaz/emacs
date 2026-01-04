@@ -26,8 +26,8 @@
 ;;; Variable "var-eq-lateral-surface-area-of-pyramid" stored by Calc on Sat Jan  3 15:49:40 2026
 (setq var-eq-lateral-surface-area-of-pyramid '(calcFunc-eq (var sl var-sl) (* (frac 1 2) (* (var p var-p) (var s var-s)))))
 
-;;; Variable "var-eq-area-of-circular-sector" stored by Calc on Sun Dec 14 14:59:45 2025
-(setq var-eq-area-of-circular-sector '(calcFunc-eq (var A var-A) (/ (* (var a var-a) (^ (var r var-r) 2)) 2)))
+;;; Variable "var-eq-area-of-circular-sector" stored by Calc on Sat Jan  3 21:44:46 2026
+(setq var-eq-area-of-circular-sector '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (var a var-a) (^ (var r var-r) 2)))))
 
 ;;; Variable "var-eq-general-area-of-triangle" stored by Calc on Sat Jan  3 21:43:19 2026
 (setq var-eq-general-area-of-triangle '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (var a var-a) (* (var b var-b) (calcFunc-sin (var C var-C)))))))
