@@ -74,8 +74,8 @@
 ;;; Variable "var-eq-standard-equation-of-reciprocal-function" stored by Calc on Sun Dec 21 22:25:35 2025
 (setq var-eq-standard-equation-of-reciprocal-function '(calcFunc-eq (var y var-y) (+ (/ (var a var-a) (- (var x var-x) (var h var-h))) (var k var-k))))
 
-;;; Variable "var-eq-surface-area-of-pyramid" stored by Calc on Tue Dec 23 14:39:08 2025
-(setq var-eq-surface-area-of-pyramid '(calcFunc-eq (var S var-S) (+ (var B var-B) (/ (* (var p var-p) (var s var-s)) (cplx 2 0)))))
+;;; Variable "var-eq-surface-area-of-pyramid" stored by Calc on Sat Jan  3 21:52:18 2026
+(setq var-eq-surface-area-of-pyramid '(calcFunc-eq (var S var-S) (+ (* (frac 1 2) (* (var p var-p) (var s var-s))) (var B var-B))))
 
 ;;; Variable "var-eq-area-of-trapezoid" stored by Calc on Mon Dec 29 23:09:32 2025
 (setq var-eq-area-of-trapezoid '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (+ (var b1 var-b1) (var b2 var-b2)) (var h var-h)))))
