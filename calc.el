@@ -62,8 +62,8 @@
 ;;; Variable "var-eq-lateral-surface-area-of-cylinder" stored by Calc on Sat Dec 20 20:26:20 2025
 (setq var-eq-lateral-surface-area-of-cylinder '(calcFunc-eq (var S var-S) (* 2 (* (var h var-h) (* (var pi var-pi) (var r var-r))))))
 
-;;; Variable "var-eq-sum-of-interior-polygon-angles" stored by Calc on Sat Dec 20 22:01:55 2025
-(setq var-eq-sum-of-interior-polygon-angles '(calcFunc-eq (var S var-S) (- (* 180 (var n var-n)) 360)))
+;;; Variable "var-eq-sum-of-interior-polygon-angles" stored by Calc on Sat Jan  3 21:50:17 2026
+(setq var-eq-sum-of-interior-polygon-angles '(calcFunc-eq (var S var-S) (* 180 (- (var n var-n) 2))))
 
 ;;; Variable "var-eq-lateral-surface-area-of-cone" stored by Calc on Sun Dec 21 15:14:49 2025
 (setq var-eq-lateral-surface-area-of-cone '(calcFunc-eq (var S var-S) (* (var pi var-pi) (* (var r var-r) (var s var-s)))))
