@@ -32,8 +32,8 @@
 ;;; Variable "var-eq-general-area-of-triangle" stored by Calc on Sun Dec 14 15:07:09 2025
 (setq var-eq-general-area-of-triangle '(calcFunc-eq (var A var-A) (/ (* (var a var-a) (* (var b var-b) (calcFunc-sin (var C var-C)))) 2)))
 
-;;; Variable "var-eq-volume-of-pyramid" stored by Calc on Mon Dec 15 13:05:06 2025
-(setq var-eq-volume-of-pyramid '(calcFunc-eq (var V var-V) (/ (* (var B var-B) (var h var-h)) 3)))
+;;; Variable "var-eq-volume-of-pyramid" stored by Calc on Sat Jan  3 21:42:21 2026
+(setq var-eq-volume-of-pyramid '(calcFunc-eq (var V var-V) (* (frac 1 3) (* (var B var-B) (var h var-h)))))
 
 ;;; Variable "var-eq-surface-area-of-conical-frustrum" stored by Calc on Tue Dec 16 11:31:37 2025
 (setq var-eq-surface-area-of-conical-frustrum '(calcFunc-eq (var S var-S) (+ (+ (* (var pi var-pi) (* (var s var-s) (+ (var r1 var-r1) (var r2 var-r2)))) (* (var pi var-pi) (^ (var r1 var-r1) (cplx 2 0)))) (* (var pi var-pi) (^ (var r2 var-r2) (cplx 2 0))))))
@@ -53,8 +53,8 @@
 ;;; Variable "var-eq-volume-of-cylinder" stored by Calc on Thu Dec 18 22:06:41 2025
 (setq var-eq-volume-of-cylinder '(calcFunc-eq (var V var-V) (* (var pi var-pi) (* (^ (var r var-r) (cplx 2 0)) (var h var-h)))))
 
-;;; Variable "var-eq-volume-of-cone" stored by Calc on Thu Dec 18 22:53:21 2025
-(setq var-eq-volume-of-cone '(calcFunc-eq (var V var-V) (/ (* (var h var-h) (* (var pi var-pi) (^ (var r var-r) 2))) 3)))
+;;; Variable "var-eq-volume-of-cone" stored by Calc on Sat Jan  3 21:41:47 2026
+(setq var-eq-volume-of-cone '(calcFunc-eq (var V var-V) (* (frac 1 3) (* (var pi var-pi) (* (^ (var r var-r) 2) (var h var-h))))))
 
 ;;; Variable "var-eq-surface-area-of-cylinder" stored by Calc on Sat Dec 20 20:25:13 2025
 (setq var-eq-surface-area-of-cylinder '(calcFunc-eq (var S var-S) (+ (* 2 (* (var pi var-pi) (^ (var r var-r) 2))) (* 2 (* (var h var-h) (* (var pi var-pi) (var r var-r)))))))
