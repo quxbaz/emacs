@@ -56,8 +56,8 @@
 ;;; Variable "var-eq-volume-of-cone" stored by Calc on Sat Jan  3 21:41:47 2026
 (setq var-eq-volume-of-cone '(calcFunc-eq (var V var-V) (* (frac 1 3) (* (var pi var-pi) (* (^ (var r var-r) 2) (var h var-h))))))
 
-;;; Variable "var-eq-surface-area-of-cylinder" stored by Calc on Sat Dec 20 20:25:13 2025
-(setq var-eq-surface-area-of-cylinder '(calcFunc-eq (var S var-S) (+ (* 2 (* (var pi var-pi) (^ (var r var-r) 2))) (* 2 (* (var h var-h) (* (var pi var-pi) (var r var-r)))))))
+;;; Variable "var-eq-surface-area-of-cylinder" stored by Calc on Sat Jan  3 21:49:26 2026
+(setq var-eq-surface-area-of-cylinder '(calcFunc-eq (var S var-S) (+ (* (cplx 2 0) (* (var pi var-pi) (* (var r var-r) (var h var-h)))) (* (cplx 2 0) (* (var pi var-pi) (^ (var r var-r) (cplx 2 0)))))))
 
 ;;; Variable "var-eq-lateral-surface-area-of-cylinder" stored by Calc on Sat Dec 20 20:26:20 2025
 (setq var-eq-lateral-surface-area-of-cylinder '(calcFunc-eq (var S var-S) (* 2 (* (var h var-h) (* (var pi var-pi) (var r var-r))))))
