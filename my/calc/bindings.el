@@ -113,7 +113,7 @@
          (:map calc-mode-map ("u D" . calc-vector-median))
          (:map calc-mode-map ("v o" . calc-sort))
          (:map calc-mode-map ("M-u" . calc-unpack))
-         (:map calc-mode-map ("v 0" . my/calc-vector-flatten))
+         (:map calc-mode-map ("v L" . my/calc-vector-flatten))
 
          ;; Rewrite rules
          (:map calc-mode-map ("X" . my/calc-log-exp-rules))
