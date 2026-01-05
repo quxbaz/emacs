@@ -194,6 +194,12 @@ With selection active: factors the selected expression by the top of stack."
           ((>= result 90) (- 180 result))
           (t result))))
 
+(defun my/calc-ref-angle (arg)
+  "Given an angle, gets its reference angle."
+  (interactive "P")
+  (calc-wrapper
+   (calc-unary-op "refa" 'my/math-ref-angle arg)))
+
 (defun my/calc-vector-flatten ()
   "Flattens a vector."
   (interactive)
