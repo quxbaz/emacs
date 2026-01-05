@@ -187,4 +187,11 @@ With selection active: factors the selected expression by the top of stack."
         (replace-expr product)
         (calc-pop-stack 1))))))
 
+(defun my/calc-vector-flatten ()
+  "Flattens a vector."
+  (interactive)
+  (calc-wrapper
+   (let ((flat-vector (list 'calcFunc-arrange (calc-top-n 1) (prefix-numeric-value 0))))
+     (calc-enter-result 1 "flat" flat-vector))))
+
 (provide 'my/calc/stack)
