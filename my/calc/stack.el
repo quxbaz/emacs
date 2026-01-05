@@ -187,6 +187,13 @@ With selection active: factors the selected expression by the top of stack."
         (replace-expr product)
         (calc-pop-stack 1))))))
 
+(defun my/math-ref-angle (x)
+  (let ((result (mod x 360)))
+    (cond ((>= result 270) (- 360 result))
+          ((>= result 180) (- result 180))
+          ((>= result 90) (- 180 result))
+          (t result))))
+
 (defun my/calc-vector-flatten ()
   "Flattens a vector."
   (interactive)
