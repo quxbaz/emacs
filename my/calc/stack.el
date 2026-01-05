@@ -188,6 +188,7 @@ With selection active: factors the selected expression by the top of stack."
         (calc-pop-stack 1))))))
 
 (defun my/math-ref-angle (x)
+  "Given an angle, gets its reference angle."
   (let ((result (mod x 360)))
     (cond ((>= result 270) (- 360 result))
           ((>= result 180) (- result 180))
