@@ -18,10 +18,12 @@
      (calc-rewrite (s-join "," rules) 1))))
 
 (defun my/calc-mod-360 ()
-  "Applies modulo 360 (degrees)."
+  "Applies modulo 360 (degrees). If hyperbolic flag is t, use 180 (degrees)
+as the modulus."
   (interactive)
   (calc-wrapper
-   (calc-enter-result 1 "norm" (math-mod (calc-top-n 1) 360))))
+   (let ((modulus (if (calc-is-hyperbolic) 180 360)))
+     (calc-enter-result 1 "norm" (math-mod (calc-top-n 1) modulus)))))
 
 (defun my/calc-log-exp-rules ()
   "Applies logarithm and exponential identities.
