@@ -16,6 +16,21 @@
         (t
          (call-interactively 'calc))))
 
+(defun my/calc-no-simplify-mode ()
+  "Like calc-no-simplify-mode, but retains point."
+  (interactive)
+  (my/preserve-point
+   (call-interactively 'calc-no-simplify-mode)
+   (my/flash-mode-line)))
+
+(defun my/calc-toggle-big-language ()
+  "Toggle between big language and normal display mode."
+  (interactive)
+  (calc-wrapper
+   (if (eq calc-language 'big)
+       (calc-normal-language)
+     (calc-big-language))))
+
 (defun my/calc-undo ()
   "Like calc-undo, but retains point position."
   (interactive)
@@ -171,20 +186,5 @@ With selection active: factors the selected expression by the top of stack."
        (calc-wrapper
         (replace-expr product)
         (calc-pop-stack 1))))))
-
-(defun my/calc-no-simplify-mode ()
-  "Like calc-no-simplify-mode, but retains point."
-  (interactive)
-  (my/preserve-point
-   (call-interactively 'calc-no-simplify-mode)
-   (my/flash-mode-line)))
-
-(defun my/calc-toggle-big-language ()
-  "Toggle between big language and normal display mode."
-  (interactive)
-  (calc-wrapper
-   (if (eq calc-language 'big)
-       (calc-normal-language)
-     (calc-big-language))))
 
 (provide 'my/calc/stack)
