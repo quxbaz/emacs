@@ -124,6 +124,18 @@ just the region."
         (message "Recalled calc stack."))
     (message "Stored stack not found.")))
 
+(defun my/calc-quick-variable ()
+  "Reads a character and pushes it as a variable onto the calc stack."
+  (interactive)
+  (let ((char (read-char-from-minibuffer "Enter a variable: ")))
+    (if (or (and (>= char ?a) (<= char ?z))
+            (and (>= char ?A) (<= char ?Z)))
+        (let* ((var-name (intern (char-to-string char)))
+               (var-symbol (intern (concat "var-" (char-to-string char)))))
+          (calc-wrapper
+           (calc-push (list 'var var-name var-symbol))))
+      (message "Invalid character. Must be a-z or A-Z."))))
+
 (defun my/calc-evaluate ()
   "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
   (interactive)
@@ -159,18 +171,6 @@ With selection active: factors the selected expression by the top of stack."
        (calc-wrapper
         (replace-expr product)
         (calc-pop-stack 1))))))
-
-(defun my/calc-quick-variable ()
-  "Reads a character and pushes it as a variable onto the calc stack."
-  (interactive)
-  (let ((char (read-char-from-minibuffer "Enter a variable: ")))
-    (if (or (and (>= char ?a) (<= char ?z))
-            (and (>= char ?A) (<= char ?Z)))
-        (let* ((var-name (intern (char-to-string char)))
-               (var-symbol (intern (concat "var-" (char-to-string char)))))
-          (calc-wrapper
-           (calc-push (list 'var var-name var-symbol))))
-      (message "Invalid character. Must be a-z or A-Z."))))
 
 (defun my/calc-no-simplify-mode ()
   "Like calc-no-simplify-mode, but retains point."
