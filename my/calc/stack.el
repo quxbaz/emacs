@@ -151,16 +151,11 @@ just the region."
            (calc-push (list 'var var-name var-symbol))))
       (message "Invalid character. Must be a-z or A-Z."))))
 
-(defun my/calc-evaluate ()
-  "Like calc-evaluate, but turns off symbolic mode during evaluation, then restores."
-  (interactive)
-  (let ((stored-symbolic-mode calc-symbolic-mode))
-    (unwind-protect
-        (progn (calc-symbolic-mode -1)
-               (call-interactively 'calc-evaluate))
-      (if stored-symbolic-mode
-          (calc-symbolic-mode 1)
-        (calc-symbolic-mode -1)))))
+(defun my/calc-evaluate (n)
+  "Like calc-evaluate, but disables symbolic mode during evaluation."
+  (interactive "p")
+  (let ((calc-symbolic-mode nil))
+    (calc-evaluate n)))
 
 (defun my/calc-recall ()
   "Like calc-recall, but don't simplify."
