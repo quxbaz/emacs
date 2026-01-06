@@ -323,3 +323,16 @@ With selection active: factors the selected sub-expression by the top of stack."
 (-> print upcase "foobar")
 
 (calc-align-stack-window)
+
+(defun calc-eval-num (n)
+  (interactive "P")
+  (calc-slow-wrapper
+   (let* ((nn (prefix-numeric-value n))
+	        (calc-internal-prec (cond ((>= nn 3) nn)
+				                            ((< nn 0) (max (+ calc-internal-prec nn)
+						                                       3))
+				                            (t calc-internal-prec)))
+	        (calc-symbolic-mode nil))
+     (calc-with-default-simplification
+      (calc-pop-push-record 1 "num" (math-evaluate-expr (calc-top 1)))))
+   (calc-handle-whys)))
