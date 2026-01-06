@@ -1,4 +1,4 @@
 # name: gensym
-# key: sym
+# key: &
 # --
 (gensym ${1:&optional PREFIX})

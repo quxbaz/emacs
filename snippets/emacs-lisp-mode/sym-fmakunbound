@@ -1,4 +1,4 @@
 # name: fmakunbound
-# key: sym
+# key: &
 # --
 (fmakunbound '${1:SYMBOL})
