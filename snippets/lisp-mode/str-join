@@ -1,0 +1,4 @@
+# name: join
+# key: r
+# --
+(format nil "~{~A~^,~}" ${1:LIST})
