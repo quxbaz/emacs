@@ -174,8 +174,7 @@ With no selection: factors stack level 2 by stack level 1.
 With selection active: factors the selected expression by the top of stack."
   (interactive)
   (my/calc-apply-sel-or-top (expr replace-expr) ((prefix "fctr") (m 2))
-    (let* (;; (calc-simplify-mode 'none)
-           (calc-simplify-mode nil)
+    (let* ((calc-simplify-mode 'none)
            (factor (calc-top-n 1))
            (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
            (factored (calcFunc-mul factor divided)))
