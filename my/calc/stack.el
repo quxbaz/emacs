@@ -81,7 +81,7 @@ Shows message if stack is empty."
               (<= (calc-locate-cursor-element (point)) 0))
          (calc-pop 1))
         ((> (calc-stack-size) 0)
-         (call-interactively 'calc-del-selection))
+         (calc-del-selection))
         (t
          (deactivate-mark)
          (message "Stack is empty."))))
