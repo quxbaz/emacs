@@ -74,13 +74,17 @@
        (calc-roll-up n)))))
 
 (defun my/calc-pop ()
-  "Pops an entry from the stack. Shows message if stack is empty."
+  "Delete subformula at point, or pop top of stack if cursor is at bottom.
+Shows message if stack is empty."
   (interactive)
-  (calc-wrapper
-   (if (> (calc-stack-size) 0)
-       (calc-pop 1)
-     (deactivate-mark)
-     (message "Stack is empty."))))
+  (cond ((and (> (calc-stack-size) 0)
+              (<= (calc-locate-cursor-element (point)) 0))
+         (calc-pop 1))
+        ((> (calc-stack-size) 0)
+         (call-interactively 'calc-del-selection))
+        (t
+         (deactivate-mark)
+         (message "Stack is empty."))))
 
 (defun my/calc-ret ()
   "Duplicates the line. If selection is active, exit selection mode instead."
