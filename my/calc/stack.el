@@ -160,8 +160,8 @@ just the region."
 (defun my/calc-recall ()
   "Like calc-recall, but don't simplify."
   (interactive)
-  (my/calc-dont-simplify
-   (call-interactively 'calc-recall)))
+  (let ((calc-simplify-mode 'none))
+    (call-interactively 'calc-recall)))
 
 (defun my/calc-square ()
   "Squares a number."
