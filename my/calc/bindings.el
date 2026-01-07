@@ -50,6 +50,8 @@
          ;; Math operations
          (:map calc-mode-map ("M-=" . calc-evaluate))
          (:map calc-mode-map ("k k" . my/calc-evaluate))
+         (:map calc-mode-map ("-" . calcDigit-start))
+         (:map calc-mode-map ("_" . calc-minus))
          (:map calc-mode-map ("o" . calc-inv))
          (:map calc-mode-map ("\\" . calc-sqrt))
          (:map calc-mode-map ("W" . my/calc-square))
