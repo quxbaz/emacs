@@ -174,13 +174,14 @@ With no selection: factors stack level 2 by stack level 1.
 With selection active: factors the selected expression by the top of stack."
   (interactive)
   (my/calc-apply-sel-or-top (expr replace-expr) ((prefix "fctr") (m 2))
-    (my/calc-dont-simplify
-     (let* ((factor (calc-top-n 1))
-            (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
-            (product (calcFunc-mul factor divided)))
-       (calc-wrapper
-        (replace-expr product)
-        (calc-pop-stack 1))))))
+    (let* (;; (calc-simplify-mode 'none)
+           (calc-simplify-mode nil)
+           (factor (calc-top-n 1))
+           (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
+           (product (calcFunc-mul factor divided)))
+      (calc-wrapper
+       (replace-expr (math-normalize product))
+       (calc-pop-stack 1)))))
 
 (defun my/math-ref-angle (x)
   "Given an angle, gets its reference angle."
