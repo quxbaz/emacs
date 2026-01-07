@@ -52,18 +52,6 @@ are active."
       (calc-locate-cursor-element (point))
     (my/calc-first-active-entry-m)))
 
-(defmacro my/calc-dont-simplify (&rest forms)
-  "Execute FORMS with `calc-simplify-mode' temporarily set to \\='none.
-
-The previous simplification mode is restored afterwards, even if
-FORMS signals an error. Returns the value of the last form in FORMS."
-  `(let ((mode calc-simplify-mode))
-     (unwind-protect
-         (progn
-           (calc-change-mode 'calc-simplify-mode 'none)
-           ,@forms)
-       (calc-change-mode 'calc-simplify-mode mode))))
-
 (defmacro my/calc-apply-sel-or-top (bindings options &rest body)
   "Execute BODY with bindings for operating on calc selections or stack entries.
 
