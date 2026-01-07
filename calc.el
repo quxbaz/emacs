@@ -79,3 +79,6 @@
 
 ;;; Variable "var-eq-area-of-trapezoid" stored by Calc on Sat Jan  3 21:53:52 2026
 (setq var-eq-area-of-trapezoid '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (var h var-h) (+ (var b1 var-b1) (var b2 var-b2))))))
+
+;;; Variable "var-eq-area-of-triangle" stored by Calc on Wed Jan  7 14:52:57 2026
+(setq var-eq-area-of-triangle '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (var b var-b) (var h var-h)))))
