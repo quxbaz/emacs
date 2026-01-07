@@ -1,11 +1,8 @@
 
-;;; Mode settings stored by Calc on Tue Oct 14 11:25:47 2025
-;; (setq calc-context-sensitive-enter t)
-(setq calc-show-selections t)
+;;; Mode settings stored by Calc on Wed Jan  7 15:00:39 2026
 (setq calc-display-trail nil)
 (setq calc-symbolic-mode t)
 (setq calc-prefer-frac t)
-;; (setq calc-vector-commas nil)
 ;;; End of mode settings
 
 ;;; Variable "var-eq-standard-equation-of-parabola" stored by Calc on Wed Dec 10 12:05:12 2025
