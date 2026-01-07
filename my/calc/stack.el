@@ -6,8 +6,8 @@
 (defun my/calc ()
   "Starts calc."
   (interactive)
-  (cond ((or (eq major-mode 'dired-mode)
-             (string-match-p "^[*]" (buffer-name)))
+  (cond ((or (string-match-p "^[*]" (buffer-name))
+             (memq major-mode (list 'dired-mode 'magit-status-mode)))
          (calc nil t t))
         ((= (count-windows) 1)
          (split-window-right)
