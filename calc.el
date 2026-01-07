@@ -1,8 +1,9 @@
 
-;;; Mode settings stored by Calc on Wed Jan  7 16:01:18 2026
+;;; Mode settings stored by Calc on Wed Jan  7 16:06:18 2026
 (setq calc-display-trail nil)
 (setq calc-symbolic-mode t)
 (setq calc-prefer-frac t)
+(setq calc-always-load-extensions t)
 ;;; End of mode settings
 
 ;;; Variable "var-eq-standard-equation-of-parabola" stored by Calc on Wed Dec 10 12:05:12 2025
