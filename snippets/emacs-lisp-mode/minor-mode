@@ -1,5 +1,5 @@
 # name: minor-mode
-# key: mode
+# key: minor-mode
 # --
 (define-minor-mode ${1:NAME}-mode
   "${2:DESCRIPTION}"
