@@ -178,9 +178,9 @@ With selection active: factors the selected expression by the top of stack."
            (calc-simplify-mode nil)
            (factor (calc-top-n 1))
            (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
-           (product (calcFunc-mul factor divided)))
+           (factored (calcFunc-mul factor divided)))
       (calc-wrapper
-       (replace-expr (math-normalize product))
+       (replace-expr factored)
        (calc-pop-stack 1)))))
 
 (defun my/math-ref-angle (x)
