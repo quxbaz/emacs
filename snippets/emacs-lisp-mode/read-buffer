@@ -1,0 +1,4 @@
+# name: read-buffer
+# key: <
+# --
+(read-buffer "Buffer: ")
