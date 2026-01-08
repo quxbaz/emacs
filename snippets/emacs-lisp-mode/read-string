@@ -1,0 +1,4 @@
+# name: read-string
+# key: <
+# --
+(read-string "String: ")
