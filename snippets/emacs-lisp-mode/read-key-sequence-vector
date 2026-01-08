@@ -1,0 +1,4 @@
+# name: read-key-sequence-vector
+# key: <
+# --
+(read-key-sequence-vector "Key sequence: ")
