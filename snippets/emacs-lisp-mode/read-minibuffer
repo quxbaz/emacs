@@ -1,0 +1,4 @@
+# name: read-minibuffer
+# key: <
+# --
+(read-minibuffer "(Lisp) ")
