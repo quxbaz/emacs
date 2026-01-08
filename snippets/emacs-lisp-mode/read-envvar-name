@@ -1,0 +1,4 @@
+# name: read-envvar-name
+# key: <
+# --
+(read-envvar-name "Environment variable: ")
