@@ -1,0 +1,4 @@
+# name: read-string-from-buffer
+# key: <
+# --
+(read-string-from-buffer "${1:PROMPT}" "${2:DEFAULT}")
