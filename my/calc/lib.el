@@ -117,8 +117,11 @@ Takes the square root of the active selection or stack level 2."
                     (cl-flet ((,sym-replace-expr (new-expr)
                                 (calc-pop-push-record-list 1 ,opt-prefix new-expr (if keep-args 1 ,opt-m))))
                       ,@body))))
-         ;; Preserve point unless `calc-keep-args-flag` is t or `opt-keep-point` is -1.
-         (unless (or keep-args (eq ,opt-keep-point -1))
-           (setf (point) saved-point))))))
+         ;; Reset point if `calc-keep-args-flag` is t or `opt-keep-point` is -1.
+         ;; Else, preserve point.
+         (cond ((or keep-args (eq ,opt-keep-point -1))
+                (calc-align-stack-window))
+               (t
+                (setf (point) saved-point)))))))
 
 (provide 'my/calc/lib)
