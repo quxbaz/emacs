@@ -1,0 +1,4 @@
+# name: read-variable
+# key: <
+# --
+(read-variable "Variable: ")
