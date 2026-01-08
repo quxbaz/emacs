@@ -1,0 +1,4 @@
+# name: read-number
+# key: <
+# --
+(read-number "Number: ")
