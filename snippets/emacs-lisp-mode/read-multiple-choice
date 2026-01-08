@@ -1,0 +1,6 @@
+# name: read-multiple-choice
+# key: <
+# --
+(read-multiple-choice "Continue connecting?" '((?a "always")
+                                               (?s "session only")
+                                               (?n "no")))
