@@ -1,0 +1,4 @@
+# name: read-shell-command
+# key: <
+# --
+(read-shell-command "Command: ")
