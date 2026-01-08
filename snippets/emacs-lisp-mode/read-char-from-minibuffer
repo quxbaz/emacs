@@ -1,0 +1,4 @@
+# name: read-char-from-minibuffer
+# key: <
+# --
+(read-char-from-minibuffer "Char: ")
