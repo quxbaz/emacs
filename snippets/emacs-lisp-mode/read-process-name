@@ -1,0 +1,4 @@
+# name: read-process-name
+# key: <
+# --
+(read-process-name "Process")
