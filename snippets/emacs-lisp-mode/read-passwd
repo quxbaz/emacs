@@ -1,0 +1,4 @@
+# name: read-passwd
+# key: <
+# --
+(read-passwd "Secret: " ${1:&optional CONFIRM})
