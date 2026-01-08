@@ -84,6 +84,7 @@ Shows message if stack is empty."
          (calc-del-selection))
         (t
          (deactivate-mark)
+         (calc-align-stack-window)
          (message "Stack is empty."))))
 
 (defun my/calc-ret ()
