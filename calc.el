@@ -80,3 +80,9 @@
 
 ;;; Variable "var-eq-area-of-triangle" stored by Calc on Wed Jan  7 14:52:57 2026
 (setq var-eq-area-of-triangle '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (var b var-b) (var h var-h)))))
+
+;;; Variable "var-eq-compound-growth" stored by Calc on Sat Jan 10 01:33:18 2026
+(setq var-eq-compound-growth '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (+ (cplx 1 0) (/ (var r var-r) (var n var-n))) (* (var n var-n) (var t var-t))))))
+
+;;; Variable "var-eq-continous-compound-growth" stored by Calc on Sat Jan 10 01:34:40 2026
+(setq var-eq-continous-compound-growth '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var e var-e) (* (var r var-r) (var t var-t))))))
