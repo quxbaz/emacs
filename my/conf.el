@@ -103,6 +103,11 @@
 (add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
 
 
+;; # Shell, terminal
+;; Don't show  *Async Shell Command* buffer.
+(add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
+
+
 ;; # org-mode
 (setq org-adapt-indentation t)  ;; Indent after headings.
 ;; Add org-agenda files.
