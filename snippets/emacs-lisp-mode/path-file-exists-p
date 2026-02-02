@@ -1,0 +1,4 @@
+# name: (file-exists-p FILENAME)
+# key: /
+# --
+(file-exists-p ${1:FILENAME})
