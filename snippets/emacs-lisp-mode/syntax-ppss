@@ -9,6 +9,8 @@
                   "3. True (non-nil) if inside a STRING."
                   "4. t if inside a COMMENT."
                   "5. t if following a \\ (BACKSLASH) character."
+                  "6. Minimum paren-depth encountered during this scan."
+                  "7. Style of comment, if any."
                   "8. Position of start of COMMENT or STRING."
                   "9. List of positions of all parent PARENS."))
        (choice (completing-read "(nth N (syntax-ppss)) " options))
