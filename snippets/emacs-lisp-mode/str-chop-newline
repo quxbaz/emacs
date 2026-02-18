@@ -1,0 +1,4 @@
+# name: str-chop-newline
+# key: r
+# --
+(string-chop-newline ${1:STRING})
