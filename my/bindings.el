@@ -22,6 +22,7 @@
 (global-unset-key (kbd "C-x C-b"))
 (global-unset-key (kbd "C-x C-f"))
 (global-unset-key (kbd "C-x 3"))
+(global-unset-key (kbd "C-x q"))
 
 
 ;; # Mouse config
@@ -160,6 +161,7 @@
 (global-set-key (kbd "C-u C-f") 'find-file)
 (global-set-key (kbd "M-F") 'find-file-other-window)
 (global-set-key (kbd "C-c p") 'find-file-at-point)
+(global-set-key (kbd "C-Q") 'read-only-mode)
 
 
 ;; # Projects
