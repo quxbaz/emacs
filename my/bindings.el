@@ -22,7 +22,7 @@
 (global-unset-key (kbd "C-x C-b"))
 (global-unset-key (kbd "C-x C-f"))
 (global-unset-key (kbd "C-x 3"))
-(global-unset-key (kbd "C-x q"))
+(global-unset-key (kbd "C-x C-q"))
 
 
 ;; # Mouse config
