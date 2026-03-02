@@ -86,3 +86,6 @@
 
 ;;; Variable "var-eq-continous-compound-growth" stored by Calc on Sat Jan 10 01:34:40 2026
 (setq var-eq-continous-compound-growth '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var e var-e) (* (var r var-r) (var t var-t))))))
+
+;;; Variable "var-eq-standard-equation-of-parabola-at-origin" stored by Calc on Mon Mar  2 11:49:19 2026
+(setq var-eq-standard-equation-of-parabola-at-origin '(calcFunc-eq (^ (var x var-x) 2) (* 4 (* (var p var-p) (var y var-y)))))
