@@ -43,10 +43,4 @@
                           "~/conf/home/.profile"
                           "~/conf/zsh/.zprofile"
                           "~/conf/zsh/.zshrc"
-                          "~/conf/freecad/user.cfg"
-                          "~/work/wnmu/Todo.org"
-                          "~/work/wnmu/huddle-notes.org"
-                          "~/work/wnmu/projects.org"
-                          "~/work/wnmu/records/creds.org"
-                          "~/work/wnmu/records/qr-code.org"
-                          "~/work/wnmu/refactor.org"))
+                          "~/conf/freecad/user.cfg"))
