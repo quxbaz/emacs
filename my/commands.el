@@ -291,13 +291,6 @@ region as the search string."
       (call-interactively 'align-regexp)
     (call-interactively 'self-insert-command)))
 
-(defun my/key-c ()
-  "Inserts `c` normally. If region is active, call ispell instead."
-  (interactive)
-  (if (use-region-p)
-      (call-interactively 'ispell)
-    (call-interactively 'self-insert-command)))
-
 (defun my/key-i ()
   "Inserts `i` normally. If region is active, call string-rectangle instead."
   (interactive)
@@ -331,6 +324,13 @@ region as the search string."
   (interactive)
   (if (use-region-p)
       (call-interactively 'open-rectangle)
+    (call-interactively 'self-insert-command)))
+
+(defun my/key-p ()
+  "Inserts `p` normally. If region is active, call ispell instead."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'ispell)
     (call-interactively 'self-insert-command)))
 
 (defun my/key-w ()
