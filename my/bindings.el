@@ -54,8 +54,8 @@
 ;; # Mini-apps
 (global-set-key (kbd "<f8>") 'my/list-packages)
 (global-set-key (kbd "<escape> n") 'my/calc)
-(global-set-key (kbd "<escape> <escape> n") (my/cmd (calc nil t t)))
-(global-set-key (kbd "<escape> c") 'ispell)
+(global-set-key (kbd "<escape> N") (my/cmd (calc nil t t)))
+(global-set-key (kbd "<escape> p") 'ispell)
 (global-set-key (kbd "<f10>") (my/cmd (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
@@ -78,12 +78,12 @@
 (global-set-key (kbd ",") 'my/key-comma)
 (global-set-key (kbd "\\") 'my/key-backslash)
 (global-set-key (kbd "|") 'my/key-pipe)
-(global-set-key (kbd "c") 'my/key-c)
 (global-set-key (kbd "i") 'my/key-i)
 (global-set-key (kbd "k") 'my/key-k)
 (global-set-key (kbd "l") 'my/key-l)
 (global-set-key (kbd "n") 'my/key-n)
 (global-set-key (kbd "o") 'my/key-o)
+(global-set-key (kbd "p") 'my/key-p)
 (global-set-key (kbd "w") 'my/key-w)
 (global-set-key (kbd "x") 'my/key-x)
 
@@ -135,7 +135,7 @@
 (global-set-key (kbd "C-.") 'repeat)
 (global-set-key (kbd "<escape> <escape> i") 'my/insert-uuid)
 (global-set-key (kbd "<escape> <escape> t") 'org-time-stamp)
-(global-set-key (kbd "<escape> p") 'my/toggle-emacs-lisp-mode)
+;; (global-set-key (kbd "<escape> p") 'my/toggle-emacs-lisp-mode)
 
 
 ;; # Auto-complete
