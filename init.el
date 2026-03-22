@@ -51,6 +51,7 @@
      ivy
      lua-mode
      magit
+     markdown-mode
      modus-themes
      paredit
      rainbow-blocks
