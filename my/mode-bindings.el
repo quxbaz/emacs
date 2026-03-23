@@ -42,7 +42,7 @@
             (keymap-set dired-mode-map "r" 'my/dired-do-rename-here)
             (keymap-set dired-mode-map "+" 'dired-create-empty-file)
             (keymap-set dired-mode-map "C-+" 'dired-create-directory)
-            (keymap-set dired-mode-map "<return>" 'dired-find-alternate-file)
+            (keymap-set dired-mode-map "<return>" 'dired-find-file)
             (keymap-set dired-mode-map "I" 'dired-do-isearch-regexp)
             (keymap-set dired-mode-map "M-r" 'dired-do-query-replace-regexp)
             (keymap-set dired-mode-map "F" 'my/find-regex-dired)
