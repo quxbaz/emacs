@@ -27,6 +27,7 @@
                           "~/personal/archive/projects.org"
                           "~/personal/printing/printing.org"
                           "~/conf/sync.org"
+                          "~/conf/aspell/.aspell.en.pws"
                           "~/conf/awesome/rc.lua"
                           "~/conf/i3/config"
                           "~/conf/home/.profile"
