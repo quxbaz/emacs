@@ -25,6 +25,7 @@
                           "~/personal/archive/buy.org"
                           "~/personal/archive/people.org"
                           "~/personal/archive/projects.org"
+                          "~/personal/printing/inventory.org"
                           "~/personal/printing/printing.org"
                           "~/conf/sync.org"
                           "~/conf/aspell/.aspell.en.pws"
