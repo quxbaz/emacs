@@ -92,9 +92,8 @@ Uses 'modified: filename' as the commit message."
         (user-error "my/magit-quick-commit: expected 1 modified file, found %d" (length all-modified))
       (let* ((file (car all-modified))
              (msg (format "modified:   %s" file)))
-        (magit-stage-modified)
-        (magit-commit-create (list "-m" msg))
-        (magit-refresh)))))
+        (magit-run-git "add" "-u")
+        (magit-run-git "commit" "-m" msg)))))
 
 (add-hook 'mathjax-mode-hook
           (lambda ()
