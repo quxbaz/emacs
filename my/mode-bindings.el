@@ -78,7 +78,23 @@
 (eval-after-load 'magit
   '(progn
      (keymap-set magit-mode-map "w" 'my/key-w)
-     (keymap-set magit-mode-map "C-o" 'magit-diff-visit-file-other-window)))
+     (keymap-set magit-mode-map "C-o" 'magit-diff-visit-file-other-window)
+     (keymap-set magit-mode-map "G" 'my/magit-quick-commit)))
+
+(defun my/magit-quick-commit ()
+  "Stage and commit when exactly one file is modified.
+Uses 'modified: filename' as the commit message."
+  (interactive)
+  (let* ((unstaged (magit-unstaged-files))
+         (staged (magit-staged-files))
+         (all-modified (seq-uniq (append unstaged staged))))
+    (if (not (= (length all-modified) 1))
+        (user-error "my/magit-quick-commit: expected 1 modified file, found %d" (length all-modified))
+      (let* ((file (car all-modified))
+             (msg (format "modified:   %s" file)))
+        (magit-stage-modified)
+        (magit-commit-create (list "-m" msg))
+        (magit-refresh)))))
 
 (add-hook 'mathjax-mode-hook
           (lambda ()
