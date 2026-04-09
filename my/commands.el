@@ -657,12 +657,17 @@ Uses 'modified: filename' as the commit message."
   (let* ((unstaged (magit-unstaged-files))
          (staged (magit-staged-files))
          (all-modified (seq-uniq (append unstaged staged))))
-    (if (not (= (length all-modified) 1))
-        (user-error "my/magit-quick-commit: expected 1 modified file, found %d" (length all-modified))
-      (let* ((file (car all-modified))
+    (cond
+     (staged
+      (let ((msg (format "modified:   %s" (car staged))))
+        (magit-run-git "commit" "-m" msg)))
+     (unstaged
+      (let* ((file (car unstaged))
              (msg (format "modified:   %s" file)))
-        (magit-run-git "add" "-u")
-        (magit-run-git "commit" "-m" msg)))))
+        (magit-run-git "add" file)
+        (magit-run-git "commit" "-m" msg)))
+     (t
+      (user-error "my/magit-quick-commit: no modified files")))))
 
 
 ;; php, web-mode
