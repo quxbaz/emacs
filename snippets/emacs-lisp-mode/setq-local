@@ -1,6 +1,4 @@
-# name: setq-local
+# name: setq-local-list
 # key: sl
-# type: command
-# condition: t
 # --
-(my/snippet-insert-or-wrap 'setq-local)
+(setq-local ${1:VARIABLE} ${2:VALUE})
