@@ -115,6 +115,10 @@ and handles coefficients."
                 "plain(c*a^3 + d) := ((c^1:3)*a + d^1:3)((c^2:3)*a^2 - (c^1:3)*(d^1:3)*a + d^2:3)"
                 ;; Cubes: c*a^3 - d (both with cube roots)
                 "plain(c*a^3 - d) := ((c^1:3)*a - d^1:3)((c^2:3)*a^2 + (c^1:3)*(d^1:3)*a + d^2:3)"
+                ;; Cubes: a^m + b^n where m, n are multiples of 3 (e.g. x^6 + y^6)
+                "plain(a^m + b^n) := (a^(m/3) + b^(n/3))(a^(2*m/3) - a^(m/3)*b^(n/3) + b^(2*n/3)) :: m % 3 = 0 && n % 3 = 0 && m > 3"
+                ;; Cubes: a^m - b^n where m, n are multiples of 3 (e.g. x^6 - y^6)
+                "plain(a^m - b^n) := (a^(m/3) - b^(n/3))(a^(2*m/3) + a^(m/3)*b^(n/3) + b^(2*n/3)) :: m % 3 = 0 && n % 3 = 0 && m > 3"
                 ;; Higher powers: a^n as difference of squares
                 "plain(a^n - b) := ((a^(n/2)) + sqrt(b))((a^(n/2)) - sqrt(b)) :: n > 3"
                 "plain(a^n + b) := ((a^(n/2)) + sqrt(b)*i)((a^(n/2)) - sqrt(b)*i) :: n > 3"
