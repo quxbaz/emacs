@@ -24,7 +24,7 @@ Returns the resulting top-of-stack expression."
 Compares by expanding (actual - expected) and simplifying to 0."
   (let* ((expected (math-read-expr expected-str))
          (diff (math-normalize (list 'calcFunc-expand (list '- actual expected)))))
-    (equal (math-simplify diff) 0)))
+    (math-zerop (math-simplify diff))))
 
 ;;; Sum/difference of sixth powers (cubes of squares)
 
@@ -75,6 +75,58 @@ Compares by expanding (actual - expected) and simplifying to 0."
     (let ((result (my-calc-factor-powers-tests--factor "x^9 + y^9")))
       (should (my-calc-factor-powers-tests--equiv
                result "(x^3 + y^3)*(x^6 - x^3*y^3 + y^6)")))))
+
+;;; Sum/difference of sixth powers with divided coefficient
+
+(ert-deftest test-my/calc-factor-powers-a6-minus-b6-over-8 ()
+  "a^6 - b^6/8 factors as (a^2 - b^2/2)(a^4 + a^2*b^2/2 + b^4/4)."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "a^6 - b^6/8")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "(a^2 - b^2/2)*(a^4 + a^2*b^2/2 + b^4/4)")))))
+
+(ert-deftest test-my/calc-factor-powers-a6-plus-b6-over-8 ()
+  "a^6 + b^6/8 factors as (a^2 + b^2/2)(a^4 - a^2*b^2/2 + b^4/4)."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "a^6 + b^6/8")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "(a^2 + b^2/2)*(a^4 - a^2*b^2/2 + b^4/4)")))))
+
+(ert-deftest test-my/calc-factor-powers-a6-minus-b6-over-27 ()
+  "a^6 - b^6/27 factors using cube root of 27 = 3."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "a^6 - b^6/27")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "(a^2 - b^2/3)*(a^4 + a^2*b^2/3 + b^4/9)")))))
+
+;;; Sum/difference with divided coefficients on both sides
+
+(ert-deftest test-my/calc-factor-powers-a6-over-8-minus-b3-over-8 ()
+  "a^6/8 - b^3/8 factors as (a^2/2 - b/2)(a^4/4 + a^2*b/4 + b^2/4)."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "a^6/8 - b^3/8")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "(a^2/2 - b/2)*(a^4/4 + a^2*b/4 + b^2/4)")))))
+
+(ert-deftest test-my/calc-factor-powers-a6-over-8-plus-b3-over-8 ()
+  "a^6/8 + b^3/8 factors as (a^2/2 + b/2)(a^4/4 - a^2*b/4 + b^2/4)."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "a^6/8 + b^3/8")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "(a^2/2 + b/2)*(a^4/4 - a^2*b/4 + b^2/4)")))))
+
+(ert-deftest test-my/calc-factor-powers-a6-over-27-minus-b6-over-8 ()
+  "a^6/27 - b^6/8 factors with different cube-root denominators."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "a^6/27 - b^6/8")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "(a^2/3 - b^2/2)*(a^4/9 + a^2*b^2/6 + b^4/4)")))))
 
 ;;; Regression: existing cube rules still work
 
