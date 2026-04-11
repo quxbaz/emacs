@@ -119,6 +119,10 @@ and handles coefficients."
                 "plain(a^m/c + b^n/d) := (a^(m/3)/(c^(1:3)) + b^(n/3)/(d^(1:3)))(a^(2*m/3)/(c^(2:3)) - a^(m/3)*b^(n/3)/((c^(1:3))*(d^(1:3))) + b^(2*n/3)/(d^(2:3))) :: m % 3 = 0 && n % 3 = 0"
                 ;; Cubes: a^m/c - b^n/d where m, n are multiples of 3 (e.g. a^6/8 - b^3/8)
                 "plain(a^m/c - b^n/d) := (a^(m/3)/(c^(1:3)) - b^(n/3)/(d^(1:3)))(a^(2*m/3)/(c^(2:3)) + a^(m/3)*b^(n/3)/((c^(1:3))*(d^(1:3))) + b^(2*n/3)/(d^(2:3))) :: m % 3 = 0 && n % 3 = 0"
+                ;; Cubes: a^m/c + b^n where m, n are multiples of 3 (e.g. a^6/8 + b^3)
+                "plain(a^m/c + b^n) := (a^(m/3)/(c^(1:3)) + b^(n/3))(a^(2*m/3)/(c^(2:3)) - a^(m/3)*b^(n/3)/(c^(1:3)) + b^(2*n/3)) :: m % 3 = 0 && n % 3 = 0"
+                ;; Cubes: a^m/c - b^n where m, n are multiples of 3 (e.g. a^6/8 - b^3)
+                "plain(a^m/c - b^n) := (a^(m/3)/(c^(1:3)) - b^(n/3))(a^(2*m/3)/(c^(2:3)) + a^(m/3)*b^(n/3)/(c^(1:3)) + b^(2*n/3)) :: m % 3 = 0 && n % 3 = 0"
                 ;; Cubes: a^m + b^n/c where m, n are multiples of 3 (e.g. x^6 + y^6/8)
                 "plain(a^m + b^n/c) := (a^(m/3) + b^(n/3)/(c^(1:3)))(a^(2*m/3) - a^(m/3)*b^(n/3)/(c^(1:3)) + b^(2*n/3)/(c^(2:3))) :: m % 3 = 0 && n % 3 = 0 && m > 3"
                 ;; Cubes: a^m - b^n/c where m, n are multiples of 3 (e.g. x^6 - y^6/8)

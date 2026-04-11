@@ -128,6 +128,24 @@ Compares by expanding (actual - expected) and simplifying to 0."
       (should (my-calc-factor-powers-tests--equiv
                result "(a^2/3 - b^2/2)*(a^4/9 + a^2*b^2/6 + b^4/4)")))))
 
+;;; Divided coefficient on left only
+
+(ert-deftest test-my/calc-factor-powers-a6-over-8-minus-b3 ()
+  "a^6/8 - b^3 factors as (a^2/2 - b)(a^4/4 + a^2*b/2 + b^2)."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "a^6/8 - b^3")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "(a^2/2 - b)*(a^4/4 + a^2*b/2 + b^2)")))))
+
+(ert-deftest test-my/calc-factor-powers-a6-over-8-plus-b3 ()
+  "a^6/8 + b^3 factors as (a^2/2 + b)(a^4/4 - a^2*b/2 + b^2)."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "a^6/8 + b^3")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "(a^2/2 + b)*(a^4/4 - a^2*b/2 + b^2)")))))
+
 ;;; Regression: existing cube rules still work
 
 (ert-deftest test-my/calc-factor-powers-x3-minus-y3 ()
