@@ -119,7 +119,7 @@ EXAMPLE
                       ,@body))))
          ;; POINT BEHAVIOR:
          ;; 1. If calc selection is active, always preserve point.
-         ;; 2. if keep-args is active, reset point.
+         ;; 2. if keep-args is active, always reset point.
          ;; 3. Else, `opt-keep-point` dictates behavior.
          (cond (,sym-sel-is-active
                 (setf (point) saved-point))
