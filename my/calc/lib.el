@@ -117,11 +117,13 @@ EXAMPLE
                     (cl-flet ((,sym-replace-expr (new-expr)
                                 (calc-pop-push-record-list 1 ,opt-prefix new-expr (if keep-args 1 ,opt-m))))
                       ,@body))))
-         ;; Reset point if `calc-keep-args-flag` is t, selection is inactive, or
-         ;; `opt-keep-point` is -1. Else, preserve point.
-         (cond ((or keep-args
-                    (null ,sym-sel-is-active)
-                    (eq ,opt-keep-point -1))
+         ;; POINT BEHAVIOR:
+         ;; 1. If calc selection is active, always preserve point.
+         ;; 2. if keep-args is active, reset point.
+         ;; 3. Else, `opt-keep-point` dictates behavior.
+         (cond (,sym-sel-is-active
+                (setf (point) saved-point))
+               ((or keep-args (eq ,opt-keep-point -1))
                 (calc-align-stack-window))
                (t
                 (setf (point) saved-point)))))))
