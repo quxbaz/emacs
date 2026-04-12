@@ -74,12 +74,12 @@ OPTIONS is an alist of (SYMBOL VALUE) pairs:
 
 EXAMPLE
 
+    ;; Takes the square root of either the ACTIVE SELECTION or SECOND STACK ENTRY (m 2).
     (my/calc-apply-sel-or-top (expr replace-expr) ((m 2) (prefix \"sqrt\"))
       (let ((result (calcFunc-sqrt expr)))
         (calc-wrapper
           (replace-expr result))))
-
-Takes the square root of the active selection or stack level 2."
+"
   (declare (indent 2))
   ;; Convert `options` to alist for convenience:
   ;;   ((a 1) (b 2)) -> ((a . 1) (b . 2))
