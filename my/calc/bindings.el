@@ -88,6 +88,7 @@
          (:map calc-mode-map ("," . my/calc-quick-variable))
          (:map calc-mode-map ("p" . my/calc-recall))
          (:map calc-mode-map ("s a" . calc-edit-variable))
+         (:map calc-mode-map ("a b" . my/calc-substitute))
 
          ;; Selection operations
          (:map calc-mode-map ("C-d" . calc-del-selection))
