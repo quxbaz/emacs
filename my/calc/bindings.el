@@ -53,6 +53,7 @@
          (:map calc-mode-map ("o" . calc-inv))
          (:map calc-mode-map ("\\" . calc-sqrt))
          (:map calc-mode-map ("W" . my/calc-square))
+         (:map calc-mode-map ("f l" . my/calc-cath))
 
          ;; Display and modes
          (:map calc-mode-map (">" . calc-scroll-left))
