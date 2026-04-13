@@ -90,8 +90,8 @@
 ;;; Variable "var-eq-continous-compound-growth" stored by Calc on Sat Jan 10 01:34:40 2026
 (setq var-eq-continous-compound-growth '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var e var-e) (* (var r var-r) (var t var-t))))))
 
-;;; Variable "var-eq-log-change-of-base-formula" stored by Calc on Mon Apr 13 02:17:35 2026
-(setq var-eq-log-change-of-base-formula '(calcFunc-eq (calcFunc-log (var x var-x) (var a var-a)) (/ (calcFunc-log (var x var-x) (var b var-b)) (calcFunc-log (var a var-a) (var b var-b)))))
+;;; Variable "var-eq-log-change-of-base-formula" stored by Calc on Mon Apr 13 02:20:20 2026
+(setq var-eq-log-change-of-base-formula '(calcFunc-eq (calcFunc-log (var x var-x) (var b var-b)) (/ (calcFunc-log (var x var-x) (var k var-k)) (calcFunc-log (var b var-b) (var k var-k)))))
 
 ;;; Variable "var-eq-sum-of-cubes-identity" stored by Calc on Mon Apr 13 02:18:41 2026
 (setq var-eq-sum-of-cubes-identity '(calcFunc-eq (+ (^ (var a var-a) 3) (^ (var b var-b) 3)) (* (+ (var a var-a) (var b var-b)) (+ (- (^ (var a var-a) 2) (* (var a var-a) (var b var-b))) (^ (var b var-b) 2)))))
