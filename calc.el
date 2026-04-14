@@ -98,3 +98,6 @@
 
 ;;; Variable "var-eq-difference-of-cubes-identity" stored by Calc on Mon Apr 13 02:19:08 2026
 (setq var-eq-difference-of-cubes-identity '(calcFunc-eq (- (^ (var a var-a) 3) (^ (var b var-b) 3)) (* (- (var a var-a) (var b var-b)) (+ (+ (^ (var a var-a) 2) (* (var a var-a) (var b var-b))) (^ (var b var-b) 2)))))
+
+;;; Variable "var-eq-exponential-growth-function" stored by Calc on Mon Apr 13 22:32:59 2026
+(setq var-eq-exponential-growth-function '(calcFunc-eq (calcFunc-f (var x var-x)) (* (var a var-a) (^ (var b var-b) (var x var-x)))))
