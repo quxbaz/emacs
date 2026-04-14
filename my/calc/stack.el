@@ -73,6 +73,14 @@
      (when (and n (> n 0))
        (calc-roll-up n)))))
 
+(defun my/calc-roll-to-bottom ()
+  "Moves the top stack item to the bottom of the stack."
+  (interactive)
+  (calc-wrapper
+   (let ((n (calc-stack-size)))
+     (when (> n 1)
+       (calc-roll-down n)))))
+
 (defun my/calc-pop ()
   "Delete subformula at point, or pop top of stack if cursor is at bottom.
 Shows message if stack is empty."

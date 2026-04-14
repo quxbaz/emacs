@@ -43,6 +43,7 @@
          (:map calc-mode-map ("RET" . my/calc-ret))
          (:map calc-mode-map ("C-<return>" . my/calc-duplicate-no-move))
          (:map calc-mode-map ("S-<return>" . my/calc-roll-to-top))
+         (:map calc-mode-map ("C-M-<backspace>" . my/calc-roll-to-bottom))
          (:map calc-mode-map ("C-M-<return>" . my/calc-duplicate-stack))
          (:map calc-mode-map ("s RET" . my/calc-store-stack))
          (:map calc-mode-map ("r RET" . my/calc-recall-stack))
