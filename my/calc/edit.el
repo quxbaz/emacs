@@ -135,7 +135,7 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
         (insert "sqrt()")
         (backward-char)))))
 
-(defun my/calc-edit-ln ()
+(defun my/calc-edit-ln-dwim ()
   "Applies natural log to the preceeding expression or to the expression in region.
 Treats / as a separator (only applies sqrt after /), but keeps x:y together."
   (interactive)
@@ -158,25 +158,7 @@ Treats / as a separator (only applies sqrt after /), but keeps x:y together."
         (insert "ln()")
         (backward-char)))))
 
-(defun my/calc-duplicate-paren-expr ()
-  "Duplicates the innermost parenthesized expression surrounding point.
-
-The duplicate is inserted immediately after the closing parenthesis.
-Point is moved to the corresponding position within the duplicate."
-  (interactive)
-  (when (> (nth 0 (syntax-ppss)) 0)
-    (let ((expr (thing-at-point 'list))
-          (offset (my/distance-from-opening-paren)))
-      (goto-char (my/closing-paren-position))
-      (insert expr) (backward-char)
-      (goto-char (+ (my/opening-paren-position) offset))
-      ;; (let ((char (read-char-from-minibuffer "Replace character at point: ")))
-      ;;   (unless (= char 0)
-      ;;     (delete-char 1)
-      ;;     (insert char)))
-      )))
-
-(defun my/calc-edit-abs ()
+(defun my/calc-edit-abs-dwim ()
   "Applies abs() to the preceding expression or to the expression in region."
   (interactive)
   (if (use-region-p)
@@ -197,5 +179,23 @@ Point is moved to the corresponding position within the duplicate."
             (insert (format "abs(%s)" expr)))
         (insert "abs()")
         (backward-char)))))
+
+(defun my/calc-duplicate-paren-expr ()
+  "Duplicates the innermost parenthesized expression surrounding point.
+
+The duplicate is inserted immediately after the closing parenthesis.
+Point is moved to the corresponding position within the duplicate."
+  (interactive)
+  (when (> (nth 0 (syntax-ppss)) 0)
+    (let ((expr (thing-at-point 'list))
+          (offset (my/distance-from-opening-paren)))
+      (goto-char (my/closing-paren-position))
+      (insert expr) (backward-char)
+      (goto-char (+ (my/opening-paren-position) offset))
+      ;; (let ((char (read-char-from-minibuffer "Replace character at point: ")))
+      ;;   (unless (= char 0)
+      ;;     (delete-char 1)
+      ;;     (insert char)))
+      )))
 
 (provide 'my/calc/edit)
