@@ -113,72 +113,19 @@
     (insert "^3")))
 
 (defun my/calc-edit-sqrt-dwim ()
-  "Applies square root to the preceeding expression or to the expression in region.
-Treats / as a separator (only applies sqrt after /), but keeps x:y together."
+  "Applies sqrt() to the preceding expression or to the expression in region."
   (interactive)
-  (if (use-region-p)
-      (let* ((start (region-beginning))
-             (end (region-end))
-             (expr (buffer-substring-no-properties start end)))
-        (delete-region start end)
-        (insert (format "sqrt(%s)" expr))
-        (deactivate-mark))
-    (let* ((end (point))
-           (start (save-excursion
-                    (skip-chars-backward "a-zA-Z0-9:._")
-                    (point)))
-           (expr (buffer-substring-no-properties start end)))
-      (if (> (length expr) 0)
-          (progn
-            (delete-region start end)
-            (insert (format "sqrt(%s)" expr)))
-        (insert "sqrt()")
-        (backward-char)))))
+  (my/calc-edit-wrap-dwim "sqrt"))
 
 (defun my/calc-edit-ln-dwim ()
-  "Applies natural log to the preceeding expression or to the expression in region.
-Treats / as a separator (only applies sqrt after /), but keeps x:y together."
+  "Applies ln() to the preceding expression or to the expression in region."
   (interactive)
-  (if (use-region-p)
-      (let* ((start (region-beginning))
-             (end (region-end))
-             (expr (buffer-substring-no-properties start end)))
-        (delete-region start end)
-        (insert (format "ln(%s)" expr))
-        (deactivate-mark))
-    (let* ((end (point))
-           (start (save-excursion
-                    (skip-chars-backward "a-zA-Z0-9:._")
-                    (point)))
-           (expr (buffer-substring-no-properties start end)))
-      (if (> (length expr) 0)
-          (progn
-            (delete-region start end)
-            (insert (format "ln(%s)" expr)))
-        (insert "ln()")
-        (backward-char)))))
+  (my/calc-edit-wrap-dwim "ln"))
 
 (defun my/calc-edit-abs-dwim ()
   "Applies abs() to the preceding expression or to the expression in region."
   (interactive)
-  (if (use-region-p)
-      (let* ((start (region-beginning))
-             (end (region-end))
-             (expr (buffer-substring-no-properties start end)))
-        (delete-region start end)
-        (insert (format "abs(%s)" expr))
-        (deactivate-mark))
-    (let* ((end (point))
-           (start (save-excursion
-                    (skip-chars-backward "a-zA-Z0-9:._")
-                    (point)))
-           (expr (buffer-substring-no-properties start end)))
-      (if (> (length expr) 0)
-          (progn
-            (delete-region start end)
-            (insert (format "abs(%s)" expr)))
-        (insert "abs()")
-        (backward-char)))))
+  (my/calc-edit-wrap-dwim "abs"))
 
 (defun my/calc-duplicate-paren-expr ()
   "Duplicates the innermost parenthesized expression surrounding point.

@@ -128,4 +128,34 @@ EXAMPLE
                (t
                 (setf (point) saved-point)))))))
 
+(defun my/calc-edit-wrap-dwim (fn)
+  "Wrap the preceding token or active region with FN(...).
+
+With region active:
+  [x+1] -> fn(x+1)
+
+With token before point:
+  x+1| -> x+fn(1)
+
+With nothing before point:
+  | -> fn()|"
+  (if (use-region-p)
+      (let* ((start (region-beginning))
+             (end (region-end))
+             (expr (buffer-substring-no-properties start end)))
+        (delete-region start end)
+        (insert (format "%s(%s)" fn expr))
+        (deactivate-mark))
+    (let* ((end (point))
+           (start (save-excursion
+                    (skip-chars-backward "a-zA-Z0-9:._")
+                    (point)))
+           (expr (buffer-substring-no-properties start end)))
+      (if (> (length expr) 0)
+          (progn
+            (delete-region start end)
+            (insert (format "%s(%s)" fn expr)))
+        (insert (format "%s()" fn))
+        (backward-char)))))
+
 (provide 'my/calc/lib)
