@@ -85,6 +85,7 @@
          (:map calc-mode-map ("a m" . calc-map-equation))
          (:map calc-mode-map ("a o" . calc-collect))
          (:map calc-mode-map ("l f" . my/calc-factor-by))
+         (:map calc-mode-map ("a k" . my/calc-abs-ineq))
 
          ;; Variables
          (:map calc-mode-map ("," . my/calc-quick-variable))

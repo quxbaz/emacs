@@ -142,4 +142,21 @@ and handles coefficients."
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
 
+(defun my/calc-abs-ineq ()
+  "Converts absolute value inequalities into compound inequalities.
+
+Handles forms like:
+    |a| < b    ->  -b < a && a < b
+    |a| <= b   ->  -b <= a && a <= b
+    |a| > b    ->  a < -b || a > b
+    |a| >= b   ->  a <= -b || a >= b"
+  (interactive)
+  (let ((rules (list
+                "abs(a) < b  := -b < a && a < b"
+                "abs(a) <= b := -b <= a && a <= b"
+                "abs(a) > b  := a < -b || a > b"
+                "abs(a) >= b := a <= -b || a >= b")))
+    (calc-wrapper
+     (calc-rewrite (s-join "," rules) 1))))
+
 (provide 'my/calc/rewrite)
