@@ -176,4 +176,26 @@ Point is moved to the corresponding position within the duplicate."
       ;;     (insert char)))
       )))
 
+(defun my/calc-edit-abs ()
+  "Applies abs() to the preceding expression or to the expression in region."
+  (interactive)
+  (if (use-region-p)
+      (let* ((start (region-beginning))
+             (end (region-end))
+             (expr (buffer-substring-no-properties start end)))
+        (delete-region start end)
+        (insert (format "abs(%s)" expr))
+        (deactivate-mark))
+    (let* ((end (point))
+           (start (save-excursion
+                    (skip-chars-backward "a-zA-Z0-9:._")
+                    (point)))
+           (expr (buffer-substring-no-properties start end)))
+      (if (> (length expr) 0)
+          (progn
+            (delete-region start end)
+            (insert (format "abs(%s)" expr)))
+        (insert "abs()")
+        (backward-char)))))
+
 (provide 'my/calc/edit)
