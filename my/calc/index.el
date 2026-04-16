@@ -10,6 +10,7 @@
   (load (concat calc-dir "var.el"))
   (load (concat calc-dir "lib.el"))
   (load (concat calc-dir "stack.el"))
+  (load (concat calc-dir "ineq.el"))
   (load (concat calc-dir "edit.el"))
   (load (concat calc-dir "selection.el"))
   (load (concat calc-dir "rewrite.el"))

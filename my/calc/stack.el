@@ -259,4 +259,5 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
              (error "No occurrences found"))))
      (calc-enter-result num "sbst" (math-expr-subst expr old new)))))
 
+
 (provide 'my/calc/stack)
