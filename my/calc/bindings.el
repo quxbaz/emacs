@@ -31,6 +31,10 @@
          (:map calc-mode-map ("<escape> RET" . ignore))
          (:map calc-mode-map ("v x" . ignore))
 
+         ;; Help
+         (:map calc-help-map ("c" . calc-describe-key))
+         (:map calc-help-map ("k" . calc-describe-key-briefly))
+
          ;; Basic stack operations
          (:map calc-mode-map ("C-M-k" . calc-reset))
          (:map calc-mode-map ("C-/" . my/calc-undo))
