@@ -13,7 +13,8 @@
   (interactive)
   (let ((input (math-read-number (minibuffer-contents))))
     (delete-minibuffer-contents)
-    (calc-push (math-mul input '(var pi var-pi)))
+    (calc-wrapper
+     (calc-enter-result 0 "n*pi" (math-mul input '(var pi var-pi))))
     (exit-minibuffer)))
 
 (defun my/calc-equal-to-from-minibuffer ()
@@ -22,8 +23,7 @@
   (let ((input (math-read-number (minibuffer-contents))))
     (delete-minibuffer-contents)
     (calc-wrapper
-     (calc-push input)
-     (call-interactively 'calc-equal-to))
+     (calc-enter-result 1 "eq" (list 'calcFunc-eq (calc-top-n 1) input)))
     (exit-minibuffer)))
 
 (defun my/calc-mod-360-from-minibuffer ()
