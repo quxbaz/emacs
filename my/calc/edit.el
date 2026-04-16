@@ -3,7 +3,13 @@
 ;; Calc edit mode operations
 
 
-(defun my/calc-edit ()
+(defun my/calc-edit (n)
+  "Like `calc-edit' but starts with point at end of the expression line."
+  (interactive "p")
+  (calc-edit n)
+  (move-end-of-line nil))
+
+(defun my/calc-edit-dwim ()
   "Opens edit mode or edits the current entry."
   (interactive)
   (setq my/calc-edit-saved-point (point))

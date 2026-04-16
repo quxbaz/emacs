@@ -7,7 +7,7 @@
 (eval-after-load 'calc
   '(progn
      (keymap-set calc-mode-map "M-w" 'my/calc-kill-ring-save-dwim)
-     (keymap-set calc-mode-map "SPC" 'my/calc-edit)))
+     (keymap-set calc-mode-map "SPC" 'my/calc-edit-dwim)))
 
 ;; calc-digit-map (minibuffer input)
 (with-eval-after-load 'calc
@@ -123,6 +123,9 @@
          (:map calc-mode-map ("X" . my/calc-log-exp-rules))
          (:map calc-mode-map ("k s" . my/calc-complete-the-square))
          (:map calc-mode-map ("k d" . my/calc-factor-powers))
+
+         ;; Edit mode
+         (:map calc-mode-map ("`" . my/calc-edit))
 
          ;; Trail
          (:map calc-mode-map ("t o" . calc-trail-in))
