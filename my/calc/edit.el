@@ -133,6 +133,36 @@
   (interactive)
   (my/calc-edit-wrap-dwim "abs"))
 
+(defun my/calc-edit--scan-expr-start ()
+  "Move point to the start of the preceding expression.
+Scans backward, skipping balanced paren groups, stopping at
+unmatched delimiters, comparison/equation operators, commas, or BOL."
+  (while (and (not (bolp))
+              (not (memq (char-before) '(?\( ?\[ ?\{ ?= ?< ?> ?, ?\s))))
+    (if (memq (char-before) '(?\) ?\] ?\}))
+        (backward-sexp)
+      (backward-char))))
+
+(defun my/calc-edit-wrap-parens ()
+  "Wrap the preceding expression (or active region) with parentheses."
+  (interactive)
+  (if (use-region-p)
+      (let ((start (region-beginning))
+            (end   (region-end)))
+        (save-excursion
+          (goto-char end)   (insert ")")
+          (goto-char start) (insert "("))
+        (deactivate-mark))
+    (let* ((end   (point))
+           (start (save-excursion
+                    (my/calc-edit--scan-expr-start)
+                    (point))))
+      (when (< start end)
+        (save-excursion
+          (goto-char end)   (insert ")")
+          (goto-char start) (insert "("))
+        (forward-char 1)))))
+
 (defun my/calc-duplicate-paren-expr ()
   "Duplicates the innermost parenthesized expression surrounding point.
 

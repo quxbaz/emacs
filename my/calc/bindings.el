@@ -179,6 +179,7 @@
             (keymap-set calc-edit-mode-map "\"" 'my/calc-edit-cube-dwim)
             (keymap-set calc-edit-mode-map "\\" 'my/calc-edit-sqrt-dwim)
             (keymap-set calc-edit-mode-map "|" 'my/calc-edit-abs-dwim)
-            (keymap-set calc-edit-mode-map "L" 'my/calc-edit-ln-dwim)))
+            (keymap-set calc-edit-mode-map "L" 'my/calc-edit-ln-dwim)
+            (keymap-set calc-edit-mode-map "M-o" 'my/calc-edit-wrap-parens)))
 
 (provide 'my/calc/bindings)
