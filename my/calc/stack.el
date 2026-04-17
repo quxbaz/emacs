@@ -278,7 +278,6 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
          (val  (math-read-plain-expr str)))
     (if (eq (car-safe val) 'error)
         (error "Can't yank that line: %s" (nth 2 val))
-      (calc-trail-out)
       (calc-wrapper
        (calc-enter-result 0 "yank" val)))))
 
