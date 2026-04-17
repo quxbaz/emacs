@@ -269,26 +269,38 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
       (let ((win (get-buffer-window (calc-trail-buffer))))
         (when win (select-window win))))))
 
+(defun my/calc-trail--parse-line ()
+  "Parse and return the calc expression on the current trail line."
+  (save-excursion
+    (beginning-of-line)
+    (when (or (looking-at "Emacs Calc")
+              (looking-at "----")
+              (looking-at " ? ? ?[^ \n]* *$")
+              (looking-at "..?.?$"))
+      (error "Can't yank that line"))
+    (when (looking-at ".*, \\.\\.\\., ")
+      (error "Can't yank (vector was abbreviated)"))
+    (forward-char 4)
+    (search-forward " ")
+    (let* ((next (save-excursion (forward-line 1) (point)))
+           (str  (buffer-substring (point) (1- next)))
+           (val  (math-read-plain-expr str)))
+      (if (eq (car-safe val) 'error)
+          (error "Can't yank that line: %s" (nth 2 val))
+        val))))
+
 (defun my/calc-trail-yank-at-point ()
-  "Push the trail entry at point onto the calc stack and switch to calc."
+  "Yank trail entry at point onto the calc stack and close the trail window."
   (interactive)
-  (beginning-of-line)
-  (when (or (looking-at "Emacs Calc")
-            (looking-at "----")
-            (looking-at " ? ? ?[^ \n]* *$")
-            (looking-at "..?.?$"))
-    (error "Can't yank that line"))
-  (when (looking-at ".*, \\.\\.\\., ")
-    (error "Can't yank (vector was abbreviated)"))
-  (forward-char 4)
-  (search-forward " ")
-  (let* ((next (save-excursion (forward-line 1) (point)))
-         (str  (buffer-substring (point) (1- next)))
-         (val  (math-read-plain-expr str)))
-    (if (eq (car-safe val) 'error)
-        (error "Can't yank that line: %s" (nth 2 val))
-      (calc-wrapper
-       (calc-enter-result 0 "yank" val)))))
+  (let ((val (my/calc-trail--parse-line)))
+    (calc-wrapper (calc-enter-result 0 "yank" val))
+    (calc-trail-display nil nil t)))
+
+(defun my/calc-trail-yank-at-point-keep ()
+  "Yank trail entry at point onto the calc stack, keeping the trail window."
+  (interactive)
+  (let ((val (my/calc-trail--parse-line)))
+    (calc-wrapper (calc-enter-result 0 "yank" val))))
 
 
 (defun my/calc-auto-solve--sorted-vars (expr)

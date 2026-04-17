@@ -137,6 +137,7 @@
          (:map calc-mode-map ("t d" . my/calc-trail-display))
          (:map calc-trail-mode-map ("t o" . calc-trail-out))
          (:map calc-trail-mode-map ("RET" . my/calc-trail-yank-at-point))
+         (:map calc-trail-mode-map ("C-<return>" . my/calc-trail-yank-at-point-keep))
          (:map calc-trail-mode-map ("q" . calc-trail-display))))
 
 ;; Edit mode bindings
