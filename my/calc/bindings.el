@@ -83,6 +83,7 @@
          (:map calc-mode-map ("a s" . calc-simplify-extended))
 
          ;; Solving
+         (:map calc-mode-map ("y" . my/calc-solve))
          (:map calc-mode-map ("i" . calc-solve-for))
          (:map calc-mode-map ("a l" . calc-poly-roots))
          (:map calc-mode-map ("M-." . calc-remove-equal))
