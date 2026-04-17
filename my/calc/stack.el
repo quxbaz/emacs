@@ -260,7 +260,7 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
      (calc-enter-result num "sbst" (math-expr-subst expr old new)))))
 
 
-(defun my/calc-solve--sorted-vars (expr)
+(defun my/calc-auto-solve--sorted-vars (expr)
   "Return unique non-constant variables in EXPR, sorted alphabetically."
   (let (vars)
     (cl-labels ((collect (e)
@@ -271,7 +271,7 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
     (sort vars (lambda (a b) (string< (symbol-name (nth 1 a))
                                       (symbol-name (nth 1 b)))))))
 
-(defun my/calc-solve--solved-for (expr)
+(defun my/calc-auto-solve--solved-for (expr)
   "Return the variable EXPR is solved for (plain var alone on one side), or nil."
   (when (eq (car-safe expr) 'calcFunc-eq)
     (let ((lhs (nth 1 expr))
@@ -279,16 +279,16 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
       (cond ((eq (car-safe lhs) 'var) lhs)
             ((eq (car-safe rhs) 'var) rhs)))))
 
-(defun my/calc-solve ()
+(defun my/calc-auto-solve ()
   "Solve top-of-stack for a variable.
 With one variable, solves for it. With multiple, solves for the first
 alphabetically, or cycles to the next if already solved for one."
   (interactive)
   (let* ((expr (calc-top-n 1))
-         (vars (my/calc-solve--sorted-vars expr))
+         (vars (my/calc-auto-solve--sorted-vars expr))
          (n    (length vars)))
     (when (> n 0)
-      (let* ((solved-for (and (> n 1) (my/calc-solve--solved-for expr)))
+      (let* ((solved-for (and (> n 1) (my/calc-auto-solve--solved-for expr)))
              (var (if solved-for
                       (let* ((idx  (cl-position solved-for vars :test #'equal))
                              (next (mod (1+ (or idx -1)) n)))
