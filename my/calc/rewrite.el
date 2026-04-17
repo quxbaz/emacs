@@ -30,12 +30,24 @@ as the modulus."
 
 Applies the following rules:
   - b^log(x, b) = x             (exponential-logarithm identity)
+  - b^(-log(x, b)) = 1/x        (negative exponent variant)
+  - e^ln(x) = x                 (natural base identity)
+  - e^(-ln(x)) = 1/x            (natural base negative exponent)
+  - 10^log10(x) = x             (base-10 identity)
+  - 10^(-log10(x)) = 1/x        (base-10 negative exponent)
   - ln(x^p) = p * ln(x)         (logarithm power rule)
-  - log(x^p, b) = p * log(x, b) (logarithm power rule)"
+  - log(x^p, b) = p * log(x, b) (logarithm power rule)
+  - log10(x^p) = p * log10(x)   (base-10 power rule)"
   (interactive)
   (let ((rules (list "b^log(x, b) := x"
+                     "b^(-log(x, b)) := 1/x"
+                     "e^ln(x) := x"
+                     "e^(-ln(x)) := 1/x"
+                     "10^log10(x) := x"
+                     "10^(-log10(x)) := 1/x"
                      "ln(x^p) := p * ln(x)"
-                     "log(x^p, b) := p * log(x, b)")))
+                     "log(x^p, b) := p * log(x, b)"
+                     "log10(x^p) := p * log10(x)")))
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
 
