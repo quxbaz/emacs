@@ -305,6 +305,12 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
   (let ((val (my/calc-trail--parse-line)))
     (calc-wrapper (calc-enter-result 0 "yank" val))))
 
+(defun my/calc-trail-beginning-of-entry ()
+  "Move point to the beginning of the trail entry on the current line (after prefix)."
+  (interactive)
+  (beginning-of-line)
+  (forward-char 5))
+
 
 (defun my/calc-auto-solve--sorted-vars (expr)
   "Return unique non-constant variables in EXPR, sorted alphabetically."

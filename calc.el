@@ -1,6 +1,5 @@
 
-;;; Mode settings stored by Calc on Wed Jan  7 16:06:18 2026
-(setq calc-display-trail nil)
+;;; Mode settings stored by Calc on Sat Apr 18 14:32:23 2026
 (setq calc-symbolic-mode t)
 (setq calc-prefer-frac t)
 (setq calc-always-load-extensions t)

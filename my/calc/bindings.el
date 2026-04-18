@@ -139,6 +139,8 @@
          (:map calc-mode-map ("t o" . calc-trail-in))
          (:map calc-trail-mode-map ("n" . next-line))
          (:map calc-trail-mode-map ("p" . previous-line))
+         (:map calc-trail-mode-map ("C-a" . my/calc-trail-beginning-of-entry))
+         (:map calc-trail-mode-map ("M-m" . my/calc-trail-beginning-of-entry))
          (:map calc-trail-mode-map ("t o" . calc-trail-out))
          (:map calc-trail-mode-map ("RET" . my/calc-trail-yank-at-point))
          (:map calc-trail-mode-map ("C-<return>" . my/calc-trail-yank-at-point-keep))
