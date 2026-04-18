@@ -421,4 +421,65 @@ With one variable, solves automatically. With multiple, prompts for the variable
           (calc-wrapper (calc-enter-result 1 "root" (roots-of poly var)))))))))
 
 
+(defvar my/calc--sorting-poly nil)
+
+(defun my/calc-poly-term-degree (term var)
+  "Return the degree of TERM as a polynomial in VAR."
+  (cond
+   ((equal term var) 1)
+   ((and (eq (car-safe term) '^)
+         (equal (nth 1 term) var)
+         (integerp (nth 2 term)))
+    (nth 2 term))
+   ((eq (car-safe term) '*)
+    (+ (my/calc-poly-term-degree (nth 1 term) var)
+       (my/calc-poly-term-degree (nth 2 term) var)))
+   ((eq (car-safe term) 'neg)
+    (my/calc-poly-term-degree (nth 1 term) var))
+   (t 0)))
+
+(defun my/calc-sum-to-list (expr &optional negated)
+  "Flatten a +/- sum EXPR into a list of (term . positive-p) pairs."
+  (cond
+   ((eq (car-safe expr) '+)
+    (append (my/calc-sum-to-list (nth 1 expr) negated)
+            (my/calc-sum-to-list (nth 2 expr) negated)))
+   ((eq (car-safe expr) '-)
+    (append (my/calc-sum-to-list (nth 1 expr) negated)
+            (my/calc-sum-to-list (nth 2 expr) (not negated))))
+   (t (list (cons expr (not negated))))))
+
+(defun my/calc-list-to-sum (pairs)
+  "Rebuild a +/- sum from a list of (term . positive-p) pairs."
+  (let* ((first (car pairs))
+         (result (if (cdr first) (car first) (list 'neg (car first)))))
+    (dolist (pair (cdr pairs) result)
+      (setq result
+            (if (cdr pair)
+                (list '+ result (car pair))
+              (list '- result (car pair)))))))
+
+(defun my/calc-poly-sort-sum (expr)
+  "If EXPR is a single-variable polynomial sum, sort terms by descending degree."
+  (let ((vars (my/calc-auto-solve--sorted-vars expr)))
+    (if (= (length vars) 1)
+        (let* ((var (car vars))
+               (terms (my/calc-sum-to-list expr))
+               (sorted (sort (copy-sequence terms)
+                             (lambda (a b)
+                               (> (my/calc-poly-term-degree (car a) var)
+                                  (my/calc-poly-term-degree (car b) var))))))
+          (my/calc-list-to-sum sorted))
+      expr)))
+
+(with-eval-after-load 'calc
+  (advice-add 'math-normalize :filter-return
+    (lambda (result)
+      (if (and (not my/calc--sorting-poly)
+               (memq (car-safe result) '(+ -)))
+          (let ((my/calc--sorting-poly t))
+            (my/calc-poly-sort-sum result))
+        result))))
+
+
 (provide 'my/calc/stack)
