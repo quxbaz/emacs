@@ -27,6 +27,8 @@
 
 (add-hook 'kill-emacs-hook #'my/calc-save-stack)
 (add-hook 'calc-mode-hook  #'my/calc-restore-stack)
+(with-eval-after-load 'calc
+  (advice-add 'calc-quit :before #'my/calc-save-stack))
 
 (defun my/calc ()
   "Starts calc."
