@@ -10,9 +10,13 @@
 
 (defun my/calc-save-stack ()
   "Save the calc stack to disk."
-  (when (and (boundp 'calc-stack) (cdr calc-stack))
+  (let* ((buf (get-buffer "*Calculator*"))
+         (items (when buf
+                  (with-current-buffer buf
+                    (when (> (calc-stack-size) 0)
+                      (mapcar #'car (cdr calc-stack)))))))
     (with-temp-file my/calc-stack-save-file
-      (prin1 (mapcar #'car (cdr calc-stack)) (current-buffer)))))
+      (prin1 items (current-buffer)))))
 
 (defun my/calc-restore-stack ()
   "Restore the calc stack from disk, once per session."
@@ -22,13 +26,18 @@
       (let ((stack (with-temp-buffer
                      (insert-file-contents my/calc-stack-save-file)
                      (read (current-buffer)))))
-        (when stack
-          (calc-push-list (reverse stack)))))))
+        (let ((clean (delq nil stack)))
+          (when clean
+            (calc-push-list (reverse clean))))))))
 
-(add-hook 'kill-emacs-hook #'my/calc-save-stack)
-(add-hook 'calc-mode-hook  #'my/calc-restore-stack)
-(with-eval-after-load 'calc
-  (advice-add 'calc-quit :before #'my/calc-save-stack))
+(defun my/calc-save-and-restart ()
+  "Save the calc stack and restart Emacs."
+  (interactive)
+  (my/calc-save-stack)
+  (let ((confirm-kill-emacs nil))
+    (restart-emacs)))
+
+(add-hook 'calc-mode-hook #'my/calc-restore-stack)
 
 (defun my/calc ()
   "Starts calc."
