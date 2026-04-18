@@ -52,13 +52,16 @@
   (my/preserve-point (call-interactively 'calc-kill)))
 
 (defun my/calc-beginning-of-expression ()
-  "Moves point to beginning of expression on current line."
+  "Moves point to beginning of expression on current line.
+If point is past the top stack item, calls calc-realign instead."
   (interactive)
-  (move-beginning-of-line nil)
-  (when calc-line-numbering
-    (condition-case nil
-        (search-forward-regexp "^[0-9]+: *")
-      (error nil))))
+  (if (<= (calc-locate-cursor-element (point)) 0)
+      (calc-realign)
+    (move-beginning-of-line nil)
+    (when calc-line-numbering
+      (condition-case nil
+          (search-forward-regexp "^[0-9]+: *")
+        (error nil)))))
 
 (defun my/calc-kill-ring-save-dwim ()
   "Saves the region if region is active, else save the current line."
