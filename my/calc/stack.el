@@ -265,14 +265,6 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
      (calc-enter-result num "sbst" (math-expr-subst expr old new)))))
 
 
-(defun my/calc-trail-display ()
-  "Toggle trail display; move to trail window when opening."
-  (interactive)
-  (let ((was-open (get-buffer-window (calc-trail-buffer))))
-    (calc-trail-display nil nil t)
-    (unless was-open
-      (let ((win (get-buffer-window (calc-trail-buffer))))
-        (when win (select-window win))))))
 
 (defun my/calc-trail--parse-line ()
   "Parse and return the calc expression on the current trail line."
