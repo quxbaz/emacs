@@ -231,6 +231,16 @@ just the region."
   (interactive)
   (funcall (kmacro "I Q")))
 
+(defun my/calc-poly-lcm ()
+  "Compute the LCM of two polynomials on the stack."
+  (interactive)
+  (calc-wrapper
+   (let* ((b (calc-top-n 1))
+          (a (calc-top-n 2))
+          (gcd (calcFunc-pgcd a b))
+          (result (calcFunc-div (calcFunc-mul a b) gcd)))
+     (calc-enter-result 2 "plcm" result))))
+
 (defun my/calc-factor-by ()
   "Factors an expression by an argument.
 With no selection: factors stack level 2 by stack level 1.
