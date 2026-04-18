@@ -7,6 +7,7 @@
                           (concat user-emacs-directory "scratch.el")
                           (concat user-emacs-directory "sql-notebook.el")
                           "~/.stumpwm.d/init.lisp"
+                          "~/.stumpwm.d/setup.lisp"
                           "~/personal/automotive.org"
                           "~/personal/bookmarks.org"
                           "~/personal/design-notes.org"
