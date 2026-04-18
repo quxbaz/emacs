@@ -12,3 +12,4 @@
 /transient/
 /.claude/
 /tramp
+/calc-stack.el

@@ -3,6 +3,31 @@
 ;; Core calc stack operations
 
 
+(defvar my/calc-stack-save-file
+  (expand-file-name "calc-stack.el" user-emacs-directory))
+
+(defvar my/calc-stack-restored nil)
+
+(defun my/calc-save-stack ()
+  "Save the calc stack to disk."
+  (when (and (boundp 'calc-stack) (cdr calc-stack))
+    (with-temp-file my/calc-stack-save-file
+      (prin1 (mapcar #'car (cdr calc-stack)) (current-buffer)))))
+
+(defun my/calc-restore-stack ()
+  "Restore the calc stack from disk, once per session."
+  (unless my/calc-stack-restored
+    (setq my/calc-stack-restored t)
+    (when (file-exists-p my/calc-stack-save-file)
+      (let ((stack (with-temp-buffer
+                     (insert-file-contents my/calc-stack-save-file)
+                     (read (current-buffer)))))
+        (when stack
+          (calc-push-list (reverse stack)))))))
+
+(add-hook 'kill-emacs-hook #'my/calc-save-stack)
+(add-hook 'calc-mode-hook  #'my/calc-restore-stack)
+
 (defun my/calc ()
   "Starts calc."
   (interactive)
