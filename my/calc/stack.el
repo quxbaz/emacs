@@ -82,12 +82,15 @@ If point is past the top stack item, calls calc-realign instead."
        (calc-roll-up n)))))
 
 (defun my/calc-roll-to-bottom ()
-  "Moves the top stack item to the bottom of the stack."
+  "Moves the stack item at point to the bottom of the stack."
   (interactive)
   (calc-wrapper
-   (let ((n (calc-stack-size)))
-     (when (> n 1)
-       (calc-roll-down n)))))
+   (let ((m (calc-locate-cursor-element (point)))
+         (n (calc-stack-size)))
+     (let ((m (if (and m (> m 0)) m 1)))
+       (when (> n 1)
+         (calc-roll-up m)
+         (calc-roll-down n))))))
 
 (defun my/calc-pop ()
   "Delete subformula at point, or pop top of stack if cursor is at bottom.
