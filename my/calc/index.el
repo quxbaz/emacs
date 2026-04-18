@@ -5,6 +5,8 @@
 ;; This file loads all calc-related modules.
 
 
+(setq calc-display-trail nil)
+
 ;; Load all calc modules
 (let ((calc-dir (file-name-directory (or load-file-name buffer-file-name))))
   (load (concat calc-dir "var.el"))
