@@ -66,8 +66,7 @@
   (call-interactively 'calc-reset)
   (with-current-buffer (calc-trail-buffer)
     (let ((inhibit-read-only t))
-      (erase-buffer)
-      (insert "Emacs Calc Trail\n"))))
+      (erase-buffer))))
 
 (defun my/calc-reset-settings ()
   "Reset calc display settings and modes without clearing the stack."
