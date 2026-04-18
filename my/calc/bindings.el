@@ -65,6 +65,7 @@
          (:map calc-mode-map ("<" . calc-scroll-right))
          (:map calc-mode-map ("G" . my/calc-toggle-big-language))
          (:map calc-mode-map ("d ," . calc-group-digits))
+         (:map calc-mode-map ("d RET" . calc-refresh))
 
          ;; Conversions
          (:map calc-mode-map ("l d" . my/calc-to-degrees))
@@ -133,7 +134,7 @@
          (:map calc-mode-map ("`" . my/calc-edit))
 
          ;; Trail
-         (:map calc-mode-map ("t SPC" . my/calc-trail-display))
+         (:map calc-mode-map ("d SPC" . my/calc-trail-display))
          (:map calc-mode-map ("t o" . calc-trail-in))
          (:map calc-trail-mode-map ("n" . next-line))
          (:map calc-trail-mode-map ("p" . previous-line))
