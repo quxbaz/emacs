@@ -133,7 +133,7 @@
          (:map calc-mode-map ("`" . my/calc-edit))
 
          ;; Trail
-         (:map calc-mode-map ("t d" . my/calc-trail-display))
+         (:map calc-mode-map ("t SPC" . my/calc-trail-display))
          (:map calc-mode-map ("t o" . calc-trail-in))
          (:map calc-trail-mode-map ("n" . next-line))
          (:map calc-trail-mode-map ("p" . previous-line))
