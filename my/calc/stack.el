@@ -341,4 +341,38 @@ alphabetically, or cycles to the next if already solved for one."
           (message "Can't solve for %s" (math-format-flat-expr var 0)))))))
 
 
+(defun my/calc-poly-roots ()
+  "Find roots of the polynomial or equation on top of stack.
+Accepts expressions (f(x)) or equations (f(x) = 0).
+With one variable, solves automatically. With multiple, prompts for the variable."
+  (interactive)
+  (cl-labels ((collect-factors (expr)
+                (cond ((eq (car-safe expr) '*)
+                       (append (collect-factors (nth 1 expr))
+                               (collect-factors (nth 2 expr))))
+                      ((eq (car-safe expr) '^)
+                       (collect-factors (nth 1 expr)))
+                      (t (list expr))))
+              (roots-of (poly var)
+                (let* ((factors (collect-factors (calcFunc-factor poly)))
+                       (all-roots (cl-mapcan (lambda (f)
+                                               (let ((r (calcFunc-roots f var)))
+                                                 (when (eq (car-safe r) 'vec) (cdr r))))
+                                             factors)))
+                  (calcFunc-sort (cons 'vec all-roots)))))
+    (let* ((expr (calc-top-n 1))
+           (poly (if (eq (car-safe expr) 'calcFunc-eq)
+                     (calcFunc-sub (nth 1 expr) (nth 2 expr))
+                   expr))
+           (vars (my/calc-auto-solve--sorted-vars poly))
+           (n (length vars)))
+      (cond
+       ((= n 0) (message "No variables found"))
+       ((= n 1)
+        (calc-wrapper (calc-enter-result 1 "root" (roots-of poly (car vars)))))
+       (t
+        (let ((var (math-read-expr (read-string "Variable: "))))
+          (calc-wrapper (calc-enter-result 1 "root" (roots-of poly var)))))))))
+
+
 (provide 'my/calc/stack)
