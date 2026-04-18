@@ -31,6 +31,11 @@
        (calc-normal-language)
      (calc-big-language))))
 
+(defun my/calc-reset-settings ()
+  "Reset calc display settings and modes without clearing the stack."
+  (interactive)
+  (calc-reset 0))
+
 (defun my/calc-undo ()
   "Like calc-undo, but retains point position."
   (interactive)
