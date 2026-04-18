@@ -36,7 +36,7 @@
          (:map calc-help-map ("k" . calc-describe-key-briefly))
 
          ;; Basic stack operations
-         (:map calc-mode-map ("C-M-k" . calc-reset))
+         (:map calc-mode-map ("C-M-k" . my/calc-reset))
          (:map calc-mode-map ("C-M-l" . my/calc-reset-settings))
          (:map calc-mode-map ("C-/" . my/calc-undo))
          (:map calc-mode-map ("U" . my/calc-undo))
