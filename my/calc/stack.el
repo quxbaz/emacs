@@ -363,38 +363,55 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
 
 
 
+;; calc-fancy-prefix-other-key clears calc-keep-args-flag before replaying
+;; non-character keys (like C-<return>). Save it in a post-command-hook
+;; right after K fires so we can recover it.
+(defvar my/calc--saved-keep-flag nil)
+
+(defun my/calc--save-keep-flag ()
+  (when (eq this-command 'calc-keep-args)
+    (setq my/calc--saved-keep-flag
+          (buffer-local-value 'calc-keep-args-flag
+                              (or (get-buffer "*Calculator*") (current-buffer))))))
+
+(add-hook 'post-command-hook #'my/calc--save-keep-flag)
+
 (defun my/calc-quick-substitution ()
   "Substitute the top-of-stack assignment into the second stack item.
-Keeps both items by default. With K prefix, removes them."
+Removes both items by default. With K prefix, keeps them."
   (interactive)
   (require 'calc-store)
-  (calc-slow-wrapper
-   (let* ((assignments (calc-is-assignments (calc-top 1)))
-          (thing       (calc-top 2))
-          (pop-count   (if calc-keep-args-flag 2 0)))
-     (when assignments
-       (let ((result
-              (let ((saved (mapcar (lambda (v)
-                                    (cons (car v)
-                                          (and (boundp (car v))
-                                               (symbol-value (car v)))))
-                                  assignments)))
-                (unwind-protect
-                    (progn
-                      (dolist (v assignments)
-                        (set (car v) (calc-normalize (cdr v)))
-                        (calc-refresh-evaltos (car v)))
-                      (let ((r (math-evaluate-expr thing)))
-                        (if (and (eq (car-safe r) 'calcFunc-eq)
-                                 (math-numberp (nth 1 r)))
-                            (list 'calcFunc-eq (nth 2 r) (nth 1 r))
-                          r)))
-                  (dolist (v saved)
-                    (if (cdr v)
-                        (set (car v) (cdr v))
-                      (makunbound (car v))))))))
-         (setq calc-keep-args-flag nil)
-         (calc-pop-push-record pop-count "let" result))))))
+  (let ((keep (if (eq last-command 'calc-fancy-prefix-other-key)
+                  (prog1 my/calc--saved-keep-flag
+                    (setq my/calc--saved-keep-flag nil))
+                calc-keep-args-flag)))
+    (calc-slow-wrapper
+     (let* ((assignments (calc-is-assignments (calc-top 1)))
+            (thing       (calc-top 2)))
+       (when assignments
+         (let ((result
+                (let ((saved (mapcar (lambda (v)
+                                      (cons (car v)
+                                            (and (boundp (car v))
+                                                 (symbol-value (car v)))))
+                                    assignments)))
+                  (unwind-protect
+                      (progn
+                        (dolist (v assignments)
+                          (set (car v) (calc-normalize (cdr v)))
+                          (calc-refresh-evaltos (car v)))
+                        (let ((r (math-evaluate-expr thing)))
+                          (if (and (eq (car-safe r) 'calcFunc-eq)
+                                   (math-numberp (nth 1 r)))
+                              (list 'calcFunc-eq (nth 2 r) (nth 1 r))
+                            r)))
+                    (dolist (v saved)
+                      (if (cdr v)
+                          (set (car v) (cdr v))
+                        (makunbound (car v))))))))
+           (if keep
+               (calc-push-list (list result))
+             (calc-enter-result 2 "let" result))))))))
 
 (defun my/calc-trail--parse-line ()
   "Parse and return the calc expression on the current trail line."
