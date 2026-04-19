@@ -81,7 +81,7 @@
          (:map calc-mode-map ("=" . calc-equal-to))
          (:map calc-mode-map ("e" . calc-equal-to))
          (:map calc-mode-map ("x" . calc-expand))
-         (:map calc-mode-map ("a v" . my/calc-inverse-function))
+         (:map calc-mode-map ("l v" . my/calc-inverse-function))
          (:map calc-mode-map ("a g" . calc-poly-gcd))
          (:map calc-mode-map ("a L" . my/calc-poly-lcm))
          (:map calc-mode-map ("a e" . calc-simplify))
