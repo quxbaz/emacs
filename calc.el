@@ -103,3 +103,6 @@
 
 ;;; Variable "var-eq-standard-form-of-parabola-at-origin" stored by Calc on Sun Apr 19 00:54:46 2026
 (setq var-eq-standard-form-of-parabola-at-origin '(calcFunc-eq (^ (var y var-y) 2) (* 4 (* (var p var-p) (var x var-x)))))
+
+;;; Variable "var-eq-standard-form-of-parabola" stored by Calc on Sun Apr 19 17:36:30 2026
+(setq var-eq-standard-form-of-parabola '(calcFunc-eq (^ (- (var y var-y) (var k var-k)) 2) (* 4 (* (var p var-p) (- (var x var-x) (var h var-h))))))
