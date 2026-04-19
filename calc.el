@@ -100,3 +100,6 @@
 
 ;;; Variable "var-eq-vertex-form-of-vertical-parabola-at-origin" stored by Calc on Sun Apr 19 00:53:02 2026
 (setq var-eq-vertex-form-of-vertical-parabola-at-origin '(calcFunc-eq (^ (var x var-x) 2) (* 4 (* (var p var-p) (var y var-y)))))
+
+;;; Variable "var-eq-standard-form-of-parabola-at-origin" stored by Calc on Sun Apr 19 00:54:46 2026
+(setq var-eq-standard-form-of-parabola-at-origin '(calcFunc-eq (^ (var y var-y) 2) (* 4 (* (var p var-p) (var x var-x)))))
