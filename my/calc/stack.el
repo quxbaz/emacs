@@ -359,6 +359,31 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
   (forward-char 5))
 
 
+(defun my/calc-inverse-function ()
+  "Find the inverse of a function on the stack.
+Accepts y=f(x) equations or f(x) expressions."
+  (interactive)
+  (let* ((expr    (calc-top-n 1))
+         (var-x   '(var x var-x))
+         (var-y   '(var y var-y))
+         (is-eq   (eq (car-safe expr) 'calcFunc-eq))
+         (lhs     (and is-eq (nth 1 expr)))
+         (rhs     (and is-eq (nth 2 expr)))
+         (out-lhs (if (or (not is-eq) (equal lhs var-y) (equal rhs var-y))
+                      var-y
+                    lhs))
+         (fx      (cond ((not is-eq)         expr)
+                        ((equal lhs var-y)   rhs)
+                        ((equal rhs var-y)   lhs)
+                        (t                   rhs)))
+         (fy      (math-expr-subst fx var-x var-y))
+         (sol     (math-solve-eqn (list 'calcFunc-eq fy var-x) var-y nil))
+         (result  (when (eq (car-safe sol) 'calcFunc-eq)
+                    (list 'calcFunc-eq out-lhs (nth 2 sol)))))
+    (if result
+        (calc-wrapper (calc-enter-result 1 "inv" result))
+      (message "Can't find inverse"))))
+
 (defun my/calc-auto-solve--sorted-vars (expr)
   "Return unique non-constant variables in EXPR, sorted alphabetically."
   (let (vars)
