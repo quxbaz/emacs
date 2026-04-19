@@ -143,6 +143,14 @@ and handles coefficients."
                 "plain(a^m + b^n) := (a^(m/3) + b^(n/3))(a^(2*m/3) - a^(m/3)*b^(n/3) + b^(2*n/3)) :: m % 3 = 0 && n % 3 = 0 && m > 3"
                 ;; Cubes: a^m - b^n where m, n are multiples of 3 (e.g. x^6 - y^6)
                 "plain(a^m - b^n) := (a^(m/3) - b^(n/3))(a^(2*m/3) + a^(m/3)*b^(n/3) + b^(2*n/3)) :: m % 3 = 0 && n % 3 = 0 && m > 3"
+                ;; Cubes: b - a^m (constant first, e.g. 64 - y^6)
+                "plain(b - a^m) := (b^(1:3) - a^(m/3))*(b^(2:3) + b^(1:3)*a^(m/3) + a^(2*m/3)) :: m % 3 = 0 && m >= 3"
+                ;; Cubes: b + a^m (constant first, e.g. 64 + y^6)
+                "plain(b + a^m) := (b^(1:3) + a^(m/3))*(b^(2:3) - b^(1:3)*a^(m/3) + a^(2*m/3)) :: m % 3 = 0 && m >= 3"
+                ;; Cubes: c - d*a^m (constant minus coefficient×power, e.g. 256 - 4*y^6)
+                "plain(c - d*a^m) := d*((c/d)^(1:3) - a^(m/3))*((c/d)^(2:3) + (c/d)^(1:3)*a^(m/3) + a^(2*m/3)) :: m % 3 = 0 && m >= 3"
+                ;; Cubes: c + d*a^m (constant plus coefficient×power, e.g. 256 + 4*y^6)
+                "plain(c + d*a^m) := d*((c/d)^(1:3) + a^(m/3))*((c/d)^(2:3) - (c/d)^(1:3)*a^(m/3) + a^(2*m/3)) :: m % 3 = 0 && m >= 3"
                 ;; Higher powers: a^n as difference of squares
                 "plain(a^n - b) := ((a^(n/2)) + sqrt(b))((a^(n/2)) - sqrt(b)) :: n > 3"
                 "plain(a^n + b) := ((a^(n/2)) + sqrt(b)*i)((a^(n/2)) - sqrt(b)*i) :: n > 3"

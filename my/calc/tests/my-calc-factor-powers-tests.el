@@ -146,6 +146,40 @@ Compares by expanding (actual - expected) and simplifying to 0."
       (should (my-calc-factor-powers-tests--equiv
                result "(a^2/2 + b)*(a^4/4 - a^2*b/2 + b^2)")))))
 
+;;; Constant-first cube forms (b - a^m, c - d*a^m)
+
+(ert-deftest test-my/calc-factor-powers-64-minus-y6 ()
+  "64 - y^6 factors as (4 - y^2)(16 + 4*y^2 + y^4)."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "64 - y^6")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "(4 - y^2)*(16 + 4*y^2 + y^4)")))))
+
+(ert-deftest test-my/calc-factor-powers-64-plus-y6 ()
+  "64 + y^6 factors as (4 + y^2)(16 - 4*y^2 + y^4)."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "64 + y^6")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "(4 + y^2)*(16 - 4*y^2 + y^4)")))))
+
+(ert-deftest test-my/calc-factor-powers-256-minus-4y6 ()
+  "256 - 4*y^6 factors as 4*(4 - y^2)*(16 + 4*y^2 + y^4)."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "256 - 4*y^6")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "4*(4 - y^2)*(16 + 4*y^2 + y^4)")))))
+
+(ert-deftest test-my/calc-factor-powers-256-plus-4y6 ()
+  "256 + 4*y^6 factors as 4*(4 + y^2)*(16 - 4*y^2 + y^4)."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-factor-powers-tests--factor "256 + 4*y^6")))
+      (should (my-calc-factor-powers-tests--equiv
+               result "4*(4 + y^2)*(16 - 4*y^2 + y^4)")))))
+
 ;;; Regression: existing cube rules still work
 
 (ert-deftest test-my/calc-factor-powers-x3-minus-y3 ()
