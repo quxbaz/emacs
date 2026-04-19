@@ -143,8 +143,11 @@ unmatched delimiters, comparison/equation operators, commas, or BOL."
         (backward-sexp)
       (backward-char))))
 
+(defvar-local my/calc-edit-wrap-parens--paren-open nil)
+
 (defun my/calc-edit-wrap-parens ()
-  "Wrap the preceding expression (or active region) with parentheses."
+  "Wrap the preceding expression (or active region) with parentheses.
+Invoked repeatedly, expands the wrapped region by one delimiter each time."
   (interactive)
   (if (use-region-p)
       (let ((start (region-beginning))
@@ -153,15 +156,38 @@ unmatched delimiters, comparison/equation operators, commas, or BOL."
           (goto-char end)   (insert ")")
           (goto-char start) (insert "("))
         (deactivate-mark))
-    (let* ((end   (point))
-           (start (save-excursion
-                    (my/calc-edit--scan-expr-start)
-                    (point))))
-      (when (< start end)
-        (save-excursion
-          (goto-char end)   (insert ")")
-          (goto-char start) (insert "("))
-        (forward-char 1)))))
+    (if (and (eq last-command 'my/calc-edit-wrap-parens)
+             my/calc-edit-wrap-parens--paren-open)
+        (let ((paren-open my/calc-edit-wrap-parens--paren-open))
+          (setq my/calc-edit-wrap-parens--paren-open nil)
+          (delete-char -1)
+          (delete-region paren-open (1+ paren-open))
+          (let ((end (point))
+                new-start)
+            (save-excursion
+              (goto-char paren-open)
+              (unless (bolp)
+                (if (memq (char-before) '(?\] ?\}))
+                    (backward-sexp)
+                  (backward-char))
+                (my/calc-edit--scan-expr-start)
+                (setq new-start (point))))
+            (when (and new-start (< new-start end))
+              (save-excursion
+                (goto-char end)       (insert ")")
+                (goto-char new-start) (insert "("))
+              (setq my/calc-edit-wrap-parens--paren-open new-start)
+              (forward-char 1))))
+      (let* ((end   (point))
+             (start (save-excursion
+                      (my/calc-edit--scan-expr-start)
+                      (point))))
+        (when (< start end)
+          (save-excursion
+            (goto-char end)   (insert ")")
+            (goto-char start) (insert "("))
+          (setq my/calc-edit-wrap-parens--paren-open start)
+          (forward-char 1))))))
 
 (defun my/calc-duplicate-paren-expr ()
   "Duplicates the innermost parenthesized expression surrounding point.
