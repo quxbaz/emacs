@@ -177,6 +177,23 @@ just the region."
       (calc-cursor-stack-index (1+ n))
       (move-to-column col))))
 
+(defun my/calc-coordinate-toggle ()
+  "Toggle between coordinate vector [2, 4] and named form [x=2, y=4]."
+  (interactive)
+  (calc-wrapper
+   (let ((expr (calc-top-n 1)))
+     (when (eq (car-safe expr) 'vec)
+       (let* ((items (cdr expr))
+              (coord-vars '((var x var-x) (var y var-y) (var z var-z) (var w var-w))))
+         (calc-enter-result 1 "crd"
+           (cons 'vec
+             (if (cl-every (lambda (item) (eq (car-safe item) 'calcFunc-eq)) items)
+                 (mapcar (lambda (eq)
+                           (if (eq (car-safe (nth 1 eq)) 'var) (nth 2 eq) (nth 1 eq)))
+                         items)
+               (cl-mapcar (lambda (var val) (list 'calcFunc-eq var val))
+                          coord-vars items)))))))))
+
 (defun my/calc-duplicate-stack ()
   "Duplicates the entire calc stack."
   (interactive)
