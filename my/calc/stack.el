@@ -455,25 +455,34 @@ Removes both items by default. With K prefix, keeps them."
 
 (defun my/calc-inverse-function ()
   "Find the inverse of a function on the stack.
-Accepts y=f(x) equations or f(x) expressions."
+Accepts y=f(x) equations or f(x) expressions, with any variable names."
   (interactive)
-  (let* ((expr    (calc-top-n 1))
-         (var-x   '(var x var-x))
-         (var-y   '(var y var-y))
-         (is-eq   (eq (car-safe expr) 'calcFunc-eq))
-         (lhs     (and is-eq (nth 1 expr)))
-         (rhs     (and is-eq (nth 2 expr)))
-         (out-lhs (if (or (not is-eq) (equal lhs var-y) (equal rhs var-y))
-                      var-y
-                    lhs))
-         (fx      (cond ((not is-eq)         expr)
-                        ((equal lhs var-y)   rhs)
-                        ((equal rhs var-y)   lhs)
-                        (t                   rhs)))
-         (fy      (math-expr-subst fx var-x var-y))
-         (sol     (math-solve-eqn (list 'calcFunc-eq fy var-x) var-y nil))
-         (result  (when (eq (car-safe sol) 'calcFunc-eq)
-                    (list 'calcFunc-eq out-lhs (nth 2 sol)))))
+  (let* ((expr      (calc-top-n 1))
+         (var-y     '(var y var-y))
+         (is-eq     (eq (car-safe expr) 'calcFunc-eq))
+         (lhs       (and is-eq (nth 1 expr)))
+         (rhs       (and is-eq (nth 2 expr)))
+         (lhs-var-p (and is-eq (eq (car-safe lhs) 'var)))
+         (rhs-var-p (and is-eq (eq (car-safe rhs) 'var)))
+         ;; out-lhs: what appears on the LHS of the result
+         (out-lhs   (cond ((not is-eq) var-y)
+                          (lhs-var-p   lhs)
+                          (rhs-var-p   rhs)
+                          (t           lhs)))
+         ;; fx: the expression defining the forward function
+         (fx        (cond ((not is-eq) expr)
+                          (rhs-var-p   lhs)
+                          (t           rhs)))
+         ;; work-var: substitute into fx and solve for this
+         (work-var  (if (eq (car-safe out-lhs) 'var) out-lhs var-y))
+         ;; in-var: the primary input variable of fx (first alphabetically, excluding work-var)
+         (in-var    (or (seq-find (lambda (v) (not (equal v work-var)))
+                                  (my/calc-auto-solve--sorted-vars fx))
+                        '(var x var-x)))
+         (fy        (math-expr-subst fx in-var work-var))
+         (sol       (math-solve-eqn (list 'calcFunc-eq fy in-var) work-var nil))
+         (result    (when (eq (car-safe sol) 'calcFunc-eq)
+                      (list 'calcFunc-eq out-lhs (nth 2 sol)))))
     (if result
         (calc-wrapper (calc-enter-result 1 "inv" result))
       (message "Can't find inverse"))))
