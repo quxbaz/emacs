@@ -101,14 +101,41 @@ If point is past the top stack item, calls calc-realign instead."
         (error nil)))))
 
 (defun my/calc-kill-ring-save-dwim ()
-  "Saves the region if region is active, else save the current line."
+  "Saves the region if region is active, else save the current line.
+If point is at or past home with no active region, saves the top stack item.
+Invoked twice in a row, saves as LaTeX/MathJax form instead."
   (interactive)
-  (if (use-region-p)
-      (call-interactively 'kill-ring-save)
-    (let* ((line (string-trim (substring-no-properties (thing-at-point 'line))))
-           (no-prefix-line (replace-regexp-in-string "^[0-9]+:[[:space:]]*" "" line)))
-      (kill-new no-prefix-line)))
-  (message "%s" (string-trim (car kill-ring))))
+  (let ((latex-p (eq last-command 'my/calc-kill-ring-save-dwim))
+        (at-home (and (not (use-region-p))
+                      (<= (calc-locate-cursor-element (point)) 0))))
+    (if latex-p
+        (let* ((expr (cond
+                      ((use-region-p)
+                       (math-read-expr (buffer-substring-no-properties (region-beginning) (region-end))))
+                      (at-home
+                       (calc-top-n 1))
+                      (t
+                       (math-read-expr (replace-regexp-in-string "^[0-9]+:[[:space:]]*" ""
+                                         (string-trim (substring-no-properties (thing-at-point 'line))))))))
+               (latex (let ((save-lang calc-language)
+                            (save-opt  calc-language-option))
+                        (unwind-protect
+                            (progn
+                              (calc-set-language 'latex nil t)
+                              (math-composition-to-string
+                               (math-compose-expr expr 0)
+                               (frame-width)))
+                          (calc-set-language save-lang save-opt t)))))
+          (kill-new latex)
+          (message "%s" latex))
+      (if (use-region-p)
+          (call-interactively 'kill-ring-save)
+        (let* ((text (if at-home
+                         (math-format-flat-expr (calc-top-n 1) 0)
+                       (replace-regexp-in-string "^[0-9]+:[[:space:]]*" ""
+                         (string-trim (substring-no-properties (thing-at-point 'line)))))))
+          (kill-new text)))
+      (message "%s" (string-trim (car kill-ring))))))
 
 (defun my/calc-roll-to-top ()
   "Moves the current entry to the top of the stack."
