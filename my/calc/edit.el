@@ -135,11 +135,11 @@
 
 (defun my/calc-edit--scan-expr-start ()
   "Move point to the start of the preceding expression.
-Scans backward, skipping balanced paren groups, stopping at
+Scans backward, skipping balanced bracket/brace groups, stopping at
 unmatched delimiters, comparison/equation operators, commas, or BOL."
   (while (and (not (bolp))
-              (not (memq (char-before) '(?\( ?\[ ?\{ ?= ?< ?> ?, ?\s ?/))))
-    (if (memq (char-before) '(?\) ?\] ?\}))
+              (not (memq (char-before) '(?\( ?\[ ?\{ ?\) ?= ?< ?> ?, ?\s ?/))))
+    (if (memq (char-before) '(?\] ?\}))
         (backward-sexp)
       (backward-char))))
 
