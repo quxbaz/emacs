@@ -5,12 +5,6 @@
 (setq calc-always-load-extensions t)
 ;;; End of mode settings
 
-;;; Variable "var-eq-standard-equation-of-parabola" stored by Calc on Wed Dec 10 12:05:12 2025
-(setq var-eq-standard-equation-of-parabola '(calcFunc-eq (^ (- (var x var-x) (var h var-h)) 2) (* 4 (* (var p var-p) (- (var y var-y) (var k var-k))))))
-
-;;; Variable "var-eq-standard-equation-of-parabola-at-origin" stored by Calc on Mon Mar  2 11:49:19 2026
-(setq var-eq-standard-equation-of-parabola-at-origin '(calcFunc-eq (^ (var x var-x) 2) (* 4 (* (var p var-p) (var y var-y)))))
-
 ;;; Variable "var-eq-standard-equation-of-circle" stored by Calc on Fri Dec 12 16:36:29 2025
 (setq var-eq-standard-equation-of-circle '(calcFunc-eq (+ (^ (- (var x var-x) (var h var-h)) 2) (^ (- (var y var-y) (var k var-k)) 2)) (^ (var r var-r) 2)))
 
@@ -100,3 +94,9 @@
 
 ;;; Variable "var-eq-exponential-growth-formula" stored by Calc on Mon Apr 13 22:32:59 2026
 (setq var-eq-exponential-growth-formula '(calcFunc-eq (calcFunc-f (var x var-x)) (* (var a var-a) (^ (var b var-b) (var x var-x)))))
+
+;;; Variable "var-eq-vertex-form-of-vertical-parabola" stored by Calc on Sun Apr 19 00:51:49 2026
+(setq var-eq-vertex-form-of-vertical-parabola '(calcFunc-eq (^ (- (var x var-x) (var h var-h)) 2) (* 4 (* (var p var-p) (- (var y var-y) (var k var-k))))))
+
+;;; Variable "var-eq-vertex-form-of-vertical-parabola-at-origin" stored by Calc on Sun Apr 19 00:53:02 2026
+(setq var-eq-vertex-form-of-vertical-parabola-at-origin '(calcFunc-eq (^ (var x var-x) 2) (* 4 (* (var p var-p) (var y var-y)))))
