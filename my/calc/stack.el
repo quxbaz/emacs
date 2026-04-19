@@ -109,14 +109,15 @@ Invoked twice in a row, saves as LaTeX/MathJax form instead."
         (at-home (and (not (use-region-p))
                       (<= (calc-locate-cursor-element (point)) 0))))
     (if latex-p
-        (let* ((expr (cond
-                      ((use-region-p)
-                       (math-read-expr (buffer-substring-no-properties (region-beginning) (region-end))))
-                      (at-home
-                       (calc-top-n 1))
-                      (t
-                       (math-read-expr (replace-regexp-in-string "^[0-9]+:[[:space:]]*" ""
-                                         (string-trim (substring-no-properties (thing-at-point 'line))))))))
+        (let* ((expr (if (use-region-p)
+                         (math-read-expr (buffer-substring-no-properties (region-beginning) (region-end)))
+                       (let* ((line (if at-home
+                                        (save-excursion
+                                          (calc-cursor-stack-index 1)
+                                          (substring-no-properties (thing-at-point 'line)))
+                                      (substring-no-properties (thing-at-point 'line))))
+                              (text (replace-regexp-in-string "^[0-9]+:[[:space:]]*" "" (string-trim line))))
+                         (math-read-expr text))))
                (latex (let ((save-lang calc-language)
                             (save-opt  calc-language-option))
                         (unwind-protect
@@ -130,10 +131,13 @@ Invoked twice in a row, saves as LaTeX/MathJax form instead."
           (message "%s" latex))
       (if (use-region-p)
           (call-interactively 'kill-ring-save)
-        (let* ((text (if at-home
-                         (math-format-flat-expr (calc-top-n 1) 0)
-                       (replace-regexp-in-string "^[0-9]+:[[:space:]]*" ""
-                         (string-trim (substring-no-properties (thing-at-point 'line)))))))
+        (let* ((line (if at-home
+                         (save-excursion
+                           (calc-cursor-stack-index 1)
+                           (substring-no-properties (thing-at-point 'line)))
+                       (substring-no-properties (thing-at-point 'line))))
+               (text (replace-regexp-in-string "^[0-9]+:[[:space:]]*" ""
+                       (string-trim line))))
           (kill-new text)))
       (message "%s" (string-trim (car kill-ring))))))
 
