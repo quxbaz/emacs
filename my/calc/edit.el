@@ -61,7 +61,7 @@
   (when (my/calc-active-selection-p)
     (call-interactively 'calc-clear-selections)
     (when my/calc-edit-saved-point
-      (setf (point) my/calc-edit-saved-point))))
+      (goto-char my/calc-edit-saved-point))))
 
 (defun my/calc-edit-newline ()
   "Like newline, but also sets indentation."

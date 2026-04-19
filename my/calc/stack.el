@@ -157,7 +157,7 @@ just the region."
   (cond ((use-region-p)
          (calc-wrapper
           (calc-push (math-read-expr (buffer-substring-no-properties (region-beginning) (region-end)))))
-         (setf (point) (- (point-max) 2)))
+         (goto-char (- (point-max) 2)))
         ((my/calc-at-stack-bottom-p)
          (call-interactively 'calc-enter))
         (t
@@ -165,7 +165,7 @@ just the region."
                 (no-prefix-line (replace-regexp-in-string "^[0-9]+:[[:space:]]*" "" line)))
            (calc-wrapper
             (calc-push (math-read-expr no-prefix-line)))
-           (setf (point) (- (point-max) 2))))))
+           (goto-char (- (point-max) 2))))))
 
 (defun my/calc-duplicate-no-move ()
   "Like my/calc-duplicate, but doesn't move point."

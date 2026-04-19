@@ -122,11 +122,11 @@ EXAMPLE
          ;; 2. if keep-args is active, always reset point.
          ;; 3. Else, `opt-keep-point` dictates behavior.
          (cond (,sym-sel-is-active
-                (setf (point) saved-point))
+                (goto-char saved-point))
                ((or keep-args (eq ,opt-keep-point -1))
                 (calc-align-stack-window))
                (t
-                (setf (point) saved-point)))))))
+                (goto-char saved-point)))))))
 
 (defun my/calc-edit-wrap-dwim (fn)
   "Wrap the preceding token or active region with FN(...).
