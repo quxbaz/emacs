@@ -209,21 +209,28 @@ just the region."
       (move-to-column col))))
 
 (defun my/calc-coordinate-toggle ()
-  "Toggle between coordinate vector [2, 4] and named form [x=2, y=4]."
+  "Cycle coordinate forms: [1 2] -> [x=1 y=2] -> [h=1 k=2] -> [x=1 y=2] -> ..."
   (interactive)
-  (calc-wrapper
-   (let ((expr (calc-top-n 1)))
-     (when (eq (car-safe expr) 'vec)
-       (let* ((items (cdr expr))
-              (coord-vars '((var x var-x) (var y var-y) (var z var-z) (var w var-w))))
-         (calc-enter-result 1 "crd"
-           (cons 'vec
-             (if (cl-every (lambda (item) (eq (car-safe item) 'calcFunc-eq)) items)
-                 (mapcar (lambda (eq)
-                           (if (eq (car-safe (nth 1 eq)) 'var) (nth 2 eq) (nth 1 eq)))
-                         items)
+  (let ((xyzw '((var x var-x) (var y var-y) (var z var-z) (var w var-w)))
+        (hklm '((var h var-h) (var k var-k) (var l var-l) (var m var-m))))
+    (calc-wrapper
+     (let* ((expr (calc-top-n 1))
+            (items (and (eq (car-safe expr) 'vec) (cdr expr))))
+       (when items
+         (cond
+          ((cl-every (lambda (i) (eq (car-safe i) 'calcFunc-eq)) items)
+           (let* ((first-var (nth 1 (car items)))
+                  (to (if (member first-var xyzw) hklm xyzw)))
+             (calc-enter-result 1 "crd"
+               (cons 'vec
+                 (cl-mapcar (lambda (eq to-var)
+                              (list 'calcFunc-eq to-var (nth 2 eq)))
+                            items to)))))
+          (t
+           (calc-enter-result 1 "crd"
+             (cons 'vec
                (cl-mapcar (lambda (var val) (list 'calcFunc-eq var val))
-                          coord-vars items)))))))))
+                          xyzw items))))))))))
 
 (defun my/calc-duplicate-stack ()
   "Duplicates the entire calc stack."
