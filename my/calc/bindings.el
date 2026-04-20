@@ -93,6 +93,7 @@
          (:map calc-mode-map ("M-i" . my/calc-auto-solve))
          (:map calc-mode-map ("a l" . calc-poly-roots))
          (:map calc-mode-map ("k r" . my/calc-poly-roots))
+         (:map calc-mode-map ("M-r" . my/calc-poly-roots))
          (:map calc-mode-map ("M-." . calc-remove-equal))
          (:map calc-mode-map ("a m" . calc-map-equation))
          (:map calc-mode-map ("a o" . calc-collect))
