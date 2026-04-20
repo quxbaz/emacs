@@ -59,4 +59,13 @@
     (let ((result (my-calc-poly-lcm-tests--lcm "x^2 - 1" "x^2 - 1")))
       (should (my-calc-poly-lcm-tests--equiv result "x^2 - 1")))))
 
+;;; Multivariate tests
+
+(ert-deftest test-my/calc-poly-lcm-multivariate ()
+  "lcm(4*(z-4)^2*(w+3), 18*(z-4)^3*(w+3)^3) = 36*(z-4)^3*(w+3)^3."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-poly-lcm-tests--lcm "4*(z-4)^2*(w+3)" "18*(z-4)^3*(w+3)^3")))
+      (should (my-calc-poly-lcm-tests--equiv result "36*(z-4)^3*(w+3)^3")))))
+
 (provide 'my-calc-poly-lcm-tests)

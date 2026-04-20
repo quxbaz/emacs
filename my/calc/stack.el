@@ -281,12 +281,40 @@ just the region."
 (defun my/calc-poly-lcm ()
   "Compute the LCM of two polynomials on the stack."
   (interactive)
-  (calc-wrapper
-   (let* ((b (calc-top-n 1))
-          (a (calc-top-n 2))
-          (gcd (calcFunc-pgcd a b))
-          (result (calcFunc-factor (calcFunc-div (calcFunc-mul a b) gcd))))
-     (calc-enter-result 2 "plcm" result))))
+  (cl-labels
+      ((factors (expr)
+         "Flatten a factored expression into an alist of (base . exponent)."
+         (cond ((eq (car-safe expr) '*)
+                (append (factors (nth 1 expr)) (factors (nth 2 expr))))
+               ((eq (car-safe expr) '^)
+                (list (cons (nth 1 expr) (nth 2 expr))))
+               (t
+                (list (cons expr 1)))))
+       (mul-factors (pairs)
+         (cl-reduce (lambda (acc p) (list '* acc (list '^ (car p) (cdr p))))
+                    pairs :initial-value 1)))
+    (calc-wrapper
+     (let* ((b (calcFunc-factor (calc-top-n 1)))
+            (a (calcFunc-factor (calc-top-n 2)))
+            (fa (factors a))
+            (fb (factors b))
+            (nums-a  (cl-remove-if-not (lambda (p) (math-numberp (car p))) fa))
+            (nums-b  (cl-remove-if-not (lambda (p) (math-numberp (car p))) fb))
+            (polys-a (cl-remove-if     (lambda (p) (math-numberp (car p))) fa))
+            (polys-b (cl-remove-if     (lambda (p) (math-numberp (car p))) fb))
+            (coeff-a (cl-reduce #'math-mul (mapcar #'car nums-a) :initial-value 1))
+            (coeff-b (cl-reduce #'math-mul (mapcar #'car nums-b) :initial-value 1))
+            (coeff   (calcFunc-lcm coeff-a coeff-b))
+            (bases   (cl-remove-duplicates (mapcar #'car (append polys-a polys-b))
+                                           :test #'math-equal))
+            (poly-pairs
+             (mapcar (lambda (base)
+                       (let ((ea (or (cdr (cl-find base polys-a :key #'car :test #'math-equal)) 0))
+                             (eb (or (cdr (cl-find base polys-b :key #'car :test #'math-equal)) 0)))
+                         (cons base (max ea eb))))
+                     bases))
+            (result (calc-normalize (list '* coeff (mul-factors poly-pairs)))))
+       (calc-enter-result 2 "plcm" result)))))
 
 (defun my/calc-factor-by ()
   "Factors an expression by an argument.
