@@ -285,7 +285,7 @@ just the region."
    (let* ((b (calc-top-n 1))
           (a (calc-top-n 2))
           (gcd (calcFunc-pgcd a b))
-          (result (calcFunc-div (calcFunc-mul a b) gcd)))
+          (result (calcFunc-factor (calcFunc-div (calcFunc-mul a b) gcd))))
      (calc-enter-result 2 "plcm" result))))
 
 (defun my/calc-factor-by ()
