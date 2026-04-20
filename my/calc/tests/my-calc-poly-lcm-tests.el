@@ -68,4 +68,11 @@
     (let ((result (my-calc-poly-lcm-tests--lcm "4*(z-4)^2*(w+3)" "18*(z-4)^3*(w+3)^3")))
       (should (my-calc-poly-lcm-tests--equiv result "36*(z-4)^3*(w+3)^3")))))
 
+(ert-deftest test-my/calc-poly-lcm-multivariate-mixed-exponents ()
+  "lcm(12*z^6*(w-7)^3, 20*z^5*(w-7)^4) = 60*z^6*(w-7)^4."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-poly-lcm-tests--lcm "12*z^6*(w-7)^3" "20*z^5*(w-7)^4")))
+      (should (my-calc-poly-lcm-tests--equiv result "60*z^6*(w-7)^4")))))
+
 (provide 'my-calc-poly-lcm-tests)
