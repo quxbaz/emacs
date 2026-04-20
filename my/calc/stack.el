@@ -209,28 +209,35 @@ just the region."
       (move-to-column col))))
 
 (defun my/calc-coordinate-toggle ()
-  "Cycle coordinate forms: [1 2] -> [x=1 y=2] -> [h=1 k=2] -> [x=1 y=2] -> ..."
+  "Cycle coordinate forms: [1 2] -> [x=1 y=2] -> [h=1 k=2] -> [x=1 y=2] -> ...
+Also converts f(2) = 0 to [2 0]."
   (interactive)
   (let ((xyzw '((var x var-x) (var y var-y) (var z var-z) (var w var-w)))
         (hklm '((var h var-h) (var k var-k) (var l var-l) (var m var-m))))
     (calc-wrapper
      (let* ((expr (calc-top-n 1))
             (items (and (eq (car-safe expr) 'vec) (cdr expr))))
-       (when items
-         (cond
-          ((cl-every (lambda (i) (eq (car-safe i) 'calcFunc-eq)) items)
-           (let* ((first-var (nth 1 (car items)))
-                  (to (if (member first-var xyzw) hklm xyzw)))
-             (calc-enter-result 1 "crd"
-               (cons 'vec
-                 (cl-mapcar (lambda (eq to-var)
-                              (list 'calcFunc-eq to-var (nth 2 eq)))
-                            items to)))))
-          (t
+       (cond
+        ;; f(x) = y → [x y]
+        ((and (eq (car-safe expr) 'calcFunc-eq)
+              (= (length (nth 1 expr)) 2))
+         (calc-enter-result 1 "crd"
+           (list 'vec (nth 1 (nth 1 expr)) (nth 2 expr))))
+        ;; [x=1 y=2] → [h=1 k=2] or vice versa
+        ((and items (cl-every (lambda (i) (eq (car-safe i) 'calcFunc-eq)) items))
+         (let* ((first-var (nth 1 (car items)))
+                (to (if (member first-var xyzw) hklm xyzw)))
            (calc-enter-result 1 "crd"
              (cons 'vec
-               (cl-mapcar (lambda (var val) (list 'calcFunc-eq var val))
-                          xyzw items))))))))))
+               (cl-mapcar (lambda (eq to-var)
+                            (list 'calcFunc-eq to-var (nth 2 eq)))
+                          items to)))))
+        ;; [1 2] → [x=1 y=2]
+        (items
+         (calc-enter-result 1 "crd"
+           (cons 'vec
+             (cl-mapcar (lambda (var val) (list 'calcFunc-eq var val))
+                        xyzw items)))))))))
 
 (defun my/calc-duplicate-stack ()
   "Duplicates the entire calc stack."
