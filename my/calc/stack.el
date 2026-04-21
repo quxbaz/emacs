@@ -595,7 +595,11 @@ With one variable, solves automatically. With multiple, prompts for the variable
                   (calcFunc-sort (cons 'vec all-roots)))))
     (let* ((expr (calc-top-n 1))
            (poly (if (eq (car-safe expr) 'calcFunc-eq)
-                     (calcFunc-sub (nth 1 expr) (nth 2 expr))
+                     (let ((lhs (nth 1 expr)) (rhs (nth 2 expr)))
+                       (if (and (= (length lhs) 2)
+                                (string-prefix-p "calcFunc-" (symbol-name (car-safe lhs))))
+                           rhs
+                         (calcFunc-sub lhs rhs)))
                    expr))
            (vars (my/calc-auto-solve--sorted-vars poly))
            (n (length vars)))

@@ -68,4 +68,19 @@
   (my-calc-poly-roots-test "(x - 2)^2" "[2]"))
 
 
+;;; Function definition forms f(x) = ...
+
+(ert-deftest test-my/calc-poly-roots-f-quadratic ()
+  "f(x) = x^2 - 4 -> [-2, 2]."
+  (my-calc-poly-roots-test "f(x) = x^2 - 4" "[-2, 2]"))
+
+(ert-deftest test-my/calc-poly-roots-g-linear ()
+  "g(x) = x - 3 -> [3]."
+  (my-calc-poly-roots-test "g(x) = x - 3" "[3]"))
+
+(ert-deftest test-my/calc-poly-roots-p-cubic ()
+  "p(x) = x^3 - x^2 - 4*x + 4 -> [-2, 1, 2]."
+  (my-calc-poly-roots-test "p(x) = x^3 - x^2 - 4*x + 4" "[-2, 1, 2]"))
+
+
 (provide 'my-calc-poly-roots-tests)
