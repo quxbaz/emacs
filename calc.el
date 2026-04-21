@@ -106,3 +106,6 @@
 
 ;;; Variable "var-eq-standard-form-of-parabola" stored by Calc on Sun Apr 19 17:36:30 2026
 (setq var-eq-standard-form-of-parabola '(calcFunc-eq (^ (- (var y var-y) (var k var-k)) 2) (* 4 (* (var p var-p) (- (var x var-x) (var h var-h))))))
+
+;;; Variable "var-eq-law-of-sines" stored by Calc on Tue Apr 21 16:35:05 2026
+(setq var-eq-law-of-sines '(calcFunc-eq (/ (var a var-a) (calcFunc-sin (var A var-A))) (/ (var b var-b) (calcFunc-sin (var B var-B))) (/ (var c var-c) (calcFunc-sin (var C var-C)))))
