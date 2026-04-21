@@ -152,6 +152,11 @@
          (:map calc-trail-mode-map ("C-<return>" . my/calc-trail-yank-at-point-keep))
          (:map calc-trail-mode-map ("q" . calc-trail-display))))
 
+;; Quick recall (r0-r9) without simplification
+(with-eval-after-load 'calc-ext
+  (dotimes (i 10)
+    (keymap-set calc-mode-map (format "r %d" i) 'my/calc-recall-quick)))
+
 ;; Edit mode bindings
 (add-hook 'calc-edit-mode-hook
           (lambda ()

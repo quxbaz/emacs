@@ -281,6 +281,12 @@ Also converts f(2) = 0 to [2 0]."
   (let ((calc-symbolic-mode nil))
     (calc-evaluate n)))
 
+(defun my/calc-recall-quick ()
+  "Like calc-recall-quick, but don't simplify."
+  (interactive)
+  (let ((calc-simplify-mode 'none))
+    (call-interactively 'calc-recall-quick)))
+
 (defun my/calc-recall ()
   "Like calc-recall, but don't simplify."
   (interactive)
