@@ -51,6 +51,33 @@ Applies the following rules:
     (calc-wrapper
      (calc-rewrite (s-join "," rules) 1))))
 
+(defun my/calc-collect-fractions ()
+  "Collect additive terms into a single fraction over their LCD."
+  (interactive)
+  (cl-labels
+      ((terms (expr)
+         (cond ((eq (car-safe expr) '+)
+                (append (terms (nth 1 expr)) (terms (nth 2 expr))))
+               ((eq (car-safe expr) '-)
+                (append (terms (nth 1 expr))
+                        (mapcar #'math-neg (terms (nth 2 expr)))))
+               (t (list expr))))
+       (numer (term)
+         (if (memq (car-safe term) '(/ frac)) (nth 1 term) term))
+       (denom (term)
+         (if (memq (car-safe term) '(/ frac)) (nth 2 term) 1)))
+    (calc-wrapper
+     (let* ((ts  (terms (calc-top-n 1)))
+            (lcd (cl-reduce #'calcFunc-lcm (mapcar #'denom ts) :initial-value 1))
+            (num (cl-reduce #'math-add
+                            (mapcar (lambda (term)
+                                      (math-mul (numer term)
+                                                (math-div lcd (denom term))))
+                                    ts)
+                            :initial-value 0)))
+       (let ((calc-simplify-mode 'none))
+         (calc-enter-result 1 "cltf" (calc-normalize (list '/ num lcd))))))))
+
 (defun my/calc-complete-the-square ()
   "Completes the square for quadratic expressions and equations.
 
