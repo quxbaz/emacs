@@ -358,6 +358,24 @@ With selection active: factors the selected expression by the top of stack."
           ((= (calcFunc-geq result 90) 1) (calcFunc-sub 180 result))
           (t result))))
 
+(defun my/calc-supplement ()
+  "Compute the supplement of the angle on the stack (180 - x or pi - x)."
+  (interactive)
+  (calc-wrapper
+   (let ((half-turn (if (eq calc-angle-mode 'rad)
+                        (list 'var 'pi 'var-pi)
+                      180)))
+     (calc-enter-result 1 "supp" (math-sub half-turn (calc-top-n 1))))))
+
+(defun my/calc-complement ()
+  "Compute the complement of the angle on the stack (90 - x or pi/2 - x)."
+  (interactive)
+  (calc-wrapper
+   (let ((quarter-turn (if (eq calc-angle-mode 'rad)
+                           (list '/ (list 'var 'pi 'var-pi) 2)
+                         90)))
+     (calc-enter-result 1 "comp" (math-sub quarter-turn (calc-top-n 1))))))
+
 (defun my/calc-ref-angle (arg)
   "Given an angle, gets its reference angle."
   (interactive "P")

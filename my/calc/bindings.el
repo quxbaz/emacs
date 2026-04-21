@@ -76,6 +76,8 @@
          (:map calc-mode-map ("l c" . calc-fraction))
          (:map calc-mode-map ("M-o" . my/calc-mod-360))
          (:map calc-mode-map ("M-l" . my/calc-ref-angle))
+         (:map calc-mode-map ("M-s" . my/calc-supplement))
+         (:map calc-mode-map ("M-c" . my/calc-complement))
 
          ;; Algebraic operations
          (:map calc-mode-map ("@" . my/calc-no-simplify-mode))
