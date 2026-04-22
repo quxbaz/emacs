@@ -38,29 +38,36 @@
   (my-calc-coordinate-toggle-test "[1, 2, 3, 4]" "[x=1, y=2, z=3, w=4]"))
 
 
-;;; Named form → plain vector
+;;; xyzw → hklm
 
-(ert-deftest test-my/calc-coordinate-toggle-2d-to-plain ()
-  "[x=2, y=4] -> [2, 4]."
-  (my-calc-coordinate-toggle-test "[x=2, y=4]" "[2, 4]"))
+(ert-deftest test-my/calc-coordinate-toggle-xyzw-to-hklm ()
+  "[x=2, y=4] -> [h=2, k=4]."
+  (my-calc-coordinate-toggle-test "[x=2, y=4]" "[h=2, k=4]"))
 
-(ert-deftest test-my/calc-coordinate-toggle-3d-to-plain ()
-  "[x=1, y=2, z=3] -> [1, 2, 3]."
-  (my-calc-coordinate-toggle-test "[x=1, y=2, z=3]" "[1, 2, 3]"))
+(ert-deftest test-my/calc-coordinate-toggle-3d-xyzw-to-hklm ()
+  "[x=1, y=2, z=3] -> [h=1, k=2, l=3]."
+  (my-calc-coordinate-toggle-test "[x=1, y=2, z=3]" "[h=1, k=2, l=3]"))
 
 
-;;; Round-trip
+;;; hklm → xyzw
+
+(ert-deftest test-my/calc-coordinate-toggle-hklm-to-xyzw ()
+  "[h=2, k=4] -> [x=2, y=4]."
+  (my-calc-coordinate-toggle-test "[h=2, k=4]" "[x=2, y=4]"))
+
+
+;;; Round-trip (xyzw → hklm → xyzw)
 
 (ert-deftest test-my/calc-coordinate-toggle-round-trip ()
-  "[2, 4] -> [x=2, y=4] -> [2, 4]."
+  "[x=2, y=4] -> [h=2, k=4] -> [x=2, y=4]."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
-    (calc-push (math-read-expr "[2, 4]"))
+    (calc-push (math-read-expr "[x=2, y=4]"))
     (my/calc-coordinate-toggle)
     (my/calc-coordinate-toggle)
     (should (equal (car (nth 1 calc-stack))
-                   (math-read-expr "[2, 4]")))))
+                   (math-read-expr "[x=2, y=4]")))))
 
 
 (provide 'my-calc-coordinate-toggle-tests)
