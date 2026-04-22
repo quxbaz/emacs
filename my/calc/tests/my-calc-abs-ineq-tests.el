@@ -6,7 +6,6 @@
 (require 'ert)
 (require 'calc)
 (require 'cl-lib)
-(require 's)
 
 ;; Load the code under test
 (load-file (expand-file-name "my/calc/ineq.el" user-emacs-directory))

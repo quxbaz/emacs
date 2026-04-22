@@ -6,7 +6,6 @@
 (require 'ert)
 (require 'calc)
 (require 'calc-ext)
-(require 's)
 (require 'cl-lib)
 
 (load-file (expand-file-name "my/calc/rewrite.el" user-emacs-directory))
