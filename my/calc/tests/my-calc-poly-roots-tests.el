@@ -61,11 +61,23 @@
   (my-calc-poly-roots-test "(x + 2) * (x - 1) * (x - 2) = 0" "[-2, 1, 2]"))
 
 
-;;; Repeated roots
+;;; Repeated roots (multiplicity preserved)
 
 (ert-deftest test-my/calc-poly-roots-repeated-root ()
-  "(x - 2)^2 -> [2] (repeated root counted once)."
-  (my-calc-poly-roots-test "(x - 2)^2" "[2]"))
+  "(x - 2)^2 -> [2, 2] (multiplicity shown)."
+  (my-calc-poly-roots-test "(x - 2)^2" "[2, 2]"))
+
+(ert-deftest test-my/calc-poly-roots-triple-root ()
+  "(x - 1)^3 -> [1, 1, 1]."
+  (my-calc-poly-roots-test "(x - 1)^3" "[1, 1, 1]"))
+
+(ert-deftest test-my/calc-poly-roots-repeated-with-simple ()
+  "(x - 1)^2 * (x + 2) -> [-2, 1, 1]."
+  (my-calc-poly-roots-test "(x - 1)^2 * (x + 2)" "[-2, 1, 1]"))
+
+(ert-deftest test-my/calc-poly-roots-repeated-expanded ()
+  "x^3 - 3*x^2 + 3*x - 1 -> [1, 1, 1]."
+  (my-calc-poly-roots-test "x^3 - 3*x^2 + 3*x - 1" "[1, 1, 1]"))
 
 
 ;;; Function definition forms f(x) = ...
