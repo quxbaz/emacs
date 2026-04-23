@@ -1,0 +1,5 @@
+# name: trig-cos
+# key: cos
+# expand-env: ((yas-indent-line nil))
+# --
+cos(${1:x})$0
