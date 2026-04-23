@@ -1,5 +1,5 @@
-# name: function
+# name: function-gx
 # key: gn
 # expand-env: ((yas-indent-line nil))
 # --
-gn(x) = $0
+g(x) = $0
