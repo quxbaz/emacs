@@ -1,0 +1,5 @@
+# name: trig-tan
+# key: tan
+# expand-env: ((yas-indent-line nil))
+# --
+tan(${1:x})$0
