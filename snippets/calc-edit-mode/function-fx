@@ -1,5 +1,5 @@
-# name: function
+# name: function-fn
 # key: fn
 # expand-env: ((yas-indent-line nil))
 # --
-fn(x) = $0
+f(x) = $0
