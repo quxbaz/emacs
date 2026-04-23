@@ -1,0 +1,5 @@
+# name: trig-sin
+# key: sin
+# expand-env: ((yas-indent-line nil))
+# --
+sin(${1:x})$0
