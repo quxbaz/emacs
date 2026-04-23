@@ -293,6 +293,33 @@ Also converts f(2) = 0 to [2 0]."
   (let ((calc-simplify-mode 'none))
     (call-interactively 'calc-recall)))
 
+(defun my/calc-recall-browse ()
+  "Recall a Calc variable chosen from a completing-read annotated with values."
+  (interactive)
+  (require 'calc-ext)
+  (let* ((names (let (acc)
+                  (mapatoms (lambda (sym)
+                    (when (and (string-prefix-p "var-" (symbol-name sym))
+                               (boundp sym)
+                               (symbol-value sym))
+                      (push (substring (symbol-name sym) 4) acc))))
+                  (sort acc #'string<)))
+         (annotate (lambda (name)
+                     (let ((val (symbol-value (intern (concat "var-" name)))))
+                       (concat "  " (math-format-value val 100)))))
+         (name (let ((completion-extra-properties
+                      (list :annotation-function annotate)))
+                 (minibuffer-with-setup-hook
+                     (lambda ()
+                       (keymap-local-set "TAB" (lambda ()
+                                                 (interactive)
+                                                 (if (>= ivy--index (1- ivy--length))
+                                                     (ivy-beginning-of-buffer)
+                                                   (ivy-next-line)))))
+                   (completing-read "Recall: " names nil t))))
+         (calc-simplify-mode 'none))
+    (calc-recall (intern (concat "var-" name)))))
+
 (defun my/calc-square ()
   "Squares a number."
   (interactive)
