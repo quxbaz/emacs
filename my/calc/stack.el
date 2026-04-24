@@ -209,11 +209,13 @@ just the region."
       (move-to-column col))))
 
 (defun my/calc-coordinate-toggle ()
-  "Cycle coordinate forms: [1 2] -> [x=1 y=2] -> [h=1 k=2] -> [x=1 y=2] -> ...
+  "Cycle coordinate forms: [1 2] -> [x=1 y=2] -> [h=1 k=2] -> [p=1 q=2] -> [x=1 y=2] -> ...
 Also converts f(2) = 0 to [2 0]."
   (interactive)
-  (let ((xyzw '((var x var-x) (var y var-y) (var z var-z) (var w var-w)))
-        (hklm '((var h var-h) (var k var-k) (var l var-l) (var m var-m))))
+  (let* ((xyzw '((var x var-x) (var y var-y) (var z var-z) (var w var-w)))
+         (hklm '((var h var-h) (var k var-k) (var l var-l) (var m var-m)))
+         (pq   '((var p var-p) (var q var-q) (var r var-r) (var s var-s)))
+         (sets (list xyzw hklm pq)))
     (calc-wrapper
      (let* ((expr (calc-top-n 1))
             (items (and (eq (car-safe expr) 'vec) (cdr expr))))
@@ -223,10 +225,11 @@ Also converts f(2) = 0 to [2 0]."
               (= (length (nth 1 expr)) 2))
          (calc-enter-result 1 "crd"
            (list 'vec (nth 1 (nth 1 expr)) (nth 2 expr))))
-        ;; [x=1 y=2] → [h=1 k=2] or vice versa
+        ;; [x=1 y=2] → next named set in cycle
         ((and items (cl-every (lambda (i) (eq (car-safe i) 'calcFunc-eq)) items))
          (let* ((first-var (nth 1 (car items)))
-                (to (if (member first-var xyzw) hklm xyzw)))
+                (current   (cl-find-if (lambda (s) (member first-var s)) sets))
+                (to        (or (cadr (member current sets)) (car sets))))
            (calc-enter-result 1 "crd"
              (cons 'vec
                (cl-mapcar (lambda (eq to-var)
