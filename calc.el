@@ -109,3 +109,6 @@
 
 ;;; Variable "var-eq-law-of-sines" stored by Calc on Tue Apr 21 16:35:05 2026
 (setq var-eq-law-of-sines '(calcFunc-eq (/ (var a var-a) (calcFunc-sin (var A var-A))) (/ (var b var-b) (calcFunc-sin (var B var-B))) (/ (var c var-c) (calcFunc-sin (var C var-C)))))
+
+;;; Variable "var-eq-simple-compound-growth" stored by Calc on Fri Apr 24 15:29:59 2026
+(setq var-eq-simple-compound-growth '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var r var-r) (var t var-t)))))
