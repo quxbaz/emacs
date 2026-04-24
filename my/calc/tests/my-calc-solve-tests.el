@@ -13,6 +13,13 @@
 
 ;;; Helper
 
+(defun my/calc-auto-solve-test--eq-match (actual expected)
+  "Return t if both are equations with equal LHS and math-equal RHS."
+  (and (eq (car-safe actual) 'calcFunc-eq)
+       (eq (car-safe expected) 'calcFunc-eq)
+       (equal (nth 1 actual) (nth 1 expected))
+       (math-zerop (math-simplify (math-sub (nth 2 actual) (nth 2 expected))))))
+
 (defmacro my/calc-auto-solve-test (input expected)
   "Push INPUT, run my/calc-auto-solve once, compare top-of-stack to EXPECTED."
   `(with-temp-buffer
@@ -20,8 +27,10 @@
      (calc-reset 0)
      (calc-push (math-read-expr ,input))
      (my/calc-auto-solve)
-     (should (equal (car (nth 1 calc-stack))
-                    (math-read-expr ,expected)))))
+     (let ((actual   (car (nth 1 calc-stack)))
+           (expected (math-read-expr ,expected)))
+       (should (or (equal actual expected)
+                   (my/calc-auto-solve-test--eq-match actual expected))))))
 
 (defmacro my/calc-auto-solve-cycle-test (input &rest expected-sequence)
   "Push INPUT, run my/calc-auto-solve once per element of EXPECTED-SEQUENCE,
@@ -33,8 +42,10 @@ asserting top-of-stack matches each expected string in order."
      ,@(mapcar (lambda (expected)
                  `(progn
                     (my/calc-auto-solve)
-                    (should (equal (car (nth 1 calc-stack))
-                                   (math-read-expr ,expected)))))
+                    (let ((actual   (car (nth 1 calc-stack)))
+                          (expected (math-read-expr ,expected)))
+                      (should (or (equal actual expected)
+                                  (my/calc-auto-solve-test--eq-match actual expected))))))
                expected-sequence)))
 
 
@@ -65,21 +76,21 @@ asserting top-of-stack matches each expected string in order."
 ;;; Multiple variables — first alphabetically
 
 (ert-deftest test-my/calc-auto-solve-2var-solves-first-alpha ()
-  "x + y = 5 -> x = 5 - y (x comes first alphabetically)."
-  (my/calc-auto-solve-test "x + y = 5" "x = 5 - y"))
+  "x + y = 5 -> x = -y + 5 (x comes first alphabetically)."
+  (my/calc-auto-solve-test "x + y = 5" "x = -y + 5"))
 
 (ert-deftest test-my/calc-auto-solve-2var-alpha-ordering ()
-  "b + a = 5 -> a = 5 - b (a comes before b)."
-  (my/calc-auto-solve-test "b + a = 5" "a = 5 - b"))
+  "b + a = 5 -> a = -b + 5 (a comes before b)."
+  (my/calc-auto-solve-test "b + a = 5" "a = -b + 5"))
 
 
 ;;; Cycling through variables
 
 (ert-deftest test-my/calc-auto-solve-2var-cycle ()
-  "x + y = 5: first press -> x = 5 - y, second -> y = 5 - x."
+  "x + y = 5: first press -> x = -y + 5, second -> y = -x + 5."
   (my/calc-auto-solve-cycle-test "x + y = 5"
-    "x = 5 - y"
-    "y = 5 - x"))
+    "x = -y + 5"
+    "y = -x + 5"))
 
 (defun my/calc-auto-solve-test--lhs-var (expr)
   "Return the name symbol of the variable on the LHS of a solved equation, or nil."
