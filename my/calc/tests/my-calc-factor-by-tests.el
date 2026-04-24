@@ -5,6 +5,7 @@
 
 (require 'ert)
 (require 'calc)
+(require 'calc-ext)
 (require 'cl-lib)
 
 ;; Load the code under test
