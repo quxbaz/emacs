@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# Run all ERT test suites under my/calc/tests/ in batch mode.
+#
+# Usage: ./run-tests
+#
+# test-init.el is loaded first to initialize packages (dash, s) that
+# the source files depend on. Each other .el file is then loaded and
+# run independently via ert-run-tests-batch-and-exit.
 set -euo pipefail
 
 EMACS_DIR="$(cd "$(dirname "$0")/../../.." && pwd)"
