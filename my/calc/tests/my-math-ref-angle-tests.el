@@ -5,6 +5,8 @@
 
 (require 'ert)
 (require 'calc)
+(require 'calc-ext)
+(require 'calc-arith)
 (require 'cl-lib)
 
 ;; Load the code under test
