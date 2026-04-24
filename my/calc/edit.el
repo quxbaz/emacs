@@ -138,7 +138,7 @@
 Scans backward, skipping balanced bracket/brace groups, stopping at
 unmatched delimiters, comparison/equation operators, commas, or BOL."
   (while (and (not (bolp))
-              (not (memq (char-before) '(?\( ?\[ ?\{ ?\) ?= ?< ?> ?, ?\s ?/ ?^ ?+ ?-))))
+              (not (memq (char-before) '(?\( ?\[ ?\{ ?\) ?= ?< ?> ?, ?/ ?^ ?+ ?-))))
     (if (memq (char-before) '(?\] ?\}))
         (backward-sexp)
       (backward-char))))
