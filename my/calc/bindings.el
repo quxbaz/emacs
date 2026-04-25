@@ -140,6 +140,9 @@
          (:map calc-mode-map ("k s" . my/calc-complete-the-square))
          (:map calc-mode-map ("k d" . my/calc-factor-powers))
 
+         ;; Graphing
+         (:map calc-mode-map ("g l" . my/calc-graph-quick))
+
          ;; Edit mode
          (:map calc-mode-map ("`" . my/calc-edit))
 
