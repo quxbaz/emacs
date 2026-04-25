@@ -142,6 +142,7 @@
 
          ;; Graphing
          (:map calc-mode-map ("g l" . my/calc-graph-quick))
+         (:map calc-mode-map ("g i" . my/calc-graph-quick-with-range))
 
          ;; Edit mode
          (:map calc-mode-map ("`" . my/calc-edit))

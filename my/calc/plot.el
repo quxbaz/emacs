@@ -20,21 +20,33 @@ and converts Fortran scientific notation (1D5) to gnuplot form (1e5)."
          (s (replace-regexp-in-string "\\([0-9]\\)[d]\\([+-]?[0-9]\\)" "\\1e\\2" s)))
     s))
 
-(defun my/calc-graph-quick (_arg)
-  "Plot top-of-stack formula by invoking gnuplot directly.
-Prompts for x range; press RET to use the default, or clear for auto.
-The formula is not consumed from the stack."
-  (interactive "P")
+(defun my/calc-graph-quick--plot (range)
+  "Internal: plot top-of-stack formula with RANGE string (may be nil or empty)."
   (calc-slow-wrapper
    (when (< (calc-stack-size) 1)
      (error "Stack is empty"))
-   (let* ((range (read-string "X range (min:max): " my/calc-graph-quick-range))
+   (let* ((range (and range (string-trim range)))
           (formula-str (my/calc-to-gnuplot-string (calc-top 1)))
-          (range-str (if (and range (not (string-empty-p range)))
-                         (format "[%s] " range) ""))
+          (range-str (cond ((or (null range) (string-empty-p range)) "")
+                          ((string-match "^-?[0-9.]+$" range)
+                           (format "[-%s:%s] " range range))
+                          ((string-match "^:\\(.*\\)$" range)
+                           (format "[0:%s] " (match-string 1 range)))
+                          (t (format "[%s] " range))))
           (script (format "plot %s%s notitle with lines\npause mouse close\n" range-str formula-str))
           (tmpfile (make-temp-file "calc-plot" nil ".gp")))
      (write-region script nil tmpfile nil 'silent)
      (start-process "calc-gnuplot" nil "gnuplot" tmpfile))))
+
+(defun my/calc-graph-quick ()
+  "Plot top-of-stack formula with auto x range."
+  (interactive)
+  (my/calc-graph-quick--plot nil))
+
+(defun my/calc-graph-quick-with-range ()
+  "Plot top-of-stack formula, prompting for x range."
+  (interactive)
+  (my/calc-graph-quick--plot
+   (read-string "X range (min:max): " my/calc-graph-quick-range)))
 
 (provide 'my/calc/plot)
