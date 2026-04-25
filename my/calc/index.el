@@ -6,6 +6,7 @@
 
 
 (setq calc-display-trail nil)
+(setq calc-graph-default-resolution 1000)
 
 ;; Load all calc modules
 (let ((calc-dir (file-name-directory (or load-file-name buffer-file-name))))
