@@ -49,21 +49,37 @@
   (my-calc-coordinate-toggle-test "[x=1, y=2, z=3]" "[h=1, k=2, l=3]"))
 
 
-;;; hklm → xyzw
+;;; hklm → pqrs
 
-(ert-deftest test-my/calc-coordinate-toggle-hklm-to-xyzw ()
-  "[h=2, k=4] -> [x=2, y=4]."
-  (my-calc-coordinate-toggle-test "[h=2, k=4]" "[x=2, y=4]"))
+(ert-deftest test-my/calc-coordinate-toggle-hklm-to-pqrs ()
+  "[h=2, k=4] -> [p=2, q=4]."
+  (my-calc-coordinate-toggle-test "[h=2, k=4]" "[p=2, q=4]"))
+
+(ert-deftest test-my/calc-coordinate-toggle-3d-hklm-to-pqrs ()
+  "[h=1, k=2, l=3] -> [p=1, q=2, r=3]."
+  (my-calc-coordinate-toggle-test "[h=1, k=2, l=3]" "[p=1, q=2, r=3]"))
 
 
-;;; Round-trip (xyzw → hklm → xyzw)
+;;; pqrs → xyzw
+
+(ert-deftest test-my/calc-coordinate-toggle-pqrs-to-xyzw ()
+  "[p=2, q=4] -> [x=2, y=4]."
+  (my-calc-coordinate-toggle-test "[p=2, q=4]" "[x=2, y=4]"))
+
+(ert-deftest test-my/calc-coordinate-toggle-3d-pqrs-to-xyzw ()
+  "[p=1, q=2, r=3] -> [x=1, y=2, z=3]."
+  (my-calc-coordinate-toggle-test "[p=1, q=2, r=3]" "[x=1, y=2, z=3]"))
+
+
+;;; Round-trip (xyzw → hklm → pqrs → xyzw)
 
 (ert-deftest test-my/calc-coordinate-toggle-round-trip ()
-  "[x=2, y=4] -> [h=2, k=4] -> [x=2, y=4]."
+  "[x=2, y=4] -> [h=2, k=4] -> [p=2, q=4] -> [x=2, y=4]."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
     (calc-push (math-read-expr "[x=2, y=4]"))
+    (my/calc-coordinate-toggle)
     (my/calc-coordinate-toggle)
     (my/calc-coordinate-toggle)
     (should (equal (car (nth 1 calc-stack))
