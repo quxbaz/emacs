@@ -8,16 +8,20 @@
 
 (defun my/calc-to-gnuplot-string (expr)
   "Translate a Calc expression to a gnuplot formula string.
-Uses Calc's Fortran language mode as a base (explicit *, ** for power,
-LOG/LOG10 matching gnuplot's log/log10), then lowercases the result
-and converts Fortran scientific notation (1D5) to gnuplot form (1e5)."
+Uses Calc's Fortran language mode as a base (LOG/LOG10 matching
+gnuplot's log/log10), then lowercases the result, converts ^ to **,
+Fortran scientific notation (1D5) to gnuplot form (1e5), and replaces
+implicit multiplication (spaces between terms) with explicit *."
   (let* ((s (let ((calc-language 'fortran)
                   (calc-language-option nil))
                (math-format-value expr 0)))
          (s (downcase s))
          (s (replace-regexp-in-string "\\^" "**" s))
-         ;; Fortran uses D for scientific notation exponents; gnuplot uses e
          (s (replace-regexp-in-string "\\([0-9]\\)[d]\\([+-]?[0-9]\\)" "\\1e\\2" s)))
+    ;; Fortran uses spaces for implicit multiplication; gnuplot needs explicit *
+    (while (string-match "\\([0-9a-zA-Z)]\\) \\([a-zA-Z(]\\)" s)
+      (setq s (replace-regexp-in-string
+               "\\([0-9a-zA-Z)]\\) \\([a-zA-Z(]\\)" "\\1*\\2" s)))
     s))
 
 (defun my/calc-graph-quick--plot (range)
