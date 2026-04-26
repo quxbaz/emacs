@@ -143,19 +143,16 @@ unmatched delimiters, comparison/equation operators, commas, or BOL."
         (backward-sexp)
       (backward-char))))
 
-(defvar-local my/calc-edit-wrap-parens--paren-open nil)
-
 (defun my/calc-edit--apply-wrap (start end)
   "Insert parens around [START, END) and advance cursor past closing paren."
   (save-excursion
     (goto-char end)   (insert ")")
-    (goto-char start) (insert "("))
-  (setq my/calc-edit-wrap-parens--paren-open start)
+    (goto-char start) (skip-chars-forward " \t") (insert "("))
   (forward-char 1))
 
 (defun my/calc-edit-wrap-parens ()
   "Wrap the preceding expression (or active region) with parentheses.
-Invoked repeatedly, expands the wrapped region by one delimiter each time."
+Invoked with cursor just after `)', expands the wrapped region instead."
   (interactive)
   (if (use-region-p)
       (progn
@@ -163,13 +160,18 @@ Invoked repeatedly, expands the wrapped region by one delimiter each time."
           (goto-char (region-end))       (insert ")")
           (goto-char (region-beginning)) (insert "("))
         (deactivate-mark))
-    (let* ((repeat (and (eq last-command 'my/calc-edit-wrap-parens)
-                        my/calc-edit-wrap-parens--paren-open))
-           (paren-open (when repeat my/calc-edit-wrap-parens--paren-open)))
+    (let* ((repeat (eq (char-before) ?\)))
+           (paren-open (when repeat
+                         (save-excursion
+                           (backward-sexp)
+                           (skip-chars-backward " \t")
+                           (point)))))
       (when repeat
-        (setq my/calc-edit-wrap-parens--paren-open nil)
         (delete-char -1)
-        (delete-region paren-open (1+ paren-open)))
+        (save-excursion
+          (goto-char paren-open)
+          (skip-chars-forward " \t")
+          (delete-char 1)))
       (let* ((end   (point))
              (start (save-excursion
                       (when repeat
