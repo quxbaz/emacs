@@ -112,3 +112,15 @@
 
 ;;; Variable "var-eq-simple-compound-growth" stored by Calc on Fri Apr 24 15:29:59 2026
 (setq var-eq-simple-compound-growth '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var r var-r) (var t var-t)))))
+
+;;; Variable "var-eq-cosine-roots" stored by Calc on Sun Apr 26 01:46:11 2026
+(setq var-eq-cosine-roots '(calcFunc-cos (+ (/ (var pi var-pi) (cplx 2 0)) (* (var n var-n) (var pi var-pi)))))
+
+;;; Variable "var-eq-sine-roots" stored by Calc on Sun Apr 26 01:47:20 2026
+(setq var-eq-sine-roots '(calcFunc-sin (* (var n var-n) (var pi var-pi))))
+
+;;; Variable "var-eq-tan-roots" stored by Calc on Sun Apr 26 01:49:23 2026
+(setq var-eq-tan-roots '(calcFunc-tan (* (var n var-n) (var pi var-pi))))
+
+;;; Variable "var-eq-cotan-roots" stored by Calc on Sun Apr 26 01:50:23 2026
+(setq var-eq-cotan-roots '(calcFunc-cot (+ (/ (var pi var-pi) (cplx 2 0)) (* (var n var-n) (var pi var-pi)))))
