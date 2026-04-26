@@ -119,8 +119,8 @@
 ;;; Variable "var-eq-sine-roots" stored by Calc on Sun Apr 26 14:26:36 2026
 (setq var-eq-sine-roots '(calcFunc-eq (calcFunc-sin (* (var n var-n) (var pi var-pi))) (cplx 0 0)))
 
-;;; Variable "var-eq-tan-roots" stored by Calc on Sun Apr 26 14:27:39 2026
-(setq var-eq-tan-roots '(calcFunc-eq (calcFunc-cot (+ (/ (var pi var-pi) (cplx 2 0)) (* (var n var-n) (var pi var-pi)))) (cplx 0 0)))
+;;; Variable "var-eq-tan-roots" stored by Calc on Sun Apr 26 16:45:51 2026
+(setq var-eq-tan-roots '(calcFunc-eq (calcFunc-tan (* (var n var-n) (var pi var-pi))) 0))
 
 ;;; Variable "var-eq-cotan-roots" stored by Calc on Sun Apr 26 14:28:08 2026
 (setq var-eq-cotan-roots '(calcFunc-eq (calcFunc-cot (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2))) 0))
