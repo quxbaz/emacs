@@ -114,13 +114,25 @@
 (setq var-eq-simple-compound-growth '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var r var-r) (var t var-t)))))
 
 ;;; Variable "var-eq-cosine-roots" stored by Calc on Sun Apr 26 14:28:03 2026
-(setq var-eq-cosine-roots '(calcFunc-eq 0 (calcFunc-cos (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2)))))
+(setq var-eq-cosine-roots '(calcFunc-eq (calcFunc-cos (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2))) 0))
 
 ;;; Variable "var-eq-sine-roots" stored by Calc on Sun Apr 26 14:26:36 2026
-(setq var-eq-sine-roots '(calcFunc-eq (cplx 0 0) (calcFunc-sin (* (var n var-n) (var pi var-pi)))))
+(setq var-eq-sine-roots '(calcFunc-eq (calcFunc-sin (* (var n var-n) (var pi var-pi))) (cplx 0 0)))
 
 ;;; Variable "var-eq-tan-roots" stored by Calc on Sun Apr 26 14:27:39 2026
-(setq var-eq-tan-roots '(calcFunc-eq (cplx 0 0) (calcFunc-cot (+ (/ (var pi var-pi) (cplx 2 0)) (* (var n var-n) (var pi var-pi))))))
+(setq var-eq-tan-roots '(calcFunc-eq (calcFunc-cot (+ (/ (var pi var-pi) (cplx 2 0)) (* (var n var-n) (var pi var-pi)))) (cplx 0 0)))
 
 ;;; Variable "var-eq-cotan-roots" stored by Calc on Sun Apr 26 14:28:08 2026
-(setq var-eq-cotan-roots '(calcFunc-eq 0 (calcFunc-cot (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2)))))
+(setq var-eq-cotan-roots '(calcFunc-eq (calcFunc-cot (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2))) 0))
+
+;;; Variable "var-eq-sine-maxima" stored by Calc on Sun Apr 26 14:57:26 2026
+(setq var-eq-sine-maxima '(calcFunc-eq (calcFunc-sin (+ (* 2 (* (var n var-n) (var pi var-pi))) (/ (var pi var-pi) 2))) 1))
+
+;;; Variable "var-eq-sine-minima" stored by Calc on Sun Apr 26 14:58:47 2026
+(setq var-eq-sine-minima '(calcFunc-eq (calcFunc-sin (- (* (cplx 2 0) (* (var n var-n) (var pi var-pi))) (/ (var pi var-pi) (cplx 2 0)))) (cplx -1 0)))
+
+;;; Variable "var-eq-cosine-maxima" stored by Calc on Sun Apr 26 15:02:34 2026
+(setq var-eq-cosine-maxima '(calcFunc-eq (calcFunc-cos (* 2 (* (var n var-n) (var pi var-pi)))) 1))
+
+;;; Variable "var-eq-cosine-minima" stored by Calc on Sun Apr 26 15:02:42 2026
+(setq var-eq-cosine-minima '(calcFunc-eq (calcFunc-cos (+ (* (cplx 2 0) (* (var n var-n) (var pi var-pi))) (var pi var-pi))) (cplx -1 0)))
