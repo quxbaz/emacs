@@ -113,14 +113,14 @@
 ;;; Variable "var-eq-simple-compound-growth" stored by Calc on Fri Apr 24 15:29:59 2026
 (setq var-eq-simple-compound-growth '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var r var-r) (var t var-t)))))
 
-;;; Variable "var-eq-cosine-roots" stored by Calc on Sun Apr 26 01:46:11 2026
-(setq var-eq-cosine-roots '(calcFunc-cos (+ (/ (var pi var-pi) (cplx 2 0)) (* (var n var-n) (var pi var-pi)))))
+;;; Variable "var-eq-cosine-roots" stored by Calc on Sun Apr 26 14:28:03 2026
+(setq var-eq-cosine-roots '(calcFunc-eq 0 (calcFunc-cos (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2)))))
 
-;;; Variable "var-eq-sine-roots" stored by Calc on Sun Apr 26 01:47:20 2026
-(setq var-eq-sine-roots '(calcFunc-sin (* (var n var-n) (var pi var-pi))))
+;;; Variable "var-eq-sine-roots" stored by Calc on Sun Apr 26 14:26:36 2026
+(setq var-eq-sine-roots '(calcFunc-eq (cplx 0 0) (calcFunc-sin (* (var n var-n) (var pi var-pi)))))
 
-;;; Variable "var-eq-tan-roots" stored by Calc on Sun Apr 26 01:49:23 2026
-(setq var-eq-tan-roots '(calcFunc-tan (* (var n var-n) (var pi var-pi))))
+;;; Variable "var-eq-tan-roots" stored by Calc on Sun Apr 26 14:27:39 2026
+(setq var-eq-tan-roots '(calcFunc-eq (cplx 0 0) (calcFunc-cot (+ (/ (var pi var-pi) (cplx 2 0)) (* (var n var-n) (var pi var-pi))))))
 
-;;; Variable "var-eq-cotan-roots" stored by Calc on Sun Apr 26 01:50:23 2026
-(setq var-eq-cotan-roots '(calcFunc-cot (+ (/ (var pi var-pi) (cplx 2 0)) (* (var n var-n) (var pi var-pi)))))
+;;; Variable "var-eq-cotan-roots" stored by Calc on Sun Apr 26 14:28:08 2026
+(setq var-eq-cotan-roots '(calcFunc-eq 0 (calcFunc-cot (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2)))))
