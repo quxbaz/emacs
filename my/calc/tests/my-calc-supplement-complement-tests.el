@@ -38,6 +38,24 @@
     (calc-mode)
     (should (equal (my-calc-angle-tests--run #'my/calc-supplement "150" 'deg) 30))))
 
+;;; Supplement — pi expression in degrees mode (auto-detect radians)
+
+(ert-deftest test-my/calc-supplement-deg-mode-pi-over-6 ()
+  "supplement(pi/6) in degrees mode = 5*pi/6 (pi detected → radian logic)."
+  (with-temp-buffer
+    (calc-mode)
+    (let* ((result (my-calc-angle-tests--run #'my/calc-supplement "pi/6" 'deg))
+           (diff (math-normalize (list '- result (math-read-expr "5*pi/6")))))
+      (should (math-zerop (math-simplify diff))))))
+
+(ert-deftest test-my/calc-supplement-deg-mode-pi-over-2 ()
+  "supplement(pi/2) in degrees mode = pi/2."
+  (with-temp-buffer
+    (calc-mode)
+    (let* ((result (my-calc-angle-tests--run #'my/calc-supplement "pi/2" 'deg))
+           (diff (math-normalize (list '- result (math-read-expr "pi/2")))))
+      (should (math-zerop (math-simplify diff))))))
+
 ;;; Supplement — radians
 
 (ert-deftest test-my/calc-supplement-rad-pi-over-6 ()
@@ -75,6 +93,24 @@
   (with-temp-buffer
     (calc-mode)
     (should (equal (my-calc-angle-tests--run #'my/calc-complement "60" 'deg) 30))))
+
+;;; Complement — pi expression in degrees mode (auto-detect radians)
+
+(ert-deftest test-my/calc-complement-deg-mode-pi-over-6 ()
+  "complement(pi/6) in degrees mode = pi/3 (pi detected → radian logic)."
+  (with-temp-buffer
+    (calc-mode)
+    (let* ((result (my-calc-angle-tests--run #'my/calc-complement "pi/6" 'deg))
+           (diff (math-normalize (list '- result (math-read-expr "pi/3")))))
+      (should (math-zerop (math-simplify diff))))))
+
+(ert-deftest test-my/calc-complement-deg-mode-pi-over-4 ()
+  "complement(pi/4) in degrees mode = pi/4."
+  (with-temp-buffer
+    (calc-mode)
+    (let* ((result (my-calc-angle-tests--run #'my/calc-complement "pi/4" 'deg))
+           (diff (math-normalize (list '- result (math-read-expr "pi/4")))))
+      (should (math-zerop (math-simplify diff))))))
 
 ;;; Complement — radians
 
