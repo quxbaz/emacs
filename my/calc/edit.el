@@ -203,4 +203,11 @@ Point is moved to the corresponding position within the duplicate."
       ;;     (insert char)))
       )))
 
+(defun my/calc-edit-insert-pi ()
+  "Insert \"pi\", preceded by a space if point is after a letter."
+  (interactive)
+  (when (and (not (bolp)) (string-match-p "[a-zA-Z]" (string (char-before))))
+    (insert " "))
+  (insert "pi"))
+
 (provide 'my/calc/edit)
