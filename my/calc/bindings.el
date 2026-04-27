@@ -86,6 +86,7 @@
          (:map calc-mode-map ("x" . calc-expand))
          (:map calc-mode-map ("l v" . my/calc-inverse-function))
          (:map calc-mode-map ("l t" . my/calc-collect-fractions))
+         (:map calc-mode-map ("l x" . my/calc-swap-variables))
          (:map calc-mode-map ("a g" . calc-poly-gcd))
          (:map calc-mode-map ("a L" . my/calc-poly-lcm))
          (:map calc-mode-map ("a e" . calc-simplify))
