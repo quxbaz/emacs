@@ -78,3 +78,9 @@
 
 ;;; BELOW: Added by calc.
 ;;; TODO: Assimilate these items.
+
+;;; Variable "var-eq-square-of-a-binomial (sum)" stored by Calc on Mon Apr 27 17:34:40 2026
+(setq var-eq-square-of-a-binomial (sum) '(calcFunc-eq (^ (+ (var a var-a) (var b var-b)) 2) (+ (+ (^ (var a var-a) 2) (* 2 (* (var a var-a) (var b var-b)))) (^ (var b var-b) 2))))
+
+;;; Variable "var-eq-square-of-a-binomial (difference)" stored by Calc on Mon Apr 27 17:34:47 2026
+(setq var-eq-square-of-a-binomial (difference) '(calcFunc-eq (^ (- (var a var-a) (var b var-b)) 2) (+ (- (^ (var a var-a) 2) (* 2 (* (var a var-a) (var b var-b)))) (^ (var b var-b) 2))))
