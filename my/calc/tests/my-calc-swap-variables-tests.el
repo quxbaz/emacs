@@ -55,3 +55,10 @@
 (ert-deftest test-swap-variables-brackets-space ()
   "[a b] format."
   (swap-test "x + y" "[x y]" "y + x"))
+
+
+;;; Default variable detection
+
+(ert-deftest test-swap-variables-default ()
+  "Empty input defaults to the first two auto-detected variables."
+  (swap-test "x^2 + y" "" "y^2 + x"))

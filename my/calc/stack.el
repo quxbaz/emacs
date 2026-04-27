@@ -499,20 +499,28 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
 
 (defun my/calc-swap-variables ()
   "Swap two variables in the top-of-stack expression.
-Prompts for two comma-separated variable names, e.g. \"x, y\"."
+Prompts for two variable names; defaults to the first two auto-detected vars."
   (interactive)
-  (let* ((input (read-string "Swap (a b): "))
-         (parts (split-string (replace-regexp-in-string "[][,]" " " input) nil t))
-         (var1  (math-read-expr (nth 0 parts)))
-         (var2  (math-read-expr (nth 1 parts)))
-         (tmp   '(var --swap-tmp-- var---swap-tmp--)))
-    (unless (and (eq (car-safe var1) 'var) (eq (car-safe var2) 'var))
-      (error "Expected two variable names separated by a comma"))
-    (calc-wrapper
-     (let* ((expr (calc-top-n 1))
-            (r    (math-expr-subst expr var1 tmp))
-            (r    (math-expr-subst r    var2 var1))
-            (r    (math-expr-subst r    tmp  var2)))
+  (calc-slow-wrapper
+   (let* ((expr    (calc-top-n 1))
+          (detected (my/calc-auto-solve--sorted-vars expr))
+          (def1    (when (nth 0 detected) (symbol-name (nth 1 (nth 0 detected)))))
+          (def2    (when (nth 1 detected) (symbol-name (nth 1 (nth 1 detected)))))
+          (default (when (and def1 def2) (format "[%s %s]" def1 def2)))
+          (prompt  (if default
+                       (format "Swap (a b) (default: %s): " default)
+                     "Swap (a b): "))
+          (input   (read-string prompt))
+          (input   (if (string-empty-p (string-trim input)) (or default "") input))
+          (parts   (split-string (replace-regexp-in-string "[][,]" " " input) nil t))
+          (var1    (math-read-expr (nth 0 parts)))
+          (var2    (math-read-expr (nth 1 parts)))
+          (tmp     '(var --swap-tmp-- var---swap-tmp--)))
+     (unless (and (eq (car-safe var1) 'var) (eq (car-safe var2) 'var))
+       (error "Expected two variable names separated by a comma"))
+     (let* ((r (math-expr-subst expr var1 tmp))
+            (r (math-expr-subst r    var2 var1))
+            (r (math-expr-subst r    tmp  var2)))
        (calc-enter-result 1 "swap" r)))))
 
 
