@@ -77,11 +77,11 @@
 ;;; Variable "var-eq-area-of-triangle" stored by Calc on Wed Jan  7 14:52:57 2026
 (setq var-eq-area-of-triangle '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (var b var-b) (var h var-h)))))
 
-;;; Variable "var-eq-compound-growth" stored by Calc on Sat Jan 10 01:33:18 2026
-(setq var-eq-compound-growth '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (+ (cplx 1 0) (/ (var r var-r) (var n var-n))) (* (var n var-n) (var t var-t))))))
+;;; Variable "var-eq-compound-interest" stored by Calc on Sat Jan 10 01:33:18 2026
+(setq var-eq-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (+ (cplx 1 0) (/ (var r var-r) (var n var-n))) (* (var n var-n) (var t var-t))))))
 
-;;; Variable "var-eq-continous-compound-growth" stored by Calc on Sat Jan 10 01:34:40 2026
-(setq var-eq-continous-compound-growth '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var e var-e) (* (var r var-r) (var t var-t))))))
+;;; Variable "var-eq-continous-compound-interest" stored by Calc on Sat Jan 10 01:34:40 2026
+(setq var-eq-continous-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var e var-e) (* (var r var-r) (var t var-t))))))
 
 ;;; Variable "var-eq-log-change-of-base-formula" stored by Calc on Mon Apr 13 02:20:20 2026
 (setq var-eq-log-change-of-base-formula '(calcFunc-eq (calcFunc-log (var x var-x) (var b var-b)) (/ (calcFunc-log (var x var-x) (var k var-k)) (calcFunc-log (var b var-b) (var k var-k)))))
@@ -110,8 +110,8 @@
 ;;; Variable "var-eq-law-of-sines" stored by Calc on Tue Apr 21 16:35:05 2026
 (setq var-eq-law-of-sines '(calcFunc-eq (/ (var a var-a) (calcFunc-sin (var A var-A))) (/ (var b var-b) (calcFunc-sin (var B var-B))) (/ (var c var-c) (calcFunc-sin (var C var-C)))))
 
-;;; Variable "var-eq-simple-compound-growth" stored by Calc on Fri Apr 24 15:29:59 2026
-(setq var-eq-simple-compound-growth '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var r var-r) (var t var-t)))))
+;;; Variable "var-eq-simple-compound-interest" stored by Calc on Fri Apr 24 15:29:59 2026
+(setq var-eq-simple-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var r var-r) (var t var-t)))))
 
 ;;; Variable "var-eq-cosine-roots" stored by Calc on Sun Apr 26 14:28:03 2026
 (setq var-eq-cosine-roots '(calcFunc-eq (calcFunc-cos (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2))) 0))
