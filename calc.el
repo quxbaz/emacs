@@ -70,4 +70,5 @@
 (setq var-eq-continous-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var e var-e) (* (var r var-r) (var t var-t))))))
 (setq var-eq-simple-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var r var-r) (var t var-t)))))
 
-;;; New
+;;; BELOW: Added by calc.
+;;; TODO: Assimilate these items.
