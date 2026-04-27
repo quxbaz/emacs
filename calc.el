@@ -78,15 +78,3 @@
 
 ;;; BELOW: Added by calc.
 ;;; TODO: Assimilate these items.
-
-;;; Variable "var-eq-cosecant-asymptotes" stored by Calc on Mon Apr 27 15:05:36 2026
-(setq var-eq-cosecant-asymptotes '(calcFunc-csc (* (var n var-n) (var pi var-pi))))
-
-;;; Variable "var-eq-secant-asymptotes" stored by Calc on Mon Apr 27 15:05:48 2026
-(setq var-eq-secant-asymptotes '(calcFunc-sec (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2))))
-
-;;; Variable "var-eq-cotan-asymptotes" stored by Calc on Mon Apr 27 15:05:59 2026
-(setq var-eq-cotan-asymptotes '(calcFunc-cot (* (var n var-n) (var pi var-pi))))
-
-;;; Variable "var-eq-tan-asymptotes" stored by Calc on Mon Apr 27 15:06:06 2026
-(setq var-eq-tan-asymptotes '(calcFunc-tan (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) (cplx 2 0)))))
