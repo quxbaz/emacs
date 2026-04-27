@@ -497,6 +497,24 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
      (calc-enter-result num "sbst" (math-expr-subst expr old new)))))
 
 
+(defun my/calc-swap-variables ()
+  "Swap two variables in the top-of-stack expression.
+Prompts for two comma-separated variable names, e.g. \"x, y\"."
+  (interactive)
+  (let* ((input (read-string "Swap (a b): "))
+         (parts (split-string (replace-regexp-in-string "[][,]" " " input) nil t))
+         (var1  (math-read-expr (nth 0 parts)))
+         (var2  (math-read-expr (nth 1 parts)))
+         (tmp   '(var --swap-tmp-- var---swap-tmp--)))
+    (unless (and (eq (car-safe var1) 'var) (eq (car-safe var2) 'var))
+      (error "Expected two variable names separated by a comma"))
+    (calc-wrapper
+     (let* ((expr (calc-top-n 1))
+            (r    (math-expr-subst expr var1 tmp))
+            (r    (math-expr-subst r    var2 var1))
+            (r    (math-expr-subst r    tmp  var2)))
+       (calc-enter-result 1 "swap" r)))))
+
 
 ;; calc-fancy-prefix-other-key clears calc-keep-args-flag before replaying
 ;; non-character keys (like C-<return>). Save it in a post-command-hook
