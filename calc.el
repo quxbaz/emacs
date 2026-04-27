@@ -62,6 +62,7 @@
 (setq var-eq-square-of-binomial-sum '(calcFunc-eq (^ (+ (var a var-a) (var b var-b)) 2) (+ (+ (^ (var a var-a) 2) (* 2 (* (var a var-a) (var b var-b)))) (^ (var b var-b) 2))))
 (setq var-eq-square-of-binomial-difference '(calcFunc-eq (^ (- (var a var-a) (var b var-b)) 2) (+ (- (^ (var a var-a) 2) (* 2 (* (var a var-a) (var b var-b)))) (^ (var b var-b) 2))))
 (setq var-eq-difference-of-squares '(calcFunc-eq (- (^ (var a var-a) (cplx 2 0)) (^ (var b var-b) (cplx 2 0))) (* (+ (var a var-a) (var b var-b)) (- (var a var-a) (var b var-b)))))
+(setq var-eq-difference-of-squares-divisibility-identity '(calcFunc-eq (- (^ (+ (var x var-x) (var d var-d)) 2) (^ (var x var-x) 2)) (* (var d var-d) (+ (* 2 (var x var-x)) (var d var-d)))))
 (setq var-eq-factoring-a-trinomial '(calcFunc-eq (+ (+ (^ (var x var-x) (cplx 2 0)) (* (+ (var a var-a) (var b var-b)) (var x var-x))) (* (var a var-a) (var b var-b))) (* (+ (var x var-x) (var a var-a)) (+ (var x var-x) (var b var-b)))))
 (setq var-eq-sum-of-cubes-identity '(calcFunc-eq (+ (^ (var a var-a) 3) (^ (var b var-b) 3)) (* (+ (var a var-a) (var b var-b)) (+ (- (^ (var a var-a) 2) (* (var a var-a) (var b var-b))) (^ (var b var-b) 2)))))
 (setq var-eq-difference-of-cubes-identity '(calcFunc-eq (- (^ (var a var-a) 3) (^ (var b var-b) 3)) (* (- (var a var-a) (var b var-b)) (+ (+ (^ (var a var-a) 2) (* (var a var-a) (var b var-b))) (^ (var b var-b) 2)))))
