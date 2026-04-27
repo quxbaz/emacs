@@ -134,6 +134,7 @@
          (:map calc-mode-map ("v o" . calc-sort))
          (:map calc-mode-map ("M-u" . calc-unpack))
          (:map calc-mode-map ("v L" . my/calc-vector-flatten))
+         (:map calc-mode-map ("l g" . my/calc-unique-groups))
          (:map calc-mode-map ("M-k" . my/calc-coordinate-toggle))
 
          ;; Rewrite rules

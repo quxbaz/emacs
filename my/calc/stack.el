@@ -447,6 +447,32 @@ the current angle mode."
   (calc-wrapper
    (calc-unary-op "refa" 'my/math-ref-angle arg)))
 
+(defun my/calc--combinations (lst k)
+  (cond ((= k 0) '(()))
+        ((null lst) '())
+        (t (append
+            (mapcar (lambda (rest) (cons (car lst) rest))
+                    (my/calc--combinations (cdr lst) (1- k)))
+            (my/calc--combinations (cdr lst) k)))))
+
+(defun my/calc-unique-groups ()
+  "Pop vector and n from stack; push all unique groups of size n.
+If top of stack is a vector, n defaults to 2."
+  (interactive)
+  (calc-wrapper
+   (let* ((top  (calc-top-n 1))
+          (vec-only (eq (car-safe top) 'vec))
+          (n   (if vec-only 2 top))
+          (vec (if vec-only top (calc-top-n 2)))
+          (nargs (if vec-only 1 2)))
+     (unless (eq (car-safe vec) 'vec)
+       (error "Expected a vector"))
+     (unless (and (integerp n) (> n 0))
+       (error "Expected a positive integer for n"))
+     (let* ((combos (my/calc--combinations (cdr vec) n))
+            (result (cons 'vec (mapcar (lambda (g) (cons 'vec g)) combos))))
+       (calc-enter-result nargs "ugrp" result)))))
+
 (defun my/calc-vector-flatten ()
   "Flattens a vector."
   (interactive)
