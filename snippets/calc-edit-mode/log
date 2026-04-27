@@ -1,5 +1,0 @@
-# name: log
-# key: lg
-# expand-env: ((yas-indent-line nil))
-# --
-log($1, $2)$0
