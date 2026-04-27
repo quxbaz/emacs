@@ -508,8 +508,8 @@ Prompts for two variable names; defaults to the first two auto-detected vars."
           (def2    (when (nth 1 detected) (symbol-name (nth 1 (nth 1 detected)))))
           (default (when (and def1 def2) (format "[%s %s]" def1 def2)))
           (prompt  (if default
-                       (format "Swap (a b) (default: %s): " default)
-                     "Swap (a b): "))
+                       (format "Swap [a b] (default: %s): " default)
+                     "Swap [a b]: "))
           (input   (read-string prompt))
           (input   (if (string-empty-p (string-trim input)) (or default "") input))
           (parts   (split-string (replace-regexp-in-string "[][,]" " " input) nil t))
