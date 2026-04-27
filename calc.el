@@ -52,6 +52,12 @@
 (setq var-eq-tan-roots '(calcFunc-eq (calcFunc-tan (* (var n var-n) (var pi var-pi))) 0))
 (setq var-eq-cotan-roots '(calcFunc-eq (calcFunc-cot (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2))) 0))
 
+;;; Trig — Asymptotes
+(setq var-eq-tan-asymptotes '(+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2)))
+(setq var-eq-cotan-asymptotes '(* (var n var-n) (var pi var-pi)))
+(setq var-eq-secant-asymptotes '(+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2)))
+(setq var-eq-cosecant-asymptotes '(* (var n var-n) (var pi var-pi)))
+
 ;;; Algebra
 (setq var-eq-log-change-of-base-formula '(calcFunc-eq (calcFunc-log (var x var-x) (var b var-b)) (/ (calcFunc-log (var x var-x) (var k var-k)) (calcFunc-log (var b var-b) (var k var-k)))))
 (setq var-eq-sum-of-cubes-identity '(calcFunc-eq (+ (^ (var a var-a) 3) (^ (var b var-b) 3)) (* (+ (var a var-a) (var b var-b)) (+ (- (^ (var a var-a) 2) (* (var a var-a) (var b var-b))) (^ (var b var-b) 2)))))
@@ -72,3 +78,15 @@
 
 ;;; BELOW: Added by calc.
 ;;; TODO: Assimilate these items.
+
+;;; Variable "var-eq-cosecant-asymptotes" stored by Calc on Mon Apr 27 15:05:36 2026
+(setq var-eq-cosecant-asymptotes '(calcFunc-csc (* (var n var-n) (var pi var-pi))))
+
+;;; Variable "var-eq-secant-asymptotes" stored by Calc on Mon Apr 27 15:05:48 2026
+(setq var-eq-secant-asymptotes '(calcFunc-sec (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2))))
+
+;;; Variable "var-eq-cotan-asymptotes" stored by Calc on Mon Apr 27 15:05:59 2026
+(setq var-eq-cotan-asymptotes '(calcFunc-cot (* (var n var-n) (var pi var-pi))))
+
+;;; Variable "var-eq-tan-asymptotes" stored by Calc on Mon Apr 27 15:06:06 2026
+(setq var-eq-tan-asymptotes '(calcFunc-tan (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) (cplx 2 0)))))
