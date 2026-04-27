@@ -7,17 +7,19 @@
   "Default x range for my/calc-graph-quick (gnuplot format: min:max, or empty for auto).")
 
 (defun my/calc-to-gnuplot-string (expr)
-  "Translate a Calc expression to a gnuplot formula string.
-Uses Calc's Fortran language mode as a base (LOG/LOG10 matching
-gnuplot's log/log10), then lowercases the result, converts ^ to **,
-Fortran scientific notation (1D5) to gnuplot form (1e5), and replaces
-implicit multiplication (spaces between terms) with explicit *."
+  "Translate a Calc expression to a gnuplot formula string."
   (let* ((s (let ((calc-language 'fortran)
                   (calc-language-option nil))
                (math-format-value expr 0)))
          (s (downcase s))
          (s (replace-regexp-in-string "\\^" "**" s))
-         (s (replace-regexp-in-string "\\([0-9]\\)[d]\\([+-]?[0-9]\\)" "\\1e\\2" s)))
+         ;; Fortran scientific notation (1d5) -> gnuplot (1e5)
+         (s (replace-regexp-in-string "\\([0-9]\\)[d]\\([+-]?[0-9]\\)" "\\1e\\2" s))
+         ;; ln(x) -> log(x)  (gnuplot uses log for natural log)
+         (s (replace-regexp-in-string "ln(" "log(" s))
+         ;; log(x, b) -> (log(x)/log(b))  (change of base; gnuplot has no 2-arg log)
+         (s (replace-regexp-in-string "log(\\([^,()]*\\), *\\([^()]*\\))"
+                                      "(log(\\1)/log(\\2))" s)))
     ;; Fortran uses spaces for implicit multiplication; gnuplot needs explicit *
     (while (string-match "\\([0-9a-zA-Z)]\\) \\([a-zA-Z(]\\)" s)
       (setq s (replace-regexp-in-string
