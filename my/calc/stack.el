@@ -623,15 +623,23 @@ Accepts y=f(x) equations or f(x) expressions, with any variable names."
       (message "Can't find inverse"))))
 
 (defun my/calc-auto-solve--sorted-vars (expr)
-  "Return unique non-constant variables in EXPR, sorted alphabetically."
+  "Return unique non-constant variables in EXPR.
+Conventional input variables (x, y, z, t) sort first; remaining
+variables sort alphabetically after them."
   (let (vars)
     (cl-labels ((collect (e)
                   (cond ((and (eq (car-safe e) 'var) (not (math-const-var e)))
                          (cl-pushnew e vars :test #'equal))
                         ((listp e) (mapc #'collect (cdr e))))))
       (collect expr))
-    (sort vars (lambda (a b) (string< (symbol-name (nth 1 a))
-                                      (symbol-name (nth 1 b)))))))
+    (let ((priority '("x" "y" "z" "t")))
+      (sort vars (lambda (a b)
+                   (let* ((na (symbol-name (nth 1 a)))
+                          (nb (symbol-name (nth 1 b)))
+                          (pa (or (cl-position na priority :test #'string=) 999))
+                          (pb (or (cl-position nb priority :test #'string=) 999)))
+                     (or (< pa pb)
+                         (and (= pa pb) (string< na nb)))))))))
 
 (defun my/calc-auto-solve--solved-for (expr)
   "Return the variable EXPR is solved for (plain var alone on one side), or nil."

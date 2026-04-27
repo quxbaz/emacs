@@ -53,6 +53,13 @@
   (my-calc-inverse-function-test "f(x) = x^2" "f(x) = sqrt(x)"))
 
 
+;;; Multi-variable: x is preferred over other parameters
+
+(ert-deftest test-my/calc-inverse-function-exp-with-param ()
+  "y = e^(x+k)+3 -> y = ln(x-3)-k  (x preferred over k as input var)."
+  (my-calc-inverse-function-test "y = e^(x + k) + 3" "y = ln(x - 3) - k"))
+
+
 ;;; Bare f(x) expression forms (outputs y = ...)
 
 (ert-deftest test-my/calc-inverse-function-expr-linear ()
