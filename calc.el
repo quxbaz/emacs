@@ -59,9 +59,11 @@
 (setq var-eq-cosecant-asymptotes '(* (var n var-n) (var pi var-pi)))
 
 ;;; Algebra
-(setq var-eq-log-change-of-base-formula '(calcFunc-eq (calcFunc-log (var x var-x) (var b var-b)) (/ (calcFunc-log (var x var-x) (var k var-k)) (calcFunc-log (var b var-b) (var k var-k)))))
+(setq var-eq-square-of-binomial-sum '(calcFunc-eq (^ (+ (var a var-a) (var b var-b)) 2) (+ (+ (^ (var a var-a) 2) (* 2 (* (var a var-a) (var b var-b)))) (^ (var b var-b) 2))))
+(setq var-eq-square-of-binomial-difference '(calcFunc-eq (^ (- (var a var-a) (var b var-b)) 2) (+ (- (^ (var a var-a) 2) (* 2 (* (var a var-a) (var b var-b)))) (^ (var b var-b) 2))))
 (setq var-eq-sum-of-cubes-identity '(calcFunc-eq (+ (^ (var a var-a) 3) (^ (var b var-b) 3)) (* (+ (var a var-a) (var b var-b)) (+ (- (^ (var a var-a) 2) (* (var a var-a) (var b var-b))) (^ (var b var-b) 2)))))
 (setq var-eq-difference-of-cubes-identity '(calcFunc-eq (- (^ (var a var-a) 3) (^ (var b var-b) 3)) (* (- (var a var-a) (var b var-b)) (+ (+ (^ (var a var-a) 2) (* (var a var-a) (var b var-b))) (^ (var b var-b) 2)))))
+(setq var-eq-log-change-of-base-formula '(calcFunc-eq (calcFunc-log (var x var-x) (var b var-b)) (/ (calcFunc-log (var x var-x) (var k var-k)) (calcFunc-log (var b var-b) (var k var-k)))))
 (setq var-eq-standard-equation-of-reciprocal-function '(calcFunc-eq (var y var-y) (+ (/ (var a var-a) (- (var x var-x) (var h var-h))) (var k var-k))))
 (setq var-eq-exponential-growth '(calcFunc-eq (calcFunc-f (var x var-x)) (* (var a var-a) (^ (var b var-b) (var x var-x)))))
 
@@ -76,11 +78,3 @@
 (setq var-eq-continous-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var e var-e) (* (var r var-r) (var t var-t))))))
 (setq var-eq-simple-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var r var-r) (var t var-t)))))
 
-;;; BELOW: Added by calc.
-;;; TODO: Assimilate these items.
-
-;;; Variable "var-eq-square-of-a-binomial (sum)" stored by Calc on Mon Apr 27 17:34:40 2026
-(setq var-eq-square-of-a-binomial (sum) '(calcFunc-eq (^ (+ (var a var-a) (var b var-b)) 2) (+ (+ (^ (var a var-a) 2) (* 2 (* (var a var-a) (var b var-b)))) (^ (var b var-b) 2))))
-
-;;; Variable "var-eq-square-of-a-binomial (difference)" stored by Calc on Mon Apr 27 17:34:47 2026
-(setq var-eq-square-of-a-binomial (difference) '(calcFunc-eq (^ (- (var a var-a) (var b var-b)) 2) (+ (- (^ (var a var-a) 2) (* 2 (* (var a var-a) (var b var-b)))) (^ (var b var-b) 2))))
