@@ -203,6 +203,46 @@ Point is moved to the corresponding position within the duplicate."
       ;;     (insert char)))
       )))
 
+(defvar-local my/calc-edit-tab-lhs nil
+  "Saved LHS position for TAB toggling.")
+(defvar-local my/calc-edit-tab-rhs nil
+  "Saved RHS position for TAB toggling.")
+
+(defun my/calc-edit-tab ()
+  "Toggle between LHS and RHS of an equation, or insert ' = ' if line has none.
+Defers to yasnippet when active."
+  (interactive)
+  (cond
+   ((and (bound-and-true-p yas-minor-mode)
+         (yas--snippets-at-point))
+    (yas-next-field))
+   ((and (bound-and-true-p yas-minor-mode)
+         (let ((yas-fallback-behavior 'return-nil))
+           (yas-expand))))
+   ((not (string-match-p "=" (or (thing-at-point 'line t) "")))
+    (setq my/calc-edit-tab-lhs (point)
+          my/calc-edit-tab-rhs nil)
+    (end-of-line)
+    (delete-horizontal-space)
+    (insert " = "))
+   (t
+    (let* ((eq-pos (save-excursion
+                     (beginning-of-line)
+                     (search-forward "=" (line-end-position) t)
+                     (1- (point))))
+           (on-rhs (> (point) eq-pos)))
+      (if on-rhs
+          (let ((dest (or my/calc-edit-tab-lhs (line-beginning-position))))
+            (setq my/calc-edit-tab-rhs (point))
+            (goto-char dest))
+        (let ((dest (or my/calc-edit-tab-rhs
+                        (save-excursion
+                          (goto-char (1+ eq-pos))
+                          (skip-chars-forward " \t")
+                          (point)))))
+          (setq my/calc-edit-tab-lhs (point))
+          (goto-char dest)))))))
+
 (defun my/calc-edit-insert-pi ()
   "Insert \"pi\", preceded by a space if point is after a letter."
   (interactive)

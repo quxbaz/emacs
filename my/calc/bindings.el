@@ -182,6 +182,7 @@
             ;; Basic editing
             (keymap-set calc-edit-mode-map "M-w" 'my/lisp-kill-ring-save-dwim)
             (keymap-set calc-edit-mode-map "C-M-." 'my/mark-list-command)
+            (keymap-set calc-edit-mode-map "TAB" 'my/calc-edit-tab)
             (keymap-set calc-edit-mode-map "RET" 'my/calc-edit-finish)
             (keymap-set calc-edit-mode-map "S-<return>" 'my/calc-edit-newline)
             (keymap-set calc-edit-mode-map "M-<return>" 'my/calc-edit-duplicate)
