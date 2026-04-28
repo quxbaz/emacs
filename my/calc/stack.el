@@ -344,6 +344,22 @@ Also converts f(2) = 0 to [2 0]."
          (calc-simplify-mode 'none))
     (calc-recall (intern (concat "var-" (cdr (assoc chosen mapping)))))))
 
+(defun my/calc-plus (arg)
+  "Add top two stack items. If both are equations, add both sides; else calc-plus."
+  (interactive "P")
+  (if (and (>= (calc-stack-size) 2)
+           (eq (car-safe (calc-top-n 1)) 'calcFunc-eq)
+           (eq (car-safe (calc-top-n 2)) 'calcFunc-eq))
+      (calc-wrapper
+       (let* ((eq1 (calc-top-n 1))
+              (eq2 (calc-top-n 2))
+              (lhs  (math-simplify (math-add (nth 1 eq2) (nth 1 eq1))))
+              (rhs  (math-simplify (math-add (nth 2 eq2) (nth 2 eq1))))
+              (result (list 'calcFunc-eq lhs rhs))
+              (calc-simplify-mode nil))
+         (calc-enter-result 2 "eq+" result)))
+    (calc-plus arg)))
+
 (defun my/calc-square ()
   "Squares a number."
   (interactive)
