@@ -1,0 +1,5 @@
+# name: law-of-sines
+# key: los
+# expand-env: ((yas-indent-line nil))
+# --
+${1:a} / sin(${2:A}) = ${3:b} / sin(${4:B})
