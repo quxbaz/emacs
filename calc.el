@@ -37,6 +37,7 @@
 (setq var-eq-volume-of-pyramid '(calcFunc-eq (var V var-V) (* (frac 1 3) (* (var B var-B) (var h var-h)))))
 
 ;;; Trigonometry
+(setq var-eq-pythagorean-triple '(calcFunc-eq (+ (^ (var a var-a) 2) (^ (var b var-b) 2)) (^ (var c var-c) 2)))
 (setq var-eq-pythagorean-trigonometric-identity '(calcFunc-eq (+ (^ (calcFunc-cos (var a var-a)) (cplx 2 0)) (^ (calcFunc-sin (var a var-a)) (cplx 2 0))) (cplx 1 0)))
 (setq var-eq-law-of-sines '(calcFunc-eq (/ (var a var-a) (calcFunc-sin (var A var-A))) (/ (var b var-b) (calcFunc-sin (var B var-B))) (/ (var c var-c) (calcFunc-sin (var C var-C)))))
 (setq var-eq-law-of-cosines-1 '(calcFunc-eq (^ (var c var-c) 2) (- (+ (^ (var a var-a) 2) (^ (var b var-b) 2)) (* 2 (* (var a var-a) (* (var b var-b) (calcFunc-cos (var C var-C))))))))
