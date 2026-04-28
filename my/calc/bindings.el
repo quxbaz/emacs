@@ -57,6 +57,7 @@
 
          ;; Math operations
          (:map calc-mode-map ("+" . my/calc-plus))
+         (:map calc-mode-map ("-" . my/calc-minus))
          (:map calc-mode-map ("M-=" . calc-evaluate))
          (:map calc-mode-map ("k k" . my/calc-evaluate))
          (:map calc-mode-map ("o" . calc-inv))
