@@ -59,6 +59,14 @@
 (setq var-eq-secant-asymptotes '(+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2)))
 (setq var-eq-cosecant-asymptotes '(* (var n var-n) (var pi var-pi)))
 
+;;; Algebra — Exponents
+(setq var-eq-product-rule '(calcFunc-eq (* (^ (var x var-x) (var a var-a)) (^ (var x var-x) (var b var-b))) (^ (var x var-x) (+ (var a var-a) (var b var-b)))))
+(setq var-eq-quotient-rule '(calcFunc-eq (/ (^ (var x var-x) (var a var-a)) (^ (var x var-x) (var b var-b))) (^ (var x var-x) (- (var a var-a) (var b var-b)))))
+(setq var-eq-power-rule '(calcFunc-eq (^ (var x var-x) (* (var a var-a) (var b var-b))) (^ (^ (var x var-x) (var a var-a)) (var b var-b))))
+(setq var-eq-power-of-quotient-rule '(calcFunc-eq (^ (/ (var a var-a) (var b var-b)) (var x var-x)) (/ (^ (var a var-a) (var x var-x)) (^ (var b var-b) (var x var-x)))))
+(setq var-eq-negative-exponent-rule '(calcFunc-eq (^ (var x var-x) (neg (var n var-n))) (/ 1 (^ (var x var-x) (var n var-n)))))
+(setq var-eq-reciprocal-of-negative-exponent-rule '(calcFunc-eq (/ 1 (^ (var x var-x) (neg (var n var-n)))) (^ (var x var-x) (var n var-n))))
+
 ;;; Algebra
 (setq var-eq-square-of-binomial-sum '(calcFunc-eq (^ (+ (var a var-a) (var b var-b)) 2) (+ (+ (^ (var a var-a) 2) (* 2 (* (var a var-a) (var b var-b)))) (^ (var b var-b) 2))))
 (setq var-eq-square-of-binomial-difference '(calcFunc-eq (^ (- (var a var-a) (var b var-b)) 2) (+ (- (^ (var a var-a) 2) (* 2 (* (var a var-a) (var b var-b)))) (^ (var b var-b) 2))))
