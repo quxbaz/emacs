@@ -86,6 +86,7 @@
          (:map calc-mode-map ("=" . my/calc-equal-to))
          (:map calc-mode-map ("e" . my/calc-equal-to))
          (:map calc-mode-map ("x" . calc-expand))
+         (:map calc-mode-map ("l !" . calc-logical-not))
          (:map calc-mode-map ("l v" . my/calc-inverse-function))
          (:map calc-mode-map ("l t" . my/calc-collect-fractions))
          (:map calc-mode-map ("l x" . my/calc-swap-variables))
