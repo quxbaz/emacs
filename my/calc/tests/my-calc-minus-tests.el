@@ -27,8 +27,8 @@
 ;;; Equation - equation
 
 (ert-deftest test-calc-minus-equations-cancel ()
-  "x^2+y^2=17 minus x^2+y^2=17 gives 0=0."
-  (calc-minus-test "x^2 + y^2 = 17" "x^2 + y^2 = 17" "0 = 0"))
+  "x+y=5 minus x-y=5 cancels x terms, gives 2*y=0."
+  (calc-minus-test "x + y = 5" "x - y = 5" "2*y = 0"))
 
 (ert-deftest test-calc-minus-equations-isolate ()
   "x^2+y^2=17 minus x^2-y^2=8 gives 2*y^2=9."
