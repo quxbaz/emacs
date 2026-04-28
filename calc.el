@@ -63,6 +63,7 @@
 (setq var-eq-product-rule '(calcFunc-eq (* (^ (var x var-x) (var a var-a)) (^ (var x var-x) (var b var-b))) (^ (var x var-x) (+ (var a var-a) (var b var-b)))))
 (setq var-eq-quotient-rule '(calcFunc-eq (/ (^ (var x var-x) (var a var-a)) (^ (var x var-x) (var b var-b))) (^ (var x var-x) (- (var a var-a) (var b var-b)))))
 (setq var-eq-power-rule '(calcFunc-eq (^ (var x var-x) (* (var a var-a) (var b var-b))) (^ (^ (var x var-x) (var a var-a)) (var b var-b))))
+(setq var-eq-power-of-product-rule '(calcFunc-eq (^ (* (var a var-a) (var b var-b)) (var x var-x)) (* (^ (var a var-a) (var x var-x)) (^ (var b var-b) (var x var-x)))))
 (setq var-eq-power-of-quotient-rule '(calcFunc-eq (^ (/ (var a var-a) (var b var-b)) (var x var-x)) (/ (^ (var a var-a) (var x var-x)) (^ (var b var-b) (var x var-x)))))
 (setq var-eq-negative-exponent-rule '(calcFunc-eq (^ (var x var-x) (neg (var n var-n))) (/ 1 (^ (var x var-x) (var n var-n)))))
 (setq var-eq-reciprocal-of-negative-exponent-rule '(calcFunc-eq (/ 1 (^ (var x var-x) (neg (var n var-n)))) (^ (var x var-x) (var n var-n))))
