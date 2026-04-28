@@ -59,6 +59,37 @@
            "(pi+2)")))
 
 
+;;; Function calls treated as atoms
+
+(ert-deftest test-wrap-parens-sqrt-alone ()
+  "Cursor after sqrt(3) wraps the whole call, not just the arg."
+  (should (equal (my/test-wrap-n "sqrt(3)" 1) "(sqrt(3))")))
+
+(ert-deftest test-wrap-parens-sqrt-after-operator ()
+  "Cursor after sqrt(3) in a + sqrt(3) wraps just the call."
+  (should (equal (my/test-wrap-n "a + sqrt(3)" 1) "a + (sqrt(3))")))
+
+(ert-deftest test-wrap-parens-sqrt-after-division ()
+  "Cursor after sqrt(3) in 27 / sqrt(3) wraps just the call."
+  (should (equal (my/test-wrap-n "27 / sqrt(3)" 1) "27 / (sqrt(3))")))
+
+(ert-deftest test-wrap-parens-sqrt-expand-to-full-expr ()
+  "Second press on 27 / (sqrt(3)) expands to wrap the full expression."
+  (should (equal (my/test-wrap-n "27 / sqrt(3)" 2) "(27 / sqrt(3))")))
+
+(ert-deftest test-wrap-parens-func-alone ()
+  "Cursor after f(x) wraps the whole call."
+  (should (equal (my/test-wrap-n "f(x)" 1) "(f(x))")))
+
+(ert-deftest test-wrap-parens-func-after-operator ()
+  "Cursor after f(x) in a + f(x) wraps just the call."
+  (should (equal (my/test-wrap-n "a + f(x)" 1) "a + (f(x))")))
+
+(ert-deftest test-wrap-parens-func-expand ()
+  "Second press expands from (f(x)) to wrap the full expression."
+  (should (equal (my/test-wrap-n "a + f(x)" 2) "(a + f(x))")))
+
+
 ;;; Region wrapping
 
 (ert-deftest test-wrap-parens-region ()

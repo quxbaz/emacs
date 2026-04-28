@@ -135,13 +135,17 @@
 
 (defun my/calc-edit--scan-expr-start ()
   "Move point to the start of the preceding expression.
-Scans backward, skipping balanced bracket/brace groups, stopping at
-unmatched delimiters, comparison/equation operators, commas, or BOL."
+Scans backward, skipping balanced bracket/brace/paren groups (treating
+function calls like sqrt(...) as atoms), stopping at unmatched delimiters,
+comparison/equation operators, commas, or BOL."
   (while (and (not (bolp))
-              (not (memq (char-before) '(?\( ?\[ ?\{ ?\) ?= ?< ?> ?, ?/ ?^ ?+ ?-))))
-    (if (memq (char-before) '(?\] ?\}))
-        (backward-sexp)
-      (backward-char))))
+              (not (memq (char-before) '(?\( ?\[ ?\{ ?= ?< ?> ?, ?/ ?^ ?+ ?-))))
+    (cond
+     ((memq (char-before) '(?\] ?\} ?\)))
+      (backward-sexp)
+      (skip-chars-backward "a-zA-Z0-9_"))
+     (t
+      (backward-char)))))
 
 (defun my/calc-edit--apply-wrap (start end)
   "Insert parens around [START, END) and advance cursor past closing paren."
@@ -160,7 +164,10 @@ Invoked with cursor just after `)', expands the wrapped region instead."
           (goto-char (region-end))       (insert ")")
           (goto-char (region-beginning)) (insert "("))
         (deactivate-mark))
-    (let* ((repeat (eq (char-before) ?\)))
+    (let* ((repeat (and (eq (char-before) ?\))
+                        (save-excursion
+                          (backward-sexp)
+                          (not (looking-back "[a-zA-Z0-9_]" (max (point-min) (1- (point))))))))
            (paren-open (when repeat
                          (save-excursion
                            (backward-sexp)
