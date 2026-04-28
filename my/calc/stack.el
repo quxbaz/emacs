@@ -376,6 +376,13 @@ Also converts f(2) = 0 to [2 0]."
          (calc-enter-result 2 "eq-" result)))
     (calc-minus arg)))
 
+(defun my/calc-equal-to (arg)
+  "Like calc-equal-to, but with I prefix calls calc-not-equal-to."
+  (interactive "P")
+  (if calc-inverse-flag
+      (calc-not-equal-to arg)
+    (calc-equal-to arg)))
+
 (defun my/calc-square ()
   "Squares a number."
   (interactive)

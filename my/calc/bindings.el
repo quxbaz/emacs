@@ -83,8 +83,8 @@
 
          ;; Algebraic operations
          (:map calc-mode-map ("@" . my/calc-no-simplify-mode))
-         (:map calc-mode-map ("=" . calc-equal-to))
-         (:map calc-mode-map ("e" . calc-equal-to))
+         (:map calc-mode-map ("=" . my/calc-equal-to))
+         (:map calc-mode-map ("e" . my/calc-equal-to))
          (:map calc-mode-map ("x" . calc-expand))
          (:map calc-mode-map ("l v" . my/calc-inverse-function))
          (:map calc-mode-map ("l t" . my/calc-collect-fractions))
