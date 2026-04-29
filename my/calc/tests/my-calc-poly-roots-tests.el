@@ -95,4 +95,11 @@
   (my-calc-poly-roots-test "p(x) = x^3 - x^2 - 4*x + 4" "[-2, 1, 2]"))
 
 
+;;; Transcendental forms
+
+(ert-deftest test-my/calc-poly-roots-log10 ()
+  "log10(-x + 1) -> [0, 0]."
+  (my-calc-poly-roots-test "log10(-x + 1)" "[0, 0]"))
+
+
 (provide 'my-calc-poly-roots-tests)
