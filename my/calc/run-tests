@@ -8,8 +8,8 @@
 # run independently via ert-run-tests-batch-and-exit.
 set -euo pipefail
 
-EMACS_DIR="$(cd "$(dirname "$0")/../../.." && pwd)"
-TESTS_DIR="$(dirname "$0")"
+EMACS_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
+TESTS_DIR="$(dirname "$0")/tests"
 
 for f in "$TESTS_DIR"/*.el; do
   [[ "$f" == *test-init* ]] && continue
