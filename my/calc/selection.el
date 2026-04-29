@@ -43,14 +43,15 @@
        (call-interactively 'calc-unselect)))))
 
 (defun my/calc-sel-distribute ()
-  "Like calc-sel-distribute, but unselects afterwards."
+  "Like calc-sel-distribute, but unselects afterwards and runs without simplification."
   (interactive)
-  (if (my/calc-active-selection-p)
-      (call-interactively 'calc-sel-distribute)
-    (my/preserve-point
-     (unwind-protect
-         (call-interactively 'calc-sel-distribute)
-       (call-interactively 'calc-unselect)))))
+  (let ((calc-simplify-mode 'none))
+    (if (my/calc-active-selection-p)
+        (call-interactively 'calc-sel-distribute)
+      (my/preserve-point
+       (unwind-protect
+           (call-interactively 'calc-sel-distribute)
+         (call-interactively 'calc-unselect))))))
 
 (defun my/calc-sel-merge ()
   "Like calc-sel-merge, but unselects afterwards."
