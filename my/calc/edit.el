@@ -250,6 +250,18 @@ Defers to yasnippet when active."
           (setq my/calc-edit-tab-lhs (point))
           (goto-char dest)))))))
 
+(defun my/calc-edit-toggle-brackets ()
+  "Toggle between parentheses and square brackets at point."
+  (interactive)
+  (cond ((looking-at "(")
+         (delete-char 1) (insert "[") (backward-char 1))
+        ((looking-at ")")
+         (delete-char 1) (insert "]") (backward-char 1))
+        ((looking-at "\\[")
+         (delete-char 1) (insert "(") (backward-char 1))
+        ((looking-at "\\]")
+         (delete-char 1) (insert ")") (backward-char 1))))
+
 (defun my/calc-edit-insert-pi ()
   "Insert \"pi\", preceded by a space if point is after a letter."
   (interactive)
