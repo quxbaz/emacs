@@ -24,8 +24,9 @@
         (call-interactively 'calc-edit)
       (let ((line (substring-no-properties (thing-at-point 'line))))
         (if (string-match "[0-9]+:" line)
-            (progn (funcall (kmacro "j`"))
-                   (move-end-of-line nil))
+            (let ((m (max 1 (calc-locate-cursor-element (point)))))
+              (calc-edit (- m))
+              (move-end-of-line nil))
           (funcall (kmacro "'`")))))))
 
 (defun my/calc-edit-history-prev ()
