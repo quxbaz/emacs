@@ -12,6 +12,30 @@
   (calc-edit n)
   (move-end-of-line nil))
 
+(defun my/calc-edit-selection ()
+  "Like `calc-edit-selection' (j`) but fixes an atom-encasing bug.
+`calc-edit-selection' captures the formula before calling `calc-auto-selection',
+which calls `calc-prepare-selection' which wraps bare atoms — e.g. 5 becomes
+\(cplx 5 0) — via `calc-encase-atoms', mutating \(car entry) in place.  If
+`calc-auto-selection' then returns nil \(cursor off the formula), the fallback
+`expr' is the pre-mutation value, while `calc-top' later returns the
+post-mutation value; the `eq' check in `calc-find-sub-formula' fails and
+throws \"Original selection has been lost\".  Capturing the fallback as
+\(car entry) after the mutation resolves the mismatch."
+  (interactive)
+  (calc-wrapper
+   (calc-preserve-point)
+   (let* ((num (max 1 (calc-locate-cursor-element (point))))
+          (calc-sel-reselect calc-keep-selection)
+          (entry (calc-top num 'entry))
+          (sel (or (calc-auto-selection entry) (car entry)))
+          (str (math-showing-full-precision
+                (math-format-nice-expr sel (frame-width))))
+          (csr calc-sel-reselect))
+     (calc--edit-mode (lambda () (calc-finish-selection-edit num sel csr)))
+     (insert str "\n")))
+  (calc-show-edit-buffer))
+
 (defun my/calc-edit-dwim ()
   "Opens edit mode or edits the current entry."
   (interactive)
@@ -24,9 +48,8 @@
         (call-interactively 'calc-edit)
       (let ((line (substring-no-properties (thing-at-point 'line))))
         (if (string-match "[0-9]+:" line)
-            (let ((m (max 1 (calc-locate-cursor-element (point)))))
-              (calc-edit (- m))
-              (move-end-of-line nil))
+            (progn (my/calc-edit-selection)
+                   (move-end-of-line nil))
           (funcall (kmacro "'`")))))))
 
 (defun my/calc-edit-history-prev ()

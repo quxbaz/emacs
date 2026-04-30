@@ -66,3 +66,39 @@
       (my/calc-edit-dwim)
       (my/calc-edit-finish)
       (should (= (point) saved)))))
+
+
+;;; Contextual editing
+
+(ert-deftest test-my-calc-edit-dwim-subexpr-at-operator ()
+  "Cursor on the * operator in x+y*z opens edit buffer with just y*z."
+  (with-calc-edit-dwim-setup "x + y*z"
+    (forward-char 9)                    ; col 9: between y and z (the * position)
+    (my/calc-edit-dwim)
+    (should (string= (string-trim
+                      (buffer-substring-no-properties calc-edit-top (point-max)))
+                     "y * z"))))
+
+(ert-deftest test-my-calc-edit-dwim-eol-whole-formula ()
+  "Cursor at EOL (past the formula) opens edit buffer with the whole formula."
+  (with-calc-edit-dwim-setup "x + y*z"
+    (end-of-line)
+    (my/calc-edit-dwim)
+    (should (string= (string-trim
+                      (buffer-substring-no-properties calc-edit-top (point-max)))
+                     "x + y * z"))))
+
+(ert-deftest test-my-calc-edit-dwim-home-new-entry-path ()
+  "At the . line, my/calc-edit-dwim takes the new-entry path, not the selection path."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "5"))
+    (goto-char (point-max))
+    (forward-line -1)                   ; . line
+    (let (selection-called)
+      (cl-letf (((symbol-function 'my/calc-edit-selection)
+                 (lambda () (setq selection-called t)))
+                ((symbol-function 'execute-kbd-macro) #'ignore))
+        (my/calc-edit-dwim))
+      (should-not selection-called))))
