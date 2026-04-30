@@ -799,7 +799,7 @@ With one variable, solves automatically. With multiple, prompts for the variable
                                   (rs (when (eq (car-safe r) 'vec) (cdr r))))
                              (cl-mapcan (lambda (root) (make-list (cdr fm) root)) rs)))
                          factors)))
-                  (calcFunc-sort (cons 'vec all-roots)))))
+                  (cons 'vec all-roots))))
     (let* ((expr (calc-top-n 1))
            (poly (if (eq (car-safe expr) 'calcFunc-eq)
                      (let ((lhs (nth 1 expr)) (rhs (nth 2 expr)))
