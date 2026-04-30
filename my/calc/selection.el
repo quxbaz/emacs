@@ -12,11 +12,12 @@
 (defun my/calc-commute ()
   "Like calc-sel-commute, but works on the line instead of the current selection."
   (interactive)
-  (my/preserve-point
-   (unwind-protect
-       (progn
-         (move-end-of-line nil)
-         (call-interactively 'calc-sel-commute)))))
+  (let ((calc-simplify-mode 'none))
+    (my/preserve-point
+     (unwind-protect
+         (progn
+           (move-end-of-line nil)
+           (call-interactively 'calc-sel-commute))))))
 
 (defun my/calc-sel-jump-equals ()
   "Like calc-sel-jump-equals, but unselects after jumping."
