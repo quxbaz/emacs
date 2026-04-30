@@ -295,8 +295,10 @@ Also converts f(2) = 0 to [2 0]."
 (defun my/calc-evaluate (n)
   "Like calc-evaluate, but disables symbolic mode during evaluation."
   (interactive "p")
-  (let ((calc-symbolic-mode nil))
-    (calc-evaluate n)))
+  (unwind-protect
+      (let ((calc-symbolic-mode nil))
+        (calc-evaluate n))
+    (calc-set-mode-line)))
 
 (defun my/calc-recall-quick ()
   "Like calc-recall-quick, but don't simplify."
