@@ -57,7 +57,23 @@
     (my/calc-edit-finish)))
 
 
-;;; Point restoration
+;;; Point preservation
+
+(ert-deftest test-my-calc-edit-dwim-point-not-moved-on-open ()
+  "Opening the edit buffer does not move point in the calc buffer.
+Regression: calc-align-stack-window was called during edit buffer open,
+scrolling the calc window and leaving point at the wrong position."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (dotimes (_ 10)
+      (calc-push (math-read-expr "x + 1")))
+    (calc-cursor-stack-index 5)
+    (let ((saved (point))
+          (calc-buf (current-buffer)))
+      (my/calc-edit-dwim)
+      (with-current-buffer calc-buf
+        (should (= (point) saved))))))
 
 (ert-deftest test-my-calc-edit-dwim-point-restored ()
   "Point is restored to its pre-edit position after my/calc-edit-finish."
