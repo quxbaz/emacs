@@ -2,6 +2,9 @@
 ;;
 ;; Calc edit mode operations
 
+(defvar calc-alg-entry-history nil)
+(defvar my/calc-edit-saved-point nil)
+(defvar my/calc-history-index 0)
 
 (defun my/calc-edit (n)
   "Like `calc-edit' but starts with point at end of the expression line."
@@ -13,13 +16,17 @@
   "Opens edit mode or edits the current entry."
   (interactive)
   (setq my/calc-edit-saved-point (point))
-  (if (my/calc-active-selection-p)
-      (call-interactively 'calc-edit)
-    (let ((line (substring-no-properties (thing-at-point 'line))))
-      (if (string-match "[0-9]+:" line)
-          (progn (funcall (kmacro "j`"))
-                 (move-end-of-line nil))
-        (funcall (kmacro "'`"))))))
+  ;; Suppress calc-align-stack-window so it doesn't move the window-point
+  ;; while opening the edit buffer, which would leave the calc window at the
+  ;; wrong position both visually and when the edit buffer is killed.
+  (cl-letf (((symbol-function 'calc-align-stack-window) #'ignore))
+    (if (my/calc-active-selection-p)
+        (call-interactively 'calc-edit)
+      (let ((line (substring-no-properties (thing-at-point 'line))))
+        (if (string-match "[0-9]+:" line)
+            (progn (funcall (kmacro "j`"))
+                   (move-end-of-line nil))
+          (funcall (kmacro "'`")))))))
 
 (defun my/calc-edit-history-prev ()
   "Recall previous calc history entry."
@@ -59,9 +66,9 @@
             (t (push text calc-alg-entry-history)))))
   (calc-edit-finish)
   (when (my/calc-active-selection-p)
-    (call-interactively 'calc-clear-selections)
-    (when my/calc-edit-saved-point
-      (goto-char my/calc-edit-saved-point))))
+    (call-interactively 'calc-clear-selections))
+  (when my/calc-edit-saved-point
+    (goto-char my/calc-edit-saved-point)))
 
 (defun my/calc-edit-newline ()
   "Like newline, but also sets indentation."
