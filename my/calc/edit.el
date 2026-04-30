@@ -46,11 +46,10 @@ throws \"Original selection has been lost\".  Capturing the fallback as
   (cl-letf (((symbol-function 'calc-align-stack-window) #'ignore))
     (if (my/calc-active-selection-p)
         (call-interactively 'calc-edit)
-      (let ((line (substring-no-properties (thing-at-point 'line))))
-        (if (string-match "[0-9]+:" line)
-            (progn (my/calc-edit-selection)
-                   (move-end-of-line nil))
-          (funcall (kmacro "'`")))))))
+      (if (my/calc-point-is-at-home-p)
+          (funcall (kmacro "'`"))
+        (my/calc-edit-selection)
+        (move-end-of-line nil)))))
 
 (defun my/calc-edit-history-prev ()
   "Recall previous calc history entry."

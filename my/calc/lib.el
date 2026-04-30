@@ -15,6 +15,13 @@ Uses unwind-protect so the mode is restored even if BODY signals an error."
          (when (fboundp 'calc-set-mode-line)
            (calc-set-mode-line))))))
 
+(defun my/calc-point-is-at-home-p ()
+  "Return t if point is past the last stack entry (at the . line or below).
+Used to determine whether my/calc-edit-dwim should open a new entry or edit
+an existing one.  calc-locate-cursor-element returns 0 at the . line and -1
+below it; stack entries return 1 or higher."
+  (<= (calc-locate-cursor-element (point)) 0))
+
 (defun my/calc-at-stack-bottom-p ()
   "Returns t if point is at the stack bottom or beyond it."
   (<= (calc-locate-cursor-element (point)) 1))
