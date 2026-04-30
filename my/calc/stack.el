@@ -100,6 +100,17 @@ If point is past the top stack item, calls calc-realign instead."
           (search-forward-regexp "^[0-9]+: *")
         (error nil)))))
 
+;; log(x, b) → \log_{b}\left( x \right) in LaTeX/MathJax output.
+(with-eval-after-load 'calccomp
+  (put 'calcFunc-log 'math-compose-latex
+       (lambda (a _prec)
+         (if (= (length a) 3)
+             (list 'horiz
+                   "\\log_{" (math-compose-expr (nth 2 a) 0) "}"
+                   "\\left( " (math-compose-expr (nth 1 a) 0) " \\right)")
+           (list 'horiz
+                 "\\ln\\left( " (math-compose-expr (nth 1 a) 0) " \\right)")))))
+
 (defun my/calc-kill-ring-save-dwim ()
   "Saves the region if region is active, else save the current line.
 If point is at or past home with no active region, saves the top stack item.
