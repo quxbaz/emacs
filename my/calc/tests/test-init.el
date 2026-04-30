@@ -7,6 +7,7 @@
 ;;     -l my/calc/tests/my-foo-tests.el \
 ;;     -f ert-run-tests-batch-and-exit
 
+(add-to-list 'load-path user-emacs-directory t)
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
 (require 'package)
 (package-initialize)

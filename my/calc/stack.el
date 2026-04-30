@@ -2,6 +2,7 @@
 ;;
 ;; Core calc stack operations
 
+(require 'my/calc/lib)
 
 (defvar my/calc-stack-save-file
   (expand-file-name "calc-stack.el" user-emacs-directory))
@@ -298,13 +299,13 @@ Also converts f(2) = 0 to [2 0]."
 (defun my/calc-recall-quick ()
   "Like calc-recall-quick, but don't simplify."
   (interactive)
-  (let ((calc-simplify-mode 'none))
+  (my/calc-without-simplification
     (call-interactively 'calc-recall-quick)))
 
 (defun my/calc-recall ()
   "Like calc-recall, but don't simplify."
   (interactive)
-  (let ((calc-simplify-mode 'none))
+  (my/calc-without-simplification
     (call-interactively 'calc-recall)))
 
 (defun my/calc-recall-browse ()
@@ -352,8 +353,9 @@ Also converts f(2) = 0 to [2 0]."
                                                              (ivy-end-of-buffer)
                                                            (ivy-previous-line)))))
                      (completing-read "Recall: " (mapcar #'car mapping) nil t))))
-         (calc-simplify-mode 'none))
-    (calc-recall (intern (concat "var-" (cdr (assoc chosen mapping)))))))
+         )
+    (my/calc-without-simplification
+      (calc-recall (intern (concat "var-" (cdr (assoc chosen mapping))))))))
 
 (defun my/calc-plus (arg)
   "Add top two stack items. If both are equations, add both sides; else calc-plus."
@@ -390,9 +392,10 @@ Also converts f(2) = 0 to [2 0]."
 (defun my/calc-equal-to (arg)
   "Like calc-equal-to, but with I prefix calls calc-not-equal-to."
   (interactive "P")
-  (if calc-inverse-flag
-      (calc-not-equal-to arg)
-    (calc-equal-to arg)))
+  (my/calc-without-simplification
+    (if calc-inverse-flag
+        (calc-not-equal-to arg)
+      (calc-equal-to arg))))
 
 (defun my/calc-square ()
   "Squares a number."
@@ -443,13 +446,13 @@ With no selection: factors stack level 2 by stack level 1.
 With selection active: factors the selected expression by the top of stack."
   (interactive)
   (my/calc-apply-sel-or-top (expr replace-expr) ((m 2) (prefix "fctr"))
-    (let* ((calc-simplify-mode 'none)
-           (factor (calc-top-n 1))
-           (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
-           (factored (calcFunc-mul factor divided)))
-      (calc-wrapper
-       (replace-expr factored)
-       (calc-pop-stack 1)))))
+    (my/calc-without-simplification
+      (let* ((factor (calc-top-n 1))
+             (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
+             (factored (calcFunc-mul factor divided)))
+        (calc-wrapper
+         (replace-expr factored)
+         (calc-pop-stack 1))))))
 
 (defun my/math-ref-angle (x)
   "Given an angle, gets its reference angle."
@@ -578,7 +581,7 @@ If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), r
 Prompts for two variable names; defaults to the first two auto-detected vars."
   (interactive)
   (calc-slow-wrapper
-   (let ((calc-simplify-mode 'none))
+   (my/calc-without-simplification
      (let* ((expr    (calc-top-n 1))
             (detected (my/calc-auto-solve--sorted-vars expr))
             (def1    (when (nth 0 detected) (symbol-name (nth 1 (nth 0 detected)))))

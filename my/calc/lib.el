@@ -3,6 +3,16 @@
 ;; Calc utility functions
 
 
+(defmacro my/calc-without-simplification (&rest body)
+  "Run BODY with calc-simplify-mode set to \\='none, restoring it afterwards.
+Uses unwind-protect so the mode is restored even if BODY signals an error."
+  (declare (indent 0))
+  (let ((saved (gensym "saved-simplify-")))
+    `(let ((,saved calc-simplify-mode))
+       (unwind-protect
+           (progn (setq calc-simplify-mode 'none) ,@body)
+         (setq calc-simplify-mode ,saved)))))
+
 (defun my/calc-at-stack-bottom-p ()
   "Returns t if point is at the stack bottom or beyond it."
   (<= (calc-locate-cursor-element (point)) 1))

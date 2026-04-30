@@ -2,6 +2,7 @@
 ;;
 ;; Selection functions
 
+(require 'my/calc/lib)
 
 (defun my/calc-clear-selections ()
   "Like calc-clear-selections, but retains point position."
@@ -12,7 +13,7 @@
 (defun my/calc-commute ()
   "Like calc-sel-commute, but works on the line instead of the current selection."
   (interactive)
-  (let ((calc-simplify-mode 'none))
+  (my/calc-without-simplification
     (my/preserve-point
      (unwind-protect
          (progn
@@ -46,7 +47,7 @@
 (defun my/calc-sel-distribute ()
   "Like calc-sel-distribute, but unselects afterwards and runs without simplification."
   (interactive)
-  (let ((calc-simplify-mode 'none))
+  (my/calc-without-simplification
     (if (my/calc-active-selection-p)
         (call-interactively 'calc-sel-distribute)
       (my/preserve-point

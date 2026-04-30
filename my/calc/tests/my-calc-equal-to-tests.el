@@ -22,6 +22,23 @@
      ,@body))
 
 
+;;; No simplification
+
+(ert-deftest test-calc-equal-to-no-simplify-lhs ()
+  "LHS expression is not distributed/simplified: 2*(3+x) stays as a product."
+  (calc-equal-to-test "2 * (3 + x)" "y" nil
+    (let ((lhs (nth 1 (car (nth 1 calc-stack)))))
+      ;; Should be (* 2 ...), not (+ (* 2 x) 6)
+      (should (eq (car-safe lhs) '*)))))
+
+(ert-deftest test-calc-equal-to-no-simplify-rhs ()
+  "RHS fraction 1/9*y is not converted to y/9."
+  (calc-equal-to-test "x" "1:9 * y" nil
+    (let ((rhs (nth 2 (car (nth 1 calc-stack)))))
+      ;; Should be (* (frac 1 9) ...), not (/ y 9)
+      (should (eq (car-safe rhs) '*)))))
+
+
 ;;; Equal-to (no inverse)
 
 (ert-deftest test-calc-equal-to-produces-eq ()
