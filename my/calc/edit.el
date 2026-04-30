@@ -10,9 +10,13 @@ my/calc-edit-finish calls calc-align-stack-window instead of restoring point.")
 (defvar my/calc-history-index 0)
 
 (defun my/calc-edit (n)
-  "Like `calc-edit' but starts with point at end of the expression line."
+  "Like `calc-edit' but starts with point at end of the expression line.
+After my/calc-edit-finish, point is moved to home via calc-align-stack-window."
   (interactive "p")
-  (calc-edit n)
+  (setq my/calc-edit-saved-point (point)
+        my/calc-edit-new-entry t)
+  (cl-letf (((symbol-function 'calc-align-stack-window) #'ignore))
+    (calc-edit n))
   (move-end-of-line nil))
 
 (defun my/calc-edit-selection ()
