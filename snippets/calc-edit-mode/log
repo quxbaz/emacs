@@ -2,4 +2,4 @@
 # key: lg
 # expand-env: ((yas-indent-line nil))
 # --
-log($2, $1) $0
+log($2, $1)$0
