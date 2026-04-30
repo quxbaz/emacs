@@ -7,11 +7,13 @@
   "Run BODY with calc-simplify-mode set to \\='none, restoring it afterwards.
 Uses unwind-protect so the mode is restored even if BODY signals an error."
   (declare (indent 0))
-  (let ((saved (gensym "saved-simplify-")))
+  (let ((saved (gensym)))
     `(let ((,saved calc-simplify-mode))
        (unwind-protect
            (progn (setq calc-simplify-mode 'none) ,@body)
-         (setq calc-simplify-mode ,saved)))))
+         (setq calc-simplify-mode ,saved)
+         (when (fboundp 'calc-set-mode-line)
+           (calc-set-mode-line))))))
 
 (defun my/calc-at-stack-bottom-p ()
   "Returns t if point is at the stack bottom or beyond it."
