@@ -4,6 +4,9 @@
 
 (defvar calc-alg-entry-history nil)
 (defvar my/calc-edit-saved-point nil)
+(defvar my/calc-edit-new-entry nil
+  "Non-nil when the edit buffer was opened to create a new stack entry.
+my/calc-edit-finish calls calc-align-stack-window instead of restoring point.")
 (defvar my/calc-history-index 0)
 
 (defun my/calc-edit (n)
@@ -39,14 +42,15 @@ throws \"Original selection has been lost\".  Capturing the fallback as
 (defun my/calc-edit-dwim ()
   "Opens edit mode or edits the current entry."
   (interactive)
-  (setq my/calc-edit-saved-point (point))
+  (setq my/calc-edit-saved-point (point)
+        my/calc-edit-new-entry (my/calc-point-is-at-home-p))
   ;; Suppress calc-align-stack-window so it doesn't move the window-point
   ;; while opening the edit buffer, which would leave the calc window at the
   ;; wrong position both visually and when the edit buffer is killed.
   (cl-letf (((symbol-function 'calc-align-stack-window) #'ignore))
     (if (my/calc-active-selection-p)
         (call-interactively 'calc-edit)
-      (if (my/calc-point-is-at-home-p)
+      (if my/calc-edit-new-entry
           (funcall (kmacro "'`"))
         (my/calc-edit-selection)
         (move-end-of-line nil)))))
@@ -74,6 +78,7 @@ throws \"Original selection has been lost\".  Capturing the fallback as
   (interactive)
   (if (minibufferp)
       (call-interactively 'self-insert-command)
+    (setq my/calc-edit-new-entry t)
     (funcall (kmacro "'`"))
     (insert "[]") (backward-char)))
 
@@ -90,8 +95,10 @@ throws \"Original selection has been lost\".  Capturing the fallback as
   (calc-edit-finish)
   (when (my/calc-active-selection-p)
     (call-interactively 'calc-clear-selections))
-  (when my/calc-edit-saved-point
-    (goto-char my/calc-edit-saved-point)))
+  (if my/calc-edit-new-entry
+      (calc-align-stack-window)
+    (when my/calc-edit-saved-point
+      (goto-char my/calc-edit-saved-point))))
 
 (defun my/calc-edit-newline ()
   "Like newline, but also sets indentation."

@@ -102,3 +102,36 @@
                 ((symbol-function 'execute-kbd-macro) #'ignore))
         (my/calc-edit-dwim))
       (should-not selection-called))))
+
+
+;;; Post-finish alignment
+
+(ert-deftest test-my-calc-edit-finish-new-entry-calls-align ()
+  "my/calc-edit-finish calls calc-align-stack-window when my/calc-edit-new-entry is t."
+  (with-calc-edit-dwim-setup "5"
+    (my/calc-edit-dwim)                  ; opens edit buffer (stack entry, new-entry=nil)
+    (let ((my/calc-edit-new-entry t)     ; override: simulate new-entry path
+          align-called)
+      (cl-letf (((symbol-function 'calc-align-stack-window)
+                 (lambda () (setq align-called t))))
+        (my/calc-edit-finish))
+      (should align-called))))
+
+(ert-deftest test-my-calc-edit-finish-existing-entry-does-not-align ()
+  "my/calc-edit-finish does not call calc-align-stack-window for existing entries."
+  (with-calc-edit-dwim-setup "5"
+    (my/calc-edit-dwim)                  ; my/calc-edit-new-entry=nil (on stack entry)
+    (let (align-called)
+      (cl-letf (((symbol-function 'calc-align-stack-window)
+                 (lambda () (setq align-called t))))
+        (my/calc-edit-finish))
+      (should-not align-called))))
+
+(ert-deftest test-my-calc-edit-finish-existing-entry-restores-point ()
+  "my/calc-edit-finish restores point for existing entries, not new ones."
+  (with-calc-edit-dwim-setup "5"
+    (let ((saved (point)))
+      (my/calc-edit-dwim)
+      (let ((my/calc-edit-new-entry nil))
+        (my/calc-edit-finish))
+      (should (= (point) saved)))))
