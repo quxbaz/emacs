@@ -18,22 +18,22 @@
 
 ;;; Geometry — 3D: Cylinder
 (setq var-eq-surface-area-of-cylinder '(calcFunc-eq (var S var-S) (+ (* (cplx 2 0) (* (var pi var-pi) (* (var r var-r) (var h var-h)))) (* (cplx 2 0) (* (var pi var-pi) (^ (var r var-r) (cplx 2 0)))))))
-(setq var-eq-lateral-surface-area-of-cylinder '(calcFunc-eq (var S var-S) (* 2 (* (var h var-h) (* (var pi var-pi) (var r var-r))))))
+(setq var-eq-lateral-surface-area-of-cylinder '(calcFunc-eq (var SL var-SL) (* 2 (* (var h var-h) (* (var pi var-pi) (var r var-r))))))
 (setq var-eq-volume-of-cylinder '(calcFunc-eq (var V var-V) (* (var pi var-pi) (* (^ (var r var-r) (cplx 2 0)) (var h var-h)))))
 
 ;;; Geometry — 3D: Cone
 (setq var-eq-surface-area-of-cone '(calcFunc-eq (var S var-S) (+ (* (var pi var-pi) (* (var r var-r) (var s var-s))) (* (var pi var-pi) (^ (var r var-r) 2)))))
-(setq var-eq-lateral-surface-area-of-cone '(calcFunc-eq (var S var-S) (* (var pi var-pi) (* (var r var-r) (var s var-s)))))
+(setq var-eq-lateral-surface-area-of-cone '(calcFunc-eq (var SL var-SL) (* (var pi var-pi) (* (var r var-r) (var s var-s)))))
 (setq var-eq-volume-of-cone '(calcFunc-eq (var V var-V) (* (frac 1 3) (* (var pi var-pi) (* (^ (var r var-r) 2) (var h var-h))))))
 
 ;;; Geometry — 3D: Conical Frustum
 (setq var-eq-surface-area-of-conical-frustrum '(calcFunc-eq (var S var-S) (+ (+ (* (var pi var-pi) (* (var s var-s) (+ (var r1 var-r1) (var r2 var-r2)))) (* (var pi var-pi) (^ (var r1 var-r1) (cplx 2 0)))) (* (var pi var-pi) (^ (var r2 var-r2) (cplx 2 0))))))
-(setq var-eq-lateral-surface-area-of-conical-frustrum '(calcFunc-eq (var S var-S) (* (var pi var-pi) (* (var s var-s) (+ (var r1 var-r1) (var r2 var-r2))))))
+(setq var-eq-lateral-surface-area-of-conical-frustrum '(calcFunc-eq (var SL var-SL) (* (var pi var-pi) (* (var s var-s) (+ (var r1 var-r1) (var r2 var-r2))))))
 (setq var-eq-volume-of-conical-frustrum '(calcFunc-eq (var V var-V) (* (frac 1 3) (* (var pi var-pi) (* (var h var-h) (+ (+ (^ (var R var-R) (cplx 2 0)) (^ (var r var-r) (cplx 2 0))) (* (var R var-R) (var r var-r))))))))
 
 ;;; Geometry — 3D: Pyramid
 (setq var-eq-surface-area-of-pyramid '(calcFunc-eq (var S var-S) (+ (* (frac 1 2) (* (var p var-p) (var s var-s))) (var B var-B))))
-(setq var-eq-lateral-surface-area-of-pyramid '(calcFunc-eq (var sl var-sl) (* (frac 1 2) (* (var p var-p) (var s var-s)))))
+(setq var-eq-lateral-surface-area-of-pyramid '(calcFunc-eq (var SL var-SL) (* (frac 1 2) (* (var p var-p) (var s var-s)))))
 (setq var-eq-volume-of-pyramid '(calcFunc-eq (var V var-V) (* (frac 1 3) (* (var B var-B) (var h var-h)))))
 
 ;;; Trigonometry
