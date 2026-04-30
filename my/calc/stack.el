@@ -535,6 +535,20 @@ If top of stack is a vector, n defaults to 2."
    (let ((flat-vector (list 'calcFunc-arrange (calc-top-n 1) (prefix-numeric-value 0))))
      (calc-enter-result 1 "flat" flat-vector))))
 
+(define-advice calcFunc-hypot (:around (orig a b) "symbolic-simplify")
+  "When inputs are symbolic (e.g. sqrt(3)), compute sqrt(abssqr(a)+abssqr(b)).
+The original calcFunc-hypot requires Math-scalarp on both args; it falls back to
+the inert form (calcFunc-hypot a b) for symbolic inputs like (calcFunc-sqrt 3).
+calcFunc-abssqr reduces sqrt(n)^2 → n, so the sum is often an integer and
+calcFunc-sqrt can either simplify it (perfect square) or return sqrt(n) symbolically."
+  (let ((result (funcall orig a b)))
+    (if (and (consp result) (eq (car result) 'calcFunc-hypot))
+        (let ((sum (math-add (calcFunc-abssqr a) (calcFunc-abssqr b))))
+          (if (Math-numberp sum)
+              (calcFunc-sqrt sum)
+            result))
+      result)))
+
 (defun my/calc-cath ()
   "Compute a leg of a right triangle given the hypotenuse and the other leg.
 If stack has >= 2 items: pops leg (level 1) and hypotenuse (level 2), returns √(h²-a²).
