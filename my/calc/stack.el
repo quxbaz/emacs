@@ -67,12 +67,14 @@
   (call-interactively 'calc-reset)
   (with-current-buffer (calc-trail-buffer)
     (let ((inhibit-read-only t))
-      (erase-buffer))))
+      (erase-buffer)))
+  (my/flash-mode-line))
 
 (defun my/calc-reset-settings ()
   "Reset calc display settings and modes without clearing the stack."
   (interactive)
-  (calc-reset 1))
+  (calc-reset 1)
+  (my/flash-mode-line))
 
 (defun my/calc-undo ()
   "Like calc-undo, but retains point position."
