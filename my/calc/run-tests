@@ -11,6 +11,9 @@ set -euo pipefail
 EMACS_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 TESTS_DIR="$(dirname "$0")/tests"
 
+grand_total=0
+grand_passed=0
+
 for f in "$TESTS_DIR"/*.el; do
   [[ "$f" == *test-init* ]] && continue
   name="$(basename "$f")"
@@ -23,6 +26,8 @@ for f in "$TESTS_DIR"/*.el; do
   total=$(echo "$summary" | grep -o "Ran [0-9]*" | awk '{print $2}')
   unexpected=$(echo "$summary" | grep -o "[0-9]* unexpected" | awk '{print $1}')
   passed=$(( total - unexpected ))
+  grand_total=$(( grand_total + total ))
+  grand_passed=$(( grand_passed + passed ))
   if [[ "$unexpected" == "0" ]]; then
     label="\033[32m[$passed/$total PASSED]\033[0m"
   else
@@ -35,3 +40,9 @@ for f in "$TESTS_DIR"/*.el; do
   fi
   echo
 done
+
+if [[ "$grand_passed" == "$grand_total" ]]; then
+  echo -e "\033[32m** ALL TESTS PASSED **\033[0m"
+else
+  echo -e "\033[31m** $grand_passed/$grand_total TESTS PASSED **\033[0m"
+fi
