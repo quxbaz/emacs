@@ -41,8 +41,18 @@ for f in "$TESTS_DIR"/*.el; do
   echo
 done
 
+print_box() {
+  local color="$1" text="$2"
+  local len=${#text}
+  local border
+  border=$(printf '%*s' $(( len + 4 )) | tr ' ' '*')
+  echo -e "${color}${border}\033[0m"
+  echo -e "${color}* ${text} *\033[0m"
+  echo -e "${color}${border}\033[0m"
+}
+
 if [[ "$grand_passed" == "$grand_total" ]]; then
-  echo -e "\033[32m** ALL TESTS PASSED **\033[0m"
+  print_box "\033[32m" "ALL TESTS PASSED"
 else
-  echo -e "\033[31m** $grand_passed/$grand_total TESTS PASSED **\033[0m"
+  print_box "\033[31m" "$grand_passed/$grand_total TESTS PASSED"
 fi
