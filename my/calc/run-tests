@@ -52,7 +52,7 @@ print_box() {
 }
 
 if [[ "$grand_passed" == "$grand_total" ]]; then
-  print_box "\033[32m" "ALL TESTS PASSED"
+  print_box "\033[32m" "$grand_passed/$grand_total TESTS PASSED"
 else
   print_box "\033[31m" "$grand_passed/$grand_total TESTS PASSED"
 fi
