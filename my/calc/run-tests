@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # Run all ERT test suites under my/calc/tests/ in batch mode.
 #
-# Usage: ./run-tests
+# Usage: ./run-tests [FILE]
+#
+# With no argument, runs every .el file under tests/.
+# With FILE (e.g. my-math-ref-angle-tests.el), runs only that suite.
 #
 # test-init.el is loaded first to initialize packages (dash, s) that
 # the source files depend on. Each other .el file is then loaded and
@@ -11,10 +14,16 @@ set -euo pipefail
 EMACS_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 TESTS_DIR="$(dirname "$0")/tests"
 
+if [[ $# -gt 0 ]]; then
+  files=("$TESTS_DIR/$1")
+else
+  files=("$TESTS_DIR"/*.el)
+fi
+
 grand_total=0
 grand_passed=0
 
-for f in "$TESTS_DIR"/*.el; do
+for f in "${files[@]}"; do
   [[ "$f" == *test-init* ]] && continue
   name="$(basename "$f")"
   output=$(emacs --batch -Q \
@@ -41,18 +50,24 @@ for f in "$TESTS_DIR"/*.el; do
   echo
 done
 
-print_box() {
-  local color="$1" text="$2"
-  local len=${#text}
-  local border
-  border=$(printf '%*s' $(( len + 4 )) | tr ' ' '*')
-  echo -e "${color}${border}\033[0m"
-  echo -e "${color}* ${text} *\033[0m"
-  echo -e "${color}${border}\033[0m"
-}
+RED="\033[31m"
+GREEN="\033[32m"
+RESET="\033[0m"
 
+grand_failed=$(( grand_total - grand_passed ))
 if [[ "$grand_passed" == "$grand_total" ]]; then
-  print_box "\033[32m" "$grand_passed/$grand_total TESTS PASSED"
+  line="$grand_passed/$grand_total TESTS PASSED"
+  border=$(printf '%*s' $(( ${#line} + 4 )) | tr ' ' '*')
+  echo -e "${GREEN}${border}${RESET}"
+  echo -e "${GREEN}* ${line} *${RESET}"
+  echo -e "${GREEN}${border}${RESET}"
 else
-  print_box "\033[31m" "$grand_passed/$grand_total TESTS PASSED"
+  line_passed="$grand_passed/$grand_total TESTS PASSED"
+  line_failed="$grand_failed/$grand_total TESTS FAILED"
+  len=$(( ${#line_passed} > ${#line_failed} ? ${#line_passed} : ${#line_failed} ))
+  border=$(printf '%*s' $(( len + 4 )) | tr ' ' '*')
+  echo -e "${RED}${border}${RESET}"
+  printf "${GREEN}* %-${len}s *${RESET}\n" "$line_passed"
+  printf "${RED}* %-${len}s *${RESET}\n" "$line_failed"
+  echo -e "${RED}${border}${RESET}"
 fi
