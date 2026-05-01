@@ -53,6 +53,13 @@
    (call-interactively 'calc-no-simplify-mode)
    (my/flash-mode-line)))
 
+(defun my/calc-next-cmd-no-simplify ()
+  "Run the next command with simplification disabled for that command only."
+  (interactive)
+  (let ((key (read-key-sequence "No-simplify: ")))
+    (my/calc-without-simplification
+      (call-interactively (key-binding key)))))
+
 (defun my/calc-toggle-big-language ()
   "Toggle between big language and normal display mode."
   (interactive)
