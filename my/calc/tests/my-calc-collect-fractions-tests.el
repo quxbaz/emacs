@@ -67,4 +67,28 @@
                   (list 'calcFunc-expand (list '- result (math-read-expr "(a + 2*b - 3*c)/6"))))))
       (should (math-zerop (math-simplify diff))))))
 
+;;; Fraction divided by symbolic expression
+
+(ert-deftest test-my/calc-collect-fractions-frac-over-power ()
+  "8:3 / x^2 -> 8 / (3 x^2): integer numerator, denom absorbs fraction denominator."
+  (with-temp-buffer
+    (calc-mode)
+    (let* ((result (my-calc-collect-fractions-tests--run "8:3 / x^2")))
+      (should (eq (car-safe result) '/))
+      (should (equal (nth 1 result) 8))
+      (let ((diff (math-normalize
+                   (list '- result (math-read-expr "8 / (3 * x^2)")))))
+        (should (math-zerop (math-simplify diff)))))))
+
+(ert-deftest test-my/calc-collect-fractions-frac-over-binomial-power ()
+  "8:3 / (x+1)^2 -> 8 / (3 (x+1)^2): denom absorbs fraction denominator."
+  (with-temp-buffer
+    (calc-mode)
+    (let* ((result (my-calc-collect-fractions-tests--run "8:3 / (x + 1)^2")))
+      (should (eq (car-safe result) '/))
+      (should (equal (nth 1 result) 8))
+      (let ((diff (math-normalize
+                   (list '- result (math-read-expr "8 / (3 * (x + 1)^2)")))))
+        (should (math-zerop (math-simplify diff)))))))
+
 (provide 'my-calc-collect-fractions-tests)

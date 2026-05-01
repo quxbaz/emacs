@@ -67,16 +67,28 @@ Applies the following rules:
        (denom (term)
          (if (memq (car-safe term) '(/ frac)) (nth 2 term) 1)))
     (calc-wrapper
-     (let* ((ts  (terms (calc-top-n 1)))
-            (lcd (cl-reduce #'calcFunc-lcm (mapcar #'denom ts) :initial-value 1))
-            (num (cl-reduce #'math-add
-                            (mapcar (lambda (term)
-                                      (math-mul (numer term)
-                                                (math-div lcd (denom term))))
-                                    ts)
-                            :initial-value 0)))
+     (let* ((top (calc-top-n 1)))
        (let ((calc-simplify-mode 'none))
-         (calc-enter-result 1 "cltf" (calc-normalize (list '/ num lcd))))))))
+         (let* ((result
+                 (if (and (eq (car-safe top) '/)
+                          (eq (car-safe (nth 1 top)) 'frac))
+                     ;; (p:q) / expr  ->  p / (q * expr)
+                     (let* ((fr   (nth 1 top))
+                            (p    (nth 1 fr))
+                            (q    (nth 2 fr))
+                            (expr (nth 2 top)))
+                       (calc-normalize (list '/ p (math-mul q expr))))
+                   ;; Sum of fractions: collect over LCD
+                   (let* ((ts  (terms top))
+                          (lcd (cl-reduce #'calcFunc-lcm (mapcar #'denom ts) :initial-value 1))
+                          (num (cl-reduce #'math-add
+                                          (mapcar (lambda (term)
+                                                    (math-mul (numer term)
+                                                              (math-div lcd (denom term))))
+                                                  ts)
+                                          :initial-value 0)))
+                     (calc-normalize (list '/ num lcd))))))
+           (calc-enter-result 1 "cltf" result)))))))
 
 (defun my/calc-complete-the-square ()
   "Completes the square for quadratic expressions and equations.
