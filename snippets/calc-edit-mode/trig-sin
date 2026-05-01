@@ -2,4 +2,4 @@
 # key: si
 # expand-env: ((yas-indent-line nil))
 # --
-sin(${1:x})$0
+sin(${1:x})
