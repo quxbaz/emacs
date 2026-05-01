@@ -199,6 +199,17 @@ comparison/equation operators, commas, or BOL."
     (goto-char start) (skip-chars-forward " \t") (insert "("))
   (forward-char 1))
 
+(defun my/calc-edit-escape-parens ()
+  "Move point to just after the closing delimiter of the innermost enclosing group.
+Repeated invocations escape nested groups one level at a time."
+  (interactive)
+  (let ((open (nth 1 (syntax-ppss))))
+    (when open
+      (let ((pos (point)))
+        (condition-case nil
+            (progn (goto-char open) (forward-sexp))
+          (scan-error (goto-char pos)))))))
+
 (defun my/calc-edit-wrap-parens ()
   "Wrap the preceding expression (or active region) with parentheses.
 Invoked with cursor just after `)', expands the wrapped region instead."
@@ -260,7 +271,7 @@ Point is moved to the corresponding position within the duplicate."
 (defvar-local my/calc-edit-tab-rhs nil
   "Saved RHS position for TAB toggling.")
 
-(defun my/calc-edit-tab ()
+(defun my/calc-edit-jump-sides ()
   "Toggle between LHS and RHS of an equation, or insert ' = ' if line has none.
 Defers to yasnippet when active."
   (interactive)
