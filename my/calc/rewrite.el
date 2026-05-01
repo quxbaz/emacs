@@ -52,7 +52,8 @@ Applies the following rules:
      (calc-rewrite (s-join "," rules) 1))))
 
 (defun my/calc-collect-fractions ()
-  "Collect additive terms into a single fraction over their LCD."
+  "Collect additive terms into a single fraction over their LCD.
+Works on the active selection or the top stack entry."
   (interactive)
   (cl-labels
       ((terms (expr)
@@ -65,30 +66,25 @@ Applies the following rules:
        (numer (term)
          (if (memq (car-safe term) '(/ frac)) (nth 1 term) term))
        (denom (term)
-         (if (memq (car-safe term) '(/ frac)) (nth 2 term) 1)))
-    (calc-wrapper
-     (let* ((top (calc-top-n 1)))
-       (let ((calc-simplify-mode 'none))
-         (let* ((result
-                 (if (and (eq (car-safe top) '/)
-                          (eq (car-safe (nth 1 top)) 'frac))
-                     ;; (p:q) / expr  ->  p / (q * expr)
-                     (let* ((fr   (nth 1 top))
-                            (p    (nth 1 fr))
-                            (q    (nth 2 fr))
-                            (expr (nth 2 top)))
-                       (calc-normalize (list '/ p (math-mul q expr))))
-                   ;; Sum of fractions: collect over LCD
-                   (let* ((ts  (terms top))
-                          (lcd (cl-reduce #'calcFunc-lcm (mapcar #'denom ts) :initial-value 1))
-                          (num (cl-reduce #'math-add
-                                          (mapcar (lambda (term)
-                                                    (math-mul (numer term)
-                                                              (math-div lcd (denom term))))
-                                                  ts)
-                                          :initial-value 0)))
-                     (calc-normalize (list '/ num lcd))))))
-           (calc-enter-result 1 "cltf" result)))))))
+         (if (memq (car-safe term) '(/ frac)) (nth 2 term) 1))
+       (transform (expr)
+         (if (and (eq (car-safe expr) '/)
+                  (eq (car-safe (nth 1 expr)) 'frac))
+             (let* ((fr (nth 1 expr)) (p (nth 1 fr)) (q (nth 2 fr)) (e (nth 2 expr)))
+               (calc-normalize (list '/ p (math-mul q e))))
+           (let* ((ts  (terms expr))
+                  (lcd (cl-reduce #'calcFunc-lcm (mapcar #'denom ts) :initial-value 1))
+                  (num (cl-reduce #'math-add
+                                  (mapcar (lambda (term)
+                                            (math-mul (numer term)
+                                                      (math-div lcd (denom term))))
+                                          ts)
+                                  :initial-value 0)))
+             (calc-normalize (list '/ num lcd))))))
+    (my/calc-apply-sel-or-top (expr replace-expr) ((prefix "cltf"))
+      (calc-wrapper
+       (my/calc-without-simplification
+        (replace-expr (transform expr)))))))
 
 (defun my/calc-complete-the-square ()
   "Completes the square for quadratic expressions and equations.

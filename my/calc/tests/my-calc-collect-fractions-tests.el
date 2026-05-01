@@ -8,6 +8,7 @@
 (require 'calc-ext)
 (require 'cl-lib)
 
+(load-file (expand-file-name "my/calc/lib.el" user-emacs-directory))
 (load-file (expand-file-name "my/calc/rewrite.el" user-emacs-directory))
 
 (defun my-calc-collect-fractions-tests--run (input-str)
@@ -89,6 +90,26 @@
       (should (equal (nth 1 result) 8))
       (let ((diff (math-normalize
                    (list '- result (math-read-expr "8 / (3 * (x + 1)^2)")))))
+        (should (math-zerop (math-simplify diff)))))))
+
+;;; Selection (expected failure — command ignores active selection)
+
+(ert-deftest test-my/calc-collect-fractions-respects-selection ()
+  "my/calc-collect-fractions should operate only on the selected sub-expression.
+With (x/2 + y/3) + 1 on the stack and x/2 + y/3 selected, the result
+should be (3x + 2y)/6 + 1.  Currently the whole entry is transformed instead."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (let* ((full-expr (math-read-expr "(x/2 + y/3) + 1"))
+           (sel-expr  (nth 1 full-expr)))   ; must be eq to the sub-expr in the entry
+      (calc-push full-expr)
+      (setf (nth 2 (nth 1 calc-stack)) sel-expr)
+      (setq calc-use-selections t)
+      (my/calc-collect-fractions)
+      (let* ((result (car (nth 1 calc-stack)))
+             (diff   (math-normalize
+                      (list '- result (math-read-expr "(3*x + 2*y)/6 + 1")))))
         (should (math-zerop (math-simplify diff)))))))
 
 (provide 'my-calc-collect-fractions-tests)
