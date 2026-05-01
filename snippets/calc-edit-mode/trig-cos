@@ -2,4 +2,4 @@
 # key: co
 # expand-env: ((yas-indent-line nil))
 # --
-cos(${1:x})$0
+cos(${1:x})
