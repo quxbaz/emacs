@@ -93,5 +93,4 @@
 ;;; Finance
 (setq var-eq-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (+ (cplx 1 0) (/ (var r var-r) (var n var-n))) (* (var n var-n) (var t var-t))))))
 (setq var-eq-continous-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var e var-e) (* (var r var-r) (var t var-t))))))
-(setq var-eq-simple-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (var r var-r) (var t var-t)))))
-
+(setq var-eq-simple-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (+ (cplx 1 0) (var r var-r)) (var t var-t)))))
