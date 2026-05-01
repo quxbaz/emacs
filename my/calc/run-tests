@@ -67,7 +67,7 @@ else
   len=$(( ${#line_passed} > ${#line_failed} ? ${#line_passed} : ${#line_failed} ))
   border=$(printf '%*s' $(( len + 4 )) | tr ' ' '*')
   echo -e "${RED}${border}${RESET}"
-  printf "${GREEN}* %-${len}s *${RESET}\n" "$line_passed"
+  printf "${RED}*${RESET} ${GREEN}%-${len}s${RESET} ${RED}*${RESET}\n" "$line_passed"
   printf "${RED}* %-${len}s *${RESET}\n" "$line_failed"
   echo -e "${RED}${border}${RESET}"
 fi
