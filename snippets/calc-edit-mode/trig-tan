@@ -2,4 +2,4 @@
 # key: tn
 # expand-env: ((yas-indent-line nil))
 # --
-tan(${1:x})$0
+tan(${1:x})
