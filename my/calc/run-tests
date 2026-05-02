@@ -57,17 +57,19 @@ RESET="\033[0m"
 grand_failed=$(( grand_total - grand_passed ))
 if [[ "$grand_passed" == "$grand_total" ]]; then
   line="$grand_passed/$grand_total TESTS PASSED"
-  border=$(printf '%*s' $(( ${#line} + 4 )) | tr ' ' '*')
-  echo -e "${GREEN}${border}${RESET}"
-  echo -e "${GREEN}* ${line} *${RESET}"
-  echo -e "${GREEN}${border}${RESET}"
+  inner=$(( ${#line} + 2 ))
+  hrule=$(printf '─%.0s' $(seq 1 $inner))
+  echo -e "${GREEN}┌${hrule}┐${RESET}"
+  echo -e "${GREEN}│ ${line} │${RESET}"
+  echo -e "${GREEN}└${hrule}┘${RESET}"
 else
   line_passed="$grand_passed/$grand_total TESTS PASSED"
   line_failed="$grand_failed/$grand_total TESTS FAILED"
   len=$(( ${#line_passed} > ${#line_failed} ? ${#line_passed} : ${#line_failed} ))
-  border=$(printf '%*s' $(( len + 4 )) | tr ' ' '*')
-  echo -e "${RED}${border}${RESET}"
-  printf "${RED}*${RESET} ${GREEN}%-${len}s${RESET} ${RED}*${RESET}\n" "$line_passed"
-  printf "${RED}* %-${len}s *${RESET}\n" "$line_failed"
-  echo -e "${RED}${border}${RESET}"
+  inner=$(( len + 2 ))
+  hrule=$(printf '─%.0s' $(seq 1 $inner))
+  echo -e "${RED}┌${hrule}┐${RESET}"
+  printf "${RED}│${RESET} ${GREEN}%-${len}s${RESET} ${RED}│${RESET}\n" "$line_passed"
+  printf "${RED}│ %-${len}s │${RESET}\n" "$line_failed"
+  echo -e "${RED}└${hrule}┘${RESET}"
 fi
