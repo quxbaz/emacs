@@ -77,7 +77,7 @@ are active."
 Provides a unified interface for calc operations that work on either a selected
 sub-expression or a stack entry, automatically handling both cases.
 
-BINDINGS is a list of up to 3 symbols to bind in BODY:
+BINDINGS is a list of 3 symbols that are bound in BODY:
 
     (EXPR REPLACE-EXPR SEL-IS-ACTIVE)
 
