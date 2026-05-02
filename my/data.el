@@ -9,6 +9,7 @@
                           "~/.stumpwm.d/setup.lisp"
                           "~/personal/automotive.org"
                           "~/personal/bookmarks.org"
+                          "~/personal/calc.org"
                           "~/personal/diary"
                           "~/personal/dogs.org"
                           "~/personal/food.org"
