@@ -114,6 +114,11 @@ EXAMPLES
   ;;   ((a 1) (b 2)) -> ((a . 1) (b . 2))
   (setq options (mapcar (lambda (pair) (cons (car pair) (cadr pair))) options))
   (let (;; BINDING PARAMS
+        ;;
+        ;; These are bound at macro-time to the symbol names passed in BINDINGS.
+        ;; At runtime, those symbols are bound to values that depend on whether
+        ;; a calc selection is active.
+        ;;
         ;; Bound to the target expression. This is either the selection or stack
         ;; formula depending on if a selection is active.
         (sym-expr (or (nth 0 bindings) (gensym)))
