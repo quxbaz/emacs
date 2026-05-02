@@ -93,7 +93,17 @@ OPTIONS is an alist of (SYMBOL VALUE) pairs:
 
 EXAMPLE
 
-    ;; Takes the square root of either the ACTIVE SELECTION or SECOND STACK ENTRY (m 2).
+    ;; Takes the absolute value of either the ACTIVE SELECTION or TOP STACK ENTRY.
+    (my/calc-apply-sel-or-top (expr replace-expr) ()
+      (replace-expr (calcFunc-abs expr)))
+
+    ;; Same as previous example, but following proper convention.
+    (my/calc-apply-sel-or-top (expr replace-expr) ((prefix \"abs\"))
+      (let ((result (calcFunc-abs expr)))
+        (calc-wrapper
+         (replace-expr result))))
+
+    ;; Takes the square root of either the ACTIVE SELECTION or SECOND STACK ENTRY (m=2).
     (my/calc-apply-sel-or-top (expr replace-expr) ((m 2) (prefix \"sqrt\"))
       (let ((result (calcFunc-sqrt expr)))
         (calc-wrapper
