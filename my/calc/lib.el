@@ -115,9 +115,9 @@ EXAMPLES
   (setq options (mapcar (lambda (pair) (cons (car pair) (cadr pair))) options))
   (let (;; BINDING PARAMS
         ;;
-        ;; These are bound at macro-time to the symbol names passed in BINDINGS.
-        ;; At runtime, those symbols are bound to values that depend on whether
-        ;; a calc selection is active.
+        ;; These are bound at macro-time to the symbols passed in BINDINGS
+        ;; (expr replace-expr sel-is-active). At runtime, these symbols are
+        ;; assigned to context-aware values depending on whether a calc selection.
         ;;
         ;; Bound to the target expression. This is either the selection or stack
         ;; formula depending on if a selection is active.
