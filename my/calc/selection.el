@@ -79,16 +79,59 @@
          (call-interactively 'calc-sel-negate)
        (call-interactively 'calc-unselect)))))
 
+(defun my/calc--subst-node (tree old new)
+  "Replace OLD (by identity) with NEW anywhere in TREE."
+  (cond
+   ((eq tree old) new)
+   ((or (atom tree) (Math-primp tree)) tree)
+   (t (cons (car tree)
+            (mapcar (lambda (x) (my/calc--subst-node x old new))
+                    (cdr tree))))))
+
+(defun my/calc--patch-undo-pop (orig-expr)
+  "In the most recent undo group, replace the expression in the first `pop'
+record with ORIG-EXPR.  Used to fix the undo after temporarily substituting
+a frac node with a division node in the stack."
+  (catch 'done
+    (dolist (rec (car calc-undo-list))
+      (when (and (eq (car-safe rec) 'pop) (nth 2 rec))
+        (setcar (nth 2 rec) orig-expr)
+        (throw 'done t)))))
+
 (defun my/calc-sel-distribute ()
-  "Like calc-sel-distribute, but unselects afterwards and runs without simplification."
+  "Like calc-sel-distribute, but unselects afterwards and runs without simplification.
+For a selected rational fraction (frac n d), temporarily replaces it with a
+division node (/ n d) in the stack so the standard DistribRule for a/b fires.
+Under no-simplify mode (/ n d) is not collapsed back to frac before matching."
   (interactive)
-  (my/calc-without-simplification
-    (if (my/calc-active-selection-p)
-        (call-interactively 'calc-sel-distribute)
-      (my/preserve-point
-       (unwind-protect
-           (call-interactively 'calc-sel-distribute)
-         (call-interactively 'calc-unselect))))))
+  (let* ((entry (calc-top 1 'entry))
+         (sel (and calc-use-selections (calc-auto-selection entry))))
+    (if (eq (car-safe sel) 'frac)
+        (let* ((n (nth 1 sel))
+               (d (nth 2 sel))
+               (div-node (list '/ n d))
+               (had-explicit-sel (nth 2 entry))
+               (orig-expr (car entry))
+               (new-full (my/calc--subst-node (car entry) sel div-node))
+               (undo-before calc-undo-list))
+          (setcar entry new-full)
+          (setf (nth 2 entry) div-node)
+          (my/calc-without-simplification
+            (if had-explicit-sel
+                (call-interactively 'calc-sel-distribute)
+              (my/preserve-point
+               (unwind-protect
+                   (call-interactively 'calc-sel-distribute)
+                 (call-interactively 'calc-unselect)))))
+          (when (not (eq calc-undo-list undo-before))
+            (my/calc--patch-undo-pop orig-expr)))
+      (my/calc-without-simplification
+        (if (my/calc-active-selection-p)
+            (call-interactively 'calc-sel-distribute)
+          (my/preserve-point
+           (unwind-protect
+               (call-interactively 'calc-sel-distribute)
+             (call-interactively 'calc-unselect))))))))
 
 (defun my/calc-sel-merge ()
   "Like calc-sel-merge, but unselects afterwards."

@@ -21,6 +21,18 @@
     (my/calc-sel-distribute)
     (car (nth 1 calc-stack))))
 
+(defun my-calc-distrib-frac-tests--run-then-undo (input-str sel-nav-fn)
+  "Push INPUT-STR, select via SEL-NAV-FN, run calc-sel-distribute, undo, return top."
+  (calc-reset 0)
+  (let* ((full-expr (math-read-expr input-str))
+         (sel-expr  (funcall sel-nav-fn full-expr)))
+    (calc-push full-expr)
+    (setf (nth 2 (nth 1 calc-stack)) sel-expr)
+    (setq calc-use-selections t)
+    (my/calc-sel-distribute)
+    (calc-undo 1)
+    (car (nth 1 calc-stack))))
+
 ;;; ln tests
 
 (ert-deftest test-my/calc-distrib-frac-ln-3:2 ()
@@ -70,6 +82,17 @@
            (diff (math-normalize
                   (list '- result (math-read-expr "log(3,2) - log(2,2)")))))
       (should (math-zerop (math-simplify diff))))))
+
+;;; Undo tests
+
+(ert-deftest test-my/calc-distrib-frac-undo-restores-frac ()
+  "Undo after distributing ln(3:2) restores the frac form, not a division node."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-distrib-frac-tests--run-then-undo
+                   "ln(3:2)"
+                   (lambda (e) (nth 1 e)))))
+      (should (equal result (math-read-expr "ln(3:2)"))))))
 
 ;;; Regression: existing ln(a/b) still works
 
