@@ -28,7 +28,7 @@ below it; stack entries return 1 or higher."
 
 (defun my/calc-no-selection-p ()
   "Returns t if there are no active selections."
-  (not (my/calc-no-selection-p)))
+  (not (my/calc-active-selection-p)))
 
 (defun my/calc-active-selection-p ()
   "Returns t if there are any active selections."
