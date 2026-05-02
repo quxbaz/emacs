@@ -53,9 +53,18 @@ Applies the following rules:
 
 (defun my/calc-collect-fractions ()
   "Collect additive terms into a single fraction over their LCD.
-Works on the active selection or the top stack entry."
+Works on the active selection or the top stack entry.
+
+Two distinct behaviors depending on the expression shape:
+- Sum/difference of fractions: combines all additive terms over their LCD.
+    e.g. a/2 + b/3  =>  (3a + 2b) / 6
+- Calc-internal (frac p q) / e: flattens the stacked division into a single one.
+    e.g. (3/4) / x  =>  3 / (4*x)
+  This arises when Calc represents an integer-ratio literal divided by something."
   (interactive)
   (cl-labels
+      ;; Flatten a sum/difference tree into a list of signed terms.
+      ;; Subtracted sub-expressions are negated so all terms carry their sign.
       ((terms (expr)
          (cond ((eq (car-safe expr) '+)
                 (append (terms (nth 1 expr)) (terms (nth 2 expr))))
@@ -63,20 +72,31 @@ Works on the active selection or the top stack entry."
                 (append (terms (nth 1 expr))
                         (mapcar #'math-neg (terms (nth 2 expr)))))
                (t (list expr))))
+       ;; Calc sometimes wraps integer parts of a rational inside a `cplx'
+       ;; node; unwrap it so GCD and LCM operate on plain integers.
        (to-int (x)
          (if (eq (car-safe x) 'cplx) (nth 1 x) x))
+       ;; Return the numerator of a term.  Non-fraction terms are their own numerator.
        (numer (term)
          (if (memq (car-safe term) '(/ frac)) (nth 1 term) term))
+       ;; Return the denominator of a term as a plain integer.
+       ;; Non-fraction terms have an implicit denominator of 1.
        (denom (term)
          (to-int (if (memq (car-safe term) '(/ frac)) (nth 2 term) 1)))
        (my-lcm (a b)
          (let ((g (math-gcd a b)))
            (math-mul (math-div a g) b)))
        (transform (expr)
+         ;; Special case: Calc stores literal rationals as `(frac p q)'.
+         ;; When such a node appears as the numerator of a division — e.g.
+         ;; `(/ (frac 3 4) x)' for "(3/4)/x" — flatten it to `(/ p (* q e))'.
          (if (and (eq (car-safe expr) '/)
                   (eq (car-safe (nth 1 expr)) 'frac))
              (let* ((fr (nth 1 expr)) (p (nth 1 fr)) (q (nth 2 fr)) (e (nth 2 expr)))
                (calc-normalize (list '/ p (math-mul q e))))
+           ;; General case: collect all additive terms over their LCD.
+           ;; Each term is rescaled by (lcd / its-own-denom) so the
+           ;; denominators cancel and the result is a single fraction.
            (let* ((ts  (terms expr))
                   (lcd (cl-reduce #'my-lcm (mapcar #'denom ts) :initial-value 1))
                   (num (cl-reduce #'math-add
