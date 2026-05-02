@@ -80,7 +80,7 @@
 (setq var-eq-sum-of-cubes-identity '(calcFunc-eq (+ (^ (var a var-a) 3) (^ (var b var-b) 3)) (* (+ (var a var-a) (var b var-b)) (+ (- (^ (var a var-a) 2) (* (var a var-a) (var b var-b))) (^ (var b var-b) 2)))))
 (setq var-eq-difference-of-cubes-identity '(calcFunc-eq (- (^ (var a var-a) 3) (^ (var b var-b) 3)) (* (- (var a var-a) (var b var-b)) (+ (+ (^ (var a var-a) 2) (* (var a var-a) (var b var-b))) (^ (var b var-b) 2)))))
 (setq var-eq-log-change-of-base-formula '(calcFunc-eq (calcFunc-log (var x var-x) (var b var-b)) (/ (calcFunc-log (var x var-x) (var k var-k)) (calcFunc-log (var b var-b) (var k var-k)))))
-(setq var-eq-standard-equation-of-reciprocal-function '(calcFunc-eq (var y var-y) (+ (/ (var a var-a) (- (var x var-x) (var h var-h))) (var k var-k))))
+(setq var-eq-standard-form-of-reciprocal-function '(calcFunc-eq (var y var-y) (+ (/ (var a var-a) (- (var x var-x) (var h var-h))) (var k var-k))))
 (setq var-eq-exponential-growth '(calcFunc-eq (calcFunc-f (var x var-x)) (* (var a var-a) (^ (var b var-b) (var x var-x)))))
 (setq var-eq-binomial-sign-flip-rule '(calcFunc-eq (^ (- (var k var-k) (var x var-x)) 2) (^ (- (var x var-x) (var k var-k)) 2)))
 
