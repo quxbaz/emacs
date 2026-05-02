@@ -150,4 +150,28 @@
       ;; Should still work, just can't reference the values
       (should (equal (car (nth 1 calc-stack)) 42)))))
 
+;;; Selection tests
+
+(ert-deftest test-my/calc-factor-by-selection-in-equation ()
+  "Factor selected RHS of (y-2)^2 = -(4x)+16 by -4.
+Expected: (y-2)^2 = -4*(x-4)."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (let* ((full-expr (math-read-expr "(y-2)^2 = -(4*x) + 16"))
+           (sel-expr  (nth 2 full-expr)))   ; RHS: -(4x) + 16
+      (calc-push full-expr)
+      (setf (nth 2 (nth 1 calc-stack)) sel-expr)
+      (setq calc-use-selections t)
+      (calc-push (math-read-expr "-4"))
+      (my/calc-factor-by)
+      (let* ((result (car (nth 1 calc-stack)))
+             (lhs-diff (math-normalize
+                        (list '- (nth 1 result) (math-read-expr "(y-2)^2"))))
+             (rhs-diff (math-normalize
+                        (list '- (nth 2 result) (math-read-expr "-4*(x-4)")))))
+        (should (eq (car-safe result) 'calcFunc-eq))
+        (should (math-zerop (math-simplify lhs-diff)))
+        (should (math-zerop (math-simplify rhs-diff)))))))
+
 (provide 'factor-by-tests)

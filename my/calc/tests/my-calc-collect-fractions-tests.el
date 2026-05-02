@@ -92,12 +92,12 @@
                    (list '- result (math-read-expr "8 / (3 * (x + 1)^2)")))))
         (should (math-zerop (math-simplify diff)))))))
 
-;;; Selection (expected failure — command ignores active selection)
+;;; Selection tests
 
 (ert-deftest test-my/calc-collect-fractions-respects-selection ()
-  "my/calc-collect-fractions should operate only on the selected sub-expression.
+  "my/calc-collect-fractions operates only on the selected sub-expression.
 With (x/2 + y/3) + 1 on the stack and x/2 + y/3 selected, the result
-should be (3x + 2y)/6 + 1.  Currently the whole entry is transformed instead."
+should be (3x + 2y)/6 + 1."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
@@ -110,6 +110,25 @@ should be (3x + 2y)/6 + 1.  Currently the whole entry is transformed instead."
       (let* ((result (car (nth 1 calc-stack)))
              (diff   (math-normalize
                       (list '- result (math-read-expr "(3*x + 2*y)/6 + 1")))))
+        (should (math-zerop (math-simplify diff)))))))
+
+(ert-deftest test-my/calc-collect-fractions-selection-in-nested-expr ()
+  "With x = 2^(y/3 - 1:3) + 1 on stack and (y/3 - 1:3) selected,
+result should be x = 2^((y - 1)/3) + 1."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (let* ((full-expr (math-read-expr "x = 2^(y/3 - 1:3) + 1"))
+           ;; Navigate to the exponent: full-expr[2][1][2]
+           ;; calcFunc-eq[x, (+[^[2, -[y/3, 1:3]], 1])]
+           (sel-expr (nth 2 (nth 1 (nth 2 full-expr)))))
+      (calc-push full-expr)
+      (setf (nth 2 (nth 1 calc-stack)) sel-expr)
+      (setq calc-use-selections t)
+      (my/calc-collect-fractions)
+      (let* ((result (car (nth 1 calc-stack)))
+             (diff   (math-normalize
+                      (list '- result (math-read-expr "x = 2^((y - 1)/3) + 1")))))
         (should (math-zerop (math-simplify diff)))))))
 
 (provide 'my-calc-collect-fractions-tests)
