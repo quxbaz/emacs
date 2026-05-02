@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 ;;
-;; Tests for my/calc-cath
+;; Tests for my/calc-cath and my/calc-unit-cath
 
 (require 'ert)
 (require 'calc)
@@ -63,5 +63,46 @@
     (should (= (calc-stack-size) 2))
     (should (equal (math-format-value (car (nth 1 calc-stack)))
                    (math-format-value (math-read-expr "4"))))))
+
+
+;;; my/calc-unit-cath
+
+(defmacro calc-unit-cath-test (leg expected)
+  `(with-temp-buffer
+     (calc-mode)
+     (calc-reset 0)
+     (setq calc-symbolic-mode t calc-prefer-frac t)
+     (calc-push (math-read-expr ,leg))
+     (my/calc-unit-cath)
+     (should (equal (math-format-value (car (nth 1 calc-stack)))
+                    (math-format-value (math-read-expr ,expected))))))
+
+(ert-deftest test-my/calc-unit-cath-3:5 ()
+  "unit-cath(3/5) = 4/5."
+  (calc-unit-cath-test "3:5" "4:5"))
+
+(ert-deftest test-my/calc-unit-cath-0 ()
+  "unit-cath(0) = 1."
+  (calc-unit-cath-test "0" "1"))
+
+(ert-deftest test-my/calc-unit-cath-1 ()
+  "unit-cath(1) = 0."
+  (calc-unit-cath-test "1" "0"))
+
+(ert-deftest test-my/calc-unit-cath-half-sqrt3:2 ()
+  "unit-cath(1/2) = sqrt(3)/2."
+  (calc-unit-cath-test "1:2" "sqrt(3)/2"))
+
+(ert-deftest test-my/calc-unit-cath-pops-1 ()
+  "Pops exactly 1 item; leaves prior stack items intact."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "99"))
+    (calc-push (math-read-expr "3:5"))
+    (my/calc-unit-cath)
+    (should (= (calc-stack-size) 2))
+    (should (equal (math-format-value (car (nth 1 calc-stack)))
+                   (math-format-value (math-read-expr "4:5"))))))
 
 (provide 'my-calc-cath-tests)

@@ -568,6 +568,15 @@ calcFunc-sqrt can either simplify it (perfect square) or return sqrt(n) symbolic
             (result (calcFunc-sqrt (calcFunc-sub (calcFunc-pow hyp 2) (calcFunc-pow leg 2)))))
        (calc-enter-result 2 "cath" result)))))
 
+(defun my/calc-unit-cath ()
+  "Like my/calc-cath but assumes hypotenuse=1 (unit circle): pops leg (level 1), returns √(1-a²)."
+  (interactive)
+  (save-excursion
+    (calc-wrapper
+     (let* ((leg (calc-top-n 1))
+            (result (calcFunc-sqrt (calcFunc-sub 1 (calcFunc-pow leg 2)))))
+       (calc-enter-result 1 "ucth" result)))))
+
 (defun my/calc-substitute (oldname)
   "Like calc-substitute, but the new-name prompt starts empty."
   (interactive "sSubstitute old: ")
