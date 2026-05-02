@@ -1,0 +1,5 @@
+# name: common-log
+# key: cl
+# expand-env: ((yas-indent-line nil))
+# --
+log10($1)
