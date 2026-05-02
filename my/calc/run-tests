@@ -15,7 +15,7 @@ EMACS_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 TESTS_DIR="$(dirname "$0")/tests"
 
 if [[ $# -gt 0 ]]; then
-  files=("$TESTS_DIR/$1")
+  files=("$TESTS_DIR/$(basename "$1")")
 else
   files=("$TESTS_DIR"/*.el)
 fi
