@@ -131,4 +131,21 @@ result should be x = 2^((y - 1)/3) + 1."
                       (list '- result (math-read-expr "x = 2^((y - 1)/3) + 1")))))
         (should (math-zerop (math-simplify diff)))))))
 
+(ert-deftest test-my/calc-collect-fractions-selection-exponent ()
+  "With 2^(y/3 - 1:3) on stack and (y/3 - 1:3) selected,
+result should be 2^((y - 1)/3)."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (let* ((full-expr (math-read-expr "2^(y/3 - 1:3)"))
+           (sel-expr  (nth 2 full-expr)))   ; the exponent: y/3 - 1:3
+      (calc-push full-expr)
+      (setf (nth 2 (nth 1 calc-stack)) sel-expr)
+      (setq calc-use-selections t)
+      (my/calc-collect-fractions)
+      (let* ((result (car (nth 1 calc-stack)))
+             (diff   (math-normalize
+                      (list '- result (math-read-expr "2^((y - 1)/3)")))))
+        (should (math-zerop (math-simplify diff)))))))
+
 (provide 'my-calc-collect-fractions-tests)
