@@ -902,6 +902,7 @@ With one variable, solves automatically. With multiple, prompts for the variable
   (advice-add 'math-normalize :filter-return
     (lambda (result)
       (if (and (not my/calc--sorting-poly)
+               (not (eq calc-simplify-mode 'none))
                (memq (car-safe result) '(+ -)))
           (let ((my/calc--sorting-poly t))
             (my/calc-poly-sort-sum result))
