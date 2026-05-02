@@ -559,20 +559,14 @@ calcFunc-sqrt can either simplify it (perfect square) or return sqrt(n) symbolic
       result)))
 
 (defun my/calc-cath ()
-  "Compute a leg of a right triangle given the hypotenuse and the other leg.
-If stack has >= 2 items: pops leg (level 1) and hypotenuse (level 2), returns √(h²-a²).
-If stack has 1 item: pops leg (level 1), assumes hypotenuse = 1 (unit circle), returns √(1-a²)."
+  "Compute a leg of a right triangle: pops leg (level 1) and hypotenuse (level 2), returns √(h²-a²)."
   (interactive)
   (save-excursion
     (calc-wrapper
-     (if (= (calc-stack-size) 1)
-         (let* ((leg (calc-top-n 1))
-                (result (calcFunc-sqrt (calcFunc-sub 1 (calcFunc-pow leg 2)))))
-           (calc-enter-result 1 "cath" result))
-       (let* ((leg (calc-top-n 1))
-              (hyp (calc-top-n 2))
-              (result (calcFunc-sqrt (calcFunc-sub (calcFunc-pow hyp 2) (calcFunc-pow leg 2)))))
-         (calc-enter-result 2 "cath" result))))))
+     (let* ((leg (calc-top-n 1))
+            (hyp (calc-top-n 2))
+            (result (calcFunc-sqrt (calcFunc-sub (calcFunc-pow hyp 2) (calcFunc-pow leg 2)))))
+       (calc-enter-result 2 "cath" result)))))
 
 (defun my/calc-substitute (oldname)
   "Like calc-substitute, but the new-name prompt starts empty."
