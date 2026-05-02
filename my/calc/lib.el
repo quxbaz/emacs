@@ -91,7 +91,7 @@ OPTIONS is an alist of (SYMBOL VALUE) pairs:
     (prefix STRING)      Calc trail prefix (default: \"\")
     (keep-point BOOL)    Preserve point unless set to -1 (default: t)
 
-EXAMPLE
+EXAMPLES
 
     ;; Takes the absolute value of either the ACTIVE SELECTION or TOP STACK ENTRY.
     (my/calc-apply-sel-or-top (expr replace-expr) ()
