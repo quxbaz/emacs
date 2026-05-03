@@ -353,13 +353,36 @@ Also converts f(2) = 0 to [2 0]."
             (calc-push (list 'var var-name var-symbol)))))
       (message "Invalid character. Must be a-z or A-Z."))))
 
+(defun my/calc--identify-sqrt (expr)
+  "Try to express EXPR as sqrt(n) for an integer n.
+Squares EXPR, rounds to the nearest integer, and returns the unevaluated
+form (calcFunc-sqrt n).  Signals an error if the candidate doesn't
+round-trip within 1e-6."
+  (let* ((calc-symbolic-mode nil)
+         (squared   (math-evaluate-expr (list 'calcFunc-sqr expr)))
+         (rounded   (calcFunc-round squared))
+         (candidate (math-evaluate-expr (list 'calcFunc-sqrt rounded)))
+         (diff      (math-abs (math-sub candidate (math-evaluate-expr expr)))))
+    (if (math-lessp diff '(float 1 -6))
+        (list 'calcFunc-sqrt rounded)
+      (error "Cannot identify %s as a square root (residual %s)"
+             (math-format-value expr) (math-format-value diff)))))
+
 (defun my/calc-evaluate (n)
-  "Like calc-evaluate, but disables symbolic mode during evaluation."
+  "Evaluate the target expression with symbolic mode disabled.
+With inverse (I k k): identify the expression as sqrt(n) for integer n,
+keeping the result in symbolic form.
+Works contextually: operates on selection, sub-formula at point,
+or stack entry at level N (default 1)."
   (interactive "p")
-  (unwind-protect
-      (let ((calc-symbolic-mode nil))
-        (calc-evaluate n))
-    (calc-set-mode-line)))
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "eval") (m n))
+    (unwind-protect
+        (if (calc-is-inverse)
+            (let ((calc-symbolic-mode t))
+              (replace-expr (my/calc--identify-sqrt expr)))
+          (let ((calc-symbolic-mode nil))
+            (replace-expr (math-evaluate-expr expr))))
+      (calc-set-mode-line))))
 
 (defun my/calc-recall-quick ()
   "Like calc-recall-quick, but don't simplify."
