@@ -189,19 +189,43 @@ EXAMPLES
              (keep-args calc-keep-args-flag)
              (saved-point (point)))  ;; Restore point later if `opt-keep-point` is true.
          (prog1 ;; Return value from `body`.
-             (cond (,sym-sel-is-active
-                    (let* ((m (my/calc-active-entry-m-dwim))
-                           (entry (nth m calc-stack))
-                           (,sym-expr (nth 2 entry)))
-                      (cl-flet ((,sym-replace-expr (new-expr)
-                                  (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
-                                    (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
-                        ,@wrapped-body)))
-                   (t
-                    (let ((,sym-expr (calc-top-n ,opt-m)))
-                      (cl-flet ((,sym-replace-expr (new-expr)
-                                  (calc-pop-push-record-list 1 ,opt-prefix new-expr (if keep-args 1 ,opt-m))))
-                        ,@wrapped-body))))
+             (cond
+              ;; Selection is active. Operate on active selection.
+              (,sym-sel-is-active
+               (let* ((m (my/calc-active-entry-m-dwim))
+                      (entry (nth m calc-stack))
+                      (,sym-expr (nth 2 entry)))
+                 (cl-flet ((,sym-replace-expr (new-expr)
+                             (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
+                               (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
+                   ,@wrapped-body)))
+              ;; Point is at the end of a stack entry line. Operate on the
+              ;; entire stack entry.
+              ((my/calc-point-is-at-entry-end-p)
+               (let* ((m (calc-locate-cursor-element (point)))
+                      (entry (nth m calc-stack))
+                      (,sym-expr (car (calc-top m 'entry)))
+                      ;; (,sym-expr (calc-top-n m))
+                      )
+                 (cl-flet ((,sym-replace-expr (new-expr)
+                             (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
+                               (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
+                   ,@wrapped-body)))
+              ;; Point is on a sub-formula. Operate on the sub-formula.
+              ((not (my/calc-point-is-at-home-p))
+               (let* ((m (calc-locate-cursor-element (point)))
+                      (entry (nth m calc-stack))
+                      (,sym-expr (my/calc-subformula-at-point)))
+                 (cl-flet ((,sym-replace-expr (new-expr)
+                             (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
+                               (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
+                   ,@wrapped-body)))
+              ;; Point is at "home" position. Operate on top stack item.
+              (t
+               (let ((,sym-expr (car (calc-top ,opt-m 'entry))))
+                 (cl-flet ((,sym-replace-expr (new-expr)
+                             (calc-pop-push-record-list 1 ,opt-prefix new-expr (if keep-args 1 ,opt-m))))
+                   ,@wrapped-body))))
            ;; POINT BEHAVIOR:
            ;; 1. If calc selection is active, always preserve point.
            ;; 2. if keep-args is active, always reset point.
