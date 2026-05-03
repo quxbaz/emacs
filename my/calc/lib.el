@@ -96,7 +96,7 @@ beginning from the top of the stack, or nil if there are no active selections."
            return i))
 
 (defun my/calc-active-entry-m-dwim ()
-  "Return stack POSITION of active selection at point, or topmost selection.
+  "Return stack POSITION of active selection at point, or top-most selection.
 
 Returns the stack position (m) of the active selection at the current
 line. If no selection exists at point, returns the position of the first
