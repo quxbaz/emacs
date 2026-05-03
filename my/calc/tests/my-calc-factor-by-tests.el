@@ -211,6 +211,28 @@ Expected: (y-2)^2 = -4*(x-4)."
         (should (math-zerop (math-simplify lhs-diff)))
         (should (math-zerop (math-simplify rhs-diff)))))))
 
+;;; pop-stack tests
+
+(ert-deftest test-my/calc-factor-by-equation-at-eol ()
+  "Factor both sides of x^2+2x = 4x+8 by (x+2): result is x*(x+2) = 4*(x+2).
+Verifies pop-stack=1 fires once — the factor is consumed and not left on the stack."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "x^2 + 2*x = 4*x + 8"))
+    (calc-push (math-read-expr "x + 2"))
+    (calc-cursor-stack-index 2)  ; point on the equation
+    (end-of-line)
+    (my/calc-factor-by)
+    ;; Only one item should remain (factor consumed)
+    (should (= (calc-stack-size) 1))
+    (let* ((result (car (nth 1 calc-stack)))
+           (lhs-diff (math-normalize (list '- (nth 1 result) (math-read-expr "x*(x+2)"))))
+           (rhs-diff (math-normalize (list '- (nth 2 result) (math-read-expr "4*(x+2)")))))
+      (should (eq (car-safe result) 'calcFunc-eq))
+      (should (math-zerop (math-simplify lhs-diff)))
+      (should (math-zerop (math-simplify rhs-diff))))))
+
 ;;; Equation-mapping tests (map? option)
 
 (ert-deftest test-my/calc-replace-expr-dwim-map-equation-at-eol ()

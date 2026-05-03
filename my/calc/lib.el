@@ -147,6 +147,8 @@ OPTIONS is an alist of (SYMBOL VALUE) pairs:
     (map? VAL)             t/nil = equation-aware at eol: map body over both
                            sides of =, !=, <, <=, >, >= (default: t),
                            -1  = old behavior: operate on whole entry at eol
+    (pop-stack N)          pop N extra items from the top after the operation
+                           (default: 0); fired once even in equation-map mode
 
 EXAMPLES
 
@@ -205,9 +207,13 @@ EXAMPLES
         (opt-simp (alist-get 'simp options nil))
         ;; Equation mapping. t/nil = map body over both sides of equations/inequalities
         ;; at eol; -1 = operate on whole entry (old behavior).
-        (opt-map (alist-get 'map? options t)))
-    (let* ((wrapped-body (if (eq opt-simp -1) `((my/calc-without-simplification ,@body)) body))
-           (wrapped-body (if opt-calc-wrapper `((calc-wrapper ,@wrapped-body)) wrapped-body))
+        (opt-map (alist-get 'map? options t))
+        ;; Extra items to pop from the top of the stack after the operation.
+        ;; Fired once even when body runs twice in equation-map mode.
+        (opt-pop-stack (alist-get 'pop-stack options 0)))
+    (let* ((inner-body (if (eq opt-simp -1) `((my/calc-without-simplification ,@body)) body))
+           (pop-forms (when (> opt-pop-stack 0) (list `(calc-pop-stack ,opt-pop-stack))))
+           (wrapped-body (if opt-calc-wrapper `((calc-wrapper ,@inner-body ,@pop-forms)) `(,@inner-body ,@pop-forms)))
            (body-for-map (if (eq opt-simp -1) `((my/calc-without-simplification ,@body)) body))
            (g-lhs (gensym "lhs"))
            (g-rhs (gensym "rhs")))
@@ -255,7 +261,8 @@ EXAMPLES
                                (let ((,sym-expr ,g-rhs))
                                  (cl-flet ((,sym-replace-expr (e) (setq ,g-rhs e)))
                                    ,@body-for-map))
-                               (calc-pop-push-record-list 1 ,opt-prefix (list rel-op ,g-lhs ,g-rhs) m)))
+                               (calc-pop-push-record-list 1 ,opt-prefix (list rel-op ,g-lhs ,g-rhs) m)
+                               ,@pop-forms))
                            (cl-flet ((,sym-replace-expr (new-expr)
                                        (let ((new-formula (calc-replace-sub-formula full-expr ,sym-expr new-expr)))
                                          (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
