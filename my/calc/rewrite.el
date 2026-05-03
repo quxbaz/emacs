@@ -107,9 +107,8 @@ Two distinct behaviors depending on the expression shape:
                                   :initial-value 0)))
              (calc-normalize (list '/ num lcd))))))
     (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "cltf"))
-      (calc-wrapper
-       (my/calc-without-simplification
-        (replace-expr (transform expr)))))))
+      (my/calc-without-simplification
+        (replace-expr (transform expr))))))
 
 (defun my/calc-complete-the-square ()
   "Completes the square for quadratic expressions and equations.

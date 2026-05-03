@@ -90,6 +90,7 @@ OPTIONS is an alist of (SYMBOL VALUE) pairs:
     (m N)                Stack level when no selection (default: 1)
     (prefix STRING)      Calc trail prefix (default: \"\")
     (keep-point BOOL)    Preserve point unless set to -1 (default: t)
+    (calc-wrapper BOOL)  Wrap body in calc-wrapper (default: t)
 
 EXAMPLES
 
@@ -97,17 +98,21 @@ EXAMPLES
     (my/calc-replace-expr-dwim (expr replace-expr) ()
       (replace-expr (calcFunc-abs expr)))
 
-    ;; Same as previous example, but following proper convention.
+    ;; Same as previous example (calc-wrapper wraps body by default).
     (my/calc-replace-expr-dwim (expr replace-expr) ((prefix \"abs\"))
       (let ((result (calcFunc-abs expr)))
-        (calc-wrapper
-         (replace-expr result))))
+        (replace-expr result)))
 
     ;; Takes the square root of either the ACTIVE SELECTION or SECOND STACK ENTRY (m=2).
     (my/calc-replace-expr-dwim (expr replace-expr) ((m 2) (prefix \"sqrt\"))
       (let ((result (calcFunc-sqrt expr)))
+        (replace-expr result)))
+
+    ;; Opt out of calc-wrapper to manage it manually.
+    (my/calc-replace-expr-dwim (expr replace-expr) ((prefix \"abs\") (calc-wrapper nil))
+      (let ((result (calcFunc-abs expr)))
         (calc-wrapper
-          (replace-expr result))))
+         (replace-expr result))))
 "
   (declare (indent 2))
   ;; Convert `options` to alist for convenience:
@@ -133,7 +138,9 @@ EXAMPLES
         ;; The prefix to use in the calc trail. Defaults to the empty string "".
         (opt-prefix (alist-get 'prefix options ""))
         ;;  Controls point preservation. Preserve point unless set to -1 (default: t).
-        (opt-keep-point (alist-get 'keep-point options t)))
+        (opt-keep-point (alist-get 'keep-point options t))
+        ;; Whether to wrap body in calc-wrapper (default: t).
+        (opt-calc-wrapper (alist-get 'calc-wrapper options t)))
     `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
            (keep-args calc-keep-args-flag)
            (saved-point (point)))  ;; Restore point later if `opt-keep-point` is true.
@@ -145,12 +152,12 @@ EXAMPLES
                     (cl-flet ((,sym-replace-expr (new-expr)
                                 (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
                                   (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
-                      ,@body)))
+                      ,@(if opt-calc-wrapper `((calc-wrapper ,@body)) body))))
                  (t
                   (let ((,sym-expr (calc-top-n ,opt-m)))
                     (cl-flet ((,sym-replace-expr (new-expr)
                                 (calc-pop-push-record-list 1 ,opt-prefix new-expr (if keep-args 1 ,opt-m))))
-                      ,@body))))
+                      ,@(if opt-calc-wrapper `((calc-wrapper ,@body)) body)))))
          ;; POINT BEHAVIOR:
          ;; 1. If calc selection is active, always preserve point.
          ;; 2. if keep-args is active, always reset point.
