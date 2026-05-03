@@ -111,29 +111,42 @@ If point is past the top stack item, calls calc-realign instead."
         (error nil)))))
 
 (defun my/calc-forward-noun ()
-  "Move point to the start of the next number or variable in the calc display."
+  "Move point to the start of the next number or variable in the calc display.
+Function names (identifiers immediately followed by '(') are skipped."
   (interactive)
   (when (looking-at "[a-zA-Z_][a-zA-Z0-9_]*\\|[0-9]+\\(\\.[0-9]+\\)?")
     (goto-char (match-end 0)))
-  (when (re-search-forward "[a-zA-Z_][a-zA-Z0-9_]*\\|[0-9]+\\(\\.[0-9]+\\)?" nil t)
-    (goto-char (match-beginning 0))))
+  (let (done)
+    (while (and (not done)
+                (re-search-forward "[a-zA-Z_][a-zA-Z0-9_]*\\|[0-9]+\\(\\.[0-9]+\\)?" nil t))
+      (let ((beg (match-beginning 0))
+            (end (match-end 0)))
+        (unless (and (string-match-p "[a-zA-Z_]" (string (char-after beg)))
+                     (eq (char-after end) ?\())
+          (goto-char beg)
+          (setq done t))))))
 
 (defun my/calc-backward-noun ()
-  "Move point to the start of the previous number or variable in the calc display."
+  "Move point to the start of the previous number or variable in the calc display.
+Function names (identifiers immediately followed by '(') are skipped."
   (interactive)
   (skip-chars-backward "0-9")
   (when (and (> (point) (point-min)) (char-equal (char-before) ?.))
     (backward-char)
     (skip-chars-backward "0-9"))
   (skip-chars-backward "a-zA-Z_")
-  (when (re-search-backward "[a-zA-Z_][a-zA-Z0-9_]*\\|[0-9]+\\(\\.[0-9]+\\)?" nil t)
-    (goto-char (match-beginning 0))
-    ;; re-search-backward finds the rightmost-starting match, which may be a
-    ;; suffix of the token (e.g. "t" instead of "sqrt"). Back up to the real start.
-    (skip-chars-backward "a-zA-Z_0-9")
-    (when (and (> (point) (point-min)) (char-equal (char-before) ?.))
-      (backward-char)
-      (skip-chars-backward "0-9"))))
+  (let (done)
+    (while (and (not done)
+                (re-search-backward "[a-zA-Z_][a-zA-Z0-9_]*\\|[0-9]+\\(\\.[0-9]+\\)?" nil t))
+      (goto-char (match-beginning 0))
+      ;; re-search-backward finds the rightmost-starting match, which may be a
+      ;; suffix of the token (e.g. "t" instead of "sqrt"). Back up to the real start.
+      (skip-chars-backward "a-zA-Z_0-9")
+      (when (and (> (point) (point-min)) (char-equal (char-before) ?.))
+        (backward-char)
+        (skip-chars-backward "0-9"))
+      (unless (looking-at "[a-zA-Z_][a-zA-Z0-9_]*(")
+        (setq done t)))))
 
 (defun my/calc-forward-char ()
   "Move forward one unit: skip the whole noun at point, or one non-noun character."
