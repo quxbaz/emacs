@@ -475,13 +475,12 @@ Also converts f(2) = 0 to [2 0]."
 With no selection: factors stack level 2 by stack level 1.
 With selection active: factors the selected expression by the top of stack."
   (interactive)
-  (my/calc-replace-expr-dwim (expr replace-expr) ((m 2) (prefix "fctr"))
-    (my/calc-without-simplification
-      (let* ((factor (calc-top-n 1))
-             (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
-             (factored (calcFunc-mul factor divided)))
-        (replace-expr factored)
-        (calc-pop-stack 1)))))
+  (my/calc-replace-expr-dwim (expr replace-expr) ((m 2) (prefix "fctr") (simp -1))
+    (let* ((factor (calc-top-n 1))
+           (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
+           (factored (calcFunc-mul factor divided)))
+      (replace-expr factored)
+      (calc-pop-stack 1))))
 
 (defun my/math-ref-angle (x)
   "Given an angle, gets its reference angle."

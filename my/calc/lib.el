@@ -87,10 +87,12 @@ BINDINGS is a list of 3 symbols that are bound inside BODY:
 
 OPTIONS is an alist of (SYMBOL VALUE) pairs:
 
-    (m N)                Stack level when no selection (default: 1)
-    (prefix STRING)      Calc trail prefix (default: \"\")
-    (keep-point BOOL)    Preserve point unless set to -1 (default: t)
-    (calc-wrapper BOOL)  Wrap body in calc-wrapper (default: t)
+    (m N)                  Stack level when no selection (default: 1)
+    (prefix STRING)        Calc trail prefix (default: \"\")
+    (keep-point BOOL)      Preserve point unless set to -1 (default: t)
+    (calc-wrapper BOOL)    Wrap body in calc-wrapper (default: t)
+    (simp VAL)             nil = use current setting (default),
+                           -1  = disable via my/calc-without-simplification
 
 EXAMPLES
 
@@ -140,34 +142,39 @@ EXAMPLES
         ;;  Controls point preservation. Preserve point unless set to -1 (default: t).
         (opt-keep-point (alist-get 'keep-point options t))
         ;; Whether to wrap body in calc-wrapper (default: t).
-        (opt-calc-wrapper (alist-get 'calc-wrapper options t)))
-    `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
-           (keep-args calc-keep-args-flag)
-           (saved-point (point)))  ;; Restore point later if `opt-keep-point` is true.
-       (prog1 ;; Return value from `body`.
+        (opt-calc-wrapper (alist-get 'calc-wrapper options t))
+        ;; Simplification control. nil = use current setting,
+        ;; -1 = wrap with my/calc-without-simplification.
+        (opt-simp (alist-get 'simp options nil)))
+    (let* ((wrapped-body (if (eq opt-simp -1) `((my/calc-without-simplification ,@body)) body))
+           (wrapped-body (if opt-calc-wrapper `((calc-wrapper ,@wrapped-body)) wrapped-body)))
+      `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
+             (keep-args calc-keep-args-flag)
+             (saved-point (point)))  ;; Restore point later if `opt-keep-point` is true.
+         (prog1 ;; Return value from `body`.
+             (cond (,sym-sel-is-active
+                    (let* ((m (my/calc-active-entry-m-dwim))
+                           (entry (nth m calc-stack))
+                           (,sym-expr (nth 2 entry)))
+                      (cl-flet ((,sym-replace-expr (new-expr)
+                                  (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
+                                    (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
+                        ,@wrapped-body)))
+                   (t
+                    (let ((,sym-expr (calc-top-n ,opt-m)))
+                      (cl-flet ((,sym-replace-expr (new-expr)
+                                  (calc-pop-push-record-list 1 ,opt-prefix new-expr (if keep-args 1 ,opt-m))))
+                        ,@wrapped-body))))
+           ;; POINT BEHAVIOR:
+           ;; 1. If calc selection is active, always preserve point.
+           ;; 2. if keep-args is active, always reset point.
+           ;; 3. Else, `opt-keep-point` dictates behavior.
            (cond (,sym-sel-is-active
-                  (let* ((m (my/calc-active-entry-m-dwim))
-                         (entry (nth m calc-stack))
-                         (,sym-expr (nth 2 entry)))
-                    (cl-flet ((,sym-replace-expr (new-expr)
-                                (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
-                                  (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
-                      ,@(if opt-calc-wrapper `((calc-wrapper ,@body)) body))))
+                  (goto-char saved-point))
+                 ((or keep-args (eq ,opt-keep-point -1))
+                  (calc-align-stack-window))
                  (t
-                  (let ((,sym-expr (calc-top-n ,opt-m)))
-                    (cl-flet ((,sym-replace-expr (new-expr)
-                                (calc-pop-push-record-list 1 ,opt-prefix new-expr (if keep-args 1 ,opt-m))))
-                      ,@(if opt-calc-wrapper `((calc-wrapper ,@body)) body)))))
-         ;; POINT BEHAVIOR:
-         ;; 1. If calc selection is active, always preserve point.
-         ;; 2. if keep-args is active, always reset point.
-         ;; 3. Else, `opt-keep-point` dictates behavior.
-         (cond (,sym-sel-is-active
-                (goto-char saved-point))
-               ((or keep-args (eq ,opt-keep-point -1))
-                (calc-align-stack-window))
-               (t
-                (goto-char saved-point)))))))
+                  (goto-char saved-point))))))))
 
 (defun my/calc-edit-wrap-dwim (fn)
   "Wrap the preceding token or active region with FN(...).
