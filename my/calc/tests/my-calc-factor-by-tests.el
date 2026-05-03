@@ -211,4 +211,55 @@ Expected: (y-2)^2 = -4*(x-4)."
         (should (math-zerop (math-simplify lhs-diff)))
         (should (math-zerop (math-simplify rhs-diff)))))))
 
+;;; Equation-mapping tests (map? option)
+
+(ert-deftest test-my/calc-replace-expr-dwim-map-equation-at-eol ()
+  "At eol on an equation, map?=t maps body over both sides.
+Using my/calc-change-sign: x = y → -x = -y."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "x = y"))
+    (calc-cursor-stack-index 1)
+    (end-of-line)
+    (my/calc-change-sign)
+    (let ((result (car (nth 1 calc-stack))))
+      (should (eq (car-safe result) 'calcFunc-eq))
+      (should (math-zerop (math-simplify
+                            (math-add (nth 1 result) '(var x var-x)))))
+      (should (math-zerop (math-simplify
+                            (math-add (nth 2 result) '(var y var-y))))))))
+
+(ert-deftest test-my/calc-replace-expr-dwim-map-inequality-at-eol ()
+  "At eol on an inequality, map?=t maps body over both sides.
+Using my/calc-change-sign: x < y → -x < -y (structural, not semantic)."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "x < y"))
+    (calc-cursor-stack-index 1)
+    (end-of-line)
+    (my/calc-change-sign)
+    (let ((result (car (nth 1 calc-stack))))
+      (should (eq (car-safe result) 'calcFunc-lt))
+      (should (math-zerop (math-simplify
+                            (math-add (nth 1 result) '(var x var-x)))))
+      (should (math-zerop (math-simplify
+                            (math-add (nth 2 result) '(var y var-y))))))))
+
+(ert-deftest test-my/calc-replace-expr-dwim-map-non-equation-at-eol ()
+  "At eol on a non-equation expression, map?=t falls back to whole-entry behavior.
+Using my/calc-change-sign: x+y at eol → -(x+y)."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "x + y"))
+    (calc-cursor-stack-index 1)
+    (end-of-line)
+    (my/calc-change-sign)
+    (let* ((result (car (nth 1 calc-stack)))
+           (expected (math-read-expr "-(x+y)"))
+           (diff (math-normalize (list '- result expected))))
+      (should (math-zerop (math-simplify diff))))))
+
 (provide 'factor-by-tests)

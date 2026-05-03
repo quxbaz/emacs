@@ -137,6 +137,9 @@ OPTIONS is an alist of (SYMBOL VALUE) pairs:
     (calc-wrapper BOOL)    Wrap body in calc-wrapper (default: t)
     (simp VAL)             nil = use current setting (default),
                            -1  = disable via my/calc-without-simplification
+    (map? VAL)             t/nil = equation-aware at eol: map body over both
+                           sides of =, !=, <, <=, >, >= (default: t),
+                           -1  = old behavior: operate on whole entry at eol
 
 EXAMPLES
 
@@ -192,9 +195,15 @@ EXAMPLES
         (opt-calc-wrapper (alist-get 'calc-wrapper options t))
         ;; Simplification control. nil = use current setting,
         ;; -1 = wrap with my/calc-without-simplification.
-        (opt-simp (alist-get 'simp options nil)))
+        (opt-simp (alist-get 'simp options nil))
+        ;; Equation mapping. t/nil = map body over both sides of equations/inequalities
+        ;; at eol; -1 = operate on whole entry (old behavior).
+        (opt-map (alist-get 'map? options t)))
     (let* ((wrapped-body (if (eq opt-simp -1) `((my/calc-without-simplification ,@body)) body))
-           (wrapped-body (if opt-calc-wrapper `((calc-wrapper ,@wrapped-body)) wrapped-body)))
+           (wrapped-body (if opt-calc-wrapper `((calc-wrapper ,@wrapped-body)) wrapped-body))
+           (body-for-map (if (eq opt-simp -1) `((my/calc-without-simplification ,@body)) body))
+           (g-lhs (gensym "lhs"))
+           (g-rhs (gensym "rhs")))
       `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
              (,sym-top ,(and (memq 'top bindings) '(calc-top-n 1)))  ;; Top stack item, evaluated only if requested.
              (keep-args calc-keep-args-flag)
@@ -213,13 +222,38 @@ EXAMPLES
               ;; Point is on a stack entry. Operate on the sub-formula at
               ;; point, or the whole entry if point is at end of line.
               ((not (my/calc-point-is-at-home-p))
-               (let* ((m (calc-locate-cursor-element (point)))
-                      (entry (nth m calc-stack))
-                      (,sym-expr (if (eolp) (car entry) (my/calc-subformula-at-point))))
-                 (cl-flet ((,sym-replace-expr (new-expr)
-                             (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
-                               (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
-                   ,@wrapped-body)))
+               ,(if (eq opt-map -1)
+                    `(let* ((m (calc-locate-cursor-element (point)))
+                            (entry (nth m calc-stack))
+                            (,sym-expr (if (eolp) (car entry) (my/calc-subformula-at-point))))
+                       (cl-flet ((,sym-replace-expr (new-expr)
+                                   (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
+                                     (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
+                         ,@wrapped-body))
+                    `(let* ((m (calc-locate-cursor-element (point)))
+                            (entry (nth m calc-stack))
+                            (full-expr (car entry))
+                            (rel-op (and (eolp)
+                                         (memq (car-safe full-expr)
+                                               '(calcFunc-eq calcFunc-neq calcFunc-lt calcFunc-leq
+                                                 calcFunc-gt calcFunc-geq))
+                                         (car full-expr)))
+                            (,sym-expr (if (eolp) full-expr (my/calc-subformula-at-point))))
+                       (if rel-op
+                           (let ((,g-lhs (nth 1 full-expr))
+                                 (,g-rhs (nth 2 full-expr)))
+                             (calc-wrapper
+                               (let ((,sym-expr ,g-lhs))
+                                 (cl-flet ((,sym-replace-expr (e) (setq ,g-lhs e)))
+                                   ,@body-for-map))
+                               (let ((,sym-expr ,g-rhs))
+                                 (cl-flet ((,sym-replace-expr (e) (setq ,g-rhs e)))
+                                   ,@body-for-map))
+                               (calc-pop-push-record-list 1 ,opt-prefix (list rel-op ,g-lhs ,g-rhs) m)))
+                           (cl-flet ((,sym-replace-expr (new-expr)
+                                       (let ((new-formula (calc-replace-sub-formula full-expr ,sym-expr new-expr)))
+                                         (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
+                             ,@wrapped-body)))))
               ;; Point is at "home" position. Operate on stack item at OPT-M.
               (t
                (let ((,sym-expr (car (calc-top ,opt-m 'entry))))

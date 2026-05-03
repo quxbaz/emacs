@@ -42,7 +42,6 @@
          (:map calc-mode-map ("U" . my/calc-undo))
          (:map calc-mode-map ("D" . my/calc-redo))
          (:map calc-mode-map ("C-k" . my/calc-kill))
-         (:map calc-mode-map ("C-a" . my/calc-beginning-of-expression))
          (:map calc-mode-map ("M-m" . my/calc-beginning-of-expression))
          (:map calc-mode-map ("M-f" . my/calc-forward-noun))
          (:map calc-mode-map ("M-b" . my/calc-backward-noun))
