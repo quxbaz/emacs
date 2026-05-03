@@ -47,9 +47,9 @@
          (:map calc-mode-map ("M-b" . my/calc-backward-noun))
          (:map calc-mode-map ("M-w" . my/calc-kill-ring-save-dwim))
          (:map calc-mode-map ("DEL" . my/calc-pop))
-         (:map calc-mode-map ("RET" . my/calc-ret))
+         (:map calc-mode-map ("RET" . my/calc-duplicate))
          (:map calc-mode-map ("C-<return>" . my/calc-quick-substitution))
-         (:map calc-mode-map ("M-<return>" . my/calc-duplicate-no-move))
+         (:map calc-mode-map ("M-<return>" . my/calc-push-dwim))
          (:map calc-mode-map ("S-<return>" . my/calc-roll-to-top))
          (:map calc-mode-map ("C-M-<backspace>" . my/calc-roll-to-bottom))
          (:map calc-mode-map ("C-M-<return>" . my/calc-duplicate-stack))
@@ -98,7 +98,7 @@
          (:map calc-mode-map ("a g" . calc-poly-gcd))
          (:map calc-mode-map ("a L" . my/calc-poly-lcm))
          (:map calc-mode-map ("a e" . calc-simplify))
-         (:map calc-mode-map ("a s" . calc-simplify-extended))
+         (:map calc-mode-map ("a s" . my/calc-simplify-extended))
 
          ;; Solving
          (:map calc-mode-map ("i" . calc-solve-for))

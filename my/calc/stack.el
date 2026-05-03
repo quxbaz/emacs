@@ -234,7 +234,7 @@ Shows message if stack is empty."
          (calc-align-stack-window)
          (message "Stack is empty."))))
 
-(defun my/calc-ret ()
+(defun my/calc-push-dwim ()
   "Duplicate the expression at point and move to home.
 If selection is active, clear selections instead.
 - At home: duplicate the top stack item.
@@ -454,6 +454,13 @@ Also converts f(2) = 0 to [2 0]."
     (if calc-inverse-flag
         (calc-not-equal-to arg)
       (calc-equal-to arg))))
+
+(defun my/calc-simplify-extended ()
+  "Apply extended simplification (trig, log, etc.) to the active selection,
+sub-formula at point, or top stack entry."
+  (interactive)
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "esmp"))
+    (replace-expr (math-simplify-extended expr))))
 
 (defun my/calc-change-sign ()
   "Negate the active selection, sub-formula at point, or top stack entry."
