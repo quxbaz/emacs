@@ -610,6 +610,18 @@ or top stack entry."
                        (list 'calcFunc-sqrt expr)
                      (list 'calcFunc-sqr expr))))))
 
+(defun my/calc-exp ()
+  "Apply exp (or 10^ with H) to the target expression.
+Works contextually: operates on selection, sub-formula at point,
+or top stack entry."
+  (interactive)
+  (my/calc-replace-expr-dwim (expr replace-expr)
+      ((prefix (if (calc-is-hyperbolic) "10^" "exp")))
+    (replace-expr (calc-normalize
+                   (if (calc-is-hyperbolic)
+                       (list 'calcFunc-exp10 expr)
+                     (list 'calcFunc-exp expr))))))
+
 (defun my/calc-ln ()
   "Apply ln (or log10 with H) to the target expression.
 Works contextually: operates on selection, sub-formula at point,
