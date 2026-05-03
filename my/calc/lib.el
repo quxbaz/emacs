@@ -220,12 +220,13 @@ EXAMPLES
                                (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
                    ,@wrapped-body)))
               ;; Point is on a stack entry. Operate on the sub-formula at
-              ;; point, or the whole entry if point is at end of line.
+              ;; point, or the whole entry if point is at eol or before the expression.
               ((not (my/calc-point-is-at-home-p))
                ,(if (eq opt-map -1)
                     `(let* ((m (calc-locate-cursor-element (point)))
                             (entry (nth m calc-stack))
-                            (,sym-expr (if (eolp) (car entry) (my/calc-subformula-at-point))))
+                            (subexpr (and (not (eolp)) (my/calc-subformula-at-point)))
+                            (,sym-expr (or subexpr (car entry))))
                        (cl-flet ((,sym-replace-expr (new-expr)
                                    (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
                                      (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
@@ -233,12 +234,13 @@ EXAMPLES
                     `(let* ((m (calc-locate-cursor-element (point)))
                             (entry (nth m calc-stack))
                             (full-expr (car entry))
-                            (rel-op (and (eolp)
+                            (subexpr (and (not (eolp)) (my/calc-subformula-at-point)))
+                            (rel-op (and (null subexpr)
                                          (memq (car-safe full-expr)
                                                '(calcFunc-eq calcFunc-neq calcFunc-lt calcFunc-leq
                                                  calcFunc-gt calcFunc-geq))
                                          (car full-expr)))
-                            (,sym-expr (if (eolp) full-expr (my/calc-subformula-at-point))))
+                            (,sym-expr (or subexpr full-expr)))
                        (if rel-op
                            (let ((,g-lhs (nth 1 full-expr))
                                  (,g-rhs (nth 2 full-expr)))
