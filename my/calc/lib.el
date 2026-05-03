@@ -71,7 +71,7 @@ are active."
       (calc-locate-cursor-element (point))
     (my/calc-first-active-entry-m)))
 
-(defmacro my/calc-apply-sel-or-top (bindings options &rest body)
+(defmacro my/calc-replace-expr-dwim (bindings options &rest body)
   "Execute BODY with bindings for operating on calc selections or stack entries.
 
 Provides a unified interface for calc operations that work on either a selected
@@ -94,17 +94,17 @@ OPTIONS is an alist of (SYMBOL VALUE) pairs:
 EXAMPLES
 
     ;; Takes the absolute value of either the ACTIVE SELECTION or TOP STACK ENTRY.
-    (my/calc-apply-sel-or-top (expr replace-expr) ()
+    (my/calc-replace-expr-dwim (expr replace-expr) ()
       (replace-expr (calcFunc-abs expr)))
 
     ;; Same as previous example, but following proper convention.
-    (my/calc-apply-sel-or-top (expr replace-expr) ((prefix \"abs\"))
+    (my/calc-replace-expr-dwim (expr replace-expr) ((prefix \"abs\"))
       (let ((result (calcFunc-abs expr)))
         (calc-wrapper
          (replace-expr result))))
 
     ;; Takes the square root of either the ACTIVE SELECTION or SECOND STACK ENTRY (m=2).
-    (my/calc-apply-sel-or-top (expr replace-expr) ((m 2) (prefix \"sqrt\"))
+    (my/calc-replace-expr-dwim (expr replace-expr) ((m 2) (prefix \"sqrt\"))
       (let ((result (calcFunc-sqrt expr)))
         (calc-wrapper
           (replace-expr result))))

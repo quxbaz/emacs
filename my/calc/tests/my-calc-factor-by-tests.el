@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 ;;
-;; Tests for my/calc-factor-by and my/calc-apply-sel-or-top
+;; Tests for my/calc-factor-by and my/calc-replace-expr-dwim
 ;;
 
 (require 'ert)
@@ -14,14 +14,14 @@
 
 ;;; Macro expansion tests
 
-(ert-deftest test-my/calc-apply-sel-or-top-expands ()
+(ert-deftest test-my/calc-replace-expr-dwim-expands ()
   "Test that the macro expands without errors."
-  (should (macroexpand '(my/calc-apply-sel-or-top (expr replace-expr) ((m 2) (prefix "test"))
+  (should (macroexpand '(my/calc-replace-expr-dwim (expr replace-expr) ((m 2) (prefix "test"))
                           (message "test")))))
 
-(ert-deftest test-my/calc-apply-sel-or-top-generates-cl-flet ()
+(ert-deftest test-my/calc-replace-expr-dwim-generates-cl-flet ()
   "Test that the macro generates cl-flet, not fset."
-  (let ((expansion (macroexpand '(my/calc-apply-sel-or-top (expr replace-expr) ((m 2))
+  (let ((expansion (macroexpand '(my/calc-replace-expr-dwim (expr replace-expr) ((m 2))
                                    (replace-expr 'foo)))))
     ;; Should contain cl-flet
     (should (string-match-p "cl-flet" (format "%S" expansion)))
@@ -83,44 +83,44 @@
 
 ;;; Edge cases
 
-(ert-deftest test-my/calc-apply-sel-or-top-with-default-m ()
+(ert-deftest test-my/calc-replace-expr-dwim-with-default-m ()
   "Test that m defaults to 1 when not specified."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
     (calc-push 10)
-    (my/calc-apply-sel-or-top (expr replace-expr) ((prefix "test"))
+    (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "test"))
       ;; expr should be the top of stack
       (should (equal expr 10)))))
 
-(ert-deftest test-my/calc-apply-sel-or-top-with-custom-m ()
+(ert-deftest test-my/calc-replace-expr-dwim-with-custom-m ()
   "Test that custom m value is respected."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
     (calc-push 10)  ; Stack level 2
     (calc-push 20)  ; Stack level 1 (top)
-    (my/calc-apply-sel-or-top (expr replace-expr) ((m 2))
+    (my/calc-replace-expr-dwim (expr replace-expr) ((m 2))
       ;; expr should be stack level 2 (which is 10)
       (should (equal expr 10)))))
 
-(ert-deftest test-my/calc-apply-sel-or-top-binds-sel-is-active ()
+(ert-deftest test-my/calc-replace-expr-dwim-binds-sel-is-active ()
   "Test that sel-is-active is bound correctly."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
     (calc-push 42)
-    (my/calc-apply-sel-or-top (expr replace-expr sel-is-active) ()
+    (my/calc-replace-expr-dwim (expr replace-expr sel-is-active) ()
       ;; sel-is-active should be nil (no selections)
       (should-not sel-is-active))))
 
-(ert-deftest test-my/calc-apply-sel-or-top-replace-expr-callable ()
+(ert-deftest test-my/calc-replace-expr-dwim-replace-expr-callable ()
   "Test that replace-expr works as a function."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
     (calc-push 10)
-    (my/calc-apply-sel-or-top (expr replace-expr) ((prefix "test"))
+    (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "test"))
       ;; Call replace-expr to replace with 99
       ;; (Note: replace-expr is a cl-flet binding, not a variable, so functionp won't work)
       (replace-expr 99)
@@ -129,24 +129,24 @@
 
 ;;; Gensym tests
 
-(ert-deftest test-my/calc-apply-sel-or-top-unused-bindings-gensym ()
+(ert-deftest test-my/calc-replace-expr-dwim-unused-bindings-gensym ()
   "Test that unused bindings are auto-gensymmed."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
     (calc-push 42)
     ;; Only bind expr, let others be gensymmed
-    (my/calc-apply-sel-or-top (expr) ()
+    (my/calc-replace-expr-dwim (expr) ()
       (should (equal expr 42)))))
 
-(ert-deftest test-my/calc-apply-sel-or-top-no-bindings-gensym ()
+(ert-deftest test-my/calc-replace-expr-dwim-no-bindings-gensym ()
   "Test that completely empty bindings use gensyms."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
     (calc-push 42)
     ;; All bindings gensymmed
-    (my/calc-apply-sel-or-top () ()
+    (my/calc-replace-expr-dwim () ()
       ;; Should still work, just can't reference the values
       (should (equal (car (nth 1 calc-stack)) 42)))))
 

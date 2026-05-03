@@ -106,7 +106,7 @@ Two distinct behaviors depending on the expression shape:
                                           ts)
                                   :initial-value 0)))
              (calc-normalize (list '/ num lcd))))))
-    (my/calc-apply-sel-or-top (expr replace-expr) ((prefix "cltf"))
+    (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "cltf"))
       (calc-wrapper
        (my/calc-without-simplification
         (replace-expr (transform expr)))))))
