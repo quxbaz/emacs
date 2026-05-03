@@ -491,10 +491,37 @@ Also converts f(2) = 0 to [2 0]."
                 (list (cons expr 1)))))
        (mul-factors (pairs)
          (cl-reduce (lambda (acc p) (list '* acc (list '^ (car p) (cdr p))))
-                    pairs :initial-value 1)))
+                    pairs :initial-value 1))
+       (int-content (expr)
+         ;; GCD of the integer coefficients of EXPR.  Used to separate
+         ;; the numeric content from the primitive polynomial before
+         ;; factoring, because calcFunc-factor does not extract it for
+         ;; linear polynomials where each variable appears only once.
+         (cond ((math-integerp expr) (math-abs expr))
+               ((memq (car-safe expr) '(+ -))
+                (math-gcd (int-content (nth 1 expr))
+                          (int-content (nth 2 expr))))
+               ((eq (car-safe expr) '*)
+                (if (math-integerp (nth 1 expr))
+                    (math-abs (nth 1 expr))
+                  1))
+               (t 1)))
+       (smart-factor (expr)
+         ;; For products/powers: return as-is — the factor structure is
+         ;; already visible to `factors` and calcFunc-factor would only
+         ;; call math-simplify which expands scalar×polynomial products.
+         ;; For sums: pull out the integer content first, then factor the
+         ;; primitive part (content 1) where calcFunc-factor works correctly.
+         (if (memq (car-safe expr) '(* ^))
+             expr
+           (let* ((c (int-content expr))
+                  (p (if (math-equal c 1) expr (math-div expr c)))
+                  (f (calcFunc-factor p)))
+             (if (math-equal c 1) f
+               (calc-normalize (list '* c f)))))))
     (calc-wrapper
-     (let* ((b (calcFunc-factor (calc-top-n 1)))
-            (a (calcFunc-factor (calc-top-n 2)))
+     (let* ((b (smart-factor (calc-top-n 1)))
+            (a (smart-factor (calc-top-n 2)))
             (fa (factors a))
             (fb (factors b))
             (nums-a  (cl-remove-if-not (lambda (p) (math-numberp (car p))) fa))
@@ -515,6 +542,13 @@ Also converts f(2) = 0 to [2 0]."
             (result (calc-normalize (list '* coeff (mul-factors poly-pairs)))))
        (calc-enter-result 2 "plcm" result)))))
 
+(defun my/calc--sum-terms (expr)
+  "Return a flat list of additive terms in EXPR."
+  (if (eq (car-safe expr) '+)
+      (append (my/calc--sum-terms (nth 1 expr))
+              (my/calc--sum-terms (nth 2 expr)))
+    (list expr)))
+
 (defun my/calc-factor-by ()
   "Factors an expression by an argument.
 With no selection: factors stack level 2 by stack level 1.
@@ -526,6 +560,20 @@ With selection active: factors the selected expression by the top of stack."
            (factored (calcFunc-mul factor divided)))
       (replace-expr factored)
       (calc-pop-stack 1))))
+
+(defun my/calc-factor-by-gcd ()
+  "Factor the expression by the GCD of its additive terms.
+Automatically computes the GCD of all terms and factors it out.
+Works contextually: operates on selection, sub-formula at point,
+or top stack entry."
+  (interactive)
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "fctr"))
+    (let* ((terms (my/calc--sum-terms expr))
+           (factor (let ((calc-simplify-mode nil))
+                     (cl-reduce #'calcFunc-pgcd terms)))
+           (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
+           (factored (my/calc-without-simplification (calcFunc-mul factor divided))))
+      (replace-expr factored))))
 
 (defun my/math-ref-angle (x)
   "Given an angle, gets its reference angle."

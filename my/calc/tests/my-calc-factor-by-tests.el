@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 ;;
-;; Tests for my/calc-factor-by and my/calc-replace-expr-dwim
+;; Tests for my/calc-factor-by, my/calc-factor-by-gcd, and my/calc-replace-expr-dwim
 ;;
 
 (require 'ert)
@@ -80,6 +80,43 @@
       (should (listp result))
       (should (eq (car result) '*))
       (should (member '(var x var-x) result)))))
+
+;;; GCD factoring tests
+
+(defun test-my/calc--contains-frac (expr)
+  "Return t if EXPR contains any rational fraction sub-expressions."
+  (cond ((eq (car-safe expr) 'frac) t)
+        ((consp expr) (cl-some #'test-my/calc--contains-frac expr))
+        (t nil)))
+
+(ert-deftest test-my/calc-factor-by-gcd-basic ()
+  "Test that 40*x^2 + 20*x is factored as 20*x*(2*x+1).
+The GCD is 20*x; the result must not introduce fractions."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "40*x^2 + 20*x"))
+    (my/calc-factor-by-gcd)
+    (let* ((result (car (nth 1 calc-stack)))
+           (expected (math-read-expr "20*x*(2*x+1)"))
+           (diff (math-normalize (list '- result expected))))
+      (should (math-zerop (math-simplify diff)))
+      (should-not (test-my/calc--contains-frac result)))))
+
+(ert-deftest test-my/calc-factor-by-gcd-basic-no-simplify-mode ()
+  "Same as basic test but with calc-simplify-mode set to 'none.
+Verifies the GCD computation is immune to the global simplify mode."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "40*x^2 + 20*x"))
+    (let ((calc-simplify-mode 'none))
+      (my/calc-factor-by-gcd))
+    (let* ((result (car (nth 1 calc-stack)))
+           (expected (math-read-expr "20*x*(2*x+1)"))
+           (diff (math-normalize (list '- result expected))))
+      (should (math-zerop (math-simplify diff)))
+      (should-not (test-my/calc--contains-frac result)))))
 
 ;;; Edge cases
 

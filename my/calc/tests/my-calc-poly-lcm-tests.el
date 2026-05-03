@@ -29,6 +29,22 @@
   "Return t if EXPR is a product (i.e. factoring occurred)."
   (eq (car-safe expr) '*))
 
+;;; Integer-coefficient tests
+
+(ert-deftest test-my/calc-poly-lcm-integer-coeff ()
+  "lcm(6*(x+1), 4*(x+1)) = 12*(x+1): integer content extracted correctly."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-poly-lcm-tests--lcm "6*(x+1)" "4*(x+1)")))
+      (should (my-calc-poly-lcm-tests--equiv result "12*(x+1)")))))
+
+(ert-deftest test-my/calc-poly-lcm-integer-coeff-expanded-input ()
+  "lcm(6*x+6, 4*x+4) = 12*(x+1): works with expanded input too."
+  (with-temp-buffer
+    (calc-mode)
+    (let ((result (my-calc-poly-lcm-tests--lcm "6*x+6" "4*x+4")))
+      (should (my-calc-poly-lcm-tests--equiv result "12*(x+1)")))))
+
 ;;; Basic tests
 
 (ert-deftest test-my/calc-poly-lcm-simple ()
