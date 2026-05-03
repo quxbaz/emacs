@@ -353,33 +353,88 @@ Also converts f(2) = 0 to [2 0]."
             (calc-push (list 'var var-name var-symbol)))))
       (message "Invalid character. Must be a-z or A-Z."))))
 
-(defun my/calc--identify-sqrt (expr)
-  "Try to express EXPR as sqrt(n) for an integer n.
-Squares EXPR, rounds to the nearest integer, and returns the unevaluated
-form (calcFunc-sqrt n).  Signals an error if the candidate doesn't
-round-trip within 1e-6."
+(defun my/calc--identify-expr (x)
+  "Try to identify X as a simple closed-form expression.
+Tries in order: integer, fraction p/q (|q|≤20), (p/q)·√n (n≤30),
+√n, n^(1/3), n^(1/4), (p/q)·π, (p/q)·e, ln(n) (n≤1000).
+Signals an error if no candidate matches within 1e-8."
   (let* ((calc-symbolic-mode nil)
-         (squared   (math-evaluate-expr (list 'calcFunc-sqr expr)))
-         (rounded   (calcFunc-round squared))
-         (candidate (math-evaluate-expr (list 'calcFunc-sqrt rounded)))
-         (diff      (math-abs (math-sub candidate (math-evaluate-expr expr)))))
-    (if (math-lessp diff '(float 1 -6))
-        (list 'calcFunc-sqrt rounded)
-      (error "Cannot identify %s as a square root (residual %s)"
-             (math-format-value expr) (math-format-value diff)))))
+         (xf  (math-evaluate-expr x))
+         (neg (math-negp xf))
+         (ax  (if neg (math-neg xf) xf))
+         (tol '(float 1 -8)))
+    (cl-flet ((close-p (sym)
+                (math-lessp
+                 (math-abs (math-sub (math-evaluate-expr sym) ax)) tol))
+              (maybe-neg (e) (if neg (math-neg e) e))
+              (try-rat (af)
+                (cl-loop for q from 1 to 20 thereis
+                         (let* ((pf (math-mul af q))
+                                (p  (calcFunc-round pf)))
+                           (and (math-lessp (math-abs (math-sub pf p)) tol)
+                                (if (= q 1) p
+                                  (math-normalize (list 'frac p q))))))))
+      (or
+       ;; 1. Integer
+       (let ((r (calcFunc-round ax)))
+         (and (close-p r) (maybe-neg r)))
+       ;; 2. Simple fraction p/q
+       (let ((r (try-rat ax)))
+         (and r (maybe-neg r)))
+       ;; 3. (p/q)·√n  (ratio ≠ 1 to avoid duplicating case 4)
+       (cl-loop for n from 2 to 30 thereis
+                (let* ((sn (math-evaluate-expr (list 'calcFunc-sqrt n)))
+                       (r  (try-rat (math-div ax sn))))
+                  (and r (not (math-equal r 1))
+                       (maybe-neg
+                        (math-normalize (list '* r (list 'calcFunc-sqrt n)))))))
+       ;; 4. √n
+       (let* ((sq (math-evaluate-expr (list 'calcFunc-sqr ax)))
+              (n  (calcFunc-round sq)))
+         (and (close-p (list 'calcFunc-sqrt n))
+              (math-posp n) (not (math-equal n 1))
+              (maybe-neg (list 'calcFunc-sqrt n))))
+       ;; 5. n^(1/3)
+       (let* ((cb (math-evaluate-expr (list '^ ax 3)))
+              (n  (calcFunc-round cb)))
+         (and (close-p (list '^ n (list 'frac 1 3)))
+              (math-posp n) (not (math-equal n 1))
+              (maybe-neg (list '^ n (list 'frac 1 3)))))
+       ;; 6. n^(1/4)
+       (let* ((qt (math-evaluate-expr (list '^ ax 4)))
+              (n  (calcFunc-round qt)))
+         (and (close-p (list '^ n (list 'frac 1 4)))
+              (math-posp n) (not (math-equal n 1))
+              (maybe-neg (list '^ n (list 'frac 1 4)))))
+       ;; 7. (p/q)·π
+       (let ((r (try-rat (math-div ax (math-evaluate-expr '(var pi var-pi))))))
+         (and r (maybe-neg (math-normalize (list '* r '(var pi var-pi))))))
+       ;; 8. (p/q)·e
+       (let ((r (try-rat (math-div ax (math-evaluate-expr '(var e var-e))))))
+         (and r (maybe-neg (math-normalize (list '* r '(var e var-e))))))
+       ;; 9. ln(n) — only for x > 0
+       (and (not neg)
+            (let* ((en (math-evaluate-expr (list 'calcFunc-exp ax)))
+                   (n  (calcFunc-round en)))
+              (and (close-p (list 'calcFunc-ln n))
+                   (>= (math-compare n 2) 0)
+                   (<= (math-compare n 1000) 0)
+                   (list 'calcFunc-ln n))))
+       (error "Cannot identify %s as a simple expression"
+              (math-format-value xf))))))
 
 (defun my/calc-evaluate (n)
   "Evaluate the target expression with symbolic mode disabled.
-With inverse (I k k): identify the expression as sqrt(n) for integer n,
-keeping the result in symbolic form.
-Works contextually: operates on selection, sub-formula at point,
-or stack entry at level N (default 1)."
+With inverse (I k k): identify the expression as a simple closed-form
+(integer, fraction, sqrt, cbrt, π/e multiple, ln…), keeping the result
+symbolic.  Works contextually: operates on selection, sub-formula at
+point, or stack entry at level N (default 1)."
   (interactive "p")
   (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "eval") (m n))
     (unwind-protect
         (if (calc-is-inverse)
             (let ((calc-symbolic-mode t))
-              (replace-expr (my/calc--identify-sqrt expr)))
+              (replace-expr (my/calc--identify-expr expr)))
           (let ((calc-symbolic-mode nil))
             (replace-expr (math-evaluate-expr expr))))
       (calc-set-mode-line))))
@@ -877,37 +932,34 @@ Removes both items by default. With K prefix, keeps them."
 
 (defun my/calc-inverse-function ()
   "Find the inverse of a function on the stack.
-Accepts y=f(x) equations or f(x) expressions, with any variable names."
+Accepts y=f(x) equations or f(x) expressions, with any variable names.
+Works contextually: operates on the entry at point or top of stack."
   (interactive)
-  (let* ((expr      (calc-top-n 1))
-         (var-y     '(var y var-y))
-         (is-eq     (eq (car-safe expr) 'calcFunc-eq))
-         (lhs       (and is-eq (nth 1 expr)))
-         (rhs       (and is-eq (nth 2 expr)))
-         (lhs-var-p (and is-eq (eq (car-safe lhs) 'var)))
-         (rhs-var-p (and is-eq (eq (car-safe rhs) 'var)))
-         ;; out-lhs: what appears on the LHS of the result
-         (out-lhs   (cond ((not is-eq) var-y)
-                          (lhs-var-p   lhs)
-                          (rhs-var-p   rhs)
-                          (t           lhs)))
-         ;; fx: the expression defining the forward function
-         (fx        (cond ((not is-eq) expr)
-                          (rhs-var-p   lhs)
-                          (t           rhs)))
-         ;; work-var: substitute into fx and solve for this
-         (work-var  (if (eq (car-safe out-lhs) 'var) out-lhs var-y))
-         ;; in-var: the primary input variable of fx (first alphabetically, excluding work-var)
-         (in-var    (or (seq-find (lambda (v) (not (equal v work-var)))
-                                  (my/calc-auto-solve--sorted-vars fx))
-                        '(var x var-x)))
-         (fy        (math-expr-subst fx in-var work-var))
-         (sol       (math-solve-eqn (list 'calcFunc-eq fy in-var) work-var nil))
-         (result    (when (eq (car-safe sol) 'calcFunc-eq)
-                      (list 'calcFunc-eq out-lhs (nth 2 sol)))))
-    (if result
-        (calc-wrapper (calc-enter-result 1 "inv" result))
-      (message "Can't find inverse"))))
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "inv") (line t))
+    (let* ((var-y     '(var y var-y))
+           (is-eq     (eq (car-safe expr) 'calcFunc-eq))
+           (lhs       (and is-eq (nth 1 expr)))
+           (rhs       (and is-eq (nth 2 expr)))
+           (lhs-var-p (and is-eq (eq (car-safe lhs) 'var)))
+           (rhs-var-p (and is-eq (eq (car-safe rhs) 'var)))
+           (out-lhs   (cond ((not is-eq) var-y)
+                            (lhs-var-p   lhs)
+                            (rhs-var-p   rhs)
+                            (t           lhs)))
+           (fx        (cond ((not is-eq) expr)
+                            (rhs-var-p   lhs)
+                            (t           rhs)))
+           (work-var  (if (eq (car-safe out-lhs) 'var) out-lhs var-y))
+           (in-var    (or (seq-find (lambda (v) (not (equal v work-var)))
+                                    (my/calc-auto-solve--sorted-vars fx))
+                          '(var x var-x)))
+           (fy        (math-expr-subst fx in-var work-var))
+           (sol       (math-solve-eqn (list 'calcFunc-eq fy in-var) work-var nil))
+           (result    (when (eq (car-safe sol) 'calcFunc-eq)
+                        (list 'calcFunc-eq out-lhs (nth 2 sol)))))
+      (if result
+          (replace-expr result)
+        (message "Can't find inverse")))))
 
 (defun my/calc-auto-solve--sorted-vars (expr)
   "Return unique non-constant variables in EXPR.
