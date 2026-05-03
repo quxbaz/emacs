@@ -235,11 +235,24 @@ Shows message if stack is empty."
          (message "Stack is empty."))))
 
 (defun my/calc-ret ()
-  "Duplicates the line. If selection is active, exit selection mode instead."
+  "Duplicate the expression at point and move to home.
+If selection is active, clear selections instead.
+- At home: duplicate the top stack item.
+- At end of a stack entry line: push the entire entry.
+- On a subexpression: push the sub-formula under point."
   (interactive)
-  (if (my/calc-active-selection-p)
-      (my/calc-clear-selections)
-    (my/calc-duplicate)))
+  (cond
+   ((my/calc-active-selection-p)
+    (my/calc-clear-selections))
+   ((my/calc-point-is-at-home-p)
+    (calc-enter 1))
+   (t
+    (let* ((m (calc-locate-cursor-element (point)))
+           (entry (nth m calc-stack))
+           (expr (if (eolp) (car entry) (my/calc-subformula-at-point))))
+      (calc-wrapper
+       (calc-push expr))
+      (calc-align-stack-window)))))
 
 (defun my/calc-duplicate ()
   "Duplicates the nearest entry at point. If region is active, duplicate
