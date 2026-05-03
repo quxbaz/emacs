@@ -22,6 +22,13 @@ an existing one.  calc-locate-cursor-element returns 0 at the . line and -1
 below it; stack entries return 1 or higher."
   (<= (calc-locate-cursor-element (point)) 0))
 
+(defun my/calc-point-is-at-entry-end-p ()
+  "Return t if point is at the end of a stack entry line.
+Returns nil if point is at the . line, below it, or before the end of
+the displayed formula."
+  (and (> (calc-locate-cursor-element (point)) 0)
+       (eolp)))
+
 (defun my/calc-at-stack-bottom-p ()
   "Returns t if point is at the stack bottom or beyond it."
   (<= (calc-locate-cursor-element (point)) 1))
