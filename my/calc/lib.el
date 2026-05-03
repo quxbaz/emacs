@@ -119,13 +119,15 @@ chosen based on context, in priority order:
   3. The sub-formula under point, if point is on a stack entry.
   4. The stack item at OPT-M (default 1), if point is at \"home\".
 
-BINDINGS is a list of 3 symbols that are bound inside BODY:
+BINDINGS is a list of binding names to expose inside BODY. Order does not
+matter; any subset may be requested. Unknown names raise an error.
 
-    (EXPR REPLACE-EXPR SEL-IS-ACTIVE)
+    expr             The target expression (selection or stack formula)
+    replace-expr     Function that replaces EXPR with a new expression
+    top              The top stack item (calc-top-n 1), nil if unbound
+    sel-is-active    t if operating on a selection, nil otherwise
 
-    EXPR             The target expression (selection or stack formula)
-    REPLACE-EXPR     Function that replaces EXPR with a new expression
-    SEL-IS-ACTIVE    t if operating on a selection, nil otherwise
+Unrequested bindings are auto-gensymmed and their values are not computed.
 
 OPTIONS is an alist of (SYMBOL VALUE) pairs:
 
@@ -166,19 +168,18 @@ EXAMPLES
   ;; Convert `options` to alist for convenience:
   ;;   ((a 1) (b 2)) -> ((a . 1) (b . 2))
   (setq options (mapcar (lambda (pair) (cons (car pair) (cadr pair))) options))
+  ;; Validate BINDINGS: only known names allowed.
+  (let ((unknown (cl-set-difference bindings '(expr replace-expr top sel-is-active))))
+    (when unknown
+      (error "Unknown binding(s) in my/calc-replace-expr-dwim: %s" unknown)))
   (let (;; BINDING PARAMS
         ;;
-        ;; These are bound at macro-time to the symbols passed in BINDINGS
-        ;; (expr replace-expr sel-is-active). At runtime, these symbols are
-        ;; assigned to context-aware values depending on whether a calc selection.
-        ;;
-        ;; Bound to the target expression. This is either the selection or stack
-        ;; formula depending on if a selection is active.
-        (sym-expr (or (nth 0 bindings) (gensym)))
-        ;; This is a function. The argument (an expression) replaces the target expression.
-        (sym-replace-expr (or (nth 1 bindings) (gensym)))
-        ;; Bound to t if the target expression is a selection.
-        (sym-sel-is-active (or (nth 2 bindings) (gensym)))
+        ;; If the user requested a binding by name, use that name as-is so it
+        ;; is visible inside BODY. Otherwise, gensym so it is invisible.
+        (sym-expr (if (memq 'expr bindings) 'expr (gensym)))
+        (sym-replace-expr (if (memq 'replace-expr bindings) 'replace-expr (gensym)))
+        (sym-top (if (memq 'top bindings) 'top (gensym)))
+        (sym-sel-is-active (if (memq 'sel-is-active bindings) 'sel-is-active (gensym)))
         ;; OPTION PARAMS
         ;; The stack level to target. Only relevant when selection is inactive.
         ;; Default is 1 (the top stack entry).
@@ -195,6 +196,7 @@ EXAMPLES
     (let* ((wrapped-body (if (eq opt-simp -1) `((my/calc-without-simplification ,@body)) body))
            (wrapped-body (if opt-calc-wrapper `((calc-wrapper ,@wrapped-body)) wrapped-body)))
       `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
+             (,sym-top ,(and (memq 'top bindings) '(calc-top-n 1)))  ;; Top stack item, evaluated only if requested.
              (keep-args calc-keep-args-flag)
              (saved-point (point)))  ;; Restore point later if `opt-keep-point` is true.
          (prog1

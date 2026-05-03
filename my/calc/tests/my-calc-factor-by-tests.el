@@ -110,7 +110,7 @@
     (calc-mode)
     (calc-reset 0)
     (calc-push 42)
-    (my/calc-replace-expr-dwim (expr replace-expr sel-is-active) ()
+    (my/calc-replace-expr-dwim (expr replace-expr top sel-is-active) ()
       ;; sel-is-active should be nil (no selections)
       (should-not sel-is-active))))
 
