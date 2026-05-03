@@ -439,6 +439,12 @@ Also converts f(2) = 0 to [2 0]."
         (calc-not-equal-to arg)
       (calc-equal-to arg))))
 
+(defun my/calc-change-sign ()
+  "Negate the active selection, sub-formula at point, or top stack entry."
+  (interactive)
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "chs"))
+    (replace-expr (math-neg expr))))
+
 (defun my/calc-square ()
   "Squares a number."
   (interactive)

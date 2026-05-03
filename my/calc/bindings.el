@@ -60,6 +60,7 @@
          (:map calc-mode-map ("r RET" . my/calc-recall-stack))
 
          ;; Math operations
+         (:map calc-mode-map ("n" . my/calc-change-sign))
          (:map calc-mode-map ("+" . my/calc-plus))
          (:map calc-mode-map ("-" . my/calc-minus))
          (:map calc-mode-map ("M-=" . calc-evaluate))

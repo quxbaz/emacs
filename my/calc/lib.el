@@ -218,7 +218,7 @@ EXAMPLES
                       (,sym-expr (if (eolp) (car entry) (my/calc-subformula-at-point))))
                  (cl-flet ((,sym-replace-expr (new-expr)
                              (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
-                               (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
+                               (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
                    ,@wrapped-body)))
               ;; Point is at "home" position. Operate on stack item at OPT-M.
               (t
