@@ -48,7 +48,27 @@ the displayed formula."
   "Return the sub-formula under point, ignoring any existing selection.
 Unlike `calc-auto-selection', which returns the active selection if one
 exists, this always auto-detects based on cursor position. Returns nil
-if no sub-formula is found."
+if no sub-formula is found.
+
+How it works:
+
+  1. Find which stack entry point is on. `calc-locate-cursor-element'
+     returns the position (1=top, 2=second, etc.); `calc-top' fetches
+     the entry data.
+
+  2. Build a map from screen positions back to formula parts.
+     `calc-prepare-selection' re-renders the formula with each
+     sub-expression tagged, then caches that tagged tree plus the
+     column where the formula text starts. Like a heatmap: every
+     character cell on screen is now linked to the sub-expression
+     that produced it.
+
+  3. Look up the cell under point. `calc-find-selected-part' uses
+     `(current-column)' minus the cached offset to walk the tagged
+     tree and find the smallest sub-expression covering that spot.
+     `calc-grow-assoc-formula' then expands outward through
+     associative operators -- so pointing at `b' in `a + b + c'
+     returns the whole `a + b + c' rather than just `b'."
   (let* ((num (max 1 (calc-locate-cursor-element (point))))
          (entry (calc-top num 'entry)))
     (calc-prepare-selection num)
