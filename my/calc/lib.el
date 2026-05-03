@@ -15,6 +15,13 @@ Uses unwind-protect so the mode is restored even if BODY signals an error."
          (when (fboundp 'calc-set-mode-line)
            (calc-set-mode-line))))))
 
+(defun my/calc-rel-op-p (expr)
+  "Return the operator symbol if EXPR is an equation or inequality (=, ≠, <, ≤, >, ≥), else nil."
+  (and (consp expr)
+       (memq (car expr) '(calcFunc-eq calcFunc-neq calcFunc-lt calcFunc-leq
+                          calcFunc-gt calcFunc-geq))
+       (car expr)))
+
 (defun my/calc-point-is-at-home-p ()
   "Return t if point is past the last stack entry (at the . line or below).
 Used to determine whether my/calc-edit-dwim should open a new entry or edit
@@ -236,10 +243,7 @@ EXAMPLES
                             (full-expr (car entry))
                             (subexpr (and (not (eolp)) (my/calc-subformula-at-point)))
                             (rel-op (and (null subexpr)
-                                         (memq (car-safe full-expr)
-                                               '(calcFunc-eq calcFunc-neq calcFunc-lt calcFunc-leq
-                                                 calcFunc-gt calcFunc-geq))
-                                         (car full-expr)))
+                                         (my/calc-rel-op-p full-expr)))
                             (,sym-expr (or subexpr full-expr)))
                        (if rel-op
                            (let ((,g-lhs (nth 1 full-expr))
