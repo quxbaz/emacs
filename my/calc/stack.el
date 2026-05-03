@@ -148,27 +148,6 @@ Function names (identifiers immediately followed by '(') are skipped."
       (unless (looking-at "[a-zA-Z_][a-zA-Z0-9_]*(")
         (setq done t)))))
 
-(defun my/calc-forward-char ()
-  "Move forward one unit: skip the whole noun at point, or one non-noun character."
-  (interactive)
-  (if (looking-at "[a-zA-Z_][a-zA-Z0-9_]*\\|[0-9]+\\(\\.[0-9]+\\)?")
-      (goto-char (match-end 0))
-    (forward-char))
-  (skip-chars-forward " \t"))
-
-(defun my/calc-backward-char ()
-  "Move backward one unit: skip the whole noun before point, or one non-noun character."
-  (interactive)
-  (let ((prev (char-before)))
-    (if (and prev (string-match-p "[a-zA-Z_0-9]" (string prev)))
-        (progn
-          (skip-chars-backward "0-9")
-          (when (and (> (point) (point-min)) (char-equal (char-before) ?.))
-            (backward-char)
-            (skip-chars-backward "0-9"))
-          (skip-chars-backward "a-zA-Z_"))
-      (skip-chars-backward " \t")
-      (backward-char))))
 
 ;; log(x, b) → \log_{b}\left( x \right) in LaTeX/MathJax output.
 (with-eval-after-load 'calccomp
