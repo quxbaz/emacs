@@ -553,7 +553,7 @@ Also converts f(2) = 0 to [2 0]."
 With no selection: factors stack level 2 by stack level 1.
 With selection active: factors the selected expression by the top of stack."
   (interactive)
-  (my/calc-replace-expr-dwim (expr top replace-expr) ((m 2) (prefix "fctr") (simp -1))
+  (my/calc-replace-expr-dwim (expr top replace-expr) ((m 2) (prefix "fctr") (simp -1) (map? -1))
     (let* ((factor top)
            (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
            (factored (calcFunc-mul factor divided)))
@@ -573,6 +573,18 @@ or top stack entry."
            (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
            (factored (my/calc-without-simplification (calcFunc-mul factor divided))))
       (replace-expr factored))))
+
+(defun my/calc-sqrt ()
+  "Take the square root of the target expression.
+With calc-is-inverse, squares instead (like calc-sqrt).
+Works contextually: operates on selection, sub-formula at point,
+or top stack entry."
+  (interactive)
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "sqrt"))
+    (replace-expr (calc-normalize
+                   (if (calc-is-inverse)
+                       (list 'calcFunc-sqr expr)
+                     (list 'calcFunc-sqrt expr))))))
 
 (defun my/math-ref-angle (x)
   "Given an angle, gets its reference angle."
