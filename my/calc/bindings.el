@@ -61,11 +61,12 @@
 
          ;; Math operations
          (:map calc-mode-map ("n" . my/calc-change-sign))
+         (:map calc-mode-map ("o" . my/calc-inv))
          (:map calc-mode-map ("+" . my/calc-plus))
          (:map calc-mode-map ("-" . my/calc-minus))
          (:map calc-mode-map ("M-=" . calc-evaluate))
          (:map calc-mode-map ("k k" . my/calc-evaluate))
-         (:map calc-mode-map ("o" . calc-inv))
+
          (:map calc-mode-map ("\\" . calc-sqrt))
          (:map calc-mode-map ("W" . my/calc-square))
          (:map calc-mode-map ("f l" . my/calc-cath))
