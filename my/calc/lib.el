@@ -111,8 +111,13 @@ are active."
 (defmacro my/calc-replace-expr-dwim (bindings options &rest body)
   "Execute BODY with bindings for operating on calc selections or stack entries.
 
-Provides a unified interface for calc operations that work on either a selected
-sub-expression or a stack entry, automatically handling both cases.
+Provides a unified interface for calc operations. The target expression is
+chosen based on context, in priority order:
+
+  1. The active calc selection, if any.
+  2. The whole stack entry, if point is at the end of an entry line.
+  3. The sub-formula under point, if point is on a stack entry.
+  4. The stack item at OPT-M (default 1), if point is at \"home\".
 
 BINDINGS is a list of 3 symbols that are bound inside BODY:
 
@@ -152,6 +157,10 @@ EXAMPLES
       (let ((result (calcFunc-abs expr)))
         (calc-wrapper
          (replace-expr result))))
+
+    ;; Disable simplification while operating (e.g. to preserve unevaluated form).
+    (my/calc-replace-expr-dwim (expr replace-expr) ((prefix \"foo\") (simp -1))
+      (replace-expr (calcFunc-foo expr)))
 "
   (declare (indent 2))
   ;; Convert `options` to alist for convenience:
@@ -188,7 +197,7 @@ EXAMPLES
       `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
              (keep-args calc-keep-args-flag)
              (saved-point (point)))  ;; Restore point later if `opt-keep-point` is true.
-         (prog1 ;; Return value from `body`.
+         (prog1
              (cond
               ;; Selection is active. Operate on active selection.
               (,sym-sel-is-active
@@ -199,28 +208,17 @@ EXAMPLES
                              (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
                                (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
                    ,@wrapped-body)))
-              ;; Point is at the end of a stack entry line. Operate on the
-              ;; entire stack entry.
-              ((my/calc-point-is-at-entry-end-p)
-               (let* ((m (calc-locate-cursor-element (point)))
-                      (entry (nth m calc-stack))
-                      (,sym-expr (car (calc-top m 'entry)))
-                      ;; (,sym-expr (calc-top-n m))
-                      )
-                 (cl-flet ((,sym-replace-expr (new-expr)
-                             (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
-                               (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
-                   ,@wrapped-body)))
-              ;; Point is on a sub-formula. Operate on the sub-formula.
+              ;; Point is on a stack entry. Operate on the sub-formula at
+              ;; point, or the whole entry if point is at end of line.
               ((not (my/calc-point-is-at-home-p))
                (let* ((m (calc-locate-cursor-element (point)))
                       (entry (nth m calc-stack))
-                      (,sym-expr (my/calc-subformula-at-point)))
+                      (,sym-expr (if (eolp) (car entry) (my/calc-subformula-at-point))))
                  (cl-flet ((,sym-replace-expr (new-expr)
                              (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
                                (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
                    ,@wrapped-body)))
-              ;; Point is at "home" position. Operate on top stack item.
+              ;; Point is at "home" position. Operate on stack item at OPT-M.
               (t
                (let ((,sym-expr (car (calc-top ,opt-m 'entry))))
                  (cl-flet ((,sym-replace-expr (new-expr)
