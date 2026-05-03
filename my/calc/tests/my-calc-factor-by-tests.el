@@ -211,6 +211,40 @@ Expected: (y-2)^2 = -4*(x-4)."
         (should (math-zerop (math-simplify lhs-diff)))
         (should (math-zerop (math-simplify rhs-diff)))))))
 
+;;; line option tests
+
+(ert-deftest test-my/calc-replace-expr-dwim-line-ignores-subformula ()
+  "With (line t), point on a subformula still operates on the whole entry."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "x + y"))
+    ;; Position point mid-line (on the x subformula, not at eol)
+    (calc-cursor-stack-index 1)
+    (beginning-of-line)
+    (search-forward "x")
+    (backward-char)
+    (my/calc-replace-expr-dwim (expr replace-expr) ((line t))
+      (replace-expr (math-neg expr)))
+    (let* ((result (car (nth 1 calc-stack)))
+           (diff (math-normalize (list '- result (math-read-expr "-(x+y)")))))
+      (should (math-zerop (math-simplify diff))))))
+
+(ert-deftest test-my/calc-replace-expr-dwim-line-ignores-equation-map ()
+  "With (line t), eol on an equation operates on the whole entry, not both sides."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "x = y"))
+    (calc-cursor-stack-index 1)
+    (end-of-line)
+    (my/calc-replace-expr-dwim (expr replace-expr) ((line t))
+      (replace-expr (math-neg expr)))
+    ;; Result should be -(x=y), not (-x = -y)
+    (let ((result (car (nth 1 calc-stack))))
+      (should (eq (car-safe result) 'neg))
+      (should (eq (car-safe (nth 1 result)) 'calcFunc-eq)))))
+
 ;;; pop-stack tests
 
 (ert-deftest test-my/calc-factor-by-equation-at-eol ()
