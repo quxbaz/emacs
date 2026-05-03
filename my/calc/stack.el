@@ -473,10 +473,6 @@ Also converts f(2) = 0 to [2 0]."
   (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "inv"))
     (replace-expr (calcFunc-inv expr))))
 
-(defun my/calc-square ()
-  "Squares a number."
-  (interactive)
-  (funcall (kmacro "I Q")))
 
 (defun my/calc-poly-lcm ()
   "Compute the LCM of two polynomials on the stack."
@@ -586,6 +582,18 @@ or top stack entry."
                    (if (calc-is-inverse)
                        (list 'calcFunc-sqr expr)
                      (list 'calcFunc-sqrt expr))))))
+
+(defun my/calc-square ()
+  "Square the target expression.
+With calc-is-inverse, takes the square root instead (like calc-sqrt).
+Works contextually: operates on selection, sub-formula at point,
+or top stack entry."
+  (interactive)
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "^2"))
+    (replace-expr (calc-normalize
+                   (if (calc-is-inverse)
+                       (list 'calcFunc-sqrt expr)
+                     (list 'calcFunc-sqr expr))))))
 
 (defun my/math-ref-angle (x)
   "Given an angle, gets its reference angle."
