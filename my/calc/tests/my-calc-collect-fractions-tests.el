@@ -92,6 +92,24 @@
                    (list '- result (math-read-expr "8 / (3 * (x + 1)^2)")))))
         (should (math-zerop (math-simplify diff)))))))
 
+;;; Symbolic denominator — should not crash, return expr unchanged
+
+(ert-deftest test-my/calc-collect-fractions-symbolic-denominator ()
+  "3 / a^3: symbolic denominator — expression returned unchanged without error."
+  (with-temp-buffer
+    (calc-mode)
+    (let* ((input  (math-read-expr "3 / a^3"))
+           (result (my-calc-collect-fractions-tests--run "3 / a^3")))
+      (should (math-zerop (math-simplify (list '- result input)))))))
+
+(ert-deftest test-my/calc-collect-fractions-mixed-symbolic-denominator ()
+  "x/2 + 3/a^3: mixed integer/symbolic denominators — expression returned unchanged."
+  (with-temp-buffer
+    (calc-mode)
+    (let* ((input  (math-read-expr "x/2 + 3/a^3"))
+           (result (my-calc-collect-fractions-tests--run "x/2 + 3/a^3")))
+      (should (math-zerop (math-simplify (list '- result input)))))))
+
 ;;; Selection tests
 
 (ert-deftest test-my/calc-collect-fractions-respects-selection ()

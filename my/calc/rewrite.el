@@ -97,15 +97,18 @@ Two distinct behaviors depending on the expression shape:
            ;; General case: collect all additive terms over their LCD.
            ;; Each term is rescaled by (lcd / its-own-denom) so the
            ;; denominators cancel and the result is a single fraction.
-           (let* ((ts  (terms expr))
-                  (lcd (cl-reduce #'my-lcm (mapcar #'denom ts) :initial-value 1))
-                  (num (cl-reduce #'math-add
-                                  (mapcar (lambda (term)
-                                            (math-mul (numer term)
-                                                      (math-div lcd (denom term))))
-                                          ts)
-                                  :initial-value 0)))
-             (calc-normalize (list '/ num lcd))))))
+           (let* ((ts     (terms expr))
+                  (denoms (mapcar #'denom ts)))
+             (if (not (cl-every #'math-integerp denoms))
+                 expr
+               (let* ((lcd (cl-reduce #'my-lcm denoms :initial-value 1))
+                      (num (cl-reduce #'math-add
+                                      (mapcar (lambda (term)
+                                                (math-mul (numer term)
+                                                          (math-div lcd (denom term))))
+                                              ts)
+                                      :initial-value 0)))
+                 (calc-normalize (list '/ num lcd))))))))
     (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "cltf") (simp -1))
       (replace-expr (transform expr)))))
 
