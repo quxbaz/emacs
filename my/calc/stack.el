@@ -481,22 +481,9 @@ Also converts f(2) = 0 to [2 0]."
   "Compute the LCM of two polynomials on the stack."
   (interactive)
   (cl-labels
-      ((factors (expr)
-         "Flatten a factored expression into an alist of (base . exponent)."
-         (cond ((eq (car-safe expr) '*)
-                (append (factors (nth 1 expr)) (factors (nth 2 expr))))
-               ((eq (car-safe expr) '^)
-                (list (cons (nth 1 expr) (nth 2 expr))))
-               (t
-                (list (cons expr 1)))))
-       (mul-factors (pairs)
-         (cl-reduce (lambda (acc p) (list '* acc (list '^ (car p) (cdr p))))
-                    pairs :initial-value 1))
-       (int-content (expr)
-         ;; GCD of the integer coefficients of EXPR.  Used to separate
-         ;; the numeric content from the primitive polynomial before
-         ;; factoring, because calcFunc-factor does not extract it for
-         ;; linear polynomials where each variable appears only once.
+      ((int-content (expr)
+         ;; GCD of integer coefficients.  calc-normalize distributes n*(sum+const)
+         ;; so we extract content at the alist level, not via arithmetic.
          (cond ((math-integerp expr) (math-abs expr))
                ((memq (car-safe expr) '(+ -))
                 (math-gcd (int-content (nth 1 expr))
@@ -506,24 +493,31 @@ Also converts f(2) = 0 to [2 0]."
                     (math-abs (nth 1 expr))
                   1))
                (t 1)))
-       (smart-factor (expr)
-         ;; For products/powers: return as-is — the factor structure is
-         ;; already visible to `factors` and calcFunc-factor would only
-         ;; call math-simplify which expands scalar×polynomial products.
-         ;; For sums: pull out the integer content first, then factor the
-         ;; primitive part (content 1) where calcFunc-factor works correctly.
-         (if (memq (car-safe expr) '(* ^))
-             expr
-           (let* ((c (int-content expr))
-                  (p (if (math-equal c 1) expr (math-div expr c)))
-                  (f (calcFunc-factor p)))
-             (if (math-equal c 1) f
-               (calc-normalize (list '* c f)))))))
+       (factorize (expr)
+         ;; Return alist of (base . exponent).  For sums, extract integer
+         ;; content as a separate numeric entry so the LCM algorithm sees the
+         ;; true polynomial structure — bypassing calc-normalize's distribution.
+         (cond
+          ((eq (car-safe expr) '*)
+           (append (factorize (nth 1 expr)) (factorize (nth 2 expr))))
+          ((eq (car-safe expr) '^)
+           (list (cons (nth 1 expr) (nth 2 expr))))
+          ((memq (car-safe expr) '(+ -))
+           (let* ((c        (int-content expr))
+                  (prim     (if (math-equal c 1) expr (math-div expr c)))
+                  (factored (calcFunc-factor prim))
+                  (pf       (if (eq (car-safe factored) '*)
+                                (factorize factored)
+                              (list (cons factored 1)))))
+             (if (math-equal c 1) pf (cons (cons c 1) pf))))
+          (t
+           (list (cons expr 1)))))
+       (mul-factors (pairs)
+         (cl-reduce (lambda (acc p) (list '* acc (list '^ (car p) (cdr p))))
+                    pairs :initial-value 1)))
     (calc-wrapper
-     (let* ((b (smart-factor (calc-top-n 1)))
-            (a (smart-factor (calc-top-n 2)))
-            (fa (factors a))
-            (fb (factors b))
+     (let* ((fa (factorize (calc-top-n 2)))
+            (fb (factorize (calc-top-n 1)))
             (nums-a  (cl-remove-if-not (lambda (p) (math-numberp (car p))) fa))
             (nums-b  (cl-remove-if-not (lambda (p) (math-numberp (car p))) fb))
             (polys-a (cl-remove-if     (lambda (p) (math-numberp (car p))) fa))
@@ -539,8 +533,13 @@ Also converts f(2) = 0 to [2 0]."
                              (eb (or (cdr (cl-find base polys-b :key #'car :test #'math-equal)) 0)))
                          (cons base (max ea eb))))
                      bases))
-            (result (calc-normalize (list '* coeff (mul-factors poly-pairs)))))
-       (calc-enter-result 2 "plcm" result)))))
+            (poly-part (math-normalize (mul-factors poly-pairs))))
+       (if (math-equal coeff 1)
+           (calc-enter-result 2 "plcm" poly-part)
+         ;; Use 'none simplification to prevent calc-normalize from distributing
+         ;; the integer coefficient into a sum: 12*(x+1) → 12x+12.
+         (my/calc-without-simplification
+           (calc-enter-result 2 "plcm" (list '* coeff poly-part))))))))
 
 (defun my/calc--sum-terms (expr)
   "Return a flat list of additive terms in EXPR."
