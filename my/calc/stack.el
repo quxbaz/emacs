@@ -238,7 +238,7 @@ Shows message if stack is empty."
   "Duplicate the expression at point and move to home.
 If selection is active, clear selections instead.
 - At home: duplicate the top stack item.
-- At end of a stack entry line: push the entire entry.
+- At end of line or before the expression (line-number prefix): push the entire entry.
 - On a subexpression: push the sub-formula under point."
   (interactive)
   (cond
@@ -249,7 +249,8 @@ If selection is active, clear selections instead.
    (t
     (let* ((m (calc-locate-cursor-element (point)))
            (entry (nth m calc-stack))
-           (expr (if (eolp) (car entry) (my/calc-subformula-at-point))))
+           (subexpr (and (not (eolp)) (my/calc-subformula-at-point)))
+           (expr (or subexpr (car entry))))
       (calc-wrapper
        (calc-push expr))
       (calc-align-stack-window)))))
