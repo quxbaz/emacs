@@ -251,6 +251,7 @@ If selection is active, clear selections instead.
            (entry (nth m calc-stack))
            (subexpr (and (not (eolp)) (my/calc-subformula-at-point)))
            (expr (or subexpr (car entry))))
+      (push-mark)
       (calc-wrapper
        (calc-push expr))
       (calc-align-stack-window)))))
