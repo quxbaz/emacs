@@ -11,14 +11,13 @@
    (unwind-protect (calc-clear-selections))))
 
 (defun my/calc-commute ()
-  "Like calc-sel-commute, but works on the line instead of the current selection."
+  "Swap the two operands of the expression at point.
+Works contextually: operates on active selection, sub-formula at point,
+equation/inequality both sides, or top stack entry."
   (interactive)
-  (my/calc-without-simplification
-    (my/preserve-point
-     (unwind-protect
-         (progn
-           (move-end-of-line nil)
-           (call-interactively 'calc-sel-commute))))))
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "comm") (simp -1))
+    (when (and (listp expr) (not (Math-primp expr)) (>= (length expr) 3))
+      (replace-expr (list (car expr) (nth 2 expr) (nth 1 expr))))))
 
 ;; Extend JumpRules with != (neq) variants of every = rule so that
 ;; calc-sel-jump-equals also works on inequalities.

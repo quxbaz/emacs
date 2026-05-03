@@ -61,3 +61,24 @@
          (s (math-format-value result)))
     (should (string-match-p "x" s))
     (should (string-match-p "9" s))))
+
+
+;;; Scalar no-op
+
+(ert-deftest test-calc-commute-scalar-noop ()
+  "Commuting a plain number leaves the stack unchanged."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push 42)
+    (my/calc-commute)
+    (should (equal (car (nth 1 calc-stack)) 42))))
+
+(ert-deftest test-calc-commute-variable-noop ()
+  "Commuting a variable leaves the stack unchanged."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "x"))
+    (my/calc-commute)
+    (should (equal (car (nth 1 calc-stack)) '(var x var-x)))))
