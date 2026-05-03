@@ -53,9 +53,9 @@
 (setq var-eq-tan-roots '(calcFunc-eq (calcFunc-tan (* (var n var-n) (var pi var-pi))) 0))
 (setq var-eq-cotan-roots '(calcFunc-eq (calcFunc-cot (+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2))) 0))
 
-;;; Trigonometry — Harmonic Motion
-(setq var-eq-harmonic-period '(calcFunc-eq (var T var-T) (* (/ 1 (var B var-B)) (* 2 (var pi var-pi)))))
-(setq var-eq-harmonic-frequency '(calcFunc-eq (var f var-f) (/ 1 (var T var-T))))
+;;; Trigonometry — Wave Motion
+(setq var-eq-trig-period '(calcFunc-eq (var T var-T) (* (/ 1 (var B var-B)) (* 2 (var pi var-pi)))))
+(setq var-eq-trig-frequency '(calcFunc-eq (var f var-f) (/ 1 (var T var-T))))
 
 ;;; Trig — Asymptotes
 (setq var-eq-tan-asymptotes '(+ (* (var n var-n) (var pi var-pi)) (/ (var pi var-pi) 2)))
