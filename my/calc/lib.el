@@ -44,6 +44,16 @@ the displayed formula."
        ;; selection is active.
        (seq-some (lambda (elt) (nth 2 elt)) calc-stack)))
 
+(defun my/calc-subformula-at-point ()
+  "Return the sub-formula under point, ignoring any existing selection.
+Unlike `calc-auto-selection', which returns the active selection if one
+exists, this always auto-detects based on cursor position. Returns nil
+if no sub-formula is found."
+  (let* ((num (max 1 (calc-locate-cursor-element (point))))
+         (entry (calc-top num 'entry)))
+    (calc-prepare-selection num)
+    (calc-grow-assoc-formula (car entry) (calc-find-selected-part))))
+
 (defun my/calc-active-selection-at-line-p ()
   "Returns t if there are any active selections at point."
   (let ((m (calc-locate-cursor-element (point))))
