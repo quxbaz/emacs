@@ -70,7 +70,7 @@
          (:map calc-mode-map ("\\" . calc-sqrt))
          (:map calc-mode-map ("W" . my/calc-square))
          (:map calc-mode-map ("f l" . my/calc-cath))
-         (:map calc-mode-map ("f o" . my/calc-unit-cath))
+         (:map calc-mode-map ("f L" . my/calc-unit-cath))
 
          ;; Display and modes
          (:map calc-mode-map (">" . calc-scroll-left))
