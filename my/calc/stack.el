@@ -110,6 +110,25 @@ If point is past the top stack item, calls calc-realign instead."
           (search-forward-regexp "^[0-9]+: *")
         (error nil)))))
 
+(defun my/calc-forward-noun ()
+  "Move point to the start of the next number or variable in the calc display."
+  (interactive)
+  (when (looking-at "[a-zA-Z_][a-zA-Z0-9_]*\\|[0-9]+\\(\\.[0-9]+\\)?")
+    (goto-char (match-end 0)))
+  (when (re-search-forward "[a-zA-Z_][a-zA-Z0-9_]*\\|[0-9]+\\(\\.[0-9]+\\)?" nil t)
+    (goto-char (match-beginning 0))))
+
+(defun my/calc-backward-noun ()
+  "Move point to the start of the previous number or variable in the calc display."
+  (interactive)
+  (skip-chars-backward "0-9")
+  (when (and (> (point) (point-min)) (char-equal (char-before) ?.))
+    (backward-char)
+    (skip-chars-backward "0-9"))
+  (skip-chars-backward "a-zA-Z_")
+  (when (re-search-backward "[a-zA-Z_][a-zA-Z0-9_]*\\|[0-9]+\\(\\.[0-9]+\\)?" nil t)
+    (goto-char (match-beginning 0))))
+
 ;; log(x, b) → \log_{b}\left( x \right) in LaTeX/MathJax output.
 (with-eval-after-load 'calccomp
   (put 'calcFunc-log 'math-compose-latex
