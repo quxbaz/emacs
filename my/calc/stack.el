@@ -129,6 +129,18 @@ If point is past the top stack item, calls calc-realign instead."
   (when (re-search-backward "[a-zA-Z_][a-zA-Z0-9_]*\\|[0-9]+\\(\\.[0-9]+\\)?" nil t)
     (goto-char (match-beginning 0))))
 
+(defun my/calc-forward-char ()
+  "Move to the next non-whitespace character."
+  (interactive)
+  (forward-char)
+  (skip-chars-forward " \t"))
+
+(defun my/calc-backward-char ()
+  "Move to the previous non-whitespace character."
+  (interactive)
+  (skip-chars-backward " \t")
+  (backward-char))
+
 ;; log(x, b) → \log_{b}\left( x \right) in LaTeX/MathJax output.
 (with-eval-after-load 'calccomp
   (put 'calcFunc-log 'math-compose-latex

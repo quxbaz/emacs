@@ -44,6 +44,8 @@
          (:map calc-mode-map ("C-k" . my/calc-kill))
          (:map calc-mode-map ("C-a" . my/calc-beginning-of-expression))
          (:map calc-mode-map ("M-m" . my/calc-beginning-of-expression))
+         (:map calc-mode-map ("C-f" . my/calc-forward-char))
+         (:map calc-mode-map ("C-b" . my/calc-backward-char))
          (:map calc-mode-map ("}" . my/calc-forward-noun))
          (:map calc-mode-map ("{" . my/calc-backward-noun))
          (:map calc-mode-map ("M-w" . my/calc-kill-ring-save-dwim))
