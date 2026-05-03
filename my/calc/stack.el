@@ -462,6 +462,21 @@ sub-formula at point, or top stack entry."
   (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "esmp"))
     (replace-expr (math-simplify-extended expr))))
 
+(defun my/calc-factor ()
+  "Factor the active selection, sub-formula at point, or top stack entry."
+  (interactive)
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "fctr"))
+    (replace-expr (calcFunc-factor expr))))
+
+(defun my/calc-expand (n)
+  "Expand the active selection, sub-formula at point, or top stack entry.
+With numeric prefix N, expand only N levels deep."
+  (interactive "P")
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "expa"))
+    (replace-expr (if n
+                      (calcFunc-expand expr (prefix-numeric-value n))
+                    (calcFunc-expand expr)))))
+
 (defun my/calc-change-sign ()
   "Negate the active selection, sub-formula at point, or top stack entry."
   (interactive)
