@@ -480,9 +480,8 @@ With selection active: factors the selected expression by the top of stack."
       (let* ((factor (calc-top-n 1))
              (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
              (factored (calcFunc-mul factor divided)))
-        (calc-wrapper
-         (replace-expr factored)
-         (calc-pop-stack 1))))))
+        (replace-expr factored)
+        (calc-pop-stack 1)))))
 
 (defun my/math-ref-angle (x)
   "Given an angle, gets its reference angle."
