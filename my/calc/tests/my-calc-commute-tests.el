@@ -82,3 +82,32 @@
     (calc-push (math-read-expr "x"))
     (my/calc-commute)
     (should (equal (car (nth 1 calc-stack)) '(var x var-x)))))
+
+
+;;; Equation at BOL / EOL
+
+(ert-deftest test-calc-commute-equation-at-eol ()
+  "Commuting x = y at EOL swaps both sides: y = x."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "x = y"))
+    (calc-cursor-stack-index 1)
+    (end-of-line)
+    (my/calc-commute)
+    (let* ((result (car (nth 1 calc-stack)))
+           (diff (math-normalize (list '- result (math-read-expr "y = x")))))
+      (should (math-zerop (math-simplify diff))))))
+
+(ert-deftest test-calc-commute-equation-at-bol ()
+  "Commuting x = y at BOL swaps both sides: y = x."
+  (with-temp-buffer
+    (calc-mode)
+    (calc-reset 0)
+    (calc-push (math-read-expr "x = y"))
+    (calc-cursor-stack-index 1)
+    (beginning-of-line)
+    (my/calc-commute)
+    (let* ((result (car (nth 1 calc-stack)))
+           (diff (math-normalize (list '- result (math-read-expr "y = x")))))
+      (should (math-zerop (math-simplify diff))))))

@@ -15,7 +15,7 @@
 Works contextually: operates on active selection, sub-formula at point,
 equation/inequality both sides, or top stack entry."
   (interactive)
-  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "comm") (simp -1))
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "comm") (simp -1) (map? -1))
     (when (and (listp expr) (not (Math-primp expr)) (>= (length expr) 3))
       (replace-expr (list (car expr) (nth 2 expr) (nth 1 expr))))))
 
