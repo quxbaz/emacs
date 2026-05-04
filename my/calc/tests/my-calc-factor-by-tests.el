@@ -214,7 +214,7 @@ Expected: (y-2)^2 = -4*(x-4)."
 ;;; line option tests
 
 (ert-deftest test-my/calc-replace-expr-dwim-line-ignores-subformula ()
-  "With (line t), point on a subformula still operates on the whole entry."
+  "With (line? t), point on a subformula still operates on the whole entry."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
@@ -224,21 +224,21 @@ Expected: (y-2)^2 = -4*(x-4)."
     (beginning-of-line)
     (search-forward "x")
     (backward-char)
-    (my/calc-replace-expr-dwim (expr replace-expr) ((line t))
+    (my/calc-replace-expr-dwim (expr replace-expr) ((line? t))
       (replace-expr (math-neg expr)))
     (let* ((result (car (nth 1 calc-stack)))
            (diff (math-normalize (list '- result (math-read-expr "-(x+y)")))))
       (should (math-zerop (math-simplify diff))))))
 
 (ert-deftest test-my/calc-replace-expr-dwim-line-ignores-equation-map ()
-  "With (line t), eol on an equation operates on the whole entry, not both sides."
+  "With (line? t), eol on an equation operates on the whole entry, not both sides."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
     (calc-push (math-read-expr "x = y"))
     (calc-cursor-stack-index 1)
     (end-of-line)
-    (my/calc-replace-expr-dwim (expr replace-expr) ((line t))
+    (my/calc-replace-expr-dwim (expr replace-expr) ((line? t))
       (replace-expr (math-neg expr)))
     ;; Result should be -(x=y), not (-x = -y)
     (let ((result (car (nth 1 calc-stack))))

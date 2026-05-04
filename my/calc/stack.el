@@ -934,7 +934,7 @@ Removes both items by default. With K prefix, keeps them."
 Accepts y=f(x) equations or f(x) expressions, with any variable names.
 Works contextually: operates on the entry at point or top of stack."
   (interactive)
-  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "inv") (line t))
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "inv") (line? t))
     (let* ((var-y     '(var y var-y))
            (is-eq     (eq (car-safe expr) 'calcFunc-eq))
            (lhs       (and is-eq (nth 1 expr)))

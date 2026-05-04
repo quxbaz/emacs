@@ -159,7 +159,7 @@ OPTIONS is an alist of (SYMBOL VALUE) pairs:
                            -1  = old behavior: operate on whole entry at eol
     (pop-stack N)          pop N extra items from the top after the operation
                            (default: 0); fired once even in equation-map mode
-    (line BOOL)            t = always target the whole stack entry; subformula
+    (line? BOOL)           t = always target the whole stack entry; subformula
                            and equation targeting ignored (default: nil)
 
 EXAMPLES
@@ -225,7 +225,7 @@ EXAMPLES
         (opt-pop-stack (alist-get 'pop-stack options 0))
         ;; When t, always target the whole stack entry regardless of point
         ;; position; subexpression and equation targeting are both ignored.
-        (opt-line (alist-get 'line options nil)))
+        (opt-line (alist-get 'line? options nil)))
     (let* ((inner-body (if (eq opt-simp -1) `((my/calc-without-simplification ,@body)) body))
            (pop-forms (when (> opt-pop-stack 0) (list `(calc-pop-stack ,opt-pop-stack))))
            (wrapped-body (if opt-calc-wrapper `((calc-wrapper ,@inner-body ,@pop-forms)) `(,@inner-body ,@pop-forms)))
@@ -253,7 +253,7 @@ EXAMPLES
                    ,@wrapped-body)))
               ;; Branches 2–5: point on a stack entry; compile-time dispatch on options.
               ((not (my/calc-point-is-at-home-p))
-               ,(let ((whole-line-form  ;; Branch 3: line — J prefix or (line t); always whole entry.
+               ,(let ((whole-line-form  ;; Branch 3: line — J prefix or (line? t); always whole entry.
                        `(let* ((m (calc-locate-cursor-element (point)))
                                (entry (nth m calc-stack))
                                (,sym-expr (car entry)))
@@ -261,7 +261,7 @@ EXAMPLES
                                       (calc-pop-push-record-list 1 ,opt-prefix new-expr m)))
                             ,@wrapped-body))))
                   (cond
-                   ;; (line t): always Branch 3.
+                   ;; (line? t): always Branch 3.
                    (opt-line whole-line-form)
                    ;; (map? -1): Branch 3 (J prefix) or Branch 2/4 (subformula or entry); no equation mapping.
                    ((eq opt-map -1)
