@@ -463,9 +463,9 @@ sub-formula at point, or top stack entry."
     (replace-expr (math-simplify-extended expr))))
 
 (defun my/calc-factor ()
-  "Factor the active selection, sub-formula at point, or top stack entry."
+  "Factor the active selection or whole stack entry at point."
   (interactive)
-  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "fctr"))
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "fctr") (line t))
     (replace-expr (calcFunc-factor expr))))
 
 (defun my/calc-expand (n)
@@ -655,6 +655,14 @@ exp is taken from the top of the stack; expr is the contextual target
                    (if (calc-is-inverse)
                        (list 'calcFunc-nroot expr top)
                      (list 'calcFunc-pow expr top))))))
+
+(defun my/calc-times ()
+  "Multiply the contextual target by the top stack item.
+Works contextually: operates on selection, sub-formula at point,
+or second stack entry."
+  (interactive)
+  (my/calc-replace-expr-dwim (expr top replace-expr) ((m 2) (prefix "*") (pop-stack 1))
+    (replace-expr (calc-normalize (list 'calcFunc-mul expr top)))))
 
 (defun my/math-ref-angle (x)
   "Given an angle, gets its reference angle."
