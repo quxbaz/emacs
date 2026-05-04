@@ -94,7 +94,6 @@
          ;; Algebraic operations
          (:map calc-mode-map ("@" . my/calc-no-simplify-mode))
          (:map calc-mode-map ("#" . my/calc-next-cmd-no-simplify))
-         (:map calc-mode-map ("O" . calc-option))
          (:map calc-mode-map ("=" . my/calc-equal-to))
          (:map calc-mode-map ("e" . my/calc-equal-to))
          (:map calc-mode-map ("x" . my/calc-expand))
