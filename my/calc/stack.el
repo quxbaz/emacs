@@ -465,7 +465,7 @@ sub-formula at point, or top stack entry."
 (defun my/calc-factor ()
   "Factor the active selection or whole stack entry at point."
   (interactive)
-  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "fctr") (line t))
+  (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "fctr"))
     (replace-expr (calcFunc-factor expr))))
 
 (defun my/calc-expand (n)
@@ -663,6 +663,14 @@ or second stack entry."
   (interactive)
   (my/calc-replace-expr-dwim (expr top replace-expr) ((m 2) (prefix "*") (pop-stack 1))
     (replace-expr (calc-normalize (list 'calcFunc-mul expr top)))))
+
+(defun my/calc-divide ()
+  "Divide the contextual target by the top stack item.
+Works contextually: operates on selection, sub-formula at point,
+or second stack entry."
+  (interactive)
+  (my/calc-replace-expr-dwim (expr top replace-expr) ((m 2) (prefix "/") (pop-stack 1))
+    (replace-expr (calc-normalize (list 'calcFunc-div expr top)))))
 
 (defun my/math-ref-angle (x)
   "Given an angle, gets its reference angle."
