@@ -239,50 +239,59 @@ EXAMPLES
                    ,@wrapped-body)))
               ;; Point is on a stack entry.
               ((not (my/calc-point-is-at-home-p))
-               ,(cond
-                 ;; line=t: always target the whole entry, ignoring subformulas and equations.
-                 (opt-line
-                  `(let* ((m (calc-locate-cursor-element (point)))
-                          (entry (nth m calc-stack))
-                          (,sym-expr (car entry)))
-                     (cl-flet ((,sym-replace-expr (new-expr)
-                                 (calc-pop-push-record-list 1 ,opt-prefix new-expr m)))
-                       ,@wrapped-body)))
-                 ;; map?=-1: target subformula or whole entry; no equation mapping.
-                 ((eq opt-map -1)
-                  `(let* ((m (calc-locate-cursor-element (point)))
-                          (entry (nth m calc-stack))
-                          (subexpr (and (not (eolp)) (my/calc-subformula-at-point)))
-                          (,sym-expr (or subexpr (car entry))))
-                     (cl-flet ((,sym-replace-expr (new-expr)
-                                 (let ((new-formula (calc-replace-sub-formula (car entry) ,sym-expr new-expr)))
-                                   (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
-                       ,@wrapped-body)))
-                 ;; default: subformula, whole entry, or equation map.
-                 (t
-                  `(let* ((m (calc-locate-cursor-element (point)))
-                          (entry (nth m calc-stack))
-                          (full-expr (car entry))
-                          (subexpr (and (not (eolp)) (my/calc-subformula-at-point)))
-                          (rel-op (and (null subexpr)
-                                       (my/calc-rel-op-p full-expr)))
-                          (,sym-expr (or subexpr full-expr)))
-                     (if rel-op
-                         (let ((,g-lhs (nth 1 full-expr))
-                               (,g-rhs (nth 2 full-expr)))
-                           (calc-wrapper
-                             (let ((,sym-expr ,g-lhs))
-                               (cl-flet ((,sym-replace-expr (e) (setq ,g-lhs e)))
-                                 ,@body-for-map))
-                             (let ((,sym-expr ,g-rhs))
-                               (cl-flet ((,sym-replace-expr (e) (setq ,g-rhs e)))
-                                 ,@body-for-map))
-                             (calc-pop-push-record-list 1 ,opt-prefix (list rel-op ,g-lhs ,g-rhs) m)
-                             ,@pop-forms))
+               ,(let ((whole-line-form
+                       `(let* ((m (calc-locate-cursor-element (point)))
+                               (entry (nth m calc-stack))
+                               (,sym-expr (car entry)))
+                          (cl-flet ((,sym-replace-expr (new-expr)
+                                      (calc-pop-push-record-list 1 ,opt-prefix new-expr m)))
+                            ,@wrapped-body))))
+                  (cond
+                   ;; line=t or J prefix: always target the whole entry.
+                   (opt-line whole-line-form)
+                   ;; map?=-1: target subformula or whole entry; no equation mapping.
+                   ((eq opt-map -1)
+                    `(if calc-option-flag
+                         ,whole-line-form
+                       (let* ((m (calc-locate-cursor-element (point)))
+                              (entry (nth m calc-stack))
+                              (subexpr (and (not (eolp)) (my/calc-subformula-at-point)))
+                              (,sym-expr (or subexpr (car entry))))
                          (cl-flet ((,sym-replace-expr (new-expr)
-                                     (let ((new-formula (calc-replace-sub-formula full-expr ,sym-expr new-expr)))
+                                     (let ((new-formula (if (eq ,sym-expr (car entry))
+                                                            new-expr
+                                                          (calc-replace-sub-formula (car entry) ,sym-expr new-expr))))
                                        (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
-                           ,@wrapped-body))))))
+                           ,@wrapped-body))))
+                   ;; default: subformula, whole entry, or equation map.
+                   (t
+                    `(if calc-option-flag
+                         ,whole-line-form
+                       (let* ((m (calc-locate-cursor-element (point)))
+                              (entry (nth m calc-stack))
+                              (full-expr (car entry))
+                              (subexpr (and (not (eolp)) (my/calc-subformula-at-point)))
+                              (rel-op (and (null subexpr)
+                                           (my/calc-rel-op-p full-expr)))
+                              (,sym-expr (or subexpr full-expr)))
+                         (if rel-op
+                             (let ((,g-lhs (nth 1 full-expr))
+                                   (,g-rhs (nth 2 full-expr)))
+                               (calc-wrapper
+                                 (let ((,sym-expr ,g-lhs))
+                                   (cl-flet ((,sym-replace-expr (e) (setq ,g-lhs e)))
+                                     ,@body-for-map))
+                                 (let ((,sym-expr ,g-rhs))
+                                   (cl-flet ((,sym-replace-expr (e) (setq ,g-rhs e)))
+                                     ,@body-for-map))
+                                 (calc-pop-push-record-list 1 ,opt-prefix (list rel-op ,g-lhs ,g-rhs) m)
+                                 ,@pop-forms))
+                             (cl-flet ((,sym-replace-expr (new-expr)
+                                         (let ((new-formula (if (eq ,sym-expr full-expr)
+                                                                new-expr
+                                                              (calc-replace-sub-formula full-expr ,sym-expr new-expr))))
+                                           (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
+                               ,@wrapped-body))))))))
               ;; Point is at "home" position. Operate on stack item at OPT-M.
               (t
                (let ((,sym-expr (car (calc-top ,opt-m 'entry))))
