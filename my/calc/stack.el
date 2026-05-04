@@ -447,13 +447,15 @@ Also converts f(2) = 0 to [2 0]."
          (calc-enter-result 2 "eq-" result)))
     (calc-minus arg)))
 
-(defun my/calc-equal-to (arg)
-  "Like calc-equal-to, but with I prefix calls calc-not-equal-to."
-  (interactive "P")
-  (my/calc-without-simplification
-    (if calc-inverse-flag
-        (calc-not-equal-to arg)
-      (calc-equal-to arg))))
+(defun my/calc-equal-to ()
+  "Create an equation from the contextual target and the top stack item.
+Works contextually: operates on selection, whole stack entry at point,
+or second stack entry. With I prefix, creates ≠ instead."
+  (interactive)
+  (my/calc-replace-expr-dwim (expr top replace-expr) ((m 2) (prefix (if calc-inverse-flag "neq" "eq")) (pop-stack 1) (line? t) (map? -1) (simp -1))
+    (replace-expr (if calc-inverse-flag
+                      (list 'calcFunc-neq expr top)
+                    (list 'calcFunc-eq expr top)))))
 
 (defun my/calc-simplify-extended ()
   "Apply extended simplification (trig, log, etc.) to the active selection,

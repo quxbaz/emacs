@@ -18,14 +18,14 @@
     (exit-minibuffer)))
 
 (defun my/calc-equal-to-from-minibuffer ()
-  "Applies equal-to from minibuffer, without simplification."
+  "Pushes input then replays e to call my/calc-equal-to contextually."
   (interactive)
   (let ((input (math-read-number (minibuffer-contents))))
     (delete-minibuffer-contents)
     (calc-wrapper
-     (my/calc-without-simplification
-      (calc-enter-result 1 "eq" (list 'calcFunc-eq (calc-top-n 1) input))))
-    (exit-minibuffer)))
+     (calc-set-command-flag 'no-align)
+     (calc-enter-result 0 "" input))
+    (calcDigit-nondigit)))
 
 (defun my/calc-mod-360-from-minibuffer ()
   "Applies modulo 360 (degrees) from minibuffer."

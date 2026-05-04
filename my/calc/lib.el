@@ -250,7 +250,7 @@ EXAMPLES
            (g-lhs (gensym "lhs"))
            (g-rhs (gensym "rhs")))
       `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
-             (,sym-top ,(and (memq 'top bindings) '(calc-top-n 1)))  ;; Top stack item, evaluated only if requested.
+             (,sym-top ,(and (memq 'top bindings) '(my/calc-without-simplification (calc-top-n 1))))  ;; Top stack item, evaluated only if requested.
              (keep-args calc-keep-args-flag)
              (saved-point (point))  ;; Restore point later if `opt-keep-point` is true.
              (saved-line-number (line-number-at-pos))  ;; Restore line position later when necessary.

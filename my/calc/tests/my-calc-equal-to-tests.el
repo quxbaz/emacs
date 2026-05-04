@@ -6,6 +6,7 @@
 (require 'calc)
 (require 'calc-ext)
 
+(load-file (expand-file-name "my/calc/lib.el" user-emacs-directory))
 (load-file (expand-file-name "my/calc/stack.el" user-emacs-directory))
 
 
@@ -18,7 +19,7 @@
      (calc-push (math-read-expr ,a))
      (calc-push (math-read-expr ,b))
      (let ((calc-inverse-flag ,inverse-p))
-       (my/calc-equal-to nil))
+       (my/calc-equal-to))
      ,@body))
 
 
