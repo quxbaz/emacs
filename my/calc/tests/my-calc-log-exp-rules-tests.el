@@ -8,6 +8,7 @@
 (require 'calc-ext)
 (require 'cl-lib)
 
+(load-file (expand-file-name "my/calc/lib.el" user-emacs-directory))
 (load-file (expand-file-name "my/calc/rewrite.el" user-emacs-directory))
 
 (defmacro my-calc-log-exp-rules-test (input expected)

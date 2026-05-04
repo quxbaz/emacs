@@ -2,6 +2,7 @@
 ;;
 ;; Calc rewrite rules and transformations
 
+(require 'my/calc/lib)
 
 (defun my/calc-to-degrees ()
   "Converts radian value to degree."
@@ -37,19 +38,24 @@ Applies the following rules:
   - 10^(-log10(x)) = 1/x        (base-10 negative exponent)
   - ln(x^p) = p * ln(x)         (logarithm power rule)
   - log(x^p, b) = p * log(x, b) (logarithm power rule)
-  - log10(x^p) = p * log10(x)   (base-10 power rule)"
+  - log10(x^p) = p * log10(x)   (base-10 power rule)
+
+Works contextually: operates on active selection, sub-formula at point,
+or top stack entry."
   (interactive)
-  (let ((rules (list "b^log(x, b) := x"
-                     "b^(-log(x, b)) := 1/x"
-                     "e^ln(x) := x"
-                     "e^(-ln(x)) := 1/x"
-                     "10^log10(x) := x"
-                     "10^(-log10(x)) := 1/x"
-                     "ln(x^p) := p * ln(x)"
-                     "log(x^p, b) := p * log(x, b)"
-                     "log10(x^p) := p * log10(x)")))
-    (calc-wrapper
-     (calc-rewrite (s-join "," rules) 1))))
+  (let* ((rule-strings (list "b^log(x, b) := x"
+                             "b^(-log(x, b)) := 1/x"
+                             "e^ln(x) := x"
+                             "e^(-ln(x)) := 1/x"
+                             "10^log10(x) := x"
+                             "10^(-log10(x)) := 1/x"
+                             "ln(x^p) := p * ln(x)"
+                             "log(x^p, b) := p * log(x, b)"
+                             "log10(x^p) := p * log10(x)"))
+         (parsed (math-read-exprs (string-join rule-strings ",")))
+         (rules (if (= (length parsed) 1) (car parsed) (cons 'vec parsed))))
+    (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "rwrt"))
+      (replace-expr (calc-normalize (math-rewrite expr rules 1))))))
 
 (defun my/calc-collect-fractions ()
   "Collect additive terms into a single fraction over their LCD.
