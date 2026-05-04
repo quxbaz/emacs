@@ -253,43 +253,39 @@ EXAMPLES
                    ,@wrapped-body)))
               ;; Branches 2–5: point on a stack entry; compile-time dispatch on options.
               ((not (my/calc-point-is-at-home-p))
-               ,(let ((whole-line-form  ;; Branch 3: line — J prefix or (line? t) with (map? -1); always whole entry.
-                       `(let* ((m (calc-locate-cursor-element (point)))
-                               (entry (nth m calc-stack))
-                               (,sym-expr (car entry)))
-                          (cl-flet ((,sym-replace-expr (new-expr)
-                                      (calc-pop-push-record-list 1 ,opt-prefix new-expr m)))
-                            ,@wrapped-body))))
-                  (cond
-                   ;; (line? t): bypass subformula; equation mapping still applies per map?.
-                   (opt-line
-                    (cond
-                     ;; (map? -1): no equation mapping, always Branch 3.
-                     ((eq opt-map -1) whole-line-form)
-                     ;; default: Branch 5 (equation) or Branch 4 (entry).
-                     (t
-                      `(let* ((m (calc-locate-cursor-element (point)))
-                              (entry (nth m calc-stack))
-                              (full-expr (car entry))
-                              (rel-op (my/calc-rel-op-p full-expr))
-                              (,sym-expr full-expr))
-                         (if rel-op
-                             ;; Branch 5: equation — map body over LHS and RHS.
-                             (let ((,g-lhs (nth 1 full-expr))
-                                   (,g-rhs (nth 2 full-expr)))
-                               (calc-wrapper
-                                (let ((,sym-expr ,g-lhs))
-                                  (cl-flet ((,sym-replace-expr (e) (setq ,g-lhs e)))
-                                    ,@body-for-map))
-                                (let ((,sym-expr ,g-rhs))
-                                  (cl-flet ((,sym-replace-expr (e) (setq ,g-rhs e)))
-                                    ,@body-for-map))
-                                (calc-pop-push-record-list 1 ,opt-prefix (list rel-op ,g-lhs ,g-rhs) m)
-                                ,@pop-forms))
-                           ;; Branch 4: entry.
+               ,(let* ((whole-line-form  ;; Branch 3: line — (line? t) or J prefix with (map? -1); no eq mapping.
+                        `(let* ((m (calc-locate-cursor-element (point)))
+                                (entry (nth m calc-stack))
+                                (,sym-expr (car entry)))
                            (cl-flet ((,sym-replace-expr (new-expr)
                                        (calc-pop-push-record-list 1 ,opt-prefix new-expr m)))
-                             ,@wrapped-body))))))
+                             ,@wrapped-body)))
+                       (line-with-eq-map-form  ;; (line? t) or J prefix with default map?: skip subformula, eq mapping applies.
+                        `(let* ((m (calc-locate-cursor-element (point)))
+                                (entry (nth m calc-stack))
+                                (full-expr (car entry))
+                                (rel-op (my/calc-rel-op-p full-expr))
+                                (,sym-expr full-expr))
+                           (if rel-op
+                               ;; Branch 5: equation — map body over LHS and RHS.
+                               (let ((,g-lhs (nth 1 full-expr))
+                                     (,g-rhs (nth 2 full-expr)))
+                                 (calc-wrapper
+                                  (let ((,sym-expr ,g-lhs))
+                                    (cl-flet ((,sym-replace-expr (e) (setq ,g-lhs e)))
+                                      ,@body-for-map))
+                                  (let ((,sym-expr ,g-rhs))
+                                    (cl-flet ((,sym-replace-expr (e) (setq ,g-rhs e)))
+                                      ,@body-for-map))
+                                  (calc-pop-push-record-list 1 ,opt-prefix (list rel-op ,g-lhs ,g-rhs) m)
+                                  ,@pop-forms))
+                             ;; Branch 4: entry.
+                             (cl-flet ((,sym-replace-expr (new-expr)
+                                         (calc-pop-push-record-list 1 ,opt-prefix new-expr m)))
+                               ,@wrapped-body)))))
+                  (cond
+                   ;; (line? t): bypass subformula; equation mapping still applies per map?.
+                   (opt-line (if (eq opt-map -1) whole-line-form line-with-eq-map-form))
                    ;; (map? -1): Branch 3 (J prefix) or Branch 2/4 (subformula or entry); no equation mapping.
                    ((eq opt-map -1)
                     `(if calc-option-flag
@@ -304,10 +300,10 @@ EXAMPLES
                                                           (calc-replace-sub-formula (car entry) ,sym-expr new-expr))))
                                        (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
                            ,@wrapped-body))))
-                   ;; default: Branch 3 (J prefix), Branch 5 (equation), Branch 2/4 (subformula or entry).
+                   ;; default: J prefix = skip subformula+eq-map; Branch 5 (equation); Branch 2/4 (subformula or entry).
                    (t
                     `(if calc-option-flag
-                         ,whole-line-form  ;; Branch 3: line.
+                         ,line-with-eq-map-form  ;; J prefix: skip subformula, equation mapping still applies.
                        (let* ((m (calc-locate-cursor-element (point)))
                               (entry (nth m calc-stack))
                               (full-expr (car entry))
