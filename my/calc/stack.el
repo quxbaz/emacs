@@ -645,6 +645,17 @@ base is taken from the top of the stack; expr is the contextual target
                        (list 'calcFunc-alog expr top)
                      (list 'calcFunc-log expr top))))))
 
+(defun my/calc-power ()
+  "Compute expr ^ exp or, with I, nroot(expr, exp).
+exp is taken from the top of the stack; expr is the contextual target
+(selection, sub-formula at point, or second stack entry)."
+  (interactive)
+  (my/calc-replace-expr-dwim (expr top replace-expr) ((m 2) (prefix (if (calc-is-inverse) "root" "^")) (pop-stack 1))
+    (replace-expr (calc-normalize
+                   (if (calc-is-inverse)
+                       (list 'calcFunc-nroot expr top)
+                     (list 'calcFunc-pow expr top))))))
+
 (defun my/math-ref-angle (x)
   "Given an angle, gets its reference angle."
   (let ((result (calcFunc-mod x 360)))

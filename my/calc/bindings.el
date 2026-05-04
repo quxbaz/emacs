@@ -67,6 +67,7 @@
          (:map calc-mode-map ("\\" . my/calc-sqrt))
          (:map calc-mode-map ("Q" . my/calc-sqrt))
          (:map calc-mode-map ("W" . my/calc-square))
+         (:map calc-mode-map ("^" . my/calc-power))
          (:map calc-mode-map ("E" . my/calc-exp))
          (:map calc-mode-map ("B" . my/calc-log))
          (:map calc-mode-map ("L" . my/calc-ln))
