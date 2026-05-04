@@ -18,8 +18,7 @@ Uses unwind-protect so the mode is restored even if BODY signals an error."
 (defun my/calc-rel-op-p (expr)
   "Return the operator symbol if EXPR is an equation or inequality (=, ≠, <, ≤, >, ≥), else nil."
   (and (consp expr)
-       (memq (car expr) '(calcFunc-eq calcFunc-neq calcFunc-lt calcFunc-leq
-                          calcFunc-gt calcFunc-geq))
+       (memq (car expr) '(calcFunc-eq calcFunc-neq calcFunc-lt calcFunc-leq calcFunc-gt calcFunc-geq))
        (car expr)))
 
 (defun my/calc-point-is-at-home-p ()
@@ -289,20 +288,20 @@ EXAMPLES
                              (let ((,g-lhs (nth 1 full-expr))
                                    (,g-rhs (nth 2 full-expr)))
                                (calc-wrapper
-                                 (let ((,sym-expr ,g-lhs))
-                                   (cl-flet ((,sym-replace-expr (e) (setq ,g-lhs e)))
-                                     ,@body-for-map))
-                                 (let ((,sym-expr ,g-rhs))
-                                   (cl-flet ((,sym-replace-expr (e) (setq ,g-rhs e)))
-                                     ,@body-for-map))
-                                 (calc-pop-push-record-list 1 ,opt-prefix (list rel-op ,g-lhs ,g-rhs) m)
-                                 ,@pop-forms))
-                             (cl-flet ((,sym-replace-expr (new-expr)
-                                         (let ((new-formula (if (eq ,sym-expr full-expr)
-                                                                new-expr
-                                                              (calc-replace-sub-formula full-expr ,sym-expr new-expr))))
-                                           (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
-                               ,@wrapped-body))))))))
+                                (let ((,sym-expr ,g-lhs))
+                                  (cl-flet ((,sym-replace-expr (e) (setq ,g-lhs e)))
+                                    ,@body-for-map))
+                                (let ((,sym-expr ,g-rhs))
+                                  (cl-flet ((,sym-replace-expr (e) (setq ,g-rhs e)))
+                                    ,@body-for-map))
+                                (calc-pop-push-record-list 1 ,opt-prefix (list rel-op ,g-lhs ,g-rhs) m)
+                                ,@pop-forms))
+                           (cl-flet ((,sym-replace-expr (new-expr)
+                                       (let ((new-formula (if (eq ,sym-expr full-expr)
+                                                              new-expr
+                                                            (calc-replace-sub-formula full-expr ,sym-expr new-expr))))
+                                         (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
+                             ,@wrapped-body))))))))
               ;; Point is at "home" position. Operate on stack item at OPT-M.
               (t
                (let ((,sym-expr (car (calc-top ,opt-m 'entry))))
