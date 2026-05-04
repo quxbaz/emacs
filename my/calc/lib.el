@@ -36,6 +36,17 @@ the displayed formula."
   (and (> (calc-locate-cursor-element (point)) 0)
        (eolp)))
 
+(defun my/calc-point-is-in-line-prefix-p ()
+  "Return t if point is in the line-number prefix before the formula text.
+For example, returns t when point is anywhere in the '1: ' area of '1: x + y'."
+  (and (> (calc-locate-cursor-element (point)) 0)
+       (not (eolp))
+       (save-excursion
+         (let ((col (current-column)))
+           (beginning-of-line)
+           (and (looking-at " *[0-9]+: +")
+                (< col (- (match-end 0) (point))))))))
+
 (defun my/calc-at-stack-bottom-p ()
   "Returns t if point is at the stack bottom or beyond it."
   (<= (calc-locate-cursor-element (point)) 1))
