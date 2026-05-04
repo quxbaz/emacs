@@ -324,10 +324,10 @@ EXAMPLES
                   (goto-char saved-point)
                   (when (/= (line-number-at-pos) saved-line-number)
                     (goto-char (point-min))
-                    (forward-line (1- saved-line-number))
-                    ;; Try to preserve column position before operation.
-                    (cond ((eq saved-column-pos 'eol) (end-of-line))
-                          ((eq saved-column-pos 'bol) (beginning-of-line)))))))))))
+                    (forward-line (1- saved-line-number)))
+                  ;; Try to preserve column position at BOL/EOL.
+                  (cond ((eq saved-column-pos 'eol) (end-of-line))
+                        ((eq saved-column-pos 'bol) (beginning-of-line))))))))))
 
 (defun my/calc-edit-wrap-dwim (fn)
   "Wrap the preceding token or active region with FN(...).
