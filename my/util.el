@@ -69,7 +69,7 @@ if FORMS signals an error. Returns the value of the last form in FORMS."
   `(let ((point (point)))
      (prog1
          (progn ,@forms)
-       (setf (point) point))))
+       (goto-char point))))
 
 (defmacro my/if-buffer-changed (body then &optional else)
   "Executes BODY. If the execution of BODY causes any change in the buffer,
