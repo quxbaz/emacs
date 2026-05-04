@@ -125,6 +125,23 @@ are active."
       (calc-locate-cursor-element (point))
     (my/calc-first-active-entry-m)))
 
+(defmacro my/calc-preserve-point (&rest forms)
+  "Like my/preserve-point, but also restores BOL/EOL position.
+If point was at BOL or EOL before FORMS, it is restored to that
+position on the same line afterwards."
+  `(let ((saved-point (point))
+         (saved-line-number (line-number-at-pos))
+         (saved-column-pos (cond ((eolp) 'eol)
+                                 ((my/calc-point-is-in-line-prefix-p) 'bol))))
+     (prog1
+         (progn ,@forms)
+       (goto-char saved-point)
+       (when (/= (line-number-at-pos) saved-line-number)
+         (goto-char (point-min))
+         (forward-line (1- saved-line-number)))
+       (cond ((eq saved-column-pos 'eol) (end-of-line))
+             ((eq saved-column-pos 'bol) (beginning-of-line))))))
+
 (defmacro my/calc-replace-expr-dwim (bindings options &rest body)
   "Execute BODY with bindings for operating on calc selections or stack entries.
 

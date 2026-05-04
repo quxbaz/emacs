@@ -84,14 +84,14 @@
   (my/flash-mode-line))
 
 (defun my/calc-undo ()
-  "Like calc-undo, but retains point position."
+  "Like calc-undo, but retains point position and BOL/EOL."
   (interactive)
-  (my/preserve-point (call-interactively 'calc-undo)))
+  (my/calc-preserve-point (call-interactively 'calc-undo)))
 
 (defun my/calc-redo ()
-  "Like calc-redo, but retains point position."
+  "Like calc-redo, but retains point position and BOL/EOL."
   (interactive)
-  (my/preserve-point (call-interactively 'calc-redo)))
+  (my/calc-preserve-point (call-interactively 'calc-redo)))
 
 (defun my/calc-kill ()
   "Like calc-kill, but retains point position."
