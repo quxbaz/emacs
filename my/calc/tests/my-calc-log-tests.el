@@ -26,13 +26,13 @@
       (should (math-zerop (math-simplify diff))))))
 
 (ert-deftest test-my/calc-log-alog ()
-  "H B: alog(base, expr) = base^expr."
+  "I B: alog(base, expr) = base^expr."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
     (calc-push (math-read-expr "x"))  ; level 2 (exponent)
     (calc-push (math-read-expr "b"))  ; level 1 (base)
-    (let ((calc-hyperbolic-flag t))
+    (let ((calc-inverse-flag t))
       (my/calc-log))
     (should (= (calc-stack-size) 1))
     (let* ((result (car (nth 1 calc-stack)))
@@ -120,7 +120,7 @@
     (calc-reset 0)
     (calc-push 3)   ; exponent
     (calc-push 2)   ; base
-    (let ((calc-hyperbolic-flag t))
+    (let ((calc-inverse-flag t))
       (my/calc-log))
     (should (equal (car (nth 1 calc-stack)) 8))))
 

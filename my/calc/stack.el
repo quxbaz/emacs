@@ -635,13 +635,13 @@ or top stack entry."
                      (list 'calcFunc-ln expr))))))
 
 (defun my/calc-log ()
-  "Compute log(expr, base) or, with H, alog(base, expr) = base^expr.
+  "Compute log(expr, base) or, with I, alog(base, expr) = base^expr.
 base is taken from the top of the stack; expr is the contextual target
 (selection, sub-formula at point, or second stack entry)."
   (interactive)
-  (my/calc-replace-expr-dwim (expr top replace-expr) ((m 2) (prefix (if (calc-is-hyperbolic) "alog" "log")) (pop-stack 1))
+  (my/calc-replace-expr-dwim (expr top replace-expr) ((m 2) (prefix (if (calc-is-inverse) "alog" "log")) (pop-stack 1))
     (replace-expr (calc-normalize
-                   (if (calc-is-hyperbolic)
+                   (if (calc-is-inverse)
                        (list 'calcFunc-alog expr top)
                      (list 'calcFunc-log expr top))))))
 
