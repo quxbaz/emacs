@@ -316,7 +316,7 @@ EXAMPLES
            ;; 1. If calc selection is active, always preserve point.
            ;; 2. if keep-args is active, always reset point.
            ;; 3. Else, `opt-keep-point` dictates behavior.
-           ;; If invoked at BOL or EOL, restore point to that position after the operation.
+           ;;    If invoked at BOL or EOL, restore point to that position after the operation.
            (cond (,sym-sel-is-active
                   (goto-char saved-point))
                  ((or keep-args (eq ,opt-keep-point -1))
