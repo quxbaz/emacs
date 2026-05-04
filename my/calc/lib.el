@@ -270,14 +270,14 @@ EXAMPLES
                    ,@wrapped-body)))
               ;; Branches 2–5: point on a stack entry; compile-time dispatch on options.
               ((not (my/calc-point-is-at-home-p))
-               ,(let* ((whole-line-form  ;; Branch 3: line — (line? t) or J prefix with (map? -1); no eq mapping.
+               ,(let* ((whole-line-form  ;; Branch 3: line — (line? t) or O prefix with (map? -1); no eq mapping.
                         `(let* ((m (calc-locate-cursor-element (point)))
                                 (entry (nth m calc-stack))
                                 (,sym-expr (car entry)))
                            (cl-flet ((,sym-replace-expr (new-expr)
                                        (calc-pop-push-record-list 1 ,opt-prefix new-expr m)))
                              ,@wrapped-body)))
-                       (line-with-eq-map-form  ;; (line? t) or J prefix with default map?: skip subformula, eq mapping applies.
+                       (line-with-eq-map-form  ;; (line? t) or O prefix with default map?: skip subformula, eq mapping applies.
                         `(let* ((m (calc-locate-cursor-element (point)))
                                 (entry (nth m calc-stack))
                                 (full-expr (car entry))
@@ -303,7 +303,7 @@ EXAMPLES
                   (cond
                    ;; (line? t): bypass subformula; equation mapping still applies per map?.
                    (opt-line (if (eq opt-map -1) whole-line-form line-with-eq-map-form))
-                   ;; (map? -1): Branch 3 (J prefix) or Branch 2/4 (subformula or entry); no equation mapping.
+                   ;; (map? -1): Branch 3 (O prefix) or Branch 2/4 (subformula or entry); no equation mapping.
                    ((eq opt-map -1)
                     `(if calc-option-flag
                          ,whole-line-form  ;; Branch 3: line.
@@ -317,10 +317,10 @@ EXAMPLES
                                                           (calc-replace-sub-formula (car entry) ,sym-expr new-expr))))
                                        (calc-pop-push-record-list 1 ,opt-prefix new-formula m))))
                            ,@wrapped-body))))
-                   ;; default: J prefix = skip subformula+eq-map; Branch 5 (equation); Branch 2/4 (subformula or entry).
+                   ;; default: O prefix = skip subformula, eq-map still applies; Branch 5 (equation); Branch 2/4 (subformula or entry).
                    (t
                     `(if calc-option-flag
-                         ,line-with-eq-map-form  ;; J prefix: skip subformula, equation mapping still applies.
+                         ,line-with-eq-map-form  ;; O prefix: skip subformula, equation mapping still applies.
                        (let* ((m (calc-locate-cursor-element (point)))
                               (entry (nth m calc-stack))
                               (full-expr (car entry))
