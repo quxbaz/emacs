@@ -252,6 +252,7 @@ EXAMPLES
       `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
              (,sym-top ,(and (memq 'top bindings) '(my/calc-without-simplification (calc-top-n 1))))  ;; Top stack item, evaluated only if requested.
              (keep-args calc-keep-args-flag)
+             (saved-point-is-at-home (my/calc-point-is-at-home-p))
              (saved-point (point))  ;; Restore point later if `opt-keep-point` is true.
              (saved-line-number (line-number-at-pos))  ;; Restore line position later when necessary.
              ;; Restore column position at beginning or end of line when necessary.
@@ -269,7 +270,7 @@ EXAMPLES
                                (calc-pop-push-record-list 1 ,opt-prefix new-formula m new-expr))))
                    ,@wrapped-body)))
               ;; Branches 2–5: point on a stack entry; compile-time dispatch on options.
-              ((not (my/calc-point-is-at-home-p))
+              ((not saved-point-is-at-home)
                ,(let* ((whole-line-form  ;; Branch 3: line — (line? t) or O prefix with (map? -1); no eq mapping.
                         `(let* ((m (calc-locate-cursor-element (point)))
                                 (entry (nth m calc-stack))
@@ -361,7 +362,7 @@ EXAMPLES
            ;;    If invoked at BOL or EOL, restore point to that position after the operation.
            (cond (,sym-sel-is-active
                   (goto-char saved-point))
-                 ((or keep-args (eq ,opt-keep-point -1))
+                 ((or keep-args (eq ,opt-keep-point -1) saved-point-is-at-home)
                   (calc-align-stack-window))
                  (t
                   (goto-char saved-point)
