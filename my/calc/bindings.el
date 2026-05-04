@@ -26,7 +26,7 @@
   :defer t
   :bind (;; Unbind
          (:map calc-mode-map ("C-j" . ignore))
-         (:map calc-mode-map ("J" . ignore))
+         (:map calc-mode-map ("J" . calc-option))
          (:map calc-mode-map ("j m" . ignore))
          (:map calc-mode-map ("<escape> RET" . ignore))
          (:map calc-mode-map ("v x" . ignore))
