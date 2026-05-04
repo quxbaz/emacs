@@ -258,20 +258,22 @@ If selection is active, clear selections instead.
 
 (defun my/calc-duplicate ()
   "Duplicates the nearest entry at point. If region is active, duplicate
-just the region."
+just the region. If selection is active, clear it instead."
   (interactive)
-  (cond ((use-region-p)
-         (calc-wrapper
-          (calc-push (math-read-expr (buffer-substring-no-properties (region-beginning) (region-end)))))
-         (goto-char (- (point-max) 2)))
-        ((my/calc-at-stack-bottom-p)
-         (call-interactively 'calc-enter))
-        (t
-         (let* ((line (string-trim (substring-no-properties (thing-at-point 'line))))
-                (no-prefix-line (replace-regexp-in-string "^[0-9]+:[[:space:]]*" "" line)))
+  (if (my/calc-active-selection-p)
+      (my/calc-clear-selections)
+    (cond ((use-region-p)
            (calc-wrapper
-            (calc-push (math-read-expr no-prefix-line)))
-           (goto-char (- (point-max) 2))))))
+            (calc-push (math-read-expr (buffer-substring-no-properties (region-beginning) (region-end)))))
+           (goto-char (- (point-max) 2)))
+          ((my/calc-at-stack-bottom-p)
+           (call-interactively 'calc-enter))
+          (t
+           (let* ((line (string-trim (substring-no-properties (thing-at-point 'line))))
+                  (no-prefix-line (replace-regexp-in-string "^[0-9]+:[[:space:]]*" "" line)))
+             (calc-wrapper
+              (calc-push (math-read-expr no-prefix-line)))
+             (goto-char (- (point-max) 2)))))))
 
 (defun my/calc-duplicate-no-move ()
   "Like my/calc-duplicate, but doesn't move point."
