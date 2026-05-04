@@ -235,7 +235,11 @@ EXAMPLES
       `(let ((,sym-sel-is-active (my/calc-active-selection-p))  ;; Bind to t if selection is active, otherwise nil.
              (,sym-top ,(and (memq 'top bindings) '(calc-top-n 1)))  ;; Top stack item, evaluated only if requested.
              (keep-args calc-keep-args-flag)
-             (saved-point (point)))  ;; Restore point later if `opt-keep-point` is true.
+             (saved-point (point))  ;; Restore point later if `opt-keep-point` is true.
+             (saved-line-number (line-number-at-pos))  ;; Restore line position later when necessary.
+             ;; Restore column position at beginning or end of line when necessary.
+             (saved-column-pos (cond ((eolp) 'eol)
+                                     ((my/calc-point-is-in-line-prefix-p) 'bol))))
          (prog1
              (cond
               ;; Selection is active. Operate on active selection.
@@ -317,7 +321,12 @@ EXAMPLES
                  ((or keep-args (eq ,opt-keep-point -1))
                   (calc-align-stack-window))
                  (t
-                  (goto-char saved-point))))))))
+                  (goto-char saved-point)
+                  (when (/= (line-number-at-pos) saved-line-number)
+                    (goto-char (point-min))
+                    (forward-line (1- saved-line-number))
+                    (cond ((eq saved-column-pos 'eol) (end-of-line))
+                          ((eq saved-column-pos 'bol) (beginning-of-line)))))))))))
 
 (defun my/calc-edit-wrap-dwim (fn)
   "Wrap the preceding token or active region with FN(...).
