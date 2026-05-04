@@ -230,8 +230,8 @@ Expected: (y-2)^2 = -4*(x-4)."
            (diff (math-normalize (list '- result (math-read-expr "-(x+y)")))))
       (should (math-zerop (math-simplify diff))))))
 
-(ert-deftest test-my/calc-replace-expr-dwim-line-ignores-equation-map ()
-  "With (line? t), eol on an equation operates on the whole entry, not both sides."
+(ert-deftest test-my/calc-replace-expr-dwim-line-maps-equation ()
+  "With (line? t), equation is still mapped: body runs on each side."
   (with-temp-buffer
     (calc-mode)
     (calc-reset 0)
@@ -240,10 +240,11 @@ Expected: (y-2)^2 = -4*(x-4)."
     (end-of-line)
     (my/calc-replace-expr-dwim (expr replace-expr) ((line? t))
       (replace-expr (math-neg expr)))
-    ;; Result should be -(x=y), not (-x = -y)
+    ;; Result should be -x = -y, not -(x=y)
     (let ((result (car (nth 1 calc-stack))))
-      (should (eq (car-safe result) 'neg))
-      (should (eq (car-safe (nth 1 result)) 'calcFunc-eq)))))
+      (should (eq (car-safe result) 'calcFunc-eq))
+      (should (eq (car-safe (nth 1 result)) 'neg))
+      (should (eq (car-safe (nth 2 result)) 'neg)))))
 
 ;;; pop-stack tests
 
