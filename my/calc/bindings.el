@@ -26,7 +26,6 @@
   :defer t
   :bind (;; Unbind
          (:map calc-mode-map ("C-j" . ignore))
-         (:map calc-mode-map ("J" . calc-option))
          (:map calc-mode-map ("j m" . ignore))
          (:map calc-mode-map ("<escape> RET" . ignore))
          (:map calc-mode-map ("v x" . ignore))
@@ -95,6 +94,7 @@
          ;; Algebraic operations
          (:map calc-mode-map ("@" . my/calc-no-simplify-mode))
          (:map calc-mode-map ("#" . my/calc-next-cmd-no-simplify))
+         (:map calc-mode-map ("O" . calc-option))
          (:map calc-mode-map ("=" . my/calc-equal-to))
          (:map calc-mode-map ("e" . my/calc-equal-to))
          (:map calc-mode-map ("x" . my/calc-expand))
@@ -134,7 +134,7 @@
          (:map calc-mode-map ("j r" . calc-commute-right))
          (:map calc-mode-map ("j j" . calc-select-more))
          (:map calc-mode-map ("j k" . calc-select-less))
-         (:map calc-mode-map ("O" . my/calc-commute))
+         (:map calc-mode-map ("J" . my/calc-commute))
          (:map calc-mode-map ("N" . my/calc-sel-negate))
          (:map calc-mode-map ("j D" . my/calc-sel-distribute))
          (:map calc-mode-map ("j M" . my/calc-sel-merge))
