@@ -266,7 +266,7 @@ EXAMPLES
                          ,whole-line-form
                        (let* ((m (calc-locate-cursor-element (point)))
                               (entry (nth m calc-stack))
-                              (subexpr (and (not (eolp)) (my/calc-subformula-at-point)))
+                              (subexpr (and (not (eolp)) (not (my/calc-point-is-in-line-prefix-p)) (my/calc-subformula-at-point)))
                               (,sym-expr (or subexpr (car entry))))
                          (cl-flet ((,sym-replace-expr (new-expr)
                                      (let ((new-formula (if (eq ,sym-expr (car entry))
@@ -281,7 +281,7 @@ EXAMPLES
                        (let* ((m (calc-locate-cursor-element (point)))
                               (entry (nth m calc-stack))
                               (full-expr (car entry))
-                              (subexpr (and (not (eolp)) (my/calc-subformula-at-point)))
+                              (subexpr (and (not (eolp)) (not (my/calc-point-is-in-line-prefix-p)) (my/calc-subformula-at-point)))
                               (rel-op (and (null subexpr)
                                            (my/calc-rel-op-p full-expr)))
                               (,sym-expr (or subexpr full-expr)))
