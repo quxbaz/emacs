@@ -39,10 +39,12 @@
 
 (with-eval-after-load 'calc
   (advice-add 'calcDigit-nondigit :before
-    (lambda ()
-      "Suppress calc-align-stack-window when digit entry completes via a command key.
-Point only moves to home when RET (13) or SPC (32) completes the entry."
-      (unless (memq last-command-event '(13 32))
-        (calc-set-command-flag 'no-align)))))
+              (lambda ()
+                "Suppress calc-align-stack-window when digit entry completes via a
+command key. Point only moves to home when RET (13) or SPC (32)
+completes the entry or when point is already at home."
+                (unless (or (my/calc-point-is-at-home-p)
+                            (memq last-command-event '(13 32)))
+                  (calc-set-command-flag 'no-align)))))
 
 (provide 'my/calc/minibuffer)
