@@ -592,7 +592,8 @@ Works contextually: operates on selection, sub-formula at point,
 or top stack entry."
   (interactive)
   (my/calc-replace-expr-dwim (expr replace-expr) ((prefix "fctr"))
-    (let* ((terms (my/calc--sum-terms expr))
+    (let* ((expr (my/calc--strip-zero-cplx expr)) ; selection may leave (cplx x 0) wrappers
+           (terms (my/calc--sum-terms expr))
            (factor (let ((calc-simplify-mode nil))
                      (cl-reduce #'calcFunc-pgcd terms)))
            (divided (-> (calcFunc-div expr factor) calcFunc-expand calcFunc-nrat calcFunc-expand math-simplify))
