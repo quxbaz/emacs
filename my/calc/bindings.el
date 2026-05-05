@@ -64,7 +64,6 @@
          (:map calc-mode-map ("/" . my/calc-divide))
          (:map calc-mode-map ("M-=" . calc-evaluate))
          (:map calc-mode-map ("k k" . my/calc-evaluate))
-
          (:map calc-mode-map ("\\" . my/calc-sqrt))
          (:map calc-mode-map ("Q" . my/calc-sqrt))
          (:map calc-mode-map ("W" . my/calc-square))
@@ -76,6 +75,7 @@
          (:map calc-mode-map ("f L" . my/calc-unit-cath))
 
          ;; Display and modes
+         (:map calc-mode-map ("J" . calc-option))
          (:map calc-mode-map (">" . calc-scroll-left))
          (:map calc-mode-map ("<" . calc-scroll-right))
          (:map calc-mode-map ("G" . my/calc-toggle-big-language))
@@ -133,7 +133,7 @@
          (:map calc-mode-map ("j r" . calc-commute-right))
          (:map calc-mode-map ("j j" . calc-select-more))
          (:map calc-mode-map ("j k" . calc-select-less))
-         (:map calc-mode-map ("J" . my/calc-commute))
+         (:map calc-mode-map ("O" . my/calc-commute))
          (:map calc-mode-map ("N" . my/calc-sel-negate))
          (:map calc-mode-map ("j D" . my/calc-sel-distribute))
          (:map calc-mode-map ("j M" . my/calc-sel-merge))
