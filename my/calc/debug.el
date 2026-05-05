@@ -22,9 +22,9 @@
           (goto-char (point-max))
           (let* ((entries (cl-remove-if (lambda (e) (eq (car e) 'top-of-stack)) stack))
                  (entries (reverse entries)))
-            (insert ";; bottom\n"
+            (insert ";; Bottom of stack ▼\n"
                     (mapconcat #'prin1-to-string entries "\n")
-                    "\n;; top\n")))
+                    "\n;; Top of stack ▲\n")))
         (when-let ((win (get-buffer-window (current-buffer))))
           (with-selected-window win
             (goto-char (point-max))
