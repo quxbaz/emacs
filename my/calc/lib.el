@@ -100,6 +100,7 @@ How it works:
   (let* ((num (max 1 (calc-locate-cursor-element (point))))
          (entry (calc-top num 'entry)))
     (calc-prepare-selection num)
+    ;; Expand outward through assoc ops (+,-,*,/,|,&&,||) to include the whole group.
     ;; (calc-grow-assoc-formula (car entry) (calc-find-selected-part))
     ;; Returns the minimal subexpression, not the associative group.
     (calc-find-selected-part)))
