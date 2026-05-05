@@ -159,6 +159,7 @@
 
          ;; Debug
          (:map calc-mode-map ("M-d" . my/calc-debug-mode))
+         (:map calc-mode-map ("M-D" . my/calc-debug-highlight-mode))
 
          ;; Graphing
          (:map calc-mode-map ("g l" . my/calc-graph-quick))
