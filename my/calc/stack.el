@@ -9,12 +9,21 @@
 
 (defvar my/calc-stack-restored nil)
 
+(defun my/calc--strip-zero-cplx (expr)
+  (cond
+   ((and (eq (car-safe expr) 'cplx) (equal (nth 2 expr) 0))
+    (my/calc--strip-zero-cplx (nth 1 expr)))
+   ((consp expr)
+    (cons (car expr) (mapcar #'my/calc--strip-zero-cplx (cdr expr))))
+   (t expr)))
+
 (defun my/calc-save-stack ()
   "Save the calc stack to disk."
   (when-let ((buf (get-buffer "*Calculator*")))
     (with-current-buffer buf
       (let ((items (when (> (calc-stack-size) 0)
-                     (mapcar #'car (cdr calc-stack)))))
+                     (mapcar (lambda (e) (my/calc--strip-zero-cplx (car e)))
+                             (cdr calc-stack)))))
         (with-temp-file my/calc-stack-save-file
           (prin1 items (current-buffer)))))))
 
