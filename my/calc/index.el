@@ -31,6 +31,7 @@
   (load (concat calc-dir "rewrite.el"))
   (load (concat calc-dir "minibuffer.el"))
   (load (concat calc-dir "plot.el"))
-  (load (concat calc-dir "bindings.el")))
+  (load (concat calc-dir "bindings.el"))
+  (load (concat calc-dir "debug.el")))
 
 (provide 'my/calc)
