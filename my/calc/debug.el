@@ -45,6 +45,66 @@
 
 (defvar-local my/calc-debug--hl-overlay nil)
 
+;; Like math-comp-sel-flat-term but also records the flat-string start/end
+;; positions of the matched tag node, avoiding a second render pass.
+(defvar math-comp-pos)
+(defvar math-comp-sel-start nil)
+(defvar math-comp-sel-end nil)
+
+(defun my/calc-debug--sel-flat-term (c)
+  (cond
+   ((not (consp c))
+    (setq math-comp-pos (+ math-comp-pos (length c))))
+   ((memq (car c) '(set break)))
+   ((eq (car c) 'horiz)
+    (while (and (setq c (cdr c)) (< math-comp-sel-cpos 1000000))
+      (my/calc-debug--sel-flat-term (car c))))
+   ((eq (car c) 'tag)
+    (if (<= math-comp-pos math-comp-sel-cpos)
+        (let ((start math-comp-pos))
+          (my/calc-debug--sel-flat-term (nth 2 c))
+          (when (> math-comp-pos math-comp-sel-cpos)
+            (setq math-comp-sel-tag c
+                  math-comp-sel-cpos 1000000
+                  math-comp-sel-start start
+                  math-comp-sel-end math-comp-pos)))
+      (my/calc-debug--sel-flat-term (nth 2 c))))
+   (t
+    (my/calc-debug--sel-flat-term (nth 2 c)))))
+
+(defun my/calc-debug--find-selected-bounds ()
+  "Return (buf-start . buf-end) of the subexpression at point, or nil.
+Mirrors calc-find-selected-part but records flat-string positions to
+avoid a second render pass."
+  (let* ((math-comp-sel-hpos (- (current-column) calc-selection-cache-offset))
+         toppt
+         (lcount 0)
+         (spaces 0)
+         (math-comp-sel-vpos
+          (save-excursion
+            (beginning-of-line)
+            (let ((line (point)))
+              (calc-cursor-stack-index calc-selection-cache-num)
+              (setq toppt (point))
+              (while (< (point) line)
+                (forward-line 1)
+                (setq spaces (+ spaces (current-indentation))
+                      lcount (1+ lcount)))
+              (- lcount (math-comp-ascent calc-selection-cache-comp) -1))))
+         (math-comp-sel-cpos (- (point) toppt calc-selection-cache-offset
+                                spaces lcount))
+         (math-comp-sel-tag nil)
+         (math-comp-sel-start nil)
+         (math-comp-sel-end nil))
+    (when (and (>= math-comp-sel-hpos 0)
+               (> calc-selection-true-num 0))
+      (let ((math-comp-pos 0))
+        (my/calc-debug--sel-flat-term calc-selection-cache-comp)))
+    (when math-comp-sel-start
+      (let ((base (+ toppt calc-selection-cache-offset)))
+        (cons (+ base math-comp-sel-start)
+              (+ base math-comp-sel-end))))))
+
 (defun my/calc-debug--highlight-update ()
   "Highlight the subexpression at point using an overlay."
   (when (and (derived-mode-p 'calc-mode) (not (minibufferp)))
@@ -56,33 +116,10 @@
     (let ((idx (calc-locate-cursor-element (point))))
       (when (> idx 0)
         (calc-prepare-selection idx)
-        (let* ((found (calc-find-selected-part))
-               (entry calc-selection-cache-entry))
-          (when found
-            (let* ((temp-entry (list (car entry) (cadr entry) found))
-                   (calc-highlight-selections-with-faces t)
-                   (calc-show-selections nil)
-                   (calc-prepared-composition calc-selection-cache-comp)
-                   (calc-selection-cache-default-entry temp-entry)
-                   (saved-cache-entry calc-selection-cache-entry)
-                   (s (math-format-stack-value temp-entry))
-                   (_ (setq calc-selection-cache-entry saved-cache-entry))
-                   (entry-start (save-excursion
-                                  (calc-cursor-stack-index idx)
-                                  (point))))
-              (let ((pos 0) sel-start sel-end)
-                (while (< pos (length s))
-                  (let ((next (next-single-property-change pos 'face s (length s))))
-                    (when (eq (get-text-property pos 'face s) 'calc-selected-face)
-                      (unless sel-start (setq sel-start pos))
-                      (setq sel-end next))
-                    (setq pos next)))
-                (when sel-start
-                  (setq my/calc-debug--hl-overlay
-                        (make-overlay (+ entry-start sel-start)
-                                      (+ entry-start sel-end)))
-                  (overlay-put my/calc-debug--hl-overlay
-                               'face 'highlight))))))))))
+        (when-let ((bounds (my/calc-debug--find-selected-bounds)))
+          (setq my/calc-debug--hl-overlay
+                (make-overlay (car bounds) (cdr bounds)))
+          (overlay-put my/calc-debug--hl-overlay 'face 'highlight))))))
 
 (define-minor-mode my/calc-debug-highlight-mode
   "Highlight subexpression at point as cursor moves."
