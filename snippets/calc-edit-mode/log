@@ -2,4 +2,4 @@
 # key: lg
 # expand-env: ((yas-indent-line nil))
 # --
-log(${2:arg}, ${1:base})
+log(${2:arg}, ${1:`(or (save-excursion (when (re-search-backward "\\blog([^,]+,[ \t]*\\([^)]+\\))" nil t) (string-trim (match-string 1)))) "base")`})
