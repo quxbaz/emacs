@@ -95,13 +95,14 @@ How it works:
   3. Look up the cell under point. `calc-find-selected-part' uses
      `(current-column)' minus the cached offset to walk the tagged
      tree and find the smallest sub-expression covering that spot.
-     `calc-grow-assoc-formula' then expands outward through
-     associative operators -- so pointing at `b' in `a + b + c'
-     returns the whole `a + b + c' rather than just `b'."
+     Returns the minimal sub-expression directly -- pointing at `b'
+     in `a + b + c' returns just `b', not the whole sum."
   (let* ((num (max 1 (calc-locate-cursor-element (point))))
          (entry (calc-top num 'entry)))
     (calc-prepare-selection num)
-    (calc-grow-assoc-formula (car entry) (calc-find-selected-part))))
+    ;; (calc-grow-assoc-formula (car entry) (calc-find-selected-part))
+    ;; Returns the minimal subexpression, not the associative group.
+    (calc-find-selected-part)))
 
 (defun my/calc-active-selection-at-line-p ()
   "Returns t if there are any active selections at point."
