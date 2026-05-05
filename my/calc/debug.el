@@ -74,9 +74,9 @@
             (read-only-mode 1)
             (setq my/calc-debug--source-buffer calc-buf)
             (local-set-key (kbd "q") #'my/calc-debug--quit)
-            (local-set-key (kbd "p") #'my/calc-debug--print-stack)))
+            (local-set-key (kbd "S") #'my/calc-debug--print-stack)))
         (display-buffer my/calc-debug-buffer
-                        '(display-buffer-below-selected . ((window-height . 15)))))
+                        '(display-buffer-below-selected . ((window-height . 20)))))
     (remove-hook 'post-command-hook #'my/calc-debug--post-command t)
     (when-let ((win (get-buffer-window my/calc-debug-buffer)))
       (delete-window win))))
