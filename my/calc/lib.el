@@ -21,12 +21,24 @@ Uses unwind-protect so the mode is restored even if BODY signals an error."
        (memq (car expr) '(calcFunc-eq calcFunc-neq calcFunc-lt calcFunc-leq calcFunc-gt calcFunc-geq))
        (car expr)))
 
+(defun my/calc-find-buffer ()
+  "Find the calc buffer.
+Prefers the current buffer if it is in calc-mode, then looks for
+*Calculator* by name, then falls back to any live buffer in calc-mode."
+  (cond
+   ((derived-mode-p 'calc-mode) (current-buffer))
+   ((get-buffer "*Calculator*"))
+   (t (cl-find-if (lambda (b)
+                    (with-current-buffer b (derived-mode-p 'calc-mode)))
+                  (buffer-list)))))
+
 (defun my/calc-point-is-at-home-p ()
   "Return t if point is past the last stack entry (at the . line or below).
 Used to determine whether my/calc-edit-dwim should open a new entry or edit
 an existing one.  calc-locate-cursor-element returns 0 at the . line and -1
 below it; stack entries return 1 or higher."
-  (<= (calc-locate-cursor-element (point)) 0))
+  (with-current-buffer (my/calc-find-buffer)
+    (<= (calc-locate-cursor-element (point)) 0)))
 
 (defun my/calc-point-is-at-entry-end-p ()
   "Return t if point is at the end of a stack entry line.
