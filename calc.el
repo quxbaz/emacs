@@ -1,4 +1,5 @@
-;;; Mode settings stored by Calc on Sat Apr 18 14:32:23 2026
+;;; Mode settings stored by Calc on Wed May  6 14:51:03 2026
+(setq calc-display-trail nil)
 (setq calc-symbolic-mode t)
 (setq calc-prefer-frac t)
 (setq calc-always-load-extensions t)
@@ -6,7 +7,7 @@
 
 ;;; Geometry — 2D
 (setq var-eq-area-of-triangle '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (var b var-b) (var h var-h)))))
-(setq var-eq-general-area-of-triangle '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (var a var-a) (* (var b var-b) (calcFunc-sin (var C var-C)))))))
+(setq var-eq-area-of-general-triangle '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (var a var-a) (* (var b var-b) (calcFunc-sin (var C var-C)))))))
 (setq var-eq-area-of-trapezoid '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (var h var-h) (+ (var b1 var-b1) (var b2 var-b2))))))
 (setq var-eq-area-of-circular-sector '(calcFunc-eq (var A var-A) (* (frac 1 2) (* (^ (var r var-r) (cplx 2 0)) (var a var-a)))))
 (setq var-eq-sum-of-interior-polygon-angles '(calcFunc-eq (var S var-S) (* 180 (- (var n var-n) 2))))
