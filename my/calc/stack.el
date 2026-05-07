@@ -357,11 +357,13 @@ Also converts f(2) = 0 to [2 0]."
   (let ((char (read-char-from-minibuffer "Enter a variable: ")))
     (if (or (and (>= char ?a) (<= char ?z))
             (and (>= char ?A) (<= char ?Z)))
-        (my/preserve-point
-         (let* ((var-name (intern (char-to-string char)))
-                (var-symbol (intern (concat "var-" (char-to-string char)))))
-           (calc-wrapper
-            (calc-push (list 'var var-name var-symbol)))))
+        (progn
+          (my/preserve-point
+           (let* ((var-name (intern (char-to-string char)))
+                  (var-symbol (intern (concat "var-" (char-to-string char)))))
+             (calc-wrapper
+              (calc-push (list 'var var-name var-symbol)))))
+          (calc-align-stack-window))
       (message "Invalid character. Must be a-z or A-Z."))))
 
 
