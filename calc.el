@@ -86,7 +86,8 @@
 (setq var-eq-binomial-sign-flip-rule '(calcFunc-eq (^ (- (var k var-k) (var x var-x)) 2) (^ (- (var x var-x) (var k var-k)) 2)))
 
 ;;; Conic sections — Parabola
-(setq var-eq-vertex-form-of-parabola '(calcFunc-eq (var y var-y) (+ (* (var a var-a) (^ (- (var x var-x) (var h var-h)) 2)) (var k var-k))))
+(setq var-eq-vertex-form-of-vertical-parabola '(calcFunc-eq (var y var-y) (+ (* (var a var-a) (^ (- (var x var-x) (var h var-h)) 2)) (var k var-k))))
+(setq var-eq-vertex-form-of-horizontal-parabola '(calcFunc-eq (var x var-x) (+ (* (var a var-a) (^ (- (var y var-y) (var k var-k)) (cplx 2 0))) (var h var-h))))
 (setq var-eq-standard-form-of-vertical-parabola '(calcFunc-eq (^ (- (var x var-x) (var h var-h)) 2) (* 4 (* (var p var-p) (- (var y var-y) (var k var-k))))))
 (setq var-eq-standard-form-of-vertical-parabola-at-origin '(calcFunc-eq (^ (var x var-x) 2) (* 4 (* (var p var-p) (var y var-y)))))
 (setq var-eq-standard-form-of-horizontal-parabola '(calcFunc-eq (^ (- (var y var-y) (var k var-k)) 2) (* 4 (* (var p var-p) (- (var x var-x) (var h var-h))))))
