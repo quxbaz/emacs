@@ -92,6 +92,7 @@
 (setq var-eq-standard-form-of-horizontal-parabola '(calcFunc-eq (^ (- (var y var-y) (var k var-k)) 2) (* 4 (* (var p var-p) (- (var x var-x) (var h var-h))))))
 (setq var-eq-standard-form-of-horizontal-parabola-at-origin '(calcFunc-eq (^ (var y var-y) 2) (* 4 (* (var p var-p) (var x var-x)))))
 (setq var-eq-axis-of-symmetry-of-parabola '(calcFunc-eq (var x var-x) (neg (/ (var b var-b) (* (cplx 2 0) (var a var-a))))))
+(setq var-eq-average-of-roots '(calcFunc-eq (var x var-x) (/ (+ (var x1 var-x1) (var x2 var-x2)) (cplx 2 0))))
 
 ;;; Finance
 (setq var-eq-compound-interest '(calcFunc-eq (var A var-A) (* (var P var-P) (^ (+ (cplx 1 0) (/ (var r var-r) (var n var-n))) (* (var n var-n) (var t var-t))))))
