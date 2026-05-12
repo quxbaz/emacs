@@ -94,6 +94,8 @@
 (setq var-eq-standard-form-of-horizontal-parabola-at-origin '(calcFunc-eq (^ (var y var-y) 2) (* 4 (* (var p var-p) (var x var-x)))))
 (setq var-eq-focus-of-vertical-parabola '(calcFunc-eq (var F var-F) (vec (var h var-h) (+ (var k var-k) (var p var-p)))))
 (setq var-eq-focus-of-horizontal-parabola '(calcFunc-eq (var F var-F) (vec (+ (var h var-h) (var p var-p)) (var k var-k))))(setq var-eq-axis-of-symmetry-of-parabola '(calcFunc-eq (var x var-x) (neg (/ (var b var-b) (* (cplx 2 0) (var a var-a))))))
+(setq var-eq-directrix-of-vertical-parabola '(calcFunc-eq (var y var-y) (- (var k var-k) (var p var-p))))
+(setq var-eq-directrix-of-horizontal-parabola '(calcFunc-eq (var x var-x) (- (var h var-h) (var p var-p))))
 (setq var-eq-average-of-roots '(calcFunc-eq (var x var-x) (/ (+ (var x1 var-x1) (var x2 var-x2)) (cplx 2 0))))
 
 ;;; Finance
