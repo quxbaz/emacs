@@ -86,16 +86,16 @@
 (setq var-eq-binomial-sign-flip-rule '(calcFunc-eq (^ (- (var k var-k) (var x var-x)) 2) (^ (- (var x var-x) (var k var-k)) 2)))
 
 ;;; Conic sections — Parabola
-(setq var-eq-vertex-form-of-vertical-parabola '(calcFunc-eq (var y var-y) (+ (* (var a var-a) (^ (- (var x var-x) (var h var-h)) 2)) (var k var-k))))
 (setq var-eq-vertex-form-of-horizontal-parabola '(calcFunc-eq (var x var-x) (+ (* (var a var-a) (^ (- (var y var-y) (var k var-k)) (cplx 2 0))) (var h var-h))))
-(setq var-eq-standard-form-of-vertical-parabola '(calcFunc-eq (^ (- (var x var-x) (var h var-h)) 2) (* 4 (* (var p var-p) (- (var y var-y) (var k var-k))))))
-(setq var-eq-standard-form-of-vertical-parabola-at-origin '(calcFunc-eq (^ (var x var-x) 2) (* 4 (* (var p var-p) (var y var-y)))))
+(setq var-eq-vertex-form-of-vertical-parabola '(calcFunc-eq (var y var-y) (+ (* (var a var-a) (^ (- (var x var-x) (var h var-h)) 2)) (var k var-k))))
 (setq var-eq-standard-form-of-horizontal-parabola '(calcFunc-eq (^ (- (var y var-y) (var k var-k)) 2) (* 4 (* (var p var-p) (- (var x var-x) (var h var-h))))))
 (setq var-eq-standard-form-of-horizontal-parabola-at-origin '(calcFunc-eq (^ (var y var-y) 2) (* 4 (* (var p var-p) (var x var-x)))))
-(setq var-eq-focus-of-vertical-parabola '(calcFunc-eq (var y var-y) (+ (var k var-k) (var p var-p))))
+(setq var-eq-standard-form-of-vertical-parabola '(calcFunc-eq (^ (- (var x var-x) (var h var-h)) 2) (* 4 (* (var p var-p) (- (var y var-y) (var k var-k))))))
+(setq var-eq-standard-form-of-vertical-parabola-at-origin '(calcFunc-eq (^ (var x var-x) 2) (* 4 (* (var p var-p) (var y var-y)))))
 (setq var-eq-focus-of-horizontal-parabola '(calcFunc-eq (var x var-x) (+ (var h var-h) (var p var-p))))(setq var-eq-axis-of-symmetry-of-parabola '(calcFunc-eq (var x var-x) (neg (/ (var b var-b) (* (cplx 2 0) (var a var-a))))))
-(setq var-eq-directrix-of-vertical-parabola '(calcFunc-eq (var y var-y) (- (var k var-k) (var p var-p))))
+(setq var-eq-focus-of-vertical-parabola '(calcFunc-eq (var y var-y) (+ (var k var-k) (var p var-p))))
 (setq var-eq-directrix-of-horizontal-parabola '(calcFunc-eq (var x var-x) (- (var h var-h) (var p var-p))))
+(setq var-eq-directrix-of-vertical-parabola '(calcFunc-eq (var y var-y) (- (var k var-k) (var p var-p))))
 (setq var-eq-average-of-roots '(calcFunc-eq (var x var-x) (/ (+ (var x1 var-x1) (var x2 var-x2)) (cplx 2 0))))
 
 ;;; Finance
