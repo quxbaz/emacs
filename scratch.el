@@ -2,6 +2,14 @@
 ;;
 ;;
 
+(calc-load-everything)
+
+(math-common-constant-factor
+ '(+ (* 40 (^ (var x var-x) 2)) (* 20 (var x var-x))))
+
+(math-factor-expr
+ '(+ (* 40 (^ (var x var-x) 2)) (* 20 (var x var-x))))
+
 (calc-encase-atoms 42)  ;; -> (cplex 42 0)
 (calc-encase-atoms '(42 42 42))  ;; -> (42 (cplx 42 0) (cplx 42 0))
 (math-format-flat-expr x 0)
