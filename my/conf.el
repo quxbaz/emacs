@@ -177,6 +177,8 @@
 
 
 ;; # Modes
+(add-hook 'calc-mode-hook #'maf-mode)
+
 (define-minor-mode mathjax-mode
   "Mode for writing MathJax snippets."
   ;; If t, the minor mode is enabled by default.
