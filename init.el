@@ -10,6 +10,10 @@
 ;; Extensions
 (load-file (concat user-emacs-directory "ext/show-point-mode.el"))
 
+;; Local packages
+(add-to-list 'load-path (concat user-emacs-directory "site-lisp/maf"))
+(require 'maf)
+
 ;; Custom config
 (load-file (concat user-emacs-directory "my/data.el"))
 (load-file (concat user-emacs-directory "my/packages.el"))
