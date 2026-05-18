@@ -1,0 +1,5 @@
+# name: flow-prog1
+# key: fl
+# --
+(prog1 ${1:FIRST}
+  $0)
