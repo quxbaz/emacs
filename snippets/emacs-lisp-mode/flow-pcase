@@ -1,0 +1,6 @@
+# name: flow-pcase
+# key: fl
+# --
+(pcase ${EXPR}
+  (${PATTERN} ${BODY})
+  (_ ${DEFAULT}))
