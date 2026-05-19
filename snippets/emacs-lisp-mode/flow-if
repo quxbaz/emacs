@@ -1,0 +1,6 @@
+# name: flow-if
+# key: fl
+# --
+(if ${1:COND}
+    ${2:THEN}
+  ${3:ELSE})

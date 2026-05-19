@@ -1,0 +1,5 @@
+# name: flow-pcase-let
+# key: fl
+# --
+(pcase-let ((${1:PATTERN} ${2:EXPR}))
+  $0)

@@ -1,0 +1,5 @@
+# name: flow-cond
+# key: fl
+# --
+(cond (${COND} ${BODY})
+      (t ${DEFAULT}))
