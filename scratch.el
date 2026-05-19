@@ -4,6 +4,20 @@
 
 (calc-load-everything)
 
+(defmacro my/defcmd (expr replace &rest body)
+  (declare (indent 2) (doc-string 3)))
+
+(my/defcmd my/calc-factor (expr replace) ((prefix "fctr"))
+           "Factor the active selection or whole stack entry at point."
+           (replace-expr (calcFunc-factor expr)))
+
+(my/defcmd my/calc-factor (expr arg replace)
+  "Factor the active selection or whole stack entry at point."
+  :prefix "fctr"
+  :map? -1
+  ;; other options
+  (replace-expr (calcFunc-factor expr)))
+
 (math-common-constant-factor
  '(+ (* 40 (^ (var x var-x) 2)) (* 20 (var x var-x))))
 
