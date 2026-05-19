@@ -11,8 +11,11 @@
 (load-file (concat user-emacs-directory "ext/show-point-mode.el"))
 
 ;; Local packages
-(add-to-list 'load-path (concat user-emacs-directory "site-lisp/maf"))
-(require 'maf)
+;; Load maf package if it exists.
+(let ((maf-path (concat user-emacs-directory "site-lisp/maf")))
+  (when (file-exists-p (concat maf-path "/maf.el"))
+    (add-to-list 'load-path maf-path)
+    (require 'maf)))
 
 ;; Custom config
 (load-file (concat user-emacs-directory "my/data.el"))
