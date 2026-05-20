@@ -142,7 +142,7 @@
 
 ;; # Search, replace, regexp, occur
 ;; ## Search
-(global-set-key (kbd "C-s") (my/cmd-or 'my/isearch-forward-dwim (my/cmd (split-window-right) (windmove-right))))
+(global-set-key (kbd "C-s") (my/cmd-or 'my/isearch-forward-dwim 'my/split-window-right))
 (global-set-key (kbd "C-r") 'my/isearch-backward-dwim)
 (global-set-key (kbd "C-c >") 'search-forward-regexp)
 (global-set-key (kbd "C-c <") 'search-backward-regexp)

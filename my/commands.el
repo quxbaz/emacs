@@ -66,6 +66,11 @@
   (interactive)
   (other-window -1))
 
+(defun my/split-window-right ()
+  (interactive)
+  (split-window-right)
+  (windmove-right))
+
 (defun my/ibuffer-delete-no-conf ()
   "Delete marked buffers if any are marked, otherwise delete buffer at point; no confirmation."
   (interactive)
