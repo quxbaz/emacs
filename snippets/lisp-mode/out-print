@@ -1,0 +1,6 @@
+# name: print
+# key: >
+# type: command
+# condition: t
+# --
+(my/snippet-insert-or-wrap 'print)
