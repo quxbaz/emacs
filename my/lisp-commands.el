@@ -21,9 +21,10 @@ With two C-u prefixes, calls `eval-defun' (instruments for edebug).
 
 BUG: Does not work inside comments."
   (interactive "P")
+  ;; adsfsa f
   (cond ((equal arg '(4))
          (eval-buffer)
-         (message "EVAL BUFFER: %s" (buffer-name)))
+         (message "%s" (buffer-name)))
         ((equal arg '(16))
          (call-interactively 'eval-defun))
         ((use-region-p)
