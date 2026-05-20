@@ -19,23 +19,31 @@
 With one C-u prefix, evals the entire buffer.
 With two C-u prefixes, calls `eval-defun' (instruments for edebug)."
   (interactive "P")
-  (cond ((equal arg '(4))
+  (cond ;; C-u: eval the entire buffer.
+        ((equal arg '(4))
          (eval-buffer)
          (message "%s" (buffer-name)))
+        ;; C-u C-u: delegate to eval-defun (instruments for edebug).
         ((equal arg '(16))
          (call-interactively 'eval-defun))
+        ;; Active region: eval the selected region.
         ((use-region-p)
          (eval-region (region-beginning) (region-end) t))
+        ;; Inside any list: eval the enclosing top-level form.
         ((my/is-inside-list)
          (let ((root-pos (my/list-root-position)))
            (eval-region root-pos (scan-lists root-pos 1 0) t)))
+        ;; At a top-level opening paren: eval that sexp.
         ((my/is-at-opening-paren)
          (eval-region (point) (scan-lists (point) 1 0) t))
+        ;; Just after a top-level closing paren: eval the preceding sexp.
         ((my/is-after-closing-paren)
          (let ((opening-paren-pos (save-excursion (backward-char) (my/opening-paren-position))))
            (eval-region opening-paren-pos (point) t)))
+        ;; Top-level comment: noop.
         ((my/is-inside-comment)
          (message "noop"))
+        ;; Fallback: eval the sexp at point if any.
         (t
          (if-let ((sexp (thing-at-point 'sexp)))
              (eval-expression (read sexp))
