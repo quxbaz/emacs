@@ -17,9 +17,7 @@
 (defun my/eval-dwim (&optional arg)
   "Evals either the current region, block, or line - in that order of preference.
 With one C-u prefix, evals the entire buffer.
-With two C-u prefixes, calls `eval-defun' (instruments for edebug).
-
-BUG: Does not work inside comments."
+With two C-u prefixes, calls `eval-defun' (instruments for edebug)."
   (interactive "P")
   (cond ((equal arg '(4))
          (eval-buffer)
@@ -36,9 +34,12 @@ BUG: Does not work inside comments."
         ((my/is-after-closing-paren)
          (let ((opening-paren-pos (save-excursion (backward-char) (my/opening-paren-position))))
            (eval-region opening-paren-pos (point) t)))
+        ((my/is-inside-comment)
+         (message "noop"))
         (t
-         ;; NOTE:BUG: This doesn't work for quoted expressions.
-         (eval-expression (read (thing-at-point 'sexp)))))
+         (if-let ((sexp (thing-at-point 'sexp)))
+             (eval-expression (read sexp))
+           (message "noop"))))
   (my/flash-mode-line))
 
 (defun my/eval-here ()
