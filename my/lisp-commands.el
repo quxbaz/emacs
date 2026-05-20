@@ -16,13 +16,16 @@
 
 (defun my/eval-dwim (&optional arg)
   "Evals either the current region, block, or line - in that order of preference.
-With a prefix ARG, evals the entire buffer.
+With one C-u prefix, evals the entire buffer.
+With two C-u prefixes, calls `eval-defun' (instruments for edebug).
 
 BUG: Does not work inside comments."
   (interactive "P")
-  (cond (arg
+  (cond ((equal arg '(4))
          (eval-buffer)
-         (message "Eval buffer: %s" (buffer-name)))
+         (message "EVAL BUFFER: %s" (buffer-name)))
+        ((equal arg '(16))
+         (call-interactively 'eval-defun))
         ((use-region-p)
          (eval-region (region-beginning) (region-end) t))
         ((my/is-inside-list)
