@@ -1,0 +1,4 @@
+# name: prin1-to-string
+# key: >
+# --
+(prin1-to-string ${1:OBJECT}${2: ${3:NOESCAPE}${4: ${5:OVERRIDES}}})
