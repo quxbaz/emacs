@@ -14,12 +14,16 @@
 
 ;; # Evaluation
 
-(defun my/eval-dwim ()
+(defun my/eval-dwim (&optional arg)
   "Evals either the current region, block, or line - in that order of preference.
+With a prefix ARG, evals the entire buffer.
 
 BUG: Does not work inside comments."
-  (interactive)
-  (cond ((use-region-p)
+  (interactive "P")
+  (cond (arg
+         (eval-buffer)
+         (message "Eval buffer: %s" (buffer-name)))
+        ((use-region-p)
          (eval-region (region-beginning) (region-end) t))
         ((my/is-inside-list)
          (let ((root-pos (my/list-root-position)))
