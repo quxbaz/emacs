@@ -50,7 +50,7 @@
             (keymap-set dired-mode-map "J" 'my/find-jsx)
             (keymap-set dired-mode-map "E" 'my/dired-context-edit-file)
             (keymap-set dired-mode-map "G" 'my/dired-open-gallery)
-            (keymap-set dired-mode-map "C-u C-r" 'my/dired-resize-image)))
+            (keymap-set dired-mode-map "C-r" 'my/dired-isearch-or-resize-image)))
 
 (add-hook 'wdired-mode-hook
           (lambda ()

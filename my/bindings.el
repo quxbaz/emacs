@@ -38,8 +38,6 @@
 
 ;; # Rebind important prefixes
 (global-set-key (kbd "C-0") 'digit-argument)
-(global-unset-key (kbd "C-u"))  ;; Repurpose C-u as a right-hand leader key.
-(global-set-key (kbd "C-u C-u") 'universal-argument)
 
 
 ;; # Help, info
@@ -68,7 +66,7 @@
 ;; # Text navigation, marking
 (global-set-key (kbd "M-a") 'backward-paragraph)
 (global-set-key (kbd "M-e") 'forward-paragraph)
-(global-set-key (kbd "C-u C-SPC") 'pop-to-mark-command)
+(global-set-key (kbd "C-SPC") 'my/set-or-pop-mark)
 (global-set-key (kbd "C-\\") 'my/match-delimiter)
 (global-set-key (kbd "M-.") 'my/mark-context)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
@@ -144,7 +142,7 @@
 
 ;; # Search, replace, regexp, occur
 ;; ## Search
-(global-set-key (kbd "C-s") 'my/isearch-forward-dwim)
+(global-set-key (kbd "C-s") 'my/isearch-forward-or-split-window)
 (global-set-key (kbd "C-r") 'my/isearch-backward-dwim)
 (global-set-key (kbd "C-c >") 'search-forward-regexp)
 (global-set-key (kbd "C-c <") 'search-backward-regexp)
@@ -158,7 +156,7 @@
 
 
 ;; # Files
-(global-set-key (kbd "C-u C-f") 'find-file)
+(global-set-key (kbd "C-f") 'my/forward-char-or-find-file)
 (global-set-key (kbd "M-F") 'find-file-other-window)
 (global-set-key (kbd "C-c p") 'find-file-at-point)
 (global-set-key (kbd "C-Q") 'read-only-mode)
@@ -183,7 +181,6 @@
 (global-set-key (kbd "<escape> RET") 'clone-indirect-buffer)
 ;; ## Windows
 (global-set-key (kbd "C-x C-o") 'my/other-window)
-(global-set-key (kbd "C-u C-s") (my/cmd (split-window-right) (windmove-right)))
 (global-set-key (kbd "<escape> -") 'window-swap-states)
 (global-set-key (kbd "<escape> .") 'delete-window)
 ;; (global-set-key (kbd "<escape> \\") 'delete-window)
@@ -212,10 +209,6 @@
 ;; # Math, numbers
 (global-set-key (kbd "C-M-=") 'my/increment)
 (global-set-key (kbd "C-M--") 'my/decrement)
-
-
-;; # Debugging
-(global-set-key (kbd "C-u C-c C-c") (my/cmd-u 'eval-defun))  ;; Instrument function w/ edebug.
 
 
 ;; # Keyboard Macros

@@ -78,6 +78,13 @@
                (next-line)))))
   (ibuffer-update nil t))
 
+(defun my/forward-char-or-find-file (arg)
+  "With prefix ARG, find file. Otherwise, move forward one character."
+  (interactive "P")
+  (if arg
+      (call-interactively 'find-file)
+    (call-interactively 'forward-char)))
+
 
 ;; # Text navigation, selection
 
@@ -158,6 +165,13 @@ closing delimiter."
   (if (my/is-line-empty)
       (forward-line)))
 
+(defun my/set-or-pop-mark (arg)
+  "With prefix ARG, pop to mark. Otherwise, set the mark."
+  (interactive "P")
+  (if arg
+      (call-interactively 'pop-to-mark-command)
+    (call-interactively 'set-mark-command)))
+
 (defun my/outline-toggle-all ()
   (interactive)
   (if (not (bound-and-true-p outline-minor-mode))
@@ -194,6 +208,14 @@ IS-REVERSE [optional] [bool] [default = nil]    If true, search backwards."
 
 (defun my/isearch-forward-dwim () (interactive) (my/isearch-dwim))
 (defun my/isearch-backward-dwim () (interactive) (my/isearch-dwim t))
+
+(defun my/isearch-forward-or-split-window (arg)
+  "With prefix ARG, split window to the right and move into it.
+Otherwise, isearch forward (dwim)."
+  (interactive "P")
+  (if arg
+      (progn (split-window-right) (windmove-right))
+    (call-interactively 'my/isearch-forward-dwim)))
 
 (defun my/query-replace-dwim (&optional start-at-beginning)
   "Performs an interactive search & replace. If region matches (current-word),
@@ -623,6 +645,13 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
     (dired-unmark-all-marks)
     (goto-char marker)
     (revert-buffer)))
+
+(defun my/dired-isearch-or-resize-image (arg)
+  "With prefix ARG, resize marked images. Otherwise, isearch backward (dwim)."
+  (interactive "P")
+  (if arg
+      (call-interactively 'my/dired-resize-image)
+    (call-interactively 'my/isearch-backward-dwim)))
 
 
 ;; # Deadgrep
