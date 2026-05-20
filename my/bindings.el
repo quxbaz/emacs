@@ -66,7 +66,7 @@
 ;; # Text navigation, marking
 (global-set-key (kbd "M-a") 'backward-paragraph)
 (global-set-key (kbd "M-e") 'forward-paragraph)
-(global-set-key (kbd "C-SPC") 'my/set-or-pop-mark)
+(global-set-key (kbd "C-SPC") (my/cmd-or 'set-mark-command 'pop-to-mark-command))
 (global-set-key (kbd "C-\\") 'my/match-delimiter)
 (global-set-key (kbd "M-.") 'my/mark-context)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
@@ -142,7 +142,7 @@
 
 ;; # Search, replace, regexp, occur
 ;; ## Search
-(global-set-key (kbd "C-s") 'my/isearch-forward-or-split-window)
+(global-set-key (kbd "C-s") (my/cmd-or 'my/isearch-forward-dwim (my/cmd (split-window-right) (windmove-right))))
 (global-set-key (kbd "C-r") 'my/isearch-backward-dwim)
 (global-set-key (kbd "C-c >") 'search-forward-regexp)
 (global-set-key (kbd "C-c <") 'search-backward-regexp)
@@ -156,7 +156,7 @@
 
 
 ;; # Files
-(global-set-key (kbd "C-f") 'my/forward-char-or-find-file)
+(global-set-key (kbd "C-f") (my/cmd-or 'forward-char 'find-file))
 (global-set-key (kbd "M-F") 'find-file-other-window)
 (global-set-key (kbd "C-c p") 'find-file-at-point)
 (global-set-key (kbd "C-Q") 'read-only-mode)

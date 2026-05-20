@@ -25,6 +25,14 @@
 This is useful for writing succinct keybindings."
   `(lambda () (interactive) ,@forms))
 
+(defun my/cmd-or (default-cmd prefix-cmd)
+  "Return a command that calls PREFIX-CMD with prefix arg, DEFAULT-CMD otherwise."
+  (lambda (arg)
+    (interactive "P")
+    (if arg
+        (call-interactively prefix-cmd)
+      (call-interactively default-cmd))))
+
 
 ;; # Util
 
