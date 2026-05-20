@@ -1,4 +1,4 @@
-# name: prin1
+# name: out-prin1
 # key: >
 # --
 (prin1 ${1:OBJECT}${2: ${3:PRINTCHARFUN}${4: ${5:OVERRIDES}}})

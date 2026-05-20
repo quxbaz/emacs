@@ -1,4 +1,4 @@
-# name: message
+# name: out-message
 # key: >
 # --
 (message "${1:~A}" ${2:ARGS})

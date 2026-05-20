@@ -1,4 +1,4 @@
-# name: format
+# name: out-format
 # key: >
 # --
 (format ${1:"${2:%s}"} ${3:OBJECTS})
