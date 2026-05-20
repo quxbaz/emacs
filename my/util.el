@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+;;
 ;; Utility functions
 ;;
 ;; Mostly non-interactive definitions.
