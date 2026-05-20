@@ -1,0 +1,4 @@
+# name: princ
+# key: >
+# --
+(princ ${1:OBJECT}${2: ${3:PRINTCHARFUN}})
