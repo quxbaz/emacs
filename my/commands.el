@@ -675,6 +675,11 @@ Uses 'modified: filename' as the commit message."
              (msg (format "modified:   %s" file)))
         (magit-run-git "add" file)
         (magit-run-git "commit" "-m" msg)))
+     ((magit-untracked-files)
+      (let* ((file (car (magit-untracked-files)))
+             (msg (format "modified:   %s" file)))
+        (magit-run-git "add" file)
+        (magit-run-git "commit" "-m" msg)))
      (t
       (user-error "my/magit-quick-commit: no modified files")))))
 
