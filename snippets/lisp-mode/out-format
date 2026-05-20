@@ -1,4 +1,0 @@
-# name: format
-# key: >
-# --
-(format nil ${1:"${2:~A}"} ${3:ARGS})
