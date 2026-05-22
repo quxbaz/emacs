@@ -1,5 +1,5 @@
 # name: seq-let
-# key: lets
+# key: slet
 # --
 (seq-let (${1:VARS}) ${2:SEQUENCE}
   $0)
