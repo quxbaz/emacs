@@ -210,6 +210,10 @@
 (global-set-key (kbd "C-c C-y") 'my/eval-kill-ring)
 
 
+;; # Debugging, edebug
+(global-set-key (kbd "C-c h") 'edebug-where)
+
+
 ;; # Math, numbers
 (global-set-key (kbd "C-M-=") 'my/increment)
 (global-set-key (kbd "C-M--") 'my/decrement)
