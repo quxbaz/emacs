@@ -206,6 +206,10 @@
 (global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
 
 
+;; # Lisp
+(global-set-key (kbd "C-c C-x") 'my/eval-kill-ring)
+
+
 ;; # Math, numbers
 (global-set-key (kbd "C-M-=") 'my/increment)
 (global-set-key (kbd "C-M--") 'my/decrement)
