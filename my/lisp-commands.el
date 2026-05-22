@@ -17,6 +17,7 @@
 (defun my/eval-buffer ()
   "Eval the entire buffer, flash it, and show *Messages* in the right window."
   (interactive)
+  (message "── eval-buffer: %s ──" (buffer-name))
   (eval-buffer)
   (my/flash-region (point-min) (point-max))
   (let* ((cur-win (selected-window))
