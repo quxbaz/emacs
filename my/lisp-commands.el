@@ -23,8 +23,8 @@ With two C-u prefixes, calls `eval-defun' (instruments for edebug)."
    ;; C-u: eval the entire buffer.
    ((equal arg '(4))
     (eval-buffer)
-    (my/flash-region (point-min) (point-max))
-    (message "%s" (buffer-name)))
+    (message "%s" (buffer-name))
+    (my/flash-region (point-min) (point-max)))
    ;; C-u C-u: delegate to eval-defun (instruments for edebug).
    ((equal arg '(16))
     (call-interactively 'eval-defun))
