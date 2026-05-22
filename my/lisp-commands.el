@@ -14,6 +14,32 @@
 
 ;; # Evaluation
 
+(defun my/eval-buffer ()
+  "Eval the entire buffer, flash it, and show *Messages* in the right window."
+  (interactive)
+  (eval-buffer)
+  (my/flash-region (point-min) (point-max))
+  (let* ((cur-win (selected-window))
+         (win-count (length (window-list))))
+    (cond
+     ((= win-count 1)
+      (split-window-right)
+      (with-selected-window (next-window)
+        (switch-to-buffer "*Messages*")
+        (goto-char (point-max))))
+     ((= win-count 2)
+      (let* ((other-win (next-window))
+             (cur-left (car (window-edges cur-win)))
+             (other-left (car (window-edges other-win))))
+        (when (> cur-left other-left)
+          (window-swap-states cur-win other-win)
+          (select-window other-win)
+          (setq cur-win other-win
+                other-win (next-window)))
+        (with-selected-window other-win
+          (switch-to-buffer "*Messages*")
+          (goto-char (point-max))))))))
+
 (defun my/eval-dwim (&optional arg)
   "Evals either the current region, block, or line - in that order of preference.
 With one C-u prefix, evals the entire buffer.
