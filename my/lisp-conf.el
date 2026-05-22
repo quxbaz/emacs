@@ -33,7 +33,7 @@
 (my/set-lisp-keymap lisp-mode-map)
 
 ;; Apply hook to all Lisp and Lisp REPL modes.
-(dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook slime-repl-mode-hook))
+(dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook slime-repl-mode-hook edebug-eval-mode-hook))
   (add-hook mode-hook (lambda ()
                         (autopair-mode -1)
                         (unless (eq mode-hook 'slime-repl-mode-hook)
