@@ -1,4 +1,4 @@
 # name: cdr
 # key: d
 # --
-cdr
+(cdr $0)
