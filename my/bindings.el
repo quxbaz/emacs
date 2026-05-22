@@ -207,7 +207,7 @@
 
 
 ;; # Lisp
-(global-set-key (kbd "C-c C-x") 'my/eval-kill-ring)
+(global-set-key (kbd "C-c C-y") 'my/eval-kill-ring)
 
 
 ;; # Math, numbers
