@@ -53,7 +53,8 @@
          (other-window 1)
          (calc nil t t))
         (t
-         (call-interactively 'calc))))
+         (call-interactively 'calc)))
+  (calc-trail-display 0))
 
 (defun my/calc-no-simplify-mode ()
   "Like calc-no-simplify-mode, but retains point."
