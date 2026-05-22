@@ -33,4 +33,5 @@
                           "~/conf/home/.profile"
                           "~/conf/zsh/.zprofile"
                           "~/conf/zsh/.zshrc"
-                          "~/conf/freecad/user.cfg"))
+                          "~/conf/freecad/user.cfg"
+                          "~/work/wnmu/Todo.org"))
