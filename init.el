@@ -19,7 +19,6 @@
 
 ;; Custom config
 (load-file (concat user-emacs-directory "my/data.el"))
-(load-file (concat user-emacs-directory "my/packages.el"))
 (load-file (concat user-emacs-directory "my/conf.el"))
 (load-file (concat user-emacs-directory "my/theme.el"))
 (load-file (concat user-emacs-directory "my/lib-string.el"))
@@ -49,7 +48,6 @@
    '(
      aggressive-indent
      autopair
-     claude-code-ide
      corfu
      deadgrep
      doom-themes
