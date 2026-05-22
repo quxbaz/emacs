@@ -27,7 +27,9 @@ With two C-u prefixes, calls `eval-defun' (instruments for edebug)."
     (my/flash-region (point-min) (point-max)))
    ;; C-u C-u: delegate to eval-defun (instruments for edebug).
    ((equal arg '(16))
-    (call-interactively 'eval-defun))
+    (call-interactively 'eval-defun)
+    (my/flash-region (save-excursion (beginning-of-defun) (point))
+                     (save-excursion (end-of-defun) (point))))
    ;; Active region: eval the selected region.
    ((use-region-p)
     (eval-region (region-beginning) (region-end) t)
