@@ -16,7 +16,7 @@
   "Temporarily highlight region from START to END."
   (let ((overlay (make-overlay start end)))
     (overlay-put overlay 'face 'secondary-selection)
-    (run-with-timer (or timer 0.18) nil 'delete-overlay overlay)))
+    (run-with-timer (or timer 0.1) nil 'delete-overlay overlay)))
 
 
 ;; # Commands
