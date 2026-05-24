@@ -90,10 +90,10 @@ With two C-u prefixes, calls `eval-defun' (instruments for edebug)."
 (defun my/eval-here ()
   "Evaluates the most immediate list at point."
   (interactive)
-  (cond ((my/is-inside-list)
-         (if (my/is-inside-string)
-             (eval-region (my/opening-paren-position) (my/closing-paren-position) t)
-           (eval-expression (read (thing-at-point 'list)))))
+  (cond ((and (my/is-inside-string) (my/is-inside-list))
+         (eval-region (my/opening-paren-position) (my/closing-paren-position) t))
+        ((my/is-inside-list)
+         (eval-expression (read (thing-at-point 'list))))
         (t
          (eval-expression (read (thing-at-point 'sexp))))))
 
