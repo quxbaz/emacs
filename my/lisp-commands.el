@@ -91,11 +91,16 @@ With two C-u prefixes, calls `eval-defun' (instruments for edebug)."
   "Evaluates the most immediate list at point."
   (interactive)
   (cond ((my/is-inside-list)
-         (if (my/is-inside-string)
-             (eval-region (my/opening-paren-position) (my/closing-paren-position) t)
-           (eval-expression (read (thing-at-point 'list)))))
+         (let ((start (my/opening-paren-position))
+               (end (my/closing-paren-position)))
+           (if (my/is-inside-string)
+               (eval-region start end t)
+             (eval-expression (read (thing-at-point 'list))))
+           (my/flash-region start end)))
         (t
-         (eval-expression (read (thing-at-point 'sexp))))))
+         (when-let ((bounds (bounds-of-thing-at-point 'sexp)))
+           (eval-expression (read (thing-at-point 'sexp)))
+           (my/flash-region (car bounds) (cdr bounds))))))
 
 (defun my/eval-kill-ring ()
   "Evals the car of the kill ring. Surrounds the string with parens when needed."
@@ -106,6 +111,19 @@ With two C-u prefixes, calls `eval-defun' (instruments for edebug)."
           (setq code (format "(%s)" code)))
       (eval-expression (read code))
       (my/flash-mode-line))))
+
+(defun my/macroexpand-here ()
+  "Macroexpand the sexp at point."
+  (interactive)
+  (if (my/is-inside-list)
+      (when-let ((sexp (thing-at-point 'list)))
+        (let ((start (my/opening-paren-position))
+              (end (my/closing-paren-position)))
+          (pp-macroexpand-expression (read sexp))
+          (my/flash-region start end)))
+    (when-let ((bounds (bounds-of-thing-at-point 'sexp)))
+      (pp-macroexpand-expression (read (thing-at-point 'sexp)))
+      (my/flash-region (car bounds) (cdr bounds)))))
 
 
 ;; # Navigation
