@@ -1,0 +1,6 @@
+# name: stringp
+# key: sp
+# type: command
+# condition: t
+# --
+(my/snippet-insert-or-wrap 'stringp)
