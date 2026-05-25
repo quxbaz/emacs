@@ -43,7 +43,10 @@
 (add-hook 'calc-mode-hook   #'my/calc-restore-stack)
 
 (defun my/calc ()
-  "Starts calc."
+  "Start calc with dwim window behavior.
+From a special buffer or single-window frame, opens calc full-screen.
+From a single window, splits right first.
+Otherwise delegates to calc interactively."
   (interactive)
   (cond ((or (string-match-p "^[*]" (buffer-name))
              (memq major-mode (list 'dired-mode 'magit-status-mode)))
