@@ -245,6 +245,7 @@
 ;; # org
 (global-set-key (kbd "<escape> <escape> m") 'org-store-link)
 (global-set-key (kbd "C-c C-,") (my/cmd (org-agenda nil "n")))
+(global-set-key (kbd "<f6>") 'org-html-export-to-html)
 
 
 ;; # yasnippet
