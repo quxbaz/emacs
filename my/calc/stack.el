@@ -53,8 +53,7 @@
          (other-window 1)
          (calc nil t t))
         (t
-         (call-interactively 'calc)))
-)
+         (call-interactively 'calc))))
 
 (defun my/calc-direct ()
   "Open calc directly without window management."
