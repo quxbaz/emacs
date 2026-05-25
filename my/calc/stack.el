@@ -56,6 +56,12 @@
          (call-interactively 'calc)))
   (calc-trail-display 0))
 
+(defun my/calc-direct ()
+  "Open calc directly without window management."
+  (interactive)
+  (calc nil t t)
+  (calc-trail-display 0))
+
 (defun my/calc-no-simplify-mode ()
   "Like calc-no-simplify-mode, but retains point."
   (interactive)
