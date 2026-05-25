@@ -85,6 +85,7 @@
   (run-with-idle-timer 0.02 nil (lambda () (select-window (get-buffer-window "*slime-description*")))))
 
 (eval-after-load 'slime '(progn
+                           (keymap-set slime-mode-map "M-." 'my/mark-context)
                            (keymap-set slime-mode-map "M-," 'my/call-macro-dwim)
                            (keymap-set slime-mode-map "C-h C-h" 'my/slime-help-dwim)
                            (keymap-set slime-mode-map "C-h C-o" 'slime-hyperspec-lookup)
