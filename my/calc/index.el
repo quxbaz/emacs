@@ -5,7 +5,7 @@
 ;; This file loads all calc-related modules.
 
 
-(setq calc-display-trail nil)
+(add-hook 'calc-start-hook (lambda () (calc-trail-display 0)))
 (setq calc-graph-default-resolution 1000)
 (setq calc-gnuplot-default-device "qt")
 
