@@ -54,13 +54,15 @@
          (calc nil t t))
         (t
          (call-interactively 'calc)))
-  (calc-trail-display 0))
+  (calc-trail-display 0)
+  (sit-for 0))  ; flush redisplay so trail window hides immediately
 
 (defun my/calc-direct ()
   "Open calc directly without window management."
   (interactive)
   (calc nil t t)
-  (calc-trail-display 0))
+  (calc-trail-display 0)
+  (sit-for 0))  ; flush redisplay so trail window hides immediately
 
 (defun my/calc-no-simplify-mode ()
   "Like calc-no-simplify-mode, but retains point."
