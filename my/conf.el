@@ -31,7 +31,6 @@
 (column-number-mode t)
 (global-hi-lock-mode t)
 (global-display-line-numbers-mode t)
-(show-point-mode t)
 
 
 ;; # Whitespace, indentation
