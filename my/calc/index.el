@@ -6,6 +6,7 @@
 
 
 (add-hook 'calc-start-hook (lambda () (calc-trail-display 0)))
+(add-hook 'calc-mode-hook (lambda () (show-point-mode t)))
 (setq calc-graph-default-resolution 1000)
 (setq calc-gnuplot-default-device "qt")
 
