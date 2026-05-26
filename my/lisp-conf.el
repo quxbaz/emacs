@@ -52,7 +52,8 @@
 
 ;;
 ;; # Emacs Lisp (Elisp) config
-(keymap-set emacs-lisp-mode-map "<f5>" 'my/eval-buffer)
+;; (keymap-set emacs-lisp-mode-map "<f5>" 'my/eval-buffer)
+(keymap-set emacs-lisp-mode-map "<f5>" (my/with-prefix 'my/eval-dwim))
 (keymap-set emacs-lisp-mode-map "C-c C-c" 'my/eval-dwim)
 (keymap-set emacs-lisp-mode-map "C-c C-." 'my/eval-here)
 (keymap-set emacs-lisp-mode-map "C-c RET" 'my/macroexpand-here)
