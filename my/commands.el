@@ -561,6 +561,24 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
                       (postfix (if (or (= days-ago 0) (> (abs days-ago) 1)) "s" "")))
                  (message "%s day%s" days-ago postfix))))))
 
+(defun my/org-open-at-point-dwim (arg)
+  "Open link at point, or all links in region if mark is active."
+  (interactive "P")
+  (if (use-region-p)
+      (my/org-open-links-in-region (region-beginning) (region-end))
+    (org-open-at-point arg)))
+
+(defun my/org-open-links-in-region (beg end)
+  "Open all links in region."
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region beg end)
+      (org-element-map (org-element-parse-buffer) 'link
+        (lambda (link)
+          (goto-char (org-element-property :begin link))
+          (org-open-at-point))))))
+
 
 ;; # org-table
 

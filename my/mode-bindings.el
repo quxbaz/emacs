@@ -102,6 +102,7 @@
      (keymap-set org-mode-map "C-c C-v" 'my/revert-buffer)
      (keymap-set org-mode-map "C-M--" 'org-insert-todo-heading)
      (keymap-set org-mode-map "C-M-." 'my/org-table-mark-field)
+     (keymap-set org-mode-map "C-c C-o" 'my/org-open-at-point-dwim)
      (keymap-set org-mode-map "C-c C-y" 'my/org-evaluate-time-range)
      (keymap-set org-mode-map "C-C C-," 'org-agenda)
      (keymap-set org-mode-map "<f5>" 'org-html-export-to-html)))
