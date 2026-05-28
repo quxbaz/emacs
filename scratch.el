@@ -6,10 +6,12 @@
 
 (maf-defcmd maf-minus (expr arg commit)
   :arity binary
-  :prefix "-"
+  :prefix "maf-"
   (commit (calcFunc-sub expr arg)))
 
 (maf-minus)
+
+(calcFunc-sub 3 2)
 
 (defmacro my/defcmd (expr replace &rest body)
   (declare (indent 2) (doc-string 3)))
