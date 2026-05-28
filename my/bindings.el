@@ -66,7 +66,6 @@
 ;; # Text navigation, marking
 (global-set-key (kbd "M-a") 'backward-paragraph)
 (global-set-key (kbd "M-e") 'forward-paragraph)
-(global-set-key (kbd "C-SPC") (my/cmd-or 'set-mark-command 'pop-to-mark-command))
 (global-set-key (kbd "C-\\") 'my/match-delimiter)
 (global-set-key (kbd "M-.") 'my/mark-context)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
