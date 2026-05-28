@@ -9,6 +9,8 @@
   :prefix "-"
   (commit (calcFunc-sub expr arg)))
 
+(maf-minus)
+
 (defmacro my/defcmd (expr replace &rest body)
   (declare (indent 2) (doc-string 3)))
 
