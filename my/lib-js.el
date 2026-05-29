@@ -3,13 +3,6 @@
 ;;
 
 
-(defun my/find-jsx ()
-  "Finds all js[x] files starting from the current directory."
-  (interactive)
-  (find-dired "." (concat "! -regex './node_modules/.*' "
-                          "! -regex './.next/.*' "
-                          "-regex './.*.jsx?'")))
-
 (defun my/comment-jsx (arg)
   (interactive "p")
   (let ((is-empty-line (my/is-line-empty)))
