@@ -94,6 +94,7 @@
 (setq dired-omit-files "^\\.$\\|^\\.\\.$")  ;; Hide . and .. directories.
 (setq dired-omit-lines nil)
 (setq dired-omit-extensions nil)
+(with-eval-after-load 'dired (add-to-list 'dired-no-confirm 'load))  ;; L (dired-do-load) without confirmation.
 
 
 ;; # Describe, help
