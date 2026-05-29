@@ -7,6 +7,7 @@
                           (concat user-emacs-directory "scratch.el")
                           "~/.stumpwm.d/init.lisp"
                           "~/.stumpwm.d/setup.lisp"
+                          "~/personal/ai.org"
                           "~/personal/automotive.org"
                           "~/personal/bookmarks.org"
                           "~/personal/diary"
