@@ -4,6 +4,10 @@
 ;; # Set theme and font.
 (load-theme 'modus-vivendi t)
 ;; (set-face-attribute 'default nil :font "Monaco-10")
+;; Set the font via default-frame-alist so it applies to every frame,
+;; including ones the daemon creates for emacsclient (set-face-attribute at
+;; init time doesn't reliably reach daemon-spawned frames).
+(add-to-list 'default-frame-alist '(font . "Monaco-10:pixelsize=14"))
 (set-face-attribute 'default nil :font "Monaco-10:pixelsize=14")
 
 
