@@ -11,7 +11,8 @@
   (dolist (filepath my/init-files)
     (if (file-exists-p filepath)
         (find-file-noselect filepath)
-      (error "Init file does not exist: %s" filepath))))
+      (error "Init file does not exist: %s" filepath)))
+  (switch-to-buffer "*Messages*"))
 
 
 ;; # Help
