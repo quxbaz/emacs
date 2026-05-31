@@ -27,7 +27,7 @@
                           "~/personal/printing/inventory.org"
                           "~/personal/printing/printing.org"
                           "~/personal/typing.org"
-                          "~/conf/sync.org"
+                          "~/conf/install/sync.org"
                           "~/conf/aspell/.aspell.en.pws"
                           "~/conf/awesome/rc.lua"
                           "~/conf/i3/config"
