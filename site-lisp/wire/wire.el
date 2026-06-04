@@ -586,6 +586,7 @@ gone."
     (define-key map (kbd "C-c y s") #'wire-select-target)
     (define-key map (kbd "C-c y l") #'wire-list-instances)
     (define-key map (kbd "C-c y v") #'wire-visit-target)
+    (define-key map (kbd "C-c y d") #'wire-doctor)
     map)
   "Keymap for `wire-mode'.")
 
