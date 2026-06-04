@@ -1,0 +1,5 @@
+TODO
+
+Todo [0/2]
+- [ ] Code highlighting
+- [ ] On killing annotation buffer, return to source window
