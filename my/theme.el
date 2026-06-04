@@ -8,7 +8,7 @@
 ;; including ones the daemon creates for emacsclient (set-face-attribute at
 ;; init time doesn't reliably reach daemon-spawned frames).
 (add-to-list 'default-frame-alist '(font . "Monaco-10:pixelsize=14"))
-(set-face-attribute 'default nil :font "Monaco-10:pixelsize=14")
+(set-face-attribute 'default nil :font "Monaco-11:pixelsize=15")
 
 
 ;; # Colors
