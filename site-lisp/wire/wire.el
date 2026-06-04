@@ -348,34 +348,38 @@ this keeps the `of N' totals consistent."
     (line-number-at-pos end)))
 
 (defun wire--context-at-point ()
-  "Capture the region (or current line) and surrounding context.
-File-backed buffers carry a project/branch/file/line reference;
-fileless buffers carry the genuine project root and branch (if any),
-the buffer name, the major mode, and the content."
+  "Capture context for a dispatch.
+With an active region, capture the region text and its line range; the
+message is about that region.  Without one, capture only buffer
+identity --- the message is about the whole file or buffer.  File-backed
+buffers carry a project/branch/file reference; fileless buffers carry
+the project root and branch (if any), the buffer name, and the mode."
   (let* ((reg (use-region-p))
-         (beg (if reg (region-beginning) (line-beginning-position)))
-         (end (if reg (region-end) (line-end-position)))
-         (file (buffer-file-name))
-         (code (buffer-substring-no-properties beg end)))
+         (beg (and reg (region-beginning)))
+         (end (and reg (region-end)))
+         (code (and reg (buffer-substring-no-properties beg end)))
+         (file (buffer-file-name)))
     (if file
         (let ((root (wire--project-root file)))
-          (list :file file
+          (list :region reg
+                :file file
                 :project-root root
                 :branch (wire--git-branch root)
                 :rel-file (if root (file-relative-name file root) file)
-                :beg-line (line-number-at-pos beg)
-                :end-line (line-number-at-pos end)
+                :beg-line (and reg (line-number-at-pos beg))
+                :end-line (and reg (line-number-at-pos end))
                 :code code
                 :lang (wire--lang)))
       (let ((root (wire--buffer-project-root)))
-        (list :file nil
+        (list :region reg
+              :file nil
               :project-root root
               :branch (wire--git-branch root)
               :buffer (buffer-name)
               :mode (symbol-name major-mode)
               :prog (and (derived-mode-p 'prog-mode) t)
-              :beg-line (line-number-at-pos beg)
-              :end-line (wire--region-end-line beg end)
+              :beg-line (and reg (line-number-at-pos beg))
+              :end-line (and reg (wire--region-end-line beg end))
               :total-lines (count-lines (point-min) (point-max))
               :code code
               :lang (wire--lang))))))
@@ -387,47 +391,58 @@ the buffer name, the major mode, and the content."
     (wire--format-fileless-context ctx)))
 
 (defun wire--format-file-context (ctx)
-  "Build the project/file/line context block for a file-backed buffer CTX."
-  (let* ((beg (plist-get ctx :beg-line))
-         (end (plist-get ctx :end-line))
-         (branch (plist-get ctx :branch))
-         (lines (if (= beg end)
-                    (format "Line: %d" beg)
-                  (format "Lines: %d-%d" beg end))))
-    (format "Project: %s\n%sFile: %s\n%s\n\n```%s\n%s\n```"
-            (plist-get ctx :project-root)
-            (if branch (format "Branch: %s\n" branch) "")
-            (plist-get ctx :rel-file)
-            lines
-            (plist-get ctx :lang)
-            (plist-get ctx :code))))
+  "Build the context block for a file-backed buffer CTX.
+With a region, includes the line range and the fenced region; without
+one, the message is about the whole file, so only the project/branch/
+file header is emitted."
+  (let* ((branch (plist-get ctx :branch))
+         (header (format "Project: %s\n%sFile: %s\n"
+                         (plist-get ctx :project-root)
+                         (if branch (format "Branch: %s\n" branch) "")
+                         (plist-get ctx :rel-file))))
+    (if (plist-get ctx :region)
+        (let* ((beg (plist-get ctx :beg-line))
+               (end (plist-get ctx :end-line))
+               (lines (if (= beg end)
+                          (format "Line: %d" beg)
+                        (format "Lines: %d-%d" beg end))))
+          (format "%s%s\n\n```%s\n%s\n```"
+                  header lines (plist-get ctx :lang) (plist-get ctx :code)))
+      ;; No region: header only.  Drop its trailing newline so the
+      ;; caller's "\n\n" leaves exactly one blank line before point.
+      (string-remove-suffix "\n" header))))
 
 (defun wire--format-fileless-context (ctx)
   "Build the context block for a fileless buffer CTX.
-Includes `Project:'/`Branch:' only for a genuine project root, always
-the `Buffer:' name, the fence language only for `prog-mode' buffers,
-a `Mode:' line otherwise, and a `Focused:' line locating the sent
-lines within the buffer (`line N of M' / `lines N-M of M')."
+Includes `Project:'/`Branch:' only for a genuine project root and
+always the `Buffer:' name.  With a region, adds a `Focused: line(s) N
+of M' provenance line and the fenced region, using the fence language
+only for `prog-mode' buffers; without one, the message is about the
+whole buffer.  A `Mode:' line is shown whenever the language is not
+already carried by a fence."
   (let* ((root (plist-get ctx :project-root))
          (branch (plist-get ctx :branch))
-         (lang (and (plist-get ctx :prog) (plist-get ctx :lang)))
-         (beg (plist-get ctx :beg-line))
-         (end (plist-get ctx :end-line))
-         (total (plist-get ctx :total-lines))
-         (focused (if (= beg end)
-                      (format "Focused: line %d of %d\n" beg total)
-                    (format "Focused: lines %d-%d of %d\n" beg end total)))
+         (region (plist-get ctx :region))
+         ;; The language only appears inside the region fence, and only
+         ;; for prog-mode buffers; otherwise `Mode:' carries the context.
+         (fence-lang (and region (plist-get ctx :prog) (plist-get ctx :lang)))
          (header (concat
                   (when root (format "Project: %s\n" root))
                   (when branch (format "Branch: %s\n" branch))
                   (format "Buffer: %s\n" (plist-get ctx :buffer))
-                  (unless lang (format "Mode: %s\n" (plist-get ctx :mode)))
-                  focused)))
-    (format "%s%s```%s\n%s\n```"
-            header
-            (if (string-empty-p header) "" "\n")
-            (or lang "")
-            (plist-get ctx :code))))
+                  (unless fence-lang (format "Mode: %s\n" (plist-get ctx :mode))))))
+    (if region
+        (let* ((beg (plist-get ctx :beg-line))
+               (end (plist-get ctx :end-line))
+               (total (plist-get ctx :total-lines))
+               (focused (if (= beg end)
+                            (format "Focused: line %d of %d" beg total)
+                          (format "Focused: lines %d-%d of %d" beg end total))))
+          (format "%s%s\n\n```%s\n%s\n```"
+                  header focused (or fence-lang "") (plist-get ctx :code)))
+      ;; No region: header only.  Drop its trailing newline so the
+      ;; caller's "\n\n" leaves exactly one blank line before point.
+      (string-remove-suffix "\n" header))))
 
 ;;;; Sending
 
