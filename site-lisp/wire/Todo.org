@@ -1,6 +1,4 @@
 Todo
 
 Todo
-- [ ] Use a better binding.
 - [ ] Generate a QUICKSTART.md file.
-- [ ] Bind wire-visit-target
