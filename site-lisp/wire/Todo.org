@@ -1,7 +1,8 @@
 Todo
 
-Todo [0/5]
+Todo [0/6]
 - [ ] When dispatching from a buffer without a file, the annotation is wrong.
+- [ ] Send entire buffer. If long, include head .... then tail.
 - [ ] Can Claude return the response when it finishes?
 - [ ] Use a better binding.
 - [ ] With prefix arg, send the entire file.
