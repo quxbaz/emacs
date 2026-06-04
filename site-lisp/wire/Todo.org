@@ -1,7 +1,8 @@
 TODO
 
-Todo [0/4]
+Todo [0/5]
 - [ ] Is is possible to enable code highlighting?
 - [ ] On killing annotation buffer, return to source window.
 - [ ] Can Claude return the response when it finishes?
 - [ ] When dispatching from a buffer without a file, the annotation is wrong.
+- [ ] Better binding.
