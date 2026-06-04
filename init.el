@@ -17,6 +17,16 @@
     (add-to-list 'load-path maf-path)
     (require 'maf)))
 
+;; Load wire package if it exists.
+(let ((wire-path (concat user-emacs-directory "site-lisp/wire")))
+  (when (file-exists-p (concat wire-path "/wire.el"))
+    (add-to-list 'load-path wire-path)
+    (autoload 'wire-mode "wire" "Wire annotated regions to a running Claude instance." t)
+    (autoload 'wire-dispatch "wire" nil t)
+    (autoload 'wire-select-target "wire" nil t)
+    (autoload 'wire-list-instances "wire" nil t)
+    (autoload 'wire-doctor "wire" nil t)))
+
 ;; Custom config
 (load-file (concat user-emacs-directory "my/data.el"))
 (load-file (concat user-emacs-directory "my/conf.el"))
