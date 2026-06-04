@@ -330,7 +330,7 @@ a `user-error' if no socket is reachable."
          (lines (if (= beg end)
                     (format "line: %d" beg)
                   (format "lines: %d-%d" beg end))))
-    (format "Project: %s\nFile: %s (%s)\n\n```%s\n%s\n```"
+    (format "Project: %s\nFile: %s\n%s\n\n```%s\n%s\n```"
             (plist-get ctx :project-root)
             (plist-get ctx :rel-file)
             lines
