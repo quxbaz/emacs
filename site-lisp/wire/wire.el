@@ -7,13 +7,15 @@
 
 ;;; Commentary:
 
-;; Wire sends the active region (or the line at point) plus a short
-;; annotation to a *running* Claude Code session living in a kitty
-;; terminal window.
+;; Wire sends the active region --- or, with no region, a message about
+;; the whole file/buffer --- plus a short annotation to a *running*
+;; Claude Code session living in a kitty terminal window.
 ;;
-;; The message it builds includes the project root, the file, the line
-;; range, and the code itself, fenced for the buffer's language.  It is
-;; injected into Claude's prompt via kitty's remote control protocol
+;; The message it builds carries a context header: the project root and
+;; git branch, the file (or, for fileless buffers, the buffer name and
+;; major mode), and, when a region is active, its line range and the
+;; region text fenced for the buffer's language.  It is injected into
+;; Claude's prompt via kitty's remote control protocol
 ;; (`kitty @ send-text') and auto-submitted.
 ;;
 ;; Why kitty: a process cannot write to another terminal's stdin on a
@@ -31,13 +33,16 @@
 ;;
 ;; Usage:
 ;;
-;;   M-x wire-mode               ; enable in a source buffer
-;;   M-x wire-select-target      ; pick which Claude window to target
-;;   mark a region, M-x wire-dispatch
+;;   M-x wire-mode               ; enable in a buffer (or global-wire-mode)
+;;   C-c y s                     ; pick which Claude window to target
+;;   mark a region (or not), C-c y y
 ;;   edit the pre-filled message, C-c C-c   ; send (C-c C-k cancels)
+;;   C-c y v                     ; focus the target's kitty window
 ;;
-;; Default keys under `wire-mode': C-c c c (dispatch), C-c c s
-;; (select-target), C-c c l (list instances).
+;; Default keys under `wire-mode', prefix C-c y: y (dispatch), s
+;; (select-target), l (list instances), v (visit target).
+;;
+;; See QUICKSTART.md for a fuller walk-through.
 
 ;;; Code:
 
