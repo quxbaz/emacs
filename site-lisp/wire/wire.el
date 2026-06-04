@@ -273,7 +273,7 @@ a `user-error' if no socket is reachable."
                     "Setup incomplete -- see [FAIL] lines above.\n")))
         (goto-char (point-min))
         (special-mode))
-      (display-buffer buf))))
+      (pop-to-buffer buf))))
 
 (defun wire--target-live-p ()
   "Return non-nil if `wire-target' still names a live Claude window."
