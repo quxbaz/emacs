@@ -4,4 +4,5 @@ Todo [0/5]
 - [ ] When dispatching from a buffer without a file, the annotation is wrong.
 - [ ] Can Claude return the response when it finishes?
 - [ ] Use a better binding.
-- [ ] WIth prefix arg, send the entire file.
+- [ ] With prefix arg, send the entire file.
+- [ ] Generate a quick guide file.
