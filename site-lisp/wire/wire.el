@@ -577,9 +577,10 @@ gone."
 
 (defvar wire-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "C-c c c") #'wire-dispatch)
-    (define-key map (kbd "C-c c s") #'wire-select-target)
-    (define-key map (kbd "C-c c l") #'wire-list-instances)
+    (define-key map (kbd "C-c y y") #'wire-dispatch)
+    (define-key map (kbd "C-c y s") #'wire-select-target)
+    (define-key map (kbd "C-c y l") #'wire-list-instances)
+    (define-key map (kbd "C-c y v") #'wire-visit-target)
     map)
   "Keymap for `wire-mode'.")
 
