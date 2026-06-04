@@ -1,7 +1,7 @@
 Todo
 
-Todo [0/4]
+Todo [0/5]
 - [ ] When dispatching from a buffer without a file, the annotation is wrong.
 - [ ] Can Claude return the response when it finishes?
 - [ ] Use a better binding.
-- [ ] In magit, if point is on a file, commit that file first.
+- [ ] WIth prefix arg, send the entire file.
