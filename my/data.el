@@ -33,6 +33,7 @@
                           "~/conf/awesome/rc.lua"
                           "~/conf/i3/config"
                           "~/conf/home/.profile"
+                          "~/conf/kitty/kitty.conf"
                           "~/conf/zsh/.zprofile"
                           "~/conf/zsh/.zshrc"
                           "~/conf/freecad/user.cfg"
