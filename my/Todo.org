@@ -1,5 +1,6 @@
 TODO
 
-Todo [0/2]
+Todo [0/3]
 - [ ] Code highlighting
-- [ ] On killing annotation buffer, return to source window
+- [ ] On killing annotation buffer, return to source window.
+- [ ] Can claude return the response when it finishes?
