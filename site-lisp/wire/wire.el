@@ -360,6 +360,14 @@ a `user-error' if no socket is reachable."
 (defvar-local wire--pending-target nil
   "Resolved target plist for the annotation buffer.")
 
+(defvar-local wire--source-window nil
+  "Window selected when the annotation buffer was created.")
+
+(defun wire--restore-source-window ()
+  "Return to the window wire was dispatched from, if it is still live."
+  (when (window-live-p wire--source-window)
+    (select-window wire--source-window)))
+
 (defvar wire-annotation-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-c") #'wire-annotation-confirm)
@@ -420,14 +428,21 @@ whenever the previous target is gone."
   (let ((target (wire--ensure-target))
         (ctx (wire--context-at-point)))
     (unless target (user-error "wire: no target selected"))
-    (let ((buf (generate-new-buffer "*wire annotation*")))
+    ;; The region has been captured; drop it in the source buffer.
+    (deactivate-mark)
+    (let ((source (selected-window))
+          (buf (generate-new-buffer "*wire annotation*")))
       (with-current-buffer buf
         (wire-annotation-mode)
         ;; One blank line on top, the context block, then two blank lines
         ;; with point on the last so a note can be appended at the bottom.
         (insert "\n" (wire--format-context ctx) "\n\n")
         (goto-char (point-max))
-        (setq wire--pending-target target))
+        (setq wire--pending-target target
+              wire--source-window source)
+        ;; Return to the source window however the buffer is killed
+        ;; (confirm, abort, or a manual C-x k).
+        (add-hook 'kill-buffer-hook #'wire--restore-source-window nil t))
       (pop-to-buffer buf))))
 
 ;;;; Minor mode
