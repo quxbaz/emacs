@@ -1,6 +1,5 @@
 Todo
 
-Todo [0/3]
-- [ ] Can Claude return the response when it finishes?
+Todo
 - [ ] Use a better binding.
 - [ ] Generate a QUICKSTART.md file.
