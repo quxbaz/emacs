@@ -1,8 +1,9 @@
 TODO
 
-Todo [0/5]
+Todo [0/6]
 - [ ] Is is possible to enable code highlighting?
 - [ ] On killing annotation buffer, return to source window.
 - [ ] Can Claude return the response when it finishes?
 - [ ] When dispatching from a buffer without a file, the annotation is wrong.
-- [ ] Better binding.
+- [ ] Use a better binding.
+- [ ] In magit, if point is on a file, commit that file first.
