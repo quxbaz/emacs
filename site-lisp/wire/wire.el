@@ -337,6 +337,16 @@ On a detached HEAD, mirror what `git status' reports
   (replace-regexp-in-string "\\(-ts\\)?-mode\\'" ""
                             (symbol-name major-mode)))
 
+(defun wire--region-end-line (beg end)
+  "Line number of the last line touched by the region BEG..END.
+A region ending at the very start of a line (i.e. just past a
+newline) does not extend onto that next line, so it is not counted;
+this keeps the `of N' totals consistent."
+  (if (and (> end beg)
+           (save-excursion (goto-char end) (bolp)))
+      (line-number-at-pos (1- end))
+    (line-number-at-pos end)))
+
 (defun wire--context-at-point ()
   "Capture the region (or current line) and surrounding context.
 File-backed buffers carry a project/branch/file/line reference;
@@ -364,6 +374,9 @@ the buffer name, the major mode, and the content."
               :buffer (buffer-name)
               :mode (symbol-name major-mode)
               :prog (and (derived-mode-p 'prog-mode) t)
+              :beg-line (line-number-at-pos beg)
+              :end-line (wire--region-end-line beg end)
+              :total-lines (count-lines (point-min) (point-max))
               :code code
               :lang (wire--lang))))))
 
@@ -393,15 +406,23 @@ the buffer name, the major mode, and the content."
   "Build the context block for a fileless buffer CTX.
 Includes `Project:'/`Branch:' only for a genuine project root, always
 the `Buffer:' name, the fence language only for `prog-mode' buffers,
-and a `Mode:' line otherwise."
+a `Mode:' line otherwise, and a `Focused:' line locating the sent
+lines within the buffer (`line N of M' / `lines N-M of M')."
   (let* ((root (plist-get ctx :project-root))
          (branch (plist-get ctx :branch))
          (lang (and (plist-get ctx :prog) (plist-get ctx :lang)))
+         (beg (plist-get ctx :beg-line))
+         (end (plist-get ctx :end-line))
+         (total (plist-get ctx :total-lines))
+         (focused (if (= beg end)
+                      (format "Focused: line %d of %d\n" beg total)
+                    (format "Focused: lines %d-%d of %d\n" beg end total)))
          (header (concat
                   (when root (format "Project: %s\n" root))
                   (when branch (format "Branch: %s\n" branch))
                   (format "Buffer: %s\n" (plist-get ctx :buffer))
-                  (unless lang (format "Mode: %s\n" (plist-get ctx :mode))))))
+                  (unless lang (format "Mode: %s\n" (plist-get ctx :mode)))
+                  focused)))
     (format "%s%s```%s\n%s\n```"
             header
             (if (string-empty-p header) "" "\n")
