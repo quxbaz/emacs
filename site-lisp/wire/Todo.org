@@ -1,4 +1,4 @@
-TODO
+Todo
 
 Todo [0/6]
 - [ ] Is is possible to enable code highlighting?
