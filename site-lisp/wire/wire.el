@@ -34,7 +34,7 @@
 ;;   M-x wire-mode               ; enable in a source buffer
 ;;   M-x wire-select-target      ; pick which Claude window to target
 ;;   mark a region, M-x wire-dispatch
-;;   type a note, C-c C-c        ; send (C-c C-k cancels)
+;;   edit the pre-filled message, C-c C-c   ; send (C-c C-k cancels)
 ;;
 ;; Default keys under `wire-mode': C-c c c (dispatch), C-c c s
 ;; (select-target), C-c c l (list instances).
@@ -323,10 +323,9 @@ a `user-error' if no socket is reachable."
           :code (buffer-substring-no-properties beg end)
           :lang (wire--lang))))
 
-(defun wire--format-message (ctx annotation)
-  "Build the message string from CTX and ANNOTATION."
-  (format "%s\n\nProject: %s\nFile: %s (lines %d-%d)\n\n```%s\n%s\n```"
-          (string-trim annotation)
+(defun wire--format-context (ctx)
+  "Build the context block (project, file, line range, code) from CTX."
+  (format "Project: %s\nFile: %s (lines %d-%d)\n\n```%s\n%s\n```"
           (plist-get ctx :project-root)
           (plist-get ctx :rel-file)
           (plist-get ctx :beg-line)
@@ -354,8 +353,6 @@ a `user-error' if no socket is reachable."
 
 ;;;; Annotation buffer
 
-(defvar-local wire--pending-context nil
-  "Captured context plist for the annotation buffer.")
 (defvar-local wire--pending-target nil
   "Resolved target plist for the annotation buffer.")
 
@@ -367,21 +364,20 @@ a `user-error' if no socket is reachable."
   "Keymap for `wire-annotation-mode'.")
 
 (define-derived-mode wire-annotation-mode text-mode "Wire-Annotation"
-  "Major mode for composing the note that accompanies a wired region."
+  "Major mode for editing the message before it is wired to Claude."
   (setq header-line-format
         (substitute-command-keys
-         "Annotate, then \\[wire-annotation-confirm] to send, \
+         "Edit the message, then \\[wire-annotation-confirm] to send, \
 \\[wire-annotation-abort] to cancel")))
 
 (defun wire-annotation-confirm ()
-  "Send the composed annotation together with the captured region."
+  "Send the buffer contents verbatim to the target Claude."
   (interactive)
-  (let ((annotation (string-trim (buffer-string)))
-        (ctx wire--pending-context)
+  (let ((text (string-trim (buffer-string)))
         (target wire--pending-target))
-    (when (string-empty-p annotation)
-      (user-error "wire: annotation is empty"))
-    (wire--send target (wire--format-message ctx annotation))
+    (when (string-empty-p text)
+      (user-error "wire: nothing to send"))
+    (wire--send target text)
     (let ((label (plist-get target :label)))
       (kill-buffer (current-buffer))
       (message "wire: sent to Claude [%s]" label))))
@@ -396,9 +392,12 @@ a `user-error' if no socket is reachable."
 
 ;;;###autoload
 (defun wire-dispatch ()
-  "Send the region (or current line) plus an annotation to Claude.
-Prompts for a target the first time, or whenever the previous
-target is gone."
+  "Edit and send the region (or current line) to Claude.
+Pops a buffer pre-filled with the full message --- project, file,
+line range and the code block --- which you can edit freely; the
+buffer contents are sent verbatim.  Point starts on the blank last
+line, ready for a note.  Prompts for a target the first time, or
+whenever the previous target is gone."
   (interactive)
   (let ((target (wire--ensure-target))
         (ctx (wire--context-at-point)))
@@ -406,8 +405,11 @@ target is gone."
     (let ((buf (generate-new-buffer "*wire annotation*")))
       (with-current-buffer buf
         (wire-annotation-mode)
-        (setq wire--pending-context ctx
-              wire--pending-target target))
+        ;; One blank line on top, the context block, then two blank lines
+        ;; with point on the last so a note can be appended at the bottom.
+        (insert "\n" (wire--format-context ctx) "\n\n")
+        (goto-char (point-max))
+        (setq wire--pending-target target))
       (pop-to-buffer buf))))
 
 ;;;; Minor mode

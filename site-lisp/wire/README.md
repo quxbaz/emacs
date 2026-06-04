@@ -79,10 +79,12 @@ Typical flow:
 1. `M-x wire-mode` in a source buffer.
 2. `M-x wire-select-target` (auto-picks if only one Claude window).
 3. Mark a region, `M-x wire-dispatch` (or `C-c c c`).
-4. Type a note in the `*wire annotation*` buffer; `C-c C-c` sends, `C-c C-k`
-   cancels.
+4. A `*wire annotation*` buffer pops up **pre-filled with the full message** —
+   project, file, line range and the fenced code block. Point starts at the
+   top, ready for a note. Edit anything you like; the buffer is sent verbatim.
+   `C-c C-c` sends, `C-c C-k` cancels.
 
-With no region active, the line at point is sent. The target is session-only
+With no region active, the line at point is used. The target is session-only
 and is re-validated on each dispatch — if its window has gone away, wire prompts
 you to pick another.
 
