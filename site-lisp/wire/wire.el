@@ -301,40 +301,111 @@ a `user-error' if no socket is reachable."
         (when file (locate-dominating-file file ".git"))
         dir)))
 
+(defun wire--buffer-project-root ()
+  "Project root of the current buffer's `default-directory', or nil.
+Returns a directory only when it is a genuine VCS/project root, not
+just an arbitrary directory, so fileless buffers outside a project
+contribute no misleading `Project:' line."
+  (let ((dir default-directory))
+    (or (when (fboundp 'project-current)
+          (when-let ((proj (project-current nil dir)))
+            (expand-file-name (project-root proj))))
+        (when (fboundp 'vc-root-dir)
+          (let ((default-directory dir)) (vc-root-dir)))
+        (locate-dominating-file dir ".git"))))
+
+(defun wire--git-branch (root)
+  "Current git branch at ROOT, or nil if ROOT is not a git repo.
+On a detached HEAD, mirror what `git status' reports
+\(\"HEAD detached at <short-sha>\")."
+  (when root
+    (let ((default-directory root))
+      (with-temp-buffer
+        (when (zerop (call-process "git" nil t nil
+                                   "rev-parse" "--abbrev-ref" "HEAD"))
+          (let ((branch (string-trim (buffer-string))))
+            (if (not (string= branch "HEAD"))
+                branch
+              (erase-buffer)
+              (if (zerop (call-process "git" nil t nil
+                                       "rev-parse" "--short" "HEAD"))
+                  (format "HEAD detached at %s" (string-trim (buffer-string)))
+                "HEAD (detached)"))))))))
+
 (defun wire--lang ()
   "Language hint for the current buffer's major mode."
   (replace-regexp-in-string "\\(-ts\\)?-mode\\'" ""
                             (symbol-name major-mode)))
 
 (defun wire--context-at-point ()
-  "Capture the region (or current line) and surrounding context."
+  "Capture the region (or current line) and surrounding context.
+File-backed buffers carry a project/branch/file/line reference;
+fileless buffers carry the genuine project root and branch (if any),
+the buffer name, the major mode, and the content."
   (let* ((reg (use-region-p))
          (beg (if reg (region-beginning) (line-beginning-position)))
          (end (if reg (region-end) (line-end-position)))
          (file (buffer-file-name))
-         (root (wire--project-root file)))
-    (list :file (or file (buffer-name))
-          :project-root root
-          :rel-file (if (and file root)
-                        (file-relative-name file root)
-                      (or file (buffer-name)))
-          :beg-line (line-number-at-pos beg)
-          :end-line (line-number-at-pos end)
-          :code (buffer-substring-no-properties beg end)
-          :lang (wire--lang))))
+         (code (buffer-substring-no-properties beg end)))
+    (if file
+        (let ((root (wire--project-root file)))
+          (list :file file
+                :project-root root
+                :branch (wire--git-branch root)
+                :rel-file (if root (file-relative-name file root) file)
+                :beg-line (line-number-at-pos beg)
+                :end-line (line-number-at-pos end)
+                :code code
+                :lang (wire--lang)))
+      (let ((root (wire--buffer-project-root)))
+        (list :file nil
+              :project-root root
+              :branch (wire--git-branch root)
+              :buffer (buffer-name)
+              :mode (symbol-name major-mode)
+              :prog (and (derived-mode-p 'prog-mode) t)
+              :code code
+              :lang (wire--lang))))))
 
 (defun wire--format-context (ctx)
-  "Build the context block (project, file, line range, code) from CTX."
+  "Build the context block from CTX, adapting to the buffer kind."
+  (if (plist-get ctx :file)
+      (wire--format-file-context ctx)
+    (wire--format-fileless-context ctx)))
+
+(defun wire--format-file-context (ctx)
+  "Build the project/file/line context block for a file-backed buffer CTX."
   (let* ((beg (plist-get ctx :beg-line))
          (end (plist-get ctx :end-line))
+         (branch (plist-get ctx :branch))
          (lines (if (= beg end)
                     (format "Line: %d" beg)
                   (format "Lines: %d-%d" beg end))))
-    (format "Project: %s\nFile: %s\n%s\n\n```%s\n%s\n```"
+    (format "Project: %s\n%sFile: %s\n%s\n\n```%s\n%s\n```"
             (plist-get ctx :project-root)
+            (if branch (format "Branch: %s\n" branch) "")
             (plist-get ctx :rel-file)
             lines
             (plist-get ctx :lang)
+            (plist-get ctx :code))))
+
+(defun wire--format-fileless-context (ctx)
+  "Build the context block for a fileless buffer CTX.
+Includes `Project:'/`Branch:' only for a genuine project root, always
+the `Buffer:' name, the fence language only for `prog-mode' buffers,
+and a `Mode:' line otherwise."
+  (let* ((root (plist-get ctx :project-root))
+         (branch (plist-get ctx :branch))
+         (lang (and (plist-get ctx :prog) (plist-get ctx :lang)))
+         (header (concat
+                  (when root (format "Project: %s\n" root))
+                  (when branch (format "Branch: %s\n" branch))
+                  (format "Buffer: %s\n" (plist-get ctx :buffer))
+                  (unless lang (format "Mode: %s\n" (plist-get ctx :mode))))))
+    (format "%s%s```%s\n%s\n```"
+            header
+            (if (string-empty-p header) "" "\n")
+            (or lang "")
             (plist-get ctx :code))))
 
 ;;;; Sending
