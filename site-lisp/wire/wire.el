@@ -328,8 +328,8 @@ a `user-error' if no socket is reachable."
   (let* ((beg (plist-get ctx :beg-line))
          (end (plist-get ctx :end-line))
          (lines (if (= beg end)
-                    (format "line: %d" beg)
-                  (format "lines: %d-%d" beg end))))
+                    (format "Line: %d" beg)
+                  (format "Lines: %d-%d" beg end))))
     (format "Project: %s\nFile: %s\n%s\n\n```%s\n%s\n```"
             (plist-get ctx :project-root)
             (plist-get ctx :rel-file)
@@ -367,12 +367,26 @@ a `user-error' if no socket is reachable."
     map)
   "Keymap for `wire-annotation-mode'.")
 
-(define-derived-mode wire-annotation-mode text-mode "Wire-Annotation"
-  "Major mode for editing the message before it is wired to Claude."
+(defun wire--annotation-setup ()
+  "Shared setup for the annotation buffer's major mode."
   (setq header-line-format
         (substitute-command-keys
          "Edit the message, then \\[wire-annotation-confirm] to send, \
 \\[wire-annotation-abort] to cancel")))
+
+;; Derive from `gfm-mode' when markdown-mode is available so the fenced
+;; code block is syntax-highlighted natively; fall back to `text-mode'.
+(if (require 'markdown-mode nil t)
+    (define-derived-mode wire-annotation-mode gfm-mode "Wire-Annotation"
+      "Major mode for editing the message before it is wired to Claude."
+      (setq-local markdown-fontify-code-blocks-natively t)
+      (wire--annotation-setup))
+  (define-derived-mode wire-annotation-mode text-mode "Wire-Annotation"
+    "Major mode for editing the message before it is wired to Claude."
+    (wire--annotation-setup)))
+
+;; Defined conditionally above, so the compiler can't see it statically.
+(declare-function wire-annotation-mode "wire")
 
 (defun wire-annotation-confirm ()
   "Send the buffer contents verbatim to the target Claude."
