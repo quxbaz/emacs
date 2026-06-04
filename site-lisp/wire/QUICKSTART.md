@@ -78,7 +78,8 @@ Under `wire-mode` (prefix `C-c y`):
 | `C-c y y` | `wire-dispatch`       | Compose & send region / whole file     |
 | `C-c y s` | `wire-select-target`  | Pick which Claude window to target     |
 | `C-c y l` | `wire-list-instances` | Echo the Claude windows kitty sees     |
-| `C-c y v` | `wire-visit-target`   | Focus/raise the target's kitty window  |
+| `C-c y c` | `wire-visit-target`   | Focus/raise the target's kitty window  |
+| `C-c y d` | `wire-doctor`         | Diagnose the wire/kitty setup          |
 
 In the `*wire annotation*` buffer:
 
