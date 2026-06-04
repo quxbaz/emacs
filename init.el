@@ -25,7 +25,9 @@
     (autoload 'wire-dispatch "wire" nil t)
     (autoload 'wire-select-target "wire" nil t)
     (autoload 'wire-list-instances "wire" nil t)
-    (autoload 'wire-doctor "wire" nil t)))
+    (autoload 'wire-doctor "wire" nil t)
+    (autoload 'global-wire-mode "wire" nil t)
+    (global-wire-mode 1)))
 
 ;; Custom config
 (load-file (concat user-emacs-directory "my/data.el"))

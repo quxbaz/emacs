@@ -432,5 +432,15 @@ whenever the previous target is gone."
   :lighter " Wire"
   :keymap wire-mode-map)
 
+(defun wire--turn-on ()
+  "Enable `wire-mode' unless in the minibuffer."
+  (unless (minibufferp)
+    (wire-mode 1)))
+
+;;;###autoload
+(define-globalized-minor-mode global-wire-mode
+  wire-mode wire--turn-on
+  "Globalized `wire-mode': enable wire keybindings in all buffers.")
+
 (provide 'wire)
 ;;; wire.el ends here
