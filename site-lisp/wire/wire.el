@@ -325,13 +325,17 @@ a `user-error' if no socket is reachable."
 
 (defun wire--format-context (ctx)
   "Build the context block (project, file, line range, code) from CTX."
-  (format "Project: %s\nFile: %s (lines %d-%d)\n\n```%s\n%s\n```"
-          (plist-get ctx :project-root)
-          (plist-get ctx :rel-file)
-          (plist-get ctx :beg-line)
-          (plist-get ctx :end-line)
-          (plist-get ctx :lang)
-          (plist-get ctx :code)))
+  (let* ((beg (plist-get ctx :beg-line))
+         (end (plist-get ctx :end-line))
+         (lines (if (= beg end)
+                    (format "line: %d" beg)
+                  (format "lines: %d-%d" beg end))))
+    (format "Project: %s\nFile: %s (%s)\n\n```%s\n%s\n```"
+            (plist-get ctx :project-root)
+            (plist-get ctx :rel-file)
+            lines
+            (plist-get ctx :lang)
+            (plist-get ctx :code))))
 
 ;;;; Sending
 
