@@ -525,12 +525,14 @@ already carried by a fence."
 
 ;;;###autoload
 (defun wire-dispatch ()
-  "Edit and send the region (or current line) to Claude.
-Pops a buffer pre-filled with the full message --- project, file,
-line range and the code block --- which you can edit freely; the
-buffer contents are sent verbatim.  Point starts on the blank last
-line, ready for a note.  Prompts for a target the first time, or
-whenever the previous target is gone."
+  "Edit and send a message about the region (or whole buffer) to Claude.
+Pops a buffer pre-filled with a context header --- project and branch,
+the file or buffer name, and, when a region is active, its line range
+and the region text fenced.  With no active region the message is about
+the whole file/buffer and no code is included.  Edit freely; the buffer
+contents are sent verbatim.  Point starts on the blank last line, ready
+for a note.  Prompts for a target the first time, or whenever the
+previous target is gone."
   (interactive)
   (let ((target (wire--ensure-target))
         (ctx (wire--context-at-point)))
@@ -551,6 +553,25 @@ whenever the previous target is gone."
         ;; (confirm, abort, or a manual C-x k).
         (add-hook 'kill-buffer-hook #'wire--restore-source-window nil t))
       (pop-to-buffer buf))))
+
+;;;###autoload
+(defun wire-visit-target ()
+  "Focus the terminal window of the current Claude target.
+Raises the kitty window (and its tab) running the selected Claude
+instance; on X11 this also brings kitty's OS window to the foreground.
+Prompts for a target the first time, or whenever the previous one is
+gone."
+  (interactive)
+  (let ((target (wire--ensure-target)))
+    (unless target (user-error "wire: no target selected"))
+    (let ((sock (plist-get target :socket))
+          (id (plist-get target :id)))
+      (pcase-let ((`(,exit . ,out)
+                   (wire--kitty sock nil "focus-window"
+                                "--match" (format "id:%d" id))))
+        (unless (and (integerp exit) (zerop exit))
+          (user-error "wire: focus failed (%s): %s" exit (string-trim out))))
+      (message "wire: focused Claude [%s]" (plist-get target :label)))))
 
 ;;;; Minor mode
 
