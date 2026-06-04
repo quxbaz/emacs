@@ -682,10 +682,18 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   "Stage and commit when exactly one file is modified.
 Uses 'modified: filename' as the commit message."
   (interactive)
-  (let* ((unstaged (magit-unstaged-files))
+  (let* ((file-at-point (magit-file-at-point))
+         (unstaged (magit-unstaged-files))
          (staged (magit-staged-files))
          (all-modified (seq-uniq (append unstaged staged))))
     (cond
+     (file-at-point
+      ;; Highest priority: commit only the file under point.  A path-limited
+      ;; commit ("git commit -- FILE") records just this file and leaves any
+      ;; other staged files staged, so the staged state is preserved.
+      (let ((msg (format "modified:   %s" file-at-point)))
+        (magit-run-git "add" "--" file-at-point)
+        (magit-run-git "commit" "-m" msg "--" file-at-point)))
      (staged
       (let ((msg (format "modified:   %s" (car staged))))
         (magit-run-git "commit" "-m" msg)))
