@@ -96,6 +96,8 @@
 (setq dired-omit-extensions nil)
 (with-eval-after-load 'dired (add-to-list 'dired-no-confirm 'load))  ;; L (dired-do-load) without confirmation.
 (advice-add 'dired-find-buffer-nocreate :override #'ignore)  ;; Always create a fresh dired buffer instead of reusing an existing one.
+(with-eval-after-load 'dired
+  (define-key dired-mode-map "q" (lambda () (interactive) (quit-window t))))  ;; Kill the dired buffer on 'q' instead of burying it.
 
 
 ;; # Describe, help
