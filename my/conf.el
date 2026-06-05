@@ -95,6 +95,7 @@
 (setq dired-omit-lines nil)
 (setq dired-omit-extensions nil)
 (with-eval-after-load 'dired (add-to-list 'dired-no-confirm 'load))  ;; L (dired-do-load) without confirmation.
+(advice-add 'dired-find-buffer-nocreate :override #'ignore)  ;; Always create a fresh dired buffer instead of reusing an existing one.
 
 
 ;; # Describe, help
