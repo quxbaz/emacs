@@ -476,7 +476,14 @@ already carried by a fence."
   "Window selected when the annotation buffer was created.")
 
 (defun wire--restore-source-window ()
-  "Return to the window wire was dispatched from, if it is still live."
+  "Clean up the annotation's window and return to the dispatch source.
+Replays the window's `quit-restore' data: a window that
+`wire-dispatch' created (via `pop-to-buffer') is deleted, restoring
+the prior layout; a reused window gets its previous buffer back.
+Runs from `kill-buffer-hook', so it covers confirm, abort and a
+manual kill alike."
+  (let ((win (get-buffer-window (current-buffer))))
+    (when win (quit-restore-window win)))
   (when (window-live-p wire--source-window)
     (select-window wire--source-window)))
 
