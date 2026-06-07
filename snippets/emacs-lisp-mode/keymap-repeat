@@ -1,5 +1,5 @@
-# name: repeat-map
-# key: repeat-map
+# name: keymap-repeat
+# key: km
 # --
 ;; Make sure to enable: M-x repeat-mode
 (defvar ${1:NAME}-repeat-map
