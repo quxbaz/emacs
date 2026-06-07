@@ -43,7 +43,8 @@
 ;; Lisp
 (load-file (concat user-emacs-directory "my/lisp/lib-lisp.el"))
 (load-file (concat user-emacs-directory "my/lisp/lisp-commands.el"))
-(load-file (concat user-emacs-directory "my/lisp/lisp-conf.el"))
+(load-file (concat user-emacs-directory "my/lisp/conf.el"))
+(load-file (concat user-emacs-directory "my/lisp/bindings.el"))
 ;; Bindings
 (load-file (concat user-emacs-directory "my/bindings.el"))
 (load-file (concat user-emacs-directory "my/mode-bindings.el"))
