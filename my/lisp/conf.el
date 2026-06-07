@@ -26,10 +26,3 @@
 ;;
 ;; # SLIME and SLIME REPL config
 (setq common-lisp-hyperspec-root (expand-file-name "~/common-lisp/hyperspec/HyperSpec/"))
-
-(defun my/slime-help-dwim ()
-  "Displays documentation for the function at point."
-  (interactive)
-  (call-interactively 'slime-describe-function)
-  ;; The window selection only works when a delay is used, hence run-with-idle-timer.
-  (run-with-idle-timer 0.02 nil (lambda () (select-window (get-buffer-window "*slime-description*")))))

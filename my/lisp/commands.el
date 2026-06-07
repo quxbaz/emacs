@@ -278,3 +278,13 @@ Also works from inside strings. Call twice to wrap the parent list."
         ((my/is-inside-list)
          (setq-local my/mark-list/origin (point))
          (my/mark-list))))
+
+
+;; # SLIME
+
+(defun my/slime-help-dwim ()
+  "Displays documentation for the function at point."
+  (interactive)
+  (call-interactively 'slime-describe-function)
+  ;; The window selection only works when a delay is used, hence run-with-idle-timer.
+  (run-with-idle-timer 0.02 nil (lambda () (select-window (get-buffer-window "*slime-description*")))))
