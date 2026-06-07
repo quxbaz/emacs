@@ -33,18 +33,24 @@
 (load-file (concat user-emacs-directory "my/data.el"))
 (load-file (concat user-emacs-directory "my/conf.el"))
 (load-file (concat user-emacs-directory "my/theme.el"))
+;; Libraries, helpers, utilities
 (load-file (concat user-emacs-directory "my/lib-string.el"))
 (load-file (concat user-emacs-directory "my/lib-text.el"))
-(load-file (concat user-emacs-directory "my/lib-lisp.el"))
 (load-file (concat user-emacs-directory "my/lib-js.el"))
 (load-file (concat user-emacs-directory "my/util.el"))
+;; Commands
 (load-file (concat user-emacs-directory "my/commands.el"))
-(load-file (concat user-emacs-directory "my/lisp-commands.el"))
-(load-file (concat user-emacs-directory "my/lisp-conf.el"))
+;; Lisp
+(load-file (concat user-emacs-directory "my/lisp/lib-lisp.el"))
+(load-file (concat user-emacs-directory "my/lisp/lisp-commands.el"))
+(load-file (concat user-emacs-directory "my/lisp/lisp-conf.el"))
+;; Bindings
 (load-file (concat user-emacs-directory "my/bindings.el"))
 (load-file (concat user-emacs-directory "my/mode-bindings.el"))
 (load-file (concat user-emacs-directory "my/kmacros.el"))
+;; Hooks
 (load-file (concat user-emacs-directory "my/hooks.el"))
+;; Calc
 (load-file (concat user-emacs-directory "my/calc/index.el"))
 
 ;; Autoloads
