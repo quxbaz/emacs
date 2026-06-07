@@ -450,12 +450,19 @@ already carried by a fence."
       ;; caller's "\n\n" leaves exactly one blank line before point.
       (string-remove-suffix "\n" header))))
 
-;;;; Target banner
+;;;; Annotation scaffolding
 ;;
-;; A `<CLAUDE TARGET>' banner sits at the top of the annotation buffer
-;; so the user can confirm where the message is headed before sending.
-;; It is user-facing only: `wire--strip-target-block' removes it before
-;; the text reaches Claude.
+;; The annotation buffer carries two buffer-only markers, both stripped
+;; before the text reaches Claude:
+;;
+;;   * a `<CLAUDE TARGET: ...>' banner up top, so the user can confirm
+;;     where the message is headed; and
+;;   * a `<prompt>...</prompt>' block at the bottom, where the user types
+;;     the request.
+;;
+;; `wire--compose-message' lifts the prompt contents to the front so the
+;; sent message --- and thus Claude CLI's prompt history --- leads with
+;; the request rather than the boilerplate context header.
 
 (defun wire--format-target-block (target)
   "Render the one-line `<CLAUDE TARGET: ...>' banner for TARGET.
@@ -471,6 +478,25 @@ The banner is for the user only and must never reach Claude."
   (replace-regexp-in-string
    "\\`[ \t\n]*<CLAUDE TARGET:[^>\n]*>[ \t]*\n?"
    "" text))
+
+(defun wire--compose-message (text)
+  "Build the message to send from annotation buffer TEXT.
+Drop the target banner, then lift the trailing `<prompt>...</prompt>'
+contents to the front so the request leads and the context block
+follows --- giving Claude CLI history a meaningful summary line.  The
+prompt tags are buffer-only scaffolding and are removed.  With an empty
+prompt only the context is sent; if no prompt block is present the text
+is sent as-is."
+  (let ((body (string-trim (wire--strip-target-block text))))
+    (if (string-match
+         "\n*<prompt>[ \t]*\n?\\(\\(?:.\\|\n\\)*?\\)\n?[ \t]*</prompt>[ \t\n]*\\'"
+         body)
+        (let ((prompt (string-trim (match-string 1 body)))
+              (context (string-trim (substring body 0 (match-beginning 0)))))
+          (cond ((string-empty-p prompt) context)
+                ((string-empty-p context) prompt)
+                (t (concat prompt "\n\n" context))))
+      body)))
 
 ;;;; Sending
 
@@ -525,8 +551,20 @@ manual kill alike."
     map)
   "Keymap for `wire-annotation-mode'.")
 
+(defface wire-target-banner
+  '((t :inherit font-lock-warning-face))
+  "Face for the `<CLAUDE TARGET: ...>' banner in the annotation buffer."
+  :group 'wire)
+
+(defvar wire--font-lock-keywords
+  '(("^<CLAUDE TARGET:[^>\n]*>$" 0 'wire-target-banner t))
+  "Font-lock keywords highlighting the target banner.
+The override flag keeps the banner from being restyled by the parent
+mode's own fontification (e.g. `gfm-mode' treating it as an HTML tag).")
+
 (defun wire--annotation-setup ()
   "Shared setup for the annotation buffer's major mode."
+  (font-lock-add-keywords nil wire--font-lock-keywords)
   (setq header-line-format
         (substitute-command-keys
          "Edit the message, then \\[wire-annotation-confirm] to send, \
@@ -547,9 +585,11 @@ manual kill alike."
 (declare-function wire-annotation-mode "wire")
 
 (defun wire-annotation-confirm ()
-  "Send the buffer contents verbatim to the target Claude."
+  "Compose and send the annotation to the target Claude.
+The `<prompt>' contents lead the message; the target banner and prompt
+tags are dropped.  See `wire--compose-message'."
   (interactive)
-  (let ((text (string-trim (wire--strip-target-block (buffer-string))))
+  (let ((text (wire--compose-message (buffer-string)))
         (target wire--pending-target))
     (when (string-empty-p text)
       (user-error "wire: nothing to send"))
@@ -572,9 +612,10 @@ manual kill alike."
 Pops a buffer pre-filled with a context header --- project and branch,
 the file or buffer name, and, when a region is active, its line range
 and the region text fenced.  With no active region the message is about
-the whole file/buffer and no code is included.  Edit freely; the buffer
-contents are sent verbatim.  Point starts on the blank last line, ready
-for a note.  Prompts for a target the first time, or whenever the
+the whole file/buffer and no code is included.  Type the request in the
+`<prompt>' block; on send it is lifted ahead of the context so Claude
+CLI history shows a meaningful summary line.  Point starts inside the
+prompt block.  Prompts for a target the first time, or whenever the
 previous target is gone."
   (interactive)
   (let ((target (wire--ensure-target))
@@ -586,12 +627,15 @@ previous target is gone."
           (buf (generate-new-buffer "*wire annotation*")))
       (with-current-buffer buf
         (wire-annotation-mode)
-        ;; Target banner on top (stripped before sending), the context
-        ;; block, then two blank lines with point on the last so a note
-        ;; can be appended at the bottom.
-        (insert (wire--format-target-block target) "\n\n"
-                (wire--format-context ctx) "\n\n")
-        (goto-char (point-max))
+        ;; A leading blank line, the target banner, the context block,
+        ;; then an empty `<prompt>' block with point inside ready for the
+        ;; request.  The banner and tags are stripped on send, and the
+        ;; prompt is lifted to the front; see `wire--compose-message'.
+        (insert "\n"
+                (wire--format-target-block target) "\n\n"
+                (wire--format-context ctx) "\n\n"
+                "<prompt>\n")
+        (save-excursion (insert "\n</prompt>\n"))
         (setq wire--pending-target target
               wire--source-window source)
         ;; Return to the source window however the buffer is killed
