@@ -200,6 +200,7 @@ a `user-error' if no socket is reachable."
            (w (cdr (assoc choice table))))
       (setq wire-target (list :id (plist-get w :id)
                               :socket (plist-get w :socket)
+                              :title (plist-get w :title)
                               :label choice))
       (message "wire: target set to %s" choice)
       wire-target)))
@@ -449,7 +450,34 @@ already carried by a fence."
       ;; caller's "\n\n" leaves exactly one blank line before point.
       (string-remove-suffix "\n" header))))
 
+;;;; Target banner
+;;
+;; A `<CLAUDE TARGET>' banner sits at the top of the annotation buffer
+;; so the user can confirm where the message is headed before sending.
+;; It is user-facing only: `wire--strip-target-block' removes it before
+;; the text reaches Claude.
+
+(defun wire--format-target-block (target)
+  "Render the one-line `<CLAUDE TARGET: ...>' banner for TARGET.
+Shows the window title (the same text `wire-select-target' saw), as a
+safeguard against dispatching to the wrong instance; falls back to the
+full label when no title is available."
+  (format "<CLAUDE TARGET: %s>"
+          (or (plist-get target :title) (plist-get target :label))))
+
+(defun wire--strip-target-block (text)
+  "Strip a leading `<CLAUDE TARGET: ...>' banner line from TEXT.
+The banner is for the user only and must never reach Claude."
+  (replace-regexp-in-string
+   "\\`[ \t\n]*<CLAUDE TARGET:[^>\n]*>[ \t]*\n?"
+   "" text))
+
 ;;;; Sending
+
+(defun wire--flash-mode-line ()
+  "Briefly invert the mode line to signal a successful dispatch."
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
 (defun wire--send (target text)
   "Inject TEXT into TARGET's Claude prompt and submit it."
@@ -465,7 +493,9 @@ already carried by a fence."
     (pcase-let ((`(,exit . ,out)
                  (wire--kitty sock "\r" "send-text" "--match" match "--stdin")))
       (unless (and (integerp exit) (zerop exit))
-        (user-error "wire: submit failed (%s): %s" exit (string-trim out))))))
+        (user-error "wire: submit failed (%s): %s" exit (string-trim out))))
+    ;; Reached only when both kitty calls succeeded.
+    (wire--flash-mode-line)))
 
 ;;;; Annotation buffer
 
@@ -519,7 +549,7 @@ manual kill alike."
 (defun wire-annotation-confirm ()
   "Send the buffer contents verbatim to the target Claude."
   (interactive)
-  (let ((text (string-trim (buffer-string)))
+  (let ((text (string-trim (wire--strip-target-block (buffer-string))))
         (target wire--pending-target))
     (when (string-empty-p text)
       (user-error "wire: nothing to send"))
@@ -556,9 +586,11 @@ previous target is gone."
           (buf (generate-new-buffer "*wire annotation*")))
       (with-current-buffer buf
         (wire-annotation-mode)
-        ;; One blank line on top, the context block, then two blank lines
-        ;; with point on the last so a note can be appended at the bottom.
-        (insert "\n" (wire--format-context ctx) "\n\n")
+        ;; Target banner on top (stripped before sending), the context
+        ;; block, then two blank lines with point on the last so a note
+        ;; can be appended at the bottom.
+        (insert (wire--format-target-block target) "\n\n"
+                (wire--format-context ctx) "\n\n")
         (goto-char (point-max))
         (setq wire--pending-target target
               wire--source-window source)
