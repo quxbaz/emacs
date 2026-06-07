@@ -551,6 +551,14 @@ manual kill alike."
     map)
   "Keymap for `wire-annotation-mode'.")
 
+(defvar wire-post-dispatch-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "v" #'wire-visit-target)
+    map)
+  "Transient keymap active for the one key after a dispatch.
+`v' focuses the target just sent to; any other key dismisses the map
+and behaves normally.")
+
 (defface wire-target-banner
   '((t :inherit font-lock-warning-face))
   "Face for the `<CLAUDE TARGET: ...>' banner in the annotation buffer."
@@ -596,7 +604,9 @@ tags are dropped.  See `wire--compose-message'."
     (wire--send target text)
     (let ((label (plist-get target :label)))
       (kill-buffer (current-buffer))
-      (message "wire: sent to Claude [%s]" label))))
+      ;; Offer a one-key follow-up: v visits the target just sent to.
+      (set-transient-map wire-post-dispatch-map)
+      (message "wire: sent to Claude [%s]  (v: visit target)" label))))
 
 (defun wire-annotation-abort ()
   "Abandon the annotation without sending."
