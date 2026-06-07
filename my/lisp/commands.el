@@ -14,7 +14,7 @@
 
 ;; # Evaluation
 
-(defun my/eval-buffer ()
+(defun my/eval-buffer-show-messages ()
   "Eval the entire buffer, flash it, and show *Messages* in the right window."
   (interactive)
   (message "=== eval-buffer: %s ===" (buffer-name))
