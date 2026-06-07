@@ -710,24 +710,51 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 ;; Magit
 
+(defun my/git-staged-renames ()
+  "Return a list of (OLD . NEW) conses for staged renames."
+  (delq nil
+        (mapcar (lambda (line)
+                  (when (string-prefix-p "R" line)
+                    (pcase-let ((`(,_ ,old ,new) (split-string line "\t")))
+                      (cons old new))))
+                (magit-git-lines "diff" "--cached" "--find-renames"
+                                 "--name-status"))))
+
+(defun my/git-rename-for-file (file renames)
+  "Return the (OLD . NEW) pair in RENAMES that involves FILE, or nil."
+  (seq-find (lambda (r) (or (equal (car r) file) (equal (cdr r) file)))
+            renames))
+
 (defun my/magit-quick-commit ()
   "Stage and commit when exactly one file is modified.
-Uses 'modified: filename' as the commit message."
+Uses 'modified:   filename' as the commit message, or, when the staged
+change is a rename, git's 'renamed:    old -> new' format."
   (interactive)
   (let* ((file-at-point (magit-file-at-point))
+         (renames (my/git-staged-renames))
          (unstaged (magit-unstaged-files))
-         (staged (magit-staged-files))
-         (all-modified (seq-uniq (append unstaged staged))))
+         (staged (magit-staged-files)))
     (cond
      (file-at-point
       ;; Highest priority: commit only the file under point.  A path-limited
       ;; commit ("git commit -- FILE") records just this file and leaves any
       ;; other staged files staged, so the staged state is preserved.
-      (let ((msg (format "modified:   %s" file-at-point)))
-        (magit-run-git "add" "--" file-at-point)
-        (magit-run-git "commit" "-m" msg "--" file-at-point)))
+      (let ((rename (my/git-rename-for-file file-at-point renames)))
+        (if rename
+            ;; A detected rename is already fully staged (both sides); commit
+            ;; the pair together so it records as a rename.
+            (magit-run-git "commit" "-m"
+                           (format "renamed:    %s -> %s" (car rename) (cdr rename))
+                           "--" (car rename) (cdr rename))
+          (magit-run-git "add" "--" file-at-point)
+          (magit-run-git "commit" "-m" (format "modified:   %s" file-at-point)
+                         "--" file-at-point))))
      (staged
-      (let ((msg (format "modified:   %s" (car staged))))
+      (let* ((file (car staged))
+             (rename (my/git-rename-for-file file renames))
+             (msg (if rename
+                      (format "renamed:    %s -> %s" (car rename) (cdr rename))
+                    (format "modified:   %s" file))))
         (magit-run-git "commit" "-m" msg)))
      (unstaged
       (let* ((file (car unstaged))
