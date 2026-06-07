@@ -253,10 +253,10 @@ region as the search string."
   (find-alternate-file ".."))
 
 (defvar my/dired-goto-line-visit nil
-  "When non-nil, `my/dired-find-alternate-file' with a numeric prefix also
+  "When non-nil, `my/dired-ret' with a numeric prefix also
 visits the file or directory at the target line.")
 
-(defun my/dired-find-alternate-file (&optional line)
+(defun my/dired-ret (&optional line)
   "Visit the file or directory at point, replacing the dired buffer.
 With a numeric prefix LINE (type the digits, then RET — e.g. \"11 RET\"),
 jump point to that line instead of visiting anything. If
