@@ -18,9 +18,11 @@
 ;; # Help
 
 (defun my/help-dwim ()
-  "Describes the function at point (without confirmation)."
+  "Describes the symbol at point — function or variable (without confirmation)."
   (interactive)
-  (describe-function (intern (current-word nil nil))))
+  (let ((word (current-word nil nil)))
+    (unless word (user-error "No symbol at point"))
+    (describe-symbol (intern word))))
 
 (defun my/goto-to-binding-definition ()
   "Jumps to a definition bound to a key sequence."
