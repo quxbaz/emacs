@@ -1,0 +1,8 @@
+Emacs Todo
+
+* Todo
+  - [ ] In dired, entering a number and hitting return should go to the line you
+    entered. For example:
+    - User types "11"
+    - User then hits RET
+    - Point should jump to line 11
