@@ -26,7 +26,7 @@ Verify the setup with `M-x wire-doctor`.
 | `C-c y v` | `wire-visit-target`   | Focus the target's kitty window       |
 | `C-c y d` | `wire-doctor`         | Diagnose the wire/kitty setup         |
 
-In the `*wire annotation*` buffer: `C-c C-c` sends, `C-c C-k` cancels.
+In the `*wire annotation*` buffer: `C-c C-c` or `C-RET` sends, `C-c C-k` cancels.
 
 ## Workflow
 

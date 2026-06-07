@@ -36,7 +36,7 @@
 ;;   M-x wire-mode               ; enable in a buffer (or global-wire-mode)
 ;;   C-c y s                     ; pick which Claude window to target
 ;;   mark a region (or not), C-c y y
-;;   edit the pre-filled message, C-c C-c   ; send (C-c C-k cancels)
+;;   edit the pre-filled message, C-c C-c or C-RET   ; send (C-c C-k cancels)
 ;;   C-c y v                     ; focus the target's kitty window
 ;;
 ;; Default keys under `wire-mode', prefix C-c y: y (dispatch), s
@@ -490,6 +490,7 @@ manual kill alike."
 (defvar wire-annotation-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-c") #'wire-annotation-confirm)
+    (define-key map (kbd "C-<return>") #'wire-annotation-confirm)
     (define-key map (kbd "C-c C-k") #'wire-annotation-abort)
     map)
   "Keymap for `wire-annotation-mode'.")
