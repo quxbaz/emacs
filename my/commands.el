@@ -252,6 +252,25 @@ region as the search string."
   (interactive)
   (find-alternate-file ".."))
 
+(defvar my/dired-goto-line-visit nil
+  "When non-nil, `my/dired-find-alternate-file' with a numeric prefix also
+visits the file or directory at the target line.")
+
+(defun my/dired-find-alternate-file (&optional line)
+  "Visit the file or directory at point, replacing the dired buffer.
+With a numeric prefix LINE (type the digits, then RET — e.g. \"11 RET\"),
+jump point to that line instead of visiting anything. If
+`my/dired-goto-line-visit' is non-nil, also visit the file or directory
+at the target line."
+  (interactive "P")
+  (if (not line)
+      (dired-find-alternate-file)
+    (goto-char (point-min))
+    (forward-line (1- (prefix-numeric-value line)))
+    (dired-move-to-filename)
+    (when my/dired-goto-line-visit
+      (dired-find-alternate-file))))
+
 (defun my/find-regex-dired ()
   "Like find-dired, but takes a regex option and defaults to ignoring certain directories."
   (interactive)
