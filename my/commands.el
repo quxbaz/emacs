@@ -50,6 +50,17 @@
       (abort-recursive-edit)
     (keyboard-quit)))
 
+(defun my/kill-terminal (&optional arg)
+  "Like `save-buffers-kill-terminal', but with prefix ARG exit without the
+\"really exit\" and active-process confirmations, prompting only to save
+modified file-visiting buffers."
+  (interactive "P")
+  (if arg
+      (let ((confirm-kill-emacs nil)
+            (confirm-kill-processes nil))
+        (save-buffers-kill-terminal))
+    (save-buffers-kill-terminal)))
+
 
 ;; # Projects
 
