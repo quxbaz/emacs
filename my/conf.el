@@ -101,6 +101,10 @@
   (define-key dired-mode-map "q" (lambda () (interactive) (quit-window t))))  ;; Kill the dired buffer on 'q' instead of burying it.
 
 
+;; # magit
+(setq magit-section-initial-visibility-alist '((recent . show)))  ;; Expand the Recent commits section by default.
+
+
 ;; # Describe, help
 (setq help-window-select t)  ;; Focus describe buffers on load.
 
