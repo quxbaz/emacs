@@ -102,7 +102,12 @@
 
 
 ;; # magit
-(setq magit-section-initial-visibility-alist '((recent . show) (unpushed . show)))  ;; Expand Recent commits and Unpushed sections by default.
+(setq magit-section-initial-visibility-alist
+      '((recent . show)
+        (unpushed . show)
+        (untracked . show)
+        (unstaged . show)        ;; Expand the Unstaged section (show the file list)...
+        ([file unstaged] . hide)))  ;; ...but keep each file's diff collapsed.
 
 
 ;; # Describe, help
