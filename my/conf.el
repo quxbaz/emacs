@@ -102,7 +102,7 @@
 
 
 ;; # magit
-(setq magit-section-initial-visibility-alist '((recent . show)))  ;; Expand the Recent commits section by default.
+(setq magit-section-initial-visibility-alist '((recent . show) (unpushed . show)))  ;; Expand Recent commits and Unpushed sections by default.
 
 
 ;; # Describe, help
