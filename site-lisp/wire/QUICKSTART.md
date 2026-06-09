@@ -18,16 +18,19 @@ Verify the setup with `M-x wire-doctor`.
 
 ## Commands
 
-| Key       | Command               | Does                                  |
-|-----------|-----------------------|---------------------------------------|
-| `C-c y y` | `wire-dispatch`       | Compose & send region / whole file    |
-| `C-c y s` | `wire-select-target`  | Pick which Claude window to target    |
-| `C-c y l` | `wire-list-instances` | List the Claude windows kitty sees    |
-| `C-c y v` | `wire-visit-target`   | Focus the target's kitty window       |
-| `C-c y d` | `wire-doctor`         | Diagnose the wire/kitty setup         |
+| Key         | Command               | Does                               |
+|-------------|-----------------------|------------------------------------|
+| `C-c y y`   | `wire-dispatch`       | Compose & send region / whole file |
+| `C-c y s`   | `wire-select-target`  | Pick which Claude window to target |
+| `C-c y l`   | `wire-list-instances` | List the Claude windows kitty sees |
+| `C-c y SPC` | `wire-visit-target`   | Focus the target's kitty window    |
+| `C-c y d`   | `wire-doctor`         | Diagnose the wire/kitty setup      |
 
 In the `*wire annotation*` buffer: `C-c C-c` or `C-RET` sends, `C-c C-k` cancels.
 
 ## Workflow
 
 Mark a region (or don't), `C-c y y`, type your note, `C-c C-c`.
+
+Right after sending, `SPC` focuses the target's kitty window (a one-key
+shortcut active until the next keypress); any other key dismisses it.

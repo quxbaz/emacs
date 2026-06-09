@@ -69,20 +69,25 @@ tmux) is required rather than poking `/proc/<pid>/fd/0`.
 | Command                | Default key | What it does                                  |
 |------------------------|-------------|-----------------------------------------------|
 | `wire-mode`            | —           | Buffer-local minor mode enabling the keys     |
-| `wire-dispatch`        | `C-c c c`   | Send region/line + annotation to the target   |
-| `wire-select-target`   | `C-c c s`   | Choose which Claude window to target          |
-| `wire-list-instances`  | `C-c c l`   | Echo the Claude windows kitty can see         |
-| `wire-doctor`          | —           | Diagnose the kitty/remote-control setup       |
+| `wire-dispatch`        | `C-c y y`   | Send region/line + annotation to the target   |
+| `wire-select-target`   | `C-c y s`   | Choose which Claude window to target          |
+| `wire-list-instances`  | `C-c y l`   | Echo the Claude windows kitty can see         |
+| `wire-visit-target`    | `C-c y SPC` | Focus the target's kitty window               |
+| `wire-doctor`          | `C-c y d`   | Diagnose the kitty/remote-control setup       |
 
 Typical flow:
 
 1. `M-x wire-mode` in a source buffer.
 2. `M-x wire-select-target` (auto-picks if only one Claude window).
-3. Mark a region, `M-x wire-dispatch` (or `C-c c c`).
+3. Mark a region, `M-x wire-dispatch` (or `C-c y y`).
 4. A `*wire annotation*` buffer pops up **pre-filled with the full message** —
    project, file, line range and the fenced code block. Point starts at the
    top, ready for a note. Edit anything you like; the buffer is sent verbatim.
    `C-c C-c` sends, `C-c C-k` cancels.
+
+Right after a dispatch, `SPC` focuses the target's kitty window — a one-key
+shortcut active only until the next keypress (the same as `wire-visit-target` /
+`C-c y SPC`); any other key dismisses it and behaves normally.
 
 With no region active, the line at point is used. The target is session-only
 and is re-validated on each dispatch — if its window has gone away, wire prompts

@@ -37,10 +37,10 @@
 ;;   C-c y s                     ; pick which Claude window to target
 ;;   mark a region (or not), C-c y y
 ;;   edit the pre-filled message, C-c C-c or C-RET   ; send (C-c C-k cancels)
-;;   C-c y v                     ; focus the target's kitty window
+;;   C-c y SPC                   ; focus the target's kitty window
 ;;
 ;; Default keys under `wire-mode', prefix C-c y: y (dispatch), s
-;; (select-target), l (list instances), v (visit target).
+;; (select-target), l (list instances), SPC (visit target).
 ;;
 ;; See QUICKSTART.md for a fuller walk-through.
 
@@ -679,7 +679,7 @@ gone."
     (define-key map (kbd "C-c y y") #'wire-dispatch)
     (define-key map (kbd "C-c y s") #'wire-select-target)
     (define-key map (kbd "C-c y l") #'wire-list-instances)
-    (define-key map (kbd "C-c y v") #'wire-visit-target)
+    (define-key map (kbd "C-c y SPC") #'wire-visit-target)
     (define-key map (kbd "C-c y d") #'wire-doctor)
     map)
   "Keymap for `wire-mode'.")
