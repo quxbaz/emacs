@@ -282,6 +282,16 @@ Also works from inside strings. Call twice to wrap the parent list."
 
 ;; # SLIME
 
+(defun my/slime-load-this-file ()
+  "Like slime-load-file, but loads the current buffer's file without asking.
+Saves the buffer first if it has unsaved changes."
+  (interactive)
+  (unless buffer-file-name
+    (user-error "Buffer is not visiting a file"))
+  (when (buffer-modified-p)
+    (save-buffer))
+  (slime-load-file buffer-file-name))
+
 (defun my/slime-help-dwim ()
   "Displays documentation for the function at point."
   (interactive)
