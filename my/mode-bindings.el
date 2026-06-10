@@ -44,6 +44,7 @@
             (keymap-set dired-mode-map "C-+" 'dired-create-directory)
             (keymap-set dired-mode-map "<return>" 'my/dired-ret)
             (keymap-set dired-mode-map "I" 'dired-do-isearch-regexp)
+            (keymap-set dired-mode-map "L" 'my/dired-do-load)
             (keymap-set dired-mode-map "M-r" 'dired-do-query-replace-regexp)
             (keymap-set dired-mode-map "F" 'my/find-regex-dired)
             (keymap-set dired-mode-map "N" 'my/find-name-dired)

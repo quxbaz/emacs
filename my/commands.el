@@ -638,6 +638,40 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
         (call-interactively 'dired-do-rename)
       (setq dired-dwim-target saved-dired-dwim-target))))
 
+(defvar my/dired-load-handlers
+  '(("lisp" . my/dired-load-slime))
+  "Alist of (FILE-EXTENSION . LOADER) used by `my/dired-do-load'.
+LOADER is called with the file name.  Files whose extension has no
+entry are loaded as Emacs Lisp via `dired-load'.")
+
+(defun my/dired-load-slime (file)
+  "Load FILE into the connected Common Lisp image (e.g. stumpwm) via SLIME."
+  (require 'slime)
+  (slime-load-file file))
+
+(defun my/dired-do-load (&optional arg)
+  "Like dired-do-load, but dispatches on file type.
+Loads the marked (or next ARG) files, choosing the loader by file
+extension from `my/dired-load-handlers'.  Files with no matching
+handler are loaded into Emacs as usual."
+  (interactive "P")
+  (require 'dired-aux)
+  (dired-map-over-marks-check
+   (lambda ()
+     (let* ((file (dired-get-filename))
+            (loader (cdr (assoc (file-name-extension file)
+                                my/dired-load-handlers))))
+       (if (not loader)
+           (dired-load)
+         (condition-case err
+             (progn
+               (funcall loader file)
+               nil)
+           (error
+            (dired-log "Load error for %s:\n%s\n" file err)
+            (dired-make-relative file))))))
+   arg 'load t))
+
 (defun my/find-name-dired ()
   "Like find-name-dired, but uses the current directory by default."
   (interactive)
