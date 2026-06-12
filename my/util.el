@@ -35,11 +35,12 @@ This is useful for writing succinct keybindings."
         (call-interactively prefix-cmd)
       (call-interactively default-cmd))))
 
-(defun my/with-prefix (cmd)
-  "Return a command that calls CMD as if invoked with C-u."
+(defun my/with-prefix (cmd &optional prefix)
+  "Return a command that calls CMD as if invoked with C-u.
+PREFIX overrides the prefix arg (defaults to '(4))."
   (lambda ()
     (interactive)
-    (let ((current-prefix-arg '(4)))
+    (let ((current-prefix-arg (or prefix '(4))))
       (call-interactively cmd))))
 
 

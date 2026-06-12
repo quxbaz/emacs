@@ -16,20 +16,20 @@
 
 (defun my/eval-dwim (&optional arg)
   "Evals either the current region, block, or line - in that order of preference.
-With one C-u prefix, evals the entire buffer.
-With two C-u prefixes, calls `eval-defun' (instruments for edebug)."
+With one C-u prefix, calls `eval-defun' (instruments for edebug).
+With two C-u prefixes, evals the entire buffer."
   (interactive "P")
   (cond
-   ;; C-u: eval the entire buffer.
+   ;; C-u: delegate to eval-defun (instruments for edebug).
    ((equal arg '(4))
-    (eval-buffer)
-    (message "%s" (buffer-name))
-    (my/flash-region (point-min) (point-max)))
-   ;; C-u C-u: delegate to eval-defun (instruments for edebug).
-   ((equal arg '(16))
     (call-interactively 'eval-defun)
     (my/flash-region (save-excursion (beginning-of-defun) (point))
                      (save-excursion (end-of-defun) (point))))
+   ;; C-u C-u: eval the entire buffer.
+   ((equal arg '(16))
+    (eval-buffer)
+    (message "%s" (buffer-name))
+    (my/flash-region (point-min) (point-max)))
    ;; Active region: eval the selected region.
    ((use-region-p)
     (eval-region (region-beginning) (region-end) t)
