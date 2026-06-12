@@ -11,7 +11,7 @@
 
 
 ;; Logging
-(setq message-log-max 5000)
+(setq message-log-max 5000)  ;; Max number of lines to keep in the message log buffer.
 (setq list-command-history-max 1000)  ;; Max commands shown by list-command-history.
 (lossage-size 1000)  ;; Max number of keystrokes to save.
 
