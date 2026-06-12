@@ -66,26 +66,25 @@ With two C-u prefixes, evals the entire buffer."
   (message "=== eval-buffer: %s ===" (buffer-name))
   (eval-buffer)
   (my/flash-region (point-min) (point-max))
-  (let* ((cur-win (selected-window))
-         (win-count (length (window-list))))
-    (cond
-     ((= win-count 1)
-      (split-window-right)
-      (with-selected-window (next-window)
-        (switch-to-buffer "*Messages*")
-        (goto-char (point-max))))
-     ((= win-count 2)
-      (let* ((other-win (next-window))
-             (cur-left (car (window-edges cur-win)))
-             (other-left (car (window-edges other-win))))
-        (when (> cur-left other-left)
+  (when (<= (length (window-list)) 2)
+    ;; With 2 windows, keep the current window on the left.
+    (when (= (length (window-list)) 2)
+      (let ((cur-win (selected-window))
+            (other-win (next-window)))
+        (when (> (car (window-edges cur-win)) (car (window-edges other-win)))
           (window-swap-states cur-win other-win)
-          (select-window other-win)
-          (setq cur-win other-win
-                other-win (next-window)))
-        (with-selected-window other-win
-          (switch-to-buffer "*Messages*")
-          (goto-char (point-max))))))))
+          (select-window other-win))))
+    ;; display-buffer sets the window's quit-restore parameter, so quitting
+    ;; *Messages* deletes the window if it was created here, or restores the
+    ;; window's previous buffer otherwise.
+    (let ((win (display-buffer
+                "*Messages*"
+                '((display-buffer-reuse-window
+                   display-buffer-use-some-window
+                   display-buffer-in-direction)
+                  (direction . right)
+                  (inhibit-same-window . t)))))
+      (set-window-point win (point-max)))))
 
 (defun my/eval-here ()
   "Evaluates the most immediate list at point."
