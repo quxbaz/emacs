@@ -12,6 +12,7 @@
 
 ;; Logging
 (setq message-log-max 10000)
+(setq list-command-history-max 1000)  ;; Max commands shown by list-command-history.
 
 
 ;; # Enable commands
