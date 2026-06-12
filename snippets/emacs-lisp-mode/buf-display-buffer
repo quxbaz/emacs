@@ -1,0 +1,4 @@
+# name: display-buffer
+# key: *
+# --
+(display-buffer ${1:BUFFER-OR-NAME})
