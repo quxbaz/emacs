@@ -238,8 +238,8 @@
 (global-set-key (kbd "<f4>") 'magit-file-checkout)
 (global-set-key (kbd "C-M-l") 'magit-blame-addition)
 (global-set-key (kbd "C-M-b") 'magit-blob-mode)
-(global-set-key (kbd "C-c C-p") 'git-gutter:previous-hunk)
-(global-set-key (kbd "C-c C-n") 'git-gutter:next-hunk)
+(global-set-key (kbd "C-c C-p") 'diff-hl-previous-hunk)
+(global-set-key (kbd "C-c C-n") 'diff-hl-next-hunk)
 
 
 ;; # org

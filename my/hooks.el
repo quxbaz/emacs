@@ -28,8 +28,12 @@
 (add-hook 'prog-mode-hook
           (lambda ()
             (electric-pair-mode 0)
-            (git-gutter-mode t)
+            (diff-hl-mode t)
             (show-point-mode t)))
+
+;; Keep diff-hl's gutter in sync with magit's staging/commit operations.
+(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
 (add-hook 'web-mode-hook
           (lambda ()

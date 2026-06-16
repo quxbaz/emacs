@@ -69,8 +69,8 @@
      autopair
      corfu
      deadgrep
+     diff-hl
      doom-themes
-     git-gutter
      highlight-indent-guides
      ivy
      lua-mode
