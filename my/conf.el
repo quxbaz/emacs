@@ -140,8 +140,6 @@
 (setq org-adapt-indentation t)  ;; Indent after headings.
 (setq org-confirm-babel-evaluate nil)  ;; Evaluate code without confirmation.
 ;; Add org-agenda files.
-(custom-set-variables
- '(org-agenda-files '("~/work/wnmu/Todo.org")))
 (custom-set-faces
  '(org-ellipsis ((t (:foreground "gray50")))))
 (setq org-ellipsis " [...]")
