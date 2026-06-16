@@ -84,6 +84,8 @@
 (setq var-eq-standard-form-of-reciprocal-function '(calcFunc-eq (var y var-y) (+ (/ (var a var-a) (- (var x var-x) (var h var-h))) (var k var-k))))
 (setq var-eq-exponential-growth '(calcFunc-eq (calcFunc-f (var x var-x)) (* (var a var-a) (^ (var b var-b) (var x var-x)))))
 (setq var-eq-binomial-sign-flip-rule '(calcFunc-eq (^ (- (var k var-k) (var x var-x)) 2) (^ (- (var x var-x) (var k var-k)) 2)))
+
+;;; Algebra — Linear equations
 (setq var-eq-linear-equation-standard-form '(calcFunc-eq (+ (* (var a var-a) (var x var-x)) (* (var b var-b) (var y var-y))) (var c var-c)))
 (setq var-eq-linear-equation-slope-intercept-form '(calcFunc-eq (var y var-y) (+ (* (var m var-m) (var x var-x)) (var b var-b))))
 (setq var-eq-linear-equation-point-slope-form '(calcFunc-eq (- (var y var-y) (var y1 var-y1)) (* (var m var-m) (- (var x var-x) (var x1 var-x1)))))
