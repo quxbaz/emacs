@@ -87,6 +87,8 @@
 (setq var-eq-linear-equation-standard-form '(calcFunc-eq (+ (* (var a var-a) (var x var-x)) (* (var b var-b) (var y var-y))) (var c var-c)))
 (setq var-eq-linear-equation-slope-intercept-form '(calcFunc-eq (var y var-y) (+ (* (var m var-m) (var x var-x)) (var b var-b))))
 (setq var-eq-linear-equation-point-slope-form '(calcFunc-eq (- (var y var-y) (var y1 var-y1)) (* (var m var-m) (- (var x var-x) (var x1 var-x1)))))
+(setq var-eq-slope-formula '(calcFunc-eq (var m var-m) (/ (- (var y2 var-y2) (var y1 var-y1)) (- (var x2 var-x2) (var x1 var-x1)))))
+(setq var-eq-midpoint-formula '(calcFunc-eq (var M var-M) (vec (/ (+ (var x1 var-x1) (var x2 var-x2)) 2) (/ (+ (var y1 var-y1) (var y2 var-y2)) 2))))
 
 ;;; Conic sections — Parabola
 (setq var-eq-vertex-form-of-horizontal-parabola '(calcFunc-eq (var x var-x) (+ (* (var a var-a) (^ (- (var y var-y) (var k var-k)) (cplx 2 0))) (var h var-h))))
