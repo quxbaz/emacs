@@ -86,18 +86,21 @@ Otherwise delegates to calc interactively."
      (calc-big-language))))
 
 (defun my/calc-reset (arg)
-  "Like calc-reset, but also clears the trail."
+  "Like calc-reset, but also clears the trail and reloads `calc-settings-file'."
   (interactive "P")
   (call-interactively 'calc-reset)
   (with-current-buffer (calc-trail-buffer)
     (let ((inhibit-read-only t))
       (erase-buffer)))
+  (load calc-settings-file)
   (my/flash-mode-line))
 
 (defun my/calc-reset-settings ()
-  "Reset calc display settings and modes without clearing the stack."
+  "Reset calc display settings and modes without clearing the stack.
+Also reloads `calc-settings-file'."
   (interactive)
   (calc-reset 1)
+  (load calc-settings-file)
   (my/flash-mode-line))
 
 (defun my/calc-undo ()
