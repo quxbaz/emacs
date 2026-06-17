@@ -92,6 +92,10 @@
 (setq var-eq-slope-formula '(calcFunc-eq (var m var-m) (/ (- (var y2 var-y2) (var y1 var-y1)) (- (var x2 var-x2) (var x1 var-x1)))))
 (setq var-eq-midpoint-formula '(calcFunc-eq (var M var-M) (vec (/ (+ (var x1 var-x1) (var x2 var-x2)) 2) (/ (+ (var y1 var-y1) (var y2 var-y2)) 2))))
 
+;;; Algebra — Combinatorics
+(setq var-eq-permutations '(calcFunc-eq (var P var-P) (/ (calcFunc-fact (var n var-n)) (calcFunc-fact (- (var n var-n) (var r var-r))))))
+(setq var-eq-combinations '(calcFunc-eq (var C var-C) (/ (calcFunc-fact (var n var-n)) (* (calcFunc-fact (var r var-r)) (calcFunc-fact (- (var n var-n) (var r var-r)))))))
+
 ;;; Conic sections — Parabola
 (setq var-eq-vertex-form-of-horizontal-parabola '(calcFunc-eq (var x var-x) (+ (* (var a var-a) (^ (- (var y var-y) (var k var-k)) (cplx 2 0))) (var h var-h))))
 (setq var-eq-vertex-form-of-vertical-parabola '(calcFunc-eq (var y var-y) (+ (* (var a var-a) (^ (- (var x var-x) (var h var-h)) 2)) (var k var-k))))
