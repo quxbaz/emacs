@@ -1,6 +1,10 @@
 ;; Configuration, variables, global modes
 
 
+;; emacs 31
+;; (ibuffer-human-readable-size t)  ;; KB/MB instead of raw byte counts
+
+
 ;; # Startup
 (setq-default inhibit-startup-message t)
 (setq initial-buffer-choice  ;; Start in dired on the invocation directory (e.g. emacs --chdir ~/foo).
