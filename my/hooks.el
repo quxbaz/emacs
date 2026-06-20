@@ -29,6 +29,7 @@
           (lambda ()
             (electric-pair-mode 0)
             (diff-hl-mode t)
+            (hs-minor-mode t)
             (show-point-mode t)))
 
 ;; Keep diff-hl's gutter in sync with magit's staging/commit operations.
