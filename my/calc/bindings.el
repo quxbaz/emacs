@@ -227,11 +227,11 @@
             (keymap-set calc-edit-mode-map "M-7" (my/cmd (insert "^7")))
             (keymap-set calc-edit-mode-map "M-8" (my/cmd (insert "^8")))
             (keymap-set calc-edit-mode-map "M-9" (my/cmd (insert "^9")))
-            (keymap-set calc-edit-mode-map "M-k" (my/cmd (insert "^()") (backward-char)))
+            (keymap-set calc-edit-mode-map "M-l" (my/cmd (insert "^()") (backward-char)))
 
             ;; Math operations
             (keymap-set calc-edit-mode-map "J" (my/cmd (insert "*")))
-            (keymap-set calc-edit-mode-map "K" 'my/calc-edit-square-dwim)
+            (keymap-set calc-edit-mode-map "l" 'my/calc-edit-square-dwim)
             (keymap-set calc-edit-mode-map "W" 'my/calc-edit-square-dwim)
             (keymap-set calc-edit-mode-map "\"" 'my/calc-edit-cube-dwim)
             (keymap-set calc-edit-mode-map "\\" 'my/calc-edit-sqrt-dwim)
