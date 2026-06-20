@@ -81,6 +81,9 @@
      (keymap-set magit-mode-map "C-o" 'magit-diff-visit-file-other-window)
      (keymap-set magit-mode-map "G" 'my/magit-quick-commit)))
 
+(eval-after-load 'git-commit
+  '(keymap-set git-commit-mode-map "C-<return>" 'with-editor-finish))
+
 (add-hook 'mathjax-mode-hook
           (lambda ()
             (yas-activate-extra-mode 'mathjax-mode)))
