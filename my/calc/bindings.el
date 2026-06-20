@@ -75,7 +75,7 @@
          (:map calc-mode-map ("f L" . my/calc-unit-cath))
 
          ;; Display and modes
-         (:map calc-mode-map ("J" . calc-option))
+         (:map calc-mode-map ("J" . my/calc-times))
          (:map calc-mode-map (">" . calc-scroll-left))
          (:map calc-mode-map ("<" . calc-scroll-right))
          (:map calc-mode-map ("G" . my/calc-toggle-big-language))
