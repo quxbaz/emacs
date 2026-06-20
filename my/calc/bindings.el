@@ -216,7 +216,6 @@
 
             ;; Special characters and shortcuts
             (keymap-set calc-edit-mode-map ";" (my/cmd (insert ":")))
-            (keymap-set calc-edit-mode-map "n" 'my/calc-edit-insert-pi)
             (keymap-set calc-edit-mode-map "P" 'my/calc-edit-insert-pi)
 
             ;; Power shortcuts
