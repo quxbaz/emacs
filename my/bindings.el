@@ -204,6 +204,7 @@
 ;; # Viewing, narrowing, filtering
 (global-set-key (kbd "C-<tab>") 'outline-toggle-children)
 (global-set-key (kbd "<C-iso-lefttab>") 'my/outline-toggle-all)
+(global-set-key (kbd "s-n") 'hs-toggle-hiding)
 
 
 ;; # Lisp
