@@ -60,6 +60,7 @@
 (set-face-attribute 'default nil :font "SourceCodePro-10")      ;; Excellent.
 (set-face-attribute 'default nil :font "Terminus-12")           ;; Actually not bad.
 (set-face-attribute 'default nil :font "UbuntuMono-12")         ;; Quite readable.
+(set-face-attribute 'default nil :font "UbuntuSansMono-12")     ;; Default font.
 
 ;; Alternate ways of setting font.
 ;; Monaco
