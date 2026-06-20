@@ -230,7 +230,7 @@
             (keymap-set calc-edit-mode-map "M-'" (my/cmd (insert "^()") (backward-char)))
 
             ;; Math operations
-            (keymap-set calc-edit-mode-map "'" 'my/calc-edit-square-dwim)
+            (keymap-set calc-edit-mode-map "K" 'my/calc-edit-square-dwim)
             (keymap-set calc-edit-mode-map "W" 'my/calc-edit-square-dwim)
             (keymap-set calc-edit-mode-map "\"" 'my/calc-edit-cube-dwim)
             (keymap-set calc-edit-mode-map "\\" 'my/calc-edit-sqrt-dwim)
