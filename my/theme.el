@@ -24,6 +24,13 @@
 ;; ## magit
 (custom-set-faces '(magit-section-highlight ((t (:inherit hl-line :background "blue")))))
 
+;; ## pulse (my/flash-region)
+;; Pulse's default highlight is a bright yellow-green tuned for light themes;
+;; on the near-black modus-vivendi background it clashes. Use a saturated blue
+;; that fades cleanly to black.
+(with-eval-after-load 'pulse
+  (set-face-background 'pulse-highlight-start-face "#2f5fb0"))
+
 
 ;; # Defuns
 ;; Disables the current theme before loading the next one to avoid overlapping

@@ -12,11 +12,10 @@
   (invert-face 'mode-line)
   (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
-(defun my/flash-region (start end &optional timer)
+(defun my/flash-region (start end)
   "Temporarily highlight region from START to END."
-  (let ((overlay (make-overlay start end)))
-    (overlay-put overlay 'face 'secondary-selection)
-    (run-with-timer (or timer 0.1) nil 'delete-overlay overlay)))
+  (require 'pulse)
+  (pulse-momentary-highlight-region start end))
 
 
 ;; # Commands
