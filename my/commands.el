@@ -25,20 +25,16 @@
     (describe-symbol (intern word))))
 
 (defun my/goto-to-binding-definition ()
-  "Jumps to a definition bound to a key sequence."
+  "Jumps to a definition bound to a key sequence, in the other window."
   (interactive)
   (let ((key (read-key-sequence "Find command bound to key sequence:")))
     (if (and (stringp key) (string= key ""))
         (message "Quit")
-      (let ((command-name (symbol-name (key-binding key))))
-        (if (eq major-mode 'emacs-lisp-mode)
-            (xref-find-definitions command-name)
-          ;; xref-find-definitions will only be able to find the command if the
-          ;; mode is emacs-lisp-mode.
-          (with-temp-buffer
-            (emacs-lisp-mode)
-            (xref-find-definitions command-name)))
-        (message command-name)))))
+      (find-function-on-key-other-window key)
+      ;; find-function-on-key-other-window selects the other window at the
+      ;; definition, so flash the defun there.
+      (my/flash-region (save-excursion (beginning-of-defun) (point))
+                       (save-excursion (end-of-defun) (point))))))
 
 
 ;; # Commands
