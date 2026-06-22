@@ -4,18 +4,6 @@
 
 
 ;;
-;; # Shared Lisp config
-;;
-;; Apply to all Lisp and Lisp REPL modes.
-(dolist (mode-hook '(emacs-lisp-mode-hook lisp-mode-hook slime-repl-mode-hook edebug-eval-mode-hook))
-  (add-hook mode-hook (lambda ()
-                        (autopair-mode -1)
-                        (unless (eq mode-hook 'slime-repl-mode-hook)
-                          (aggressive-indent-mode t))
-                        (rainbow-blocks-mode t)
-                        (paredit-mode t))))
-
-;;
 ;; # Common Lisp config
 (setq inferior-lisp-program (executable-find "sbcl"))
 ;; That will make sure SLIME plays nice with anything you do with Quicklisp in
