@@ -76,6 +76,16 @@ modified file-visiting buffers."
   (interactive)
   (other-window -1))
 
+(defun my/diff-buffer-with-file ()
+  "Like `diff-buffer-with-file', but diffs the current buffer, selects the diff,
+and jumps to the first hunk."
+  (interactive)
+  (diff-buffer-with-file (current-buffer))
+  (when-let ((win (get-buffer-window "*Diff*")))
+    (select-window win)
+    (goto-char (point-min))
+    (ignore-errors (diff-hunk-next))))
+
 (defun my/split-window-right ()
   (interactive)
   (split-window-right)

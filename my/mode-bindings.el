@@ -112,7 +112,7 @@
      (keymap-set org-mode-map "C-c C-y" 'my/org-evaluate-time-range)
      (keymap-set org-mode-map "C-C C-," 'org-agenda)
      (keymap-set org-mode-map "<f5>" 'org-html-export-to-html)
-     (keymap-set org-mode-map "C-c C-b" 'diff-buffer-with-file)))
+     (keymap-set org-mode-map "C-c C-b" 'my/diff-buffer-with-file)))
 
 (add-hook 'sh-mode-hook
           (lambda ()
