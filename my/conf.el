@@ -55,6 +55,8 @@
 (setq-default case-fold-search t)
 (setq-default sentence-end-double-space nil)  ;; Make single-space end a sentence. Affects filling.
 (setq-default cycle-spacing-actions '(delete-all-space just-one-space restore))
+(setq duplicate-line-final-position -1)    ;; duplicate-dwim leaves point on the last new line.
+(setq duplicate-region-final-position -1)  ;; duplicate-dwim leaves the region around the last copy.
 
 
 ;; # Parens

@@ -99,7 +99,7 @@
      (keymap-set org-mode-map "C-j" 'org-newline-and-indent)
      (keymap-set org-mode-map "|" 'my/key-pipe)
      (keymap-set org-mode-map "C-o" 'my/open-line)
-     (keymap-set org-mode-map "M-<return>" 'my/duplicate-dwim)
+     (keymap-set org-mode-map "M-<return>" 'duplicate-dwim)
      (keymap-set org-mode-map "M-q" 'fill-paragraph)
      (keymap-set org-mode-map "C-," 'my/switch-to-other-buffer)
      (keymap-set org-mode-map "C-c C-v" 'my/revert-buffer)

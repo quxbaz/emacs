@@ -430,17 +430,6 @@ at the target line."
   (open-line 1)
   (indent-according-to-mode))
 
-(defun my/duplicate-dwim (arg)
-  (interactive "p")
-  (if (use-region-p)
-      (let ((lines (count-lines (region-beginning) (region-end))))
-        (call-interactively #'duplicate-dwim)
-        (deactivate-mark)
-        (next-line lines))
-    (dotimes (n arg)
-      (duplicate-line)
-      (next-line))))
-
 (defun my/duplicate-block (arg)
   (interactive "p")
   (save-excursion
@@ -494,7 +483,7 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 (defun my/close-html-tag ()
   (interactive)
-  (my/duplicate-dwim 1)
+  (duplicate-dwim 1)
   (back-to-indentation)
   (forward-char 1)
   (insert "/"))

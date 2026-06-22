@@ -125,7 +125,7 @@ throws \"Original selection has been lost\".  Capturing the fallback as
     (unless (looking-back "," (line-beginning-position))
       (insert ",")))
   ;; Duplicate the line.
-  (call-interactively 'my/duplicate-dwim)
+  (call-interactively 'duplicate-dwim)
   ;; Remove comma from the duplicated line.
   (save-excursion
     (end-of-line)

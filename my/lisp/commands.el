@@ -214,11 +214,11 @@ Also works from inside strings. Call twice to wrap the parent list."
   "Duplicates the current list. Uses dwim behavior in certain contexts."
   (interactive "p")
   ;; If region is active, or point is outside a list, or point is inside a comment,
-  ;; use my/duplicate-dwim.
+  ;; use duplicate-dwim.
   (if (or (use-region-p)
           (null (nth 1 (syntax-ppss)))
           (my/is-inside-comment))
-      (call-interactively 'my/duplicate-dwim)
+      (call-interactively 'duplicate-dwim)
     (let ((offset (my/distance-from-opening-paren))
           (text (buffer-substring-no-properties (my/opening-paren-position)
                                                 (my/closing-paren-position))))
