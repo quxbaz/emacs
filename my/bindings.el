@@ -104,7 +104,7 @@
 (global-set-key (kbd "M-k") 'my/kill-block)
 (global-set-key (kbd "C-M-k") 'erase-buffer)
 ;; ## Whitespace
-(global-set-key (kbd "M-\\") 'delete-horizontal-space)
+(global-set-key (kbd "M-\\") 'cycle-spacing)
 (global-set-key (kbd "C-x r \\") 'delete-whitespace-rectangle)
 ;; ## Commenting
 (global-set-key (kbd "C-;") 'my/comment-line)
