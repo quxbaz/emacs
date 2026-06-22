@@ -186,6 +186,7 @@
 (global-set-key (kbd "<escape> ,") 'bury-buffer)
 (global-set-key (kbd "C-M-<return>") 'my/revert-buffer)
 (global-set-key (kbd "<escape> RET") 'clone-indirect-buffer)
+(global-set-key (kbd "<escape> b") 'diff-buffer-with-file)
 ;; ## Windows
 (global-set-key (kbd "C-x C-o") 'my/other-window)
 (global-set-key (kbd "<escape> -") 'window-swap-states)
