@@ -114,6 +114,13 @@
 (global-set-key (kbd "M-<down>") (my/cmd (my/transpose-line t)))
 (global-set-key (kbd "M-T") 'transpose-regions)
 (global-set-key (kbd "S-<left>") 'transpose-sexps)
+;; ## Case
+;; DWIM commands act on the region when active, else on the word at point,
+;; so they cover the upcase/downcase-word and -region cases in one binding.
+(global-set-key (kbd "M-u") 'upcase-dwim)
+(global-set-key (kbd "M-l") 'downcase-dwim)
+(global-set-key (kbd "M-c") 'capitalize-dwim)
+
 ;; ## Misc editing
 (global-set-key (kbd "C-q") 'fill-paragraph)
 
