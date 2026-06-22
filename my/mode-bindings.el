@@ -27,6 +27,9 @@
           (lambda ()
             (keymap-set css-mode-map "M-q" 'my/indent-block)))
 
+(eval-after-load 'diff-mode
+  '(keymap-set diff-mode-map "C-c C-c" 'diff-apply-hunk))
+
 (eval-after-load 'deadgrep
   '(progn
      (keymap-set deadgrep-mode-map "C-o" 'my/deadgrep-display-result)
