@@ -12,10 +12,10 @@
 
 ;; Local packages
 ;; Load maf package if it exists.
-(let ((maf-path (concat user-emacs-directory "site-lisp/maf")))
-  (when (file-exists-p (concat maf-path "/maf.el"))
-    (add-to-list 'load-path maf-path)
-    (require 'maf)))
+;; (let ((maf-path (concat user-emacs-directory "site-lisp/maf")))
+;;   (when (file-exists-p (concat maf-path "/maf.el"))
+;;     (add-to-list 'load-path maf-path)
+;;     (require 'maf)))
 
 ;; Load wire package if it exists.
 (let ((wire-path (concat user-emacs-directory "site-lisp/wire")))

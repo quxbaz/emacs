@@ -210,7 +210,7 @@
 
 
 ;; # Modes
-(add-hook 'calc-mode-hook #'maf-mode)
+;; (add-hook 'calc-mode-hook #'maf-mode)
 
 (define-minor-mode mathjax-mode
   "Mode for writing MathJax snippets."
