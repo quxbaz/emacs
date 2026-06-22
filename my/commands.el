@@ -271,7 +271,7 @@ region as the search string."
   (interactive)
   (find-alternate-file ".."))
 
-(defvar my/dired-goto-line-visit nil
+(defvar my/dired-goto-line-visit t
   "When non-nil, `my/dired-ret' with a numeric prefix also
 visits the file or directory at the target line.")
 
