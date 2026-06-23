@@ -55,8 +55,12 @@
   :prefix "lesson-")
 
 (defface lesson-highlight
-  '((t :inherit highlight :extend t))
-  "Face for the highlighted region of the current step."
+  '((((background dark))  :background "#2d3650" :extend t)
+    (((background light)) :background "#c6d2f0" :extend t)
+    (t :background "#2d3650" :extend t))
+  "Face for the highlighted region of the current step.
+Tints only the background so the buffer's own syntax highlighting shows
+through unchanged."
   :group 'lesson)
 
 (defface lesson-code
