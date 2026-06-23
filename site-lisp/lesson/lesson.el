@@ -43,6 +43,7 @@
 ;;; Code:
 
 (require 'cl-lib)
+(require 'which-func)
 (require 'posframe nil t)
 
 
@@ -56,6 +57,12 @@
 (defface lesson-highlight
   '((t :inherit highlight :extend t))
   "Face for the highlighted region of the current step."
+  :group 'lesson)
+
+(defface lesson-code
+  '((t :inherit bold :foreground "#ffd166"))
+  "Face for emphasized `code' spans in lesson explanation text.
+A bold accent color, for contrast against the popup's fill."
   :group 'lesson)
 
 (defcustom lesson-posframe-width 80
@@ -97,6 +104,8 @@ than a fully saturated blue."
   "Index of the current step within `lesson--steps'.")
 (defvar lesson--title nil
   "Title of the active lesson plan.")
+(defvar lesson--context nil
+  "Name of the definition enclosing the current step's region, or nil.")
 (defvar lesson--default-file nil
   "Default source file for steps that don't specify their own.")
 (defvar lesson--base-dir nil
@@ -181,6 +190,62 @@ highlighted regions stay put."
               (concat "  —  " lesson--title)
             "")))
 
+(defun lesson--insert-prose (text)
+  "Insert TEXT, rendering Emacs-style `code' spans with `lesson-code'.
+A span is backtick ... single-quote; the quotes are dropped and the
+inner text is shown in the accent face."
+  (let ((start (point)))
+    (insert text)
+    (save-excursion
+      (goto-char start)
+      (while (re-search-forward "`\\([^`']+\\)'" nil t)
+        (let ((inner (match-string 1)))
+          (replace-match "")
+          (insert (propertize inner 'face 'lesson-code)))))))
+
+(defun lesson--upcase-arg (arg)
+  "Uppercase ARG the way *Help* renders a signature argument."
+  (if (symbolp arg)
+      (let ((name (symbol-name arg)))
+        (cond
+         ((string-prefix-p "&" name) arg)               ; &optional, &rest, ...
+         ((string-prefix-p "_" name) (intern (upcase (substring name 1))))
+         (t (intern (upcase name)))))
+    arg))
+
+(defun lesson--lisp-signature (pos)
+  "Return a *Help*-style signature for the Lisp definition enclosing POS.
+For example \"(print OBJECT &optional PRINTCHARFUN)\".  Returns nil if the
+enclosing top-level form is not a definition with an argument list.  Call
+with the source buffer current."
+  (save-excursion
+    (goto-char pos)
+    (end-of-line)                       ; so a region starting on the defun
+    (let ((form (ignore-errors          ; line still finds *this* defun
+                  (beginning-of-defun)
+                  (read (current-buffer)))))
+      (when (consp form)
+        (let ((head (nth 0 form))
+              (name (nth 1 form))
+              (arglist (nth 2 form)))
+          (when (and (memq head '(defun defmacro defsubst define-inline
+                                  cl-defun cl-defmacro cl-defsubst cl-defmethod))
+                     (symbolp name)
+                     (listp arglist))
+            (format "%S" (cons name (mapcar #'lesson--upcase-arg arglist)))))))))
+
+(defun lesson--context-at (pos)
+  "Return the context label for POS, or nil if none.
+In Lisp source buffers this is a *Help*-style signature of the enclosing
+definition; otherwise the enclosing name via `which-function'.  The
+\"FUNCTION: \" prefix is added at render time.  Call with the source
+buffer current."
+  (if (derived-mode-p 'lisp-data-mode)
+      (lesson--lisp-signature pos)
+    (save-excursion
+      (goto-char pos)
+      (ignore-errors (which-function)))))
+
 (defun lesson--render (step)
   "Show STEP's explanation in the corner posframe."
   (unless (and (display-graphic-p) (featurep 'posframe))
@@ -201,8 +266,14 @@ highlighted regions stay put."
         (insert "\n")
         (insert (propertize (lesson--header)
                             'face 'bold))
+        ;; Show the enclosing definition's signature/name when known,
+        ;; separated from the step header by a blank line.
+        (when lesson--context
+          (insert "\n\n")
+          (insert "FUNCTION: ")
+          (insert (propertize lesson--context 'face 'lesson-code)))
         (insert "\n\n")
-        (insert (or (plist-get step :text) ""))
+        (lesson--insert-prose (or (plist-get step :text) ""))
         ;; Trailing line holds a space so posframe doesn't trim it away,
         ;; giving real bottom padding.
         (insert "\n ")))
@@ -246,7 +317,8 @@ highlighted regions stay put."
       (setq lesson--source-buffer src)))
     (with-current-buffer src
       (unless lesson-source-mode (lesson-source-mode 1))
-      (lesson--highlight (plist-get step :lines)))
+      (lesson--highlight (plist-get step :lines))
+      (setq lesson--context (lesson--context-at (overlay-start lesson--overlay))))
     (lesson--render step)))
 
 
@@ -288,6 +360,7 @@ highlighted regions stay put."
     (set-window-configuration lesson--window-config))
   (setq lesson--steps nil
         lesson--overlay nil
+        lesson--context nil
         lesson--source-buffer nil
         lesson--window-config nil))
 
@@ -302,6 +375,7 @@ BASE-DIR resolves relative `:file' paths (defaults to `default-directory')."
           lesson--base-dir (or base-dir default-directory)
           lesson--steps (vconcat steps)
           lesson--index 0
+          lesson--context nil
           lesson--source-buffer nil
           lesson--window-config nil)
     (lesson--show-step 0)))
