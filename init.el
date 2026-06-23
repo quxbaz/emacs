@@ -79,6 +79,7 @@
      markdown-mode
      modus-themes
      paredit
+     posframe
      rainbow-blocks
      slime
      web-mode
