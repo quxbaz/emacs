@@ -1,4 +1,11 @@
 Emacs Todo
 
 * Todo
-  --
+  - [ ] Code walkthrough minor-mode. How it works:
+    1) User highlights a section of code
+    2) Claude pilots an emacs client
+    3) Claude starts the walkthrough process
+    4) Claude splits the frame into 2 windows
+    5) In the left window, Claude highlights a section of code
+    6) In the right buffer, Claude shows its explanation of the code
+    7) The user presses n/p to navigate through each step or rewind to the previous step
