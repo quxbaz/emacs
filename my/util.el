@@ -15,8 +15,8 @@
 (defun my/flash-region (start end)
   "Temporarily highlight region from START to END."
   (require 'pulse)
-  (let ((pulse-iterations 20)
-        (pulse-delay 0.04))
+  (let ((pulse-iterations 15)
+        (pulse-delay 0.03))
     (pulse-momentary-highlight-region start end)))
 
 
