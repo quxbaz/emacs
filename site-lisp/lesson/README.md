@@ -74,6 +74,9 @@ A lesson plan is a readable plist in a file:
 You can also build the data programmatically and call `lesson-start`
 directly.
 
+See [STYLE.md](STYLE.md) for guidance on writing good lesson plans, and
+[example-lesson-plan.el](example-lesson-plan.el) for an annotated template.
+
 ## Customization
 
 `M-x customize-group RET lesson RET`, or:
