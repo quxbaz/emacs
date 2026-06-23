@@ -29,12 +29,12 @@
     (autoload 'global-wire-mode "wire" nil t)
     (global-wire-mode 1)))
 
-;; Load tutor package if it exists.
-(let ((tutor-path (concat user-emacs-directory "site-lisp/tutor")))
-  (when (file-exists-p (concat tutor-path "/tutor.el"))
-    (add-to-list 'load-path tutor-path)
-    (autoload 'tutor-load "tutor" "Load and play a tutorial script." t)
-    (autoload 'tutor-start "tutor" nil t)))
+;; Load lesson package if it exists.
+(let ((lesson-path (concat user-emacs-directory "site-lisp/lesson")))
+  (when (file-exists-p (concat lesson-path "/lesson.el"))
+    (add-to-list 'load-path lesson-path)
+    (autoload 'lesson-load "lesson" "Load and play a lesson plan." t)
+    (autoload 'lesson-start "lesson" nil t)))
 
 ;; Custom config
 (load-file (concat user-emacs-directory "my/data.el"))
