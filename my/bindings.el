@@ -135,7 +135,7 @@
 
 ;; # Commands
 (global-set-key (kbd "C-g") 'my/quit)
-(global-set-key (kbd "C-M-<delete>") (my/cmd (let ((confirm-kill-emacs)) (save-buffers-kill-emacs nil t))))
+(global-set-key (kbd "C-M-<delete>") 'my/restart-emacs)
 (global-set-key (kbd "C-x C-c") 'my/kill-terminal)
 (global-set-key (kbd "C-.") 'repeat)
 (global-set-key (kbd "<escape> <escape> i") 'my/insert-uuid)

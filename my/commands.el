@@ -57,6 +57,21 @@ modified file-visiting buffers."
         (save-buffers-kill-terminal))
     (save-buffers-kill-terminal)))
 
+(defun my/restart-emacs ()
+  "Restart Emacs as a fresh process, preserving its WM_CLASS.
+`save-buffers-kill-emacs's RESTART flag re-execs the running binary; under
+the snap that binary is `emacs-30.2', so the new frame's WM_CLASS becomes
+\"Emacs-30.2\" -- which breaks class-based window matching and shows
+\"emacs-30.2\" in the StumpWM modeline.  Instead, launch a fresh detached
+`emacs' through its normal wrapper (class stays \"Emacs\") and then quit
+this one, prompting only to save modified buffers."
+  (interactive)
+  (let ((emacs (or (executable-find "emacs") "emacs")))
+    ;; `setsid' puts the child in its own session so it outlives this process.
+    (call-process "setsid" nil 0 nil emacs))
+  (let ((confirm-kill-emacs nil))
+    (save-buffers-kill-emacs)))
+
 
 ;; # Projects
 
