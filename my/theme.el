@@ -9,7 +9,8 @@
 ;; init time doesn't reliably reach daemon-spawned frames).
 ;; (add-to-list 'default-frame-alist '(font . "Monaco-11:pixelsize=15"))
 ;; (set-face-attribute 'default nil :font "Monaco-11:pixelsize=15")
-(add-to-list 'default-frame-alist '(font . "Monaco-10:pixelsize=14"))
+;; The default-frame-alist font is set in early-init.el (before the first frame)
+;; to avoid a startup resize; this also applies it to the default face.
 (set-face-attribute 'default nil :font "Monaco-10:pixelsize=14")
 
 

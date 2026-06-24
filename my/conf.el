@@ -10,7 +10,8 @@
 (setq initial-buffer-choice  ;; Start in dired on the invocation directory (e.g. emacs --chdir ~/foo).
       (lambda () (dired default-directory)))
 (setq warning-minimum-level :emergency)  ;; Don't bombard me with plugin warnings and hijack focus.
-(add-to-list 'default-frame-alist '(fullscreen . maximized))  ;; Default to full-screen.
+;; Initial-frame settings (fullscreen, GUI bars, font, colors) live in
+;; early-init.el so they apply before the frame appears (no startup flash).
 (setq diary-file "~/personal/diary")
 
 
@@ -29,9 +30,8 @@
 
 
 ;; # Save screen space
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+;; menu-bar, tool-bar, and scroll-bar are disabled in early-init.el (via
+;; default-frame-alist) so they never flash on at startup.
 
 
 ;; # Screen, buffers, viewport
