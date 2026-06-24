@@ -10,10 +10,10 @@ Emacs Todo
     6) In the right buffer, Claude shows its explanation of the code
     7) The user presses n/p to navigate through each step or rewind to the previous step
 
-* tour
+* tourguide
   - j/k to scroll without moving point
-  - Rename to tour
-  - Renaem lesson-plans/ directory to tour-guides/
+  - Rename to tourguide
+  - Renaem lesson-plans/ directory to tourguide-tours/
   - Create separate repo and apply relevant commits
   - Current guide explains from top of file to bottom.
     - This is wrong.
