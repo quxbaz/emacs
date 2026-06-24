@@ -7,11 +7,22 @@
 
 (defun my/init ()
   (interactive)
-  (find-file-noselect (expand-file-name "my/*" user-emacs-directory) nil nil t)
-  (dolist (filepath my/init-files)
-    (if (file-exists-p filepath)
-        (find-file-noselect filepath)
-      (error "Init file does not exist: %s" filepath)))
+  ;; Skip per-file VC/git work and `find-file-hook' while bulk-opening: most of
+  ;; the time here is `vc-refresh-state' running git on every file.  The editing
+  ;; minor modes (paredit, rainbow-blocks, aggressive-indent, diff-hl) still run
+  ;; via the major-mode hooks, so the buffers are fully usable.
+  (let ((find-file-hook nil)
+        (vc-handled-backends nil))
+    ;; The .el config files one level deep in each dir -- this opens the files
+    ;; inside my/lisp/ and my/calc/ rather than dired buffers for the dirs, and
+    ;; skips my/calc/tests/ and my/fonts/.
+    (dolist (glob '("my/*.el" "my/lisp/*.el" "my/calc/*.el"))
+      (dolist (f (file-expand-wildcards (expand-file-name glob user-emacs-directory) t))
+        (find-file-noselect f)))
+    (dolist (filepath my/init-files)
+      (if (file-exists-p filepath)
+          (find-file-noselect filepath)
+        (error "Init file does not exist: %s" filepath))))
   (switch-to-buffer "*Messages*"))
 
 
