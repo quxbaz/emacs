@@ -36,11 +36,19 @@
 (push '(background-color . "#000000") default-frame-alist)
 (push '(foreground-color . "#ffffff") default-frame-alist)
 
+;; --- Loading / IO ---
+;; Prefer a newer .el over a stale .elc, and allow larger reads from
+;; subprocesses (helps SLIME, shells, deadgrep, etc.).
+(setq load-prefer-newer t)
+(setq read-process-output-max (* 1024 1024))
+
 ;; --- Native compilation ---
-;; Keep its noise out of the way.  Uncomment the second line to disable
-;; just-in-time native compilation entirely (prevents recompiling bundled
-;; *.eln / loaddefs at startup, at the cost of running byte/interpreted code).
+;; Keep its noise out of the way, and prune .eln caches for old Emacs
+;; versions automatically.  Uncomment the last line to disable just-in-time
+;; native compilation entirely (prevents recompiling bundled *.eln / loaddefs
+;; at startup, at the cost of running byte/interpreted code).
 (setq native-comp-async-report-warnings-errors 'silent)
+(setq native-compile-prune-cache t)
 ;; (setq native-comp-jit-compilation nil)
 
 ;;; early-init.el ends here

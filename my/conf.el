@@ -38,6 +38,7 @@
 (column-number-mode t)
 (global-hi-lock-mode t)
 (global-display-line-numbers-mode t)
+(global-so-long-mode 1)  ;; Don't choke on files with very long lines.
 
 
 ;; # Whitespace, indentation
