@@ -9,3 +9,14 @@ Emacs Todo
     5) In the left window, Claude highlights a section of code
     6) In the right buffer, Claude shows its explanation of the code
     7) The user presses n/p to navigate through each step or rewind to the previous step
+
+* tour
+  - j/k to scroll without moving point
+  - Rename to tour
+  - Renaem lesson-plans/ directory to tour-guides/
+  - Create separate repo and apply relevant commits
+  - Current guide explains from top of file to bottom.
+    - This is wrong.
+    - The guide should follow control flow, jumping from function to function
+    - include this in style guide
+  - Use character-based positioning, not line
