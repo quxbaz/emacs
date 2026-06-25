@@ -89,6 +89,7 @@
 
 
 ;; # Safety, backups
+(setq vc-follow-symlinks t)  ;; Auto-follow symlinks without prompting.
 (setq confirm-kill-emacs 'yes-or-no-p)
 (setq backup-directory-alist `((".*" . "~/.tmp")))
 (setq auto-save-file-name-transforms `((".*" "~/.tmp" t)))
