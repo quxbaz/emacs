@@ -7,9 +7,6 @@
   "Enable the shared Lisp editing minor modes in the current buffer.
 With NO-AGGRESSIVE-INDENT non-nil, skip `aggressive-indent-mode' (used
 for the SLIME REPL, where reindenting prior output is undesirable)."
-  ;; Treat ":" as a word character so backward-kill-word stops at keyword
-  ;; boundaries (e.g. :foo) instead of splitting on the colon.
-  (modify-syntax-entry ?: "w")
   (autopair-mode -1)
   (unless no-aggressive-indent
     (aggressive-indent-mode t))
