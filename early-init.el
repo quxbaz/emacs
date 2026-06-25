@@ -30,7 +30,13 @@
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(fullscreen . maximized) default-frame-alist)
-(push '(font . "Monaco-10:pixelsize=14") default-frame-alist)
+;; Font is pixel-locked per display via $SCREEN (set in ~/.xsessionrc): the
+;; external AG Neovo EM2451 (~186 DPI) needs a large pixelsize; the laptop panel
+;; (bare 96-DPI defaults) uses the plain point size.  Single source of truth:
+;; my/default-font is referenced here (initial frame) and in my/theme.el (default face).
+(defvar my/default-font
+  (if (equal (getenv "SCREEN") "AGN-EM2451") "Monaco-10:pixelsize=24" "Monaco-10"))
+(push `(font . ,my/default-font) default-frame-alist)
 ;; Match the modus-vivendi colors so there is no white flash before the theme
 ;; loads in init.
 (push '(background-color . "#000000") default-frame-alist)
