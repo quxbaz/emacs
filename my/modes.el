@@ -93,6 +93,12 @@
                                     (emacs-lisp-mode)))))
 
 
+;; empty-line-mode is loaded/enabled in init.el; this sets its fringe bitmap
+;; (see the palette in empty-line-mode.el).
+(my/setup empty-line
+  :init (setq empty-line-bitmap 'hollow-square))
+
+
 (my/setup git-commit
   :bindings (:after git-commit) git-commit-mode-map
             "C-<return>" 'with-editor-finish)
