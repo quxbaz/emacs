@@ -49,6 +49,7 @@
 (load-file (concat user-emacs-directory "my/commands.el"))
 ;; Lisp
 (load-file (concat user-emacs-directory "my/lisp/lib.el"))
+(load-file (concat user-emacs-directory "my/lisp/util.el"))
 (load-file (concat user-emacs-directory "my/lisp/commands.el"))
 (load-file (concat user-emacs-directory "my/lisp/conf.el"))
 (load-file (concat user-emacs-directory "my/lisp/bindings.el"))
