@@ -8,8 +8,8 @@
 With NO-AGGRESSIVE-INDENT non-nil, skip `aggressive-indent-mode' (used
 for the SLIME REPL, where reindenting prior output is undesirable)."
   (autopair-mode -1)
-  (unless no-aggressive-indent
-    (aggressive-indent-mode t))
+  ;; (unless no-aggressive-indent
+  ;;   (aggressive-indent-mode t))
   (rainbow-blocks-mode t)
   (paredit-mode t))
 
