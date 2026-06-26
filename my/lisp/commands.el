@@ -14,73 +14,24 @@
 
 ;; # Evaluation
 
-(defun my/eval-dwim (&optional arg)
-  "Evals either the current region, block, or line - in that order of preference.
-With one C-u prefix, calls `eval-defun' (instruments for edebug).
-With two C-u prefixes, evals the entire buffer."
-  (interactive "P")
-  (cond
-   ;; C-u: delegate to eval-defun (instruments for edebug).
-   ((equal arg '(4))
-    (call-interactively 'eval-defun)
-    (my/flash-region (save-excursion (beginning-of-defun) (point))
-                     (save-excursion (end-of-defun) (point))))
-   ;; C-u C-u: eval the entire buffer.
-   ((equal arg '(16))
-    (eval-buffer)
-    (message "%s" (buffer-name))
-    (my/flash-region (point-min) (point-max)))
-   ;; Active region: eval the selected region.
-   ((use-region-p)
-    (eval-region (region-beginning) (region-end) t)
-    (my/flash-region (region-beginning) (region-end)))
-   ;; Inside any list: eval the enclosing top-level form.
-   ((my/is-inside-list)
-    (let ((root-pos (my/list-root-position)))
-      (eval-region root-pos (scan-lists root-pos 1 0) t)
-      (my/flash-region root-pos (scan-lists root-pos 1 0))))
-   ;; At a top-level opening paren: eval that sexp.
-   ((my/is-at-opening-paren)
-    (eval-region (point) (scan-lists (point) 1 0) t)
-    (my/flash-region (point) (scan-lists (point) 1 0)))
-   ;; Just after a top-level closing paren: eval the preceding sexp.
-   ((my/is-after-closing-paren)
-    (let ((opening-paren-pos (save-excursion (backward-char) (my/opening-paren-position))))
-      (eval-region opening-paren-pos (point) t)
-      (my/flash-region opening-paren-pos (point))))
-   ;; Top-level comment: noop.
-   ((my/is-inside-comment)
-    (message "noop"))
-   ;; Fallback: eval the sexp at point if any.
-   (t
-    (if-let ((sexp (thing-at-point 'sexp)))
-        (let ((bounds (bounds-of-thing-at-point 'sexp)))
-          (eval-expression (read sexp))
-          (my/flash-region (car bounds) (cdr bounds)))
-      (message "noop"))))
-  (my/flash-mode-line))
-
-(defun my/slime-eval-dwim (&optional arg)
-  "Like `my/eval-dwim', but evaluates Common Lisp forms through SLIME.
-Evals either the current region, block, or line - in that order of preference.
-With one C-u prefix, calls `slime-eval-defun'.
-With two C-u prefixes, evals the entire buffer."
-  (interactive "P")
+(cl-defun my/eval-dwim--dispatch (arg &key region defun buffer)
+  "Shared dispatch for the eval-dwim commands.
+ARG is the raw prefix argument.  :REGION is called with START and END to
+evaluate the text of that region; :DEFUN and :BUFFER take no arguments and
+evaluate the enclosing defun / whole buffer respectively.  Each branch flashes
+the region it acted on, and the mode line flashes at the end."
   (cl-flet ((eval-and-flash (start end)
-              ;; Send the region's text to the CL image and echo the result;
-              ;; slime-interactive-eval is the SLIME analog of eval-region's
-              ;; print-result behavior.
-              (slime-interactive-eval (buffer-substring-no-properties start end))
+              (funcall region start end)
               (my/flash-region start end)))
     (cond
-     ;; C-u: eval the enclosing top-level defun.
+     ;; C-u: delegate to the defun evaluator.
      ((equal arg '(4))
-      (call-interactively 'slime-eval-defun)
+      (funcall defun)
       (my/flash-region (save-excursion (beginning-of-defun) (point))
                        (save-excursion (end-of-defun) (point))))
      ;; C-u C-u: eval the entire buffer.
      ((equal arg '(16))
-      (slime-eval-buffer)
+      (funcall buffer)
       (message "%s" (buffer-name))
       (my/flash-region (point-min) (point-max)))
      ;; Active region: eval the selected region.
@@ -106,6 +57,32 @@ With two C-u prefixes, evals the entire buffer."
           (eval-and-flash (car bounds) (cdr bounds))
         (message "noop")))))
   (my/flash-mode-line))
+
+(defun my/eval-dwim (&optional arg)
+  "Evals either the current region, block, or line - in that order of preference.
+With one C-u prefix, calls `eval-defun' (instruments for edebug).
+With two C-u prefixes, evals the entire buffer."
+  (interactive "P")
+  (my/eval-dwim--dispatch
+   arg
+   :region (lambda (start end) (eval-region start end t))
+   :defun (lambda () (call-interactively 'eval-defun))
+   :buffer #'eval-buffer))
+
+(defun my/slime-eval-dwim (&optional arg)
+  "Like `my/eval-dwim', but evaluates Common Lisp forms through SLIME.
+Evals either the current region, block, or line - in that order of preference.
+With one C-u prefix, calls `slime-eval-defun'.
+With two C-u prefixes, evals the entire buffer."
+  (interactive "P")
+  (my/eval-dwim--dispatch
+   arg
+   ;; Send the region's text to the CL image and echo the result;
+   ;; slime-interactive-eval is the SLIME analog of eval-region's print behavior.
+   :region (lambda (start end)
+             (slime-interactive-eval (buffer-substring-no-properties start end)))
+   :defun (lambda () (call-interactively 'slime-eval-defun))
+   :buffer #'slime-eval-buffer))
 
 (defun my/eval-buffer-show-messages ()
   "Eval the entire buffer, flash it, and show *Messages* in the right window."
