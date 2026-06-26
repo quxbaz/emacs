@@ -2,8 +2,7 @@
 ;;
 ;; Lisp keybindings
 ;;
-;; The my/bind / my/apply-when / my/apply-bindings helpers live in
-;; my/lisp/util.el.
+;; The my/bind / my/apply-when / my/apply-bindings helpers live in my/util.el.
 
 
 ;;
