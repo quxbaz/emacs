@@ -13,7 +13,8 @@
 ;;
 ;; The message it builds carries a context header: the project root and
 ;; git branch, the file (or, for fileless buffers, the buffer name and
-;; major mode), and, when a region is active, its line range and the
+;; major mode, plus the listed directory for dired), and, when a region
+;; is active, its line range and the
 ;; region text fenced for the buffer's language.  It is injected into
 ;; Claude's prompt via kitty's remote control protocol
 ;; (`kitty @ send-text') and auto-submitted.
@@ -353,13 +354,23 @@ this keeps the `of N' totals consistent."
       (line-number-at-pos (1- end))
     (line-number-at-pos end)))
 
+(defun wire--display-dir (dir root)
+  "Render DIR for display, relative to project ROOT when it lies inside it.
+Falls back to an abbreviated absolute path when DIR is outside ROOT or
+no root is known."
+  (let ((rel (and root (file-relative-name dir root))))
+    (if (and rel (not (string-prefix-p "../" rel)))
+        (file-name-as-directory rel)
+      (abbreviate-file-name dir))))
+
 (defun wire--context-at-point ()
   "Capture context for a dispatch.
 With an active region, capture the region text and its line range; the
 message is about that region.  Without one, capture only buffer
 identity --- the message is about the whole file or buffer.  File-backed
 buffers carry a project/branch/file reference; fileless buffers carry
-the project root and branch (if any), the buffer name, and the mode."
+the project root and branch (if any), the buffer name, the mode, and --
+for dired -- the directory being listed."
   (let* ((reg (use-region-p))
          (beg (and reg (region-beginning)))
          (end (and reg (region-end)))
@@ -383,6 +394,9 @@ the project root and branch (if any), the buffer name, and the mode."
               :branch (wire--git-branch root)
               :buffer (buffer-name)
               :mode (symbol-name major-mode)
+              ;; In dired, `default-directory' is the directory being listed.
+              :dir (when (derived-mode-p 'dired-mode)
+                     (expand-file-name default-directory))
               :prog (and (derived-mode-p 'prog-mode) t)
               :beg-line (and reg (line-number-at-pos beg))
               :end-line (and reg (wire--region-end-line beg end))
@@ -421,13 +435,15 @@ file header is emitted."
 (defun wire--format-fileless-context (ctx)
   "Build the context block for a fileless buffer CTX.
 Includes `Project:'/`Branch:' only for a genuine project root and
-always the `Buffer:' name.  With a region, adds a `Focused: line(s) N
-of M' provenance line and the fenced region, using the fence language
-only for `prog-mode' buffers; without one, the message is about the
-whole buffer.  A `Mode:' line is shown whenever the language is not
-already carried by a fence."
+always the `Buffer:' name.  A `Directory:' line names the listed
+directory for dired buffers, so the message says which directory it is
+about.  With a region, adds a `Focused: line(s) N of M' provenance line
+and the fenced region, using the fence language only for `prog-mode'
+buffers; without one, the message is about the whole buffer.  A `Mode:'
+line is shown whenever the language is not already carried by a fence."
   (let* ((root (plist-get ctx :project-root))
          (branch (plist-get ctx :branch))
+         (dir (plist-get ctx :dir))
          (region (plist-get ctx :region))
          ;; The language only appears inside the region fence, and only
          ;; for prog-mode buffers; otherwise `Mode:' carries the context.
@@ -436,6 +452,7 @@ already carried by a fence."
                   (when root (format "Project: %s\n" root))
                   (when branch (format "Branch: %s\n" branch))
                   (format "Buffer: %s\n" (plist-get ctx :buffer))
+                  (when dir (format "Directory: %s\n" (wire--display-dir dir root)))
                   (unless fence-lang (format "Mode: %s\n" (plist-get ctx :mode))))))
     (if region
         (let* ((beg (plist-get ctx :beg-line))
