@@ -47,6 +47,7 @@
 (setq-default tab-width 2)
 (setq-default c-basic-offset 2)
 (setq-default sgml-basic-offset 2)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)  ;; Trim trailing whitespace on save.
 
 
 ;; # Text, formatting, editing
@@ -99,32 +100,6 @@
 ;; (setq create-lockfiles nil)   ;; ^^
 
 
-;; # Dired
-(setq dired-dwim-target t)  ;; Use other dired window as default copy/move path.
-(setq wdired-allow-to-change-permissions t)  ;; Allow editing file modes.
-(setq dired-listing-switches "-laXGh --group-directories-first")  ;; Order directories first.
-(setq dired-omit-files "^\\.$\\|^\\.\\.$")  ;; Hide . and .. directories.
-(setq dired-omit-lines nil)
-(setq dired-omit-extensions nil)
-(with-eval-after-load 'dired (add-to-list 'dired-no-confirm 'load))  ;; L (dired-do-load) without confirmation.
-(advice-add 'dired-find-buffer-nocreate :override #'ignore)  ;; Always create a fresh dired buffer instead of reusing an existing one.
-(with-eval-after-load 'dired
-  (define-key dired-mode-map "q" (lambda () (interactive) (quit-window t))))  ;; Kill the dired buffer on 'q' instead of burying it.
-
-
-;; # magit
-(setq magit-section-initial-visibility-alist
-      '((recent . show)
-        (unpushed . show)
-        (untracked . show)
-        (unstaged . show)        ;; Expand the Unstaged section (show the file list)...
-        ([file unstaged] . hide)))  ;; ...but keep each file's diff collapsed.
-
-
-;; # Describe, help
-(setq help-window-select t)  ;; Focus describe buffers on load.
-
-
 ;; # System clipboard
 (setq x-select-enable-clipboard t)  ;; Allows you to copy into the system clipboard.
 (setq save-interprogram-paste-before-kill t)  ;; Save system clipboard to kill ring.
@@ -145,21 +120,6 @@
 (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
 
 
-;; # org-mode
-(setq org-adapt-indentation t)  ;; Indent after headings.
-(setq org-confirm-babel-evaluate nil)  ;; Evaluate code without confirmation.
-;; Add org-agenda files.
-(custom-set-faces
- '(org-ellipsis ((t (:foreground "gray50")))))
-(setq org-ellipsis " [...]")
-(setq org-todo-keywords '((sequence "TODO"              "NEXT"                 "IN-PROGRESS"             "WAITING"              "FAILED"                "QUESTION"              "REVIEW"              "LIMBO"              "BACKLOG"      "|"     "NOTE"              "DONE-INT"                  "DONE")))
-(setq org-todo-keyword-faces     '(("TODO" . "yellow") ("NEXT" . "OrangeRed") ("IN-PROGRESS" . "cyan1") ("WAITING" . "orange") ("FAILED" . "DeepPink") ("QUESTION" . "grey50") ("REVIEW" . "orchid") ("LIMBO" . "grey50") ("BACKLOG" . "grey50") ("NOTE" . "grey50") ("DONE-INT" . "PaleGreen2") ("DONE" . "green")))
-(font-lock-add-keywords 'org-mode '(("`[^`\n]+`" 0 'org-code t)))  ;; Highlight `backtick` spans like =code=.
-(with-eval-after-load 'org
-  (set-face-attribute 'org-block-begin-line nil :foreground (face-foreground 'org-verbatim nil t))
-  (set-face-attribute 'org-block-end-line nil :foreground (face-foreground 'org-verbatim nil t)))
-
-
 ;; # Packages, modes, misc
 (setq uniquify-buffer-name-style 'forward)
 (setq ivy-do-completion-in-region nil)
@@ -170,7 +130,6 @@
 (setq yas-triggers-in-field t)  ;; Enable nested snippet expansions.
 (global-corfu-mode t)
 (setq blink-matching-paren nil) ;; Disable paredit delay when closing round.
-(setq bookmark-save-flag 1)     ;; Save ~/.emacs.d/bookmarks on every change
 ;; Control hippie-expand order of expansion.
 (setq hippie-expand-try-functions-list
       '(try-expand-dabbrev-visible
@@ -200,34 +159,3 @@
 
 ;; # Hardware
 (setq printer-name "HLL2350DW")
-
-
-;; # SQL
-(setq sql-connection-alist '((wnmu-edu-db (sql-product 'mysql)
-                                          (sql-user "david")
-                                          (sql-password "")
-                                          (sql-server "localhost")
-                                          (sql-database "wnmu_edu_db"))))
-
-
-;; Lua
-(setq lua-indent-level 2)
-
-
-;; # Modes
-;; (add-hook 'calc-mode-hook #'maf-mode)
-
-(define-minor-mode mathjax-mode
-  "Mode for writing MathJax snippets."
-  ;; If t, the minor mode is enabled by default.
-  :init-value nil
-  ;; Mode Line text when the minor mode is active.
-  :lighter " Mathjax"
-  ;; Custom keybindings when the minor mode is active.
-  :keymap (let ((map (make-sparse-keymap)))
-            ;; (define-key map (kbd "KEY-SEQUENCE") 'COMMAND)
-            map)
-  ;; Specifies whether the mode is global (t) or buffer local (nil).
-  :global nil
-  ;;The customization group under which the mode settings are categorized.
-  :group 'mathjax-mode)

@@ -55,10 +55,9 @@
 (load-file (concat user-emacs-directory "my/lisp/hooks.el"))
 ;; Bindings
 (load-file (concat user-emacs-directory "my/bindings.el"))
-(load-file (concat user-emacs-directory "my/mode-bindings.el"))
 (load-file (concat user-emacs-directory "my/kmacros.el"))
-;; Hooks
-(load-file (concat user-emacs-directory "my/hooks.el"))
+;; Per-mode configuration (settings + hooks + bindings, one block per mode)
+(load-file (concat user-emacs-directory "my/modes.el"))
 ;; Calc
 (load-file (concat user-emacs-directory "my/calc/index.el"))
 
