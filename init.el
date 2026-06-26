@@ -36,6 +36,14 @@
     (autoload 'lesson-load "lesson" "Load and play a lesson plan." t)
     (autoload 'lesson-start "lesson" nil t)))
 
+;; Load empty-line-mode package if it exists.
+(let ((eol-path (concat user-emacs-directory "site-lisp/empty-line-mode")))
+  (when (file-exists-p (concat eol-path "/empty-line-mode.el"))
+    (add-to-list 'load-path eol-path)
+    (autoload 'empty-line-mode "empty-line-mode" "Mark blank lines with a fringe indicator." t)
+    (autoload 'global-empty-line-mode "empty-line-mode" nil t)
+    (global-empty-line-mode 1)))
+
 ;; Custom config
 (load-file (concat user-emacs-directory "my/data.el"))
 (load-file (concat user-emacs-directory "my/conf.el"))
