@@ -101,6 +101,48 @@ form that returns a command (e.g. `my/with-prefix')."
                     (lambda ()
                       (my/apply-bindings ,keymap (list ,@(nreverse pairs)))))))
 
+(defmacro my/setup (name &rest clauses)
+  "Configure a single mode in one form. NAME is a documentation label.
+
+CLAUSES is a sequence of sections, each introduced by one of these
+keywords and running until the next section keyword:
+
+  :init      FORM...           forms evaluated immediately (settings,
+                               advice, faces, `define-minor-mode', ...)
+  :after     FEATURE FORM...   FORMs wrapped in (`with-eval-after-load'
+                               FEATURE ...)
+  :hooks     (HOOK FN)...       each pair added with `add-hook'
+  :bindings  ARG...            ARGs passed verbatim to `my/bind', i.e.
+                               WHEN KEYMAP KEY DEFINITION...
+
+Only these keywords act as section delimiters, so keywords nested in
+forms (`:override', `:lighter') and `my/bind's own `:now' pass through.
+Sections are emitted in source order, so ordering dependencies -- e.g. a
+`define-minor-mode' before the hook that uses it -- are preserved."
+  (declare (indent 1))
+  (ignore name)
+  (let ((known '(:init :after :hooks :bindings))
+        (sections '())
+        (current nil)
+        (items '()))
+    (dolist (elt clauses)
+      (if (and (keywordp elt) (memq elt known))
+          (progn
+            (when current (push (cons current (nreverse items)) sections))
+            (setq current elt items nil))
+        (push elt items)))
+    (when current (push (cons current (nreverse items)) sections))
+    `(progn
+       ,@(mapcar
+          (lambda (sec)
+            (pcase (car sec)
+              (:init `(progn ,@(cdr sec)))
+              (:after `(with-eval-after-load ',(cadr sec) ,@(cddr sec)))
+              (:hooks `(progn ,@(mapcar (lambda (h) `(add-hook ',(car h) ,(cadr h)))
+                                        (cdr sec))))
+              (:bindings `(my/bind ,@(cdr sec)))))
+          (nreverse sections)))))
+
 
 ;; # Util
 
