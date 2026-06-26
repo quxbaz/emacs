@@ -110,15 +110,32 @@ With two C-u prefixes, evals the entire buffer."
                   (inhibit-same-window . t)))))
       (set-window-point win (point-max)))))
 
+(cl-defun my/eval-here--dispatch (&key eval)
+  "Shared dispatch for the eval-here commands.
+Find the text of the most immediate list at point -- or, inside a
+string, the enclosing list; or, outside any list, the sexp at point --
+and pass it to EVAL, the evaluator supplied by each call site."
+  (cond ((and (my/is-inside-string) (my/is-inside-list))
+         (funcall eval (buffer-substring-no-properties
+                        (my/opening-paren-position)
+                        (my/closing-paren-position))))
+        ((my/is-inside-list)
+         (funcall eval (thing-at-point 'list)))
+        (t
+         (funcall eval (thing-at-point 'sexp)))))
+
 (defun my/eval-here ()
   "Evaluates the most immediate list at point."
   (interactive)
-  (cond ((and (my/is-inside-string) (my/is-inside-list))
-         (eval-region (my/opening-paren-position) (my/closing-paren-position) t))
-        ((my/is-inside-list)
-         (eval-expression (read (thing-at-point 'list))))
-        (t
-         (eval-expression (read (thing-at-point 'sexp))))))
+  (my/eval-here--dispatch
+   :eval (lambda (text) (eval-expression (read text)))))
+
+(defun my/slime-eval-here ()
+  "Like `my/eval-here', but evaluates the most immediate list at point
+through SLIME."
+  (interactive)
+  (my/eval-here--dispatch
+   :eval (lambda (text) (slime-interactive-eval text))))
 
 (defun my/eval-kill-ring ()
   "Evals the car of the kill ring. Surrounds the string with parens when needed."

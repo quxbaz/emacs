@@ -78,7 +78,7 @@
   "C-h C-h" 'my/slime-help-dwim
   "C-h C-o" 'slime-hyperspec-lookup
   "C-c C-x" 'slime-compile-defun
-  "C-c C-." 'slime-eval-last-expression
+  "C-c C-." 'my/slime-eval-here
   "C-c C-l" 'my/slime-load-this-file)
 
 ;; Temporary, until you get ELisp completion-at-point working.
