@@ -41,16 +41,16 @@
   "Fringe bitmap shown on each blank line.
 Any symbol satisfying `fringe-bitmap-p'.  See the palette just below to
 switch, or Info node `(elisp) Fringe Bitmaps' for the full set."
-  :type '(choice (const :tag "Thin dash"            horizontal-bar)
-                 (const :tag "Low hollow box"       empty-line)
-                 (const :tag "Vertical line"        vertical-bar)
-                 (const :tag "Outlined box"         hollow-rectangle)
-                 (const :tag "Solid block"          filled-rectangle)
-                 (const :tag "Small outlined square" hollow-square)
-                 (const :tag "Solid square"         filled-square)
-                 (const :tag "Outlined circle"      large-circle)
-                 (const :tag "Left triangle"        left-triangle)
-                 (const :tag "Right triangle"       right-triangle)
+  :type '(choice (const  :tag "Thin dash"              horizontal-bar)
+                 (const  :tag "Low hollow box"         empty-line)
+                 (const  :tag "Vertical line"          vertical-bar)
+                 (const  :tag "Outlined box"           hollow-rectangle)
+                 (const  :tag "Solid block"            filled-rectangle)
+                 (const  :tag "Small outlined square"  hollow-square)
+                 (const  :tag "Solid square"           filled-square)
+                 (const  :tag "Outlined circle"        large-circle)
+                 (const  :tag "Left triangle"          left-triangle)
+                 (const  :tag "Right triangle"         right-triangle)
                  (symbol :tag "Other `fringe-bitmap-p' symbol"))
   :group 'empty-line)
 
