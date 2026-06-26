@@ -35,6 +35,12 @@
 ;;
 ;; # Common Lisp keybindings
 ;; (keymap-set lisp-mode-map "C-c C-l" 'slime-switch-to-output-buffer)
+;;
+;; Bind in slime-mode-map, not lisp-mode-map: slime-mode is a minor mode, so its
+;; keymap shadows the major-mode map's C-c C-c / C-c C-k when SLIME is active.
+(with-eval-after-load 'slime
+  (keymap-set slime-mode-map "C-c C-c" 'my/slime-eval-dwim)
+  (keymap-set slime-mode-map "C-c C-k" (my/with-prefix 'my/slime-eval-dwim '(16))))
 
 ;;
 ;; # Emacs Lisp (Elisp) keybindings

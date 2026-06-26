@@ -60,6 +60,53 @@ With two C-u prefixes, evals the entire buffer."
       (message "noop"))))
   (my/flash-mode-line))
 
+(defun my/slime-eval-dwim (&optional arg)
+  "Like `my/eval-dwim', but evaluates Common Lisp forms through SLIME.
+Evals either the current region, block, or line - in that order of preference.
+With one C-u prefix, calls `slime-eval-defun'.
+With two C-u prefixes, evals the entire buffer."
+  (interactive "P")
+  (cl-flet ((eval-and-flash (start end)
+              ;; Send the region's text to the CL image and echo the result;
+              ;; slime-interactive-eval is the SLIME analog of eval-region's
+              ;; print-result behavior.
+              (slime-interactive-eval (buffer-substring-no-properties start end))
+              (my/flash-region start end)))
+    (cond
+     ;; C-u: eval the enclosing top-level defun.
+     ((equal arg '(4))
+      (call-interactively 'slime-eval-defun)
+      (my/flash-region (save-excursion (beginning-of-defun) (point))
+                       (save-excursion (end-of-defun) (point))))
+     ;; C-u C-u: eval the entire buffer.
+     ((equal arg '(16))
+      (slime-eval-buffer)
+      (message "%s" (buffer-name))
+      (my/flash-region (point-min) (point-max)))
+     ;; Active region: eval the selected region.
+     ((use-region-p)
+      (eval-and-flash (region-beginning) (region-end)))
+     ;; Inside any list: eval the enclosing top-level form.
+     ((my/is-inside-list)
+      (let ((root-pos (my/list-root-position)))
+        (eval-and-flash root-pos (scan-lists root-pos 1 0))))
+     ;; At a top-level opening paren: eval that sexp.
+     ((my/is-at-opening-paren)
+      (eval-and-flash (point) (scan-lists (point) 1 0)))
+     ;; Just after a top-level closing paren: eval the preceding sexp.
+     ((my/is-after-closing-paren)
+      (let ((opening-paren-pos (save-excursion (backward-char) (my/opening-paren-position))))
+        (eval-and-flash opening-paren-pos (point))))
+     ;; Top-level comment: noop.
+     ((my/is-inside-comment)
+      (message "noop"))
+     ;; Fallback: eval the sexp at point if any.
+     (t
+      (if-let ((bounds (bounds-of-thing-at-point 'sexp)))
+          (eval-and-flash (car bounds) (cdr bounds))
+        (message "noop")))))
+  (my/flash-mode-line))
+
 (defun my/eval-buffer-show-messages ()
   "Eval the entire buffer, flash it, and show *Messages* in the right window."
   (interactive)
