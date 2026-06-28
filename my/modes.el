@@ -155,6 +155,7 @@
   :bindings (:after magit) magit-mode-map
             "w"   'my/key-w
             "C-o" 'magit-diff-visit-file-other-window
+            "L"   'my/magit-load
             "G"   'my/magit-quick-commit)
 
 

@@ -670,6 +670,15 @@ entry are loaded as Emacs Lisp via `dired-load'.")
   (require 'slime)
   (slime-load-file file))
 
+(defun my/load-file-by-type (file)
+  "Load FILE, choosing the loader by extension from `my/dired-load-handlers'.
+Files with no matching handler are loaded into Emacs as Emacs Lisp."
+  (let ((loader (cdr (assoc (file-name-extension file)
+                            my/dired-load-handlers))))
+    (if loader
+        (funcall loader file)
+      (load-file file))))
+
 (defun my/dired-do-load (&optional arg)
   "Like dired-do-load, but dispatches on file type.
 Loads the marked (or next ARG) files, choosing the loader by file
@@ -679,18 +688,14 @@ handler are loaded into Emacs as usual."
   (require 'dired-aux)
   (dired-map-over-marks-check
    (lambda ()
-     (let* ((file (dired-get-filename))
-            (loader (cdr (assoc (file-name-extension file)
-                                my/dired-load-handlers))))
-       (if (not loader)
-           (dired-load)
-         (condition-case err
-             (progn
-               (funcall loader file)
-               nil)
-           (error
-            (dired-log "Load error for %s:\n%s\n" file err)
-            (dired-make-relative file))))))
+     (let ((file (dired-get-filename)))
+       (condition-case err
+           (progn
+             (my/load-file-by-type file)
+             nil)
+         (error
+          (dired-log "Load error for %s:\n%s\n" file err)
+          (dired-make-relative file)))))
    arg 'load t))
 
 (defun my/find-name-dired ()
@@ -779,6 +784,13 @@ handler are loaded into Emacs as usual."
   "Return the (OLD . NEW) pair in RENAMES that involves FILE, or nil."
   (seq-find (lambda (r) (or (equal (car r) file) (equal (cdr r) file)))
             renames))
+
+(defun my/magit-load ()
+  "Load the file at point, dispatching on file type like `my/dired-do-load'.
+The loader is chosen by file extension from `my/dired-load-handlers';
+files with no matching handler are loaded into Emacs as Emacs Lisp."
+  (interactive)
+  (my/load-file-by-type (magit-file-at-point t t)))
 
 (defun my/magit-quick-commit ()
   "Stage and commit when exactly one file is modified.
