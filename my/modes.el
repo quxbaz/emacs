@@ -144,7 +144,9 @@
                 (unpushed . show)
                 (untracked . show)
                 (unstaged . show)        ;; Expand the Unstaged section (show the file list)...
-                ([file unstaged] . hide)))  ;; ...but keep each file's diff collapsed.
+                ([file unstaged] . hide))  ;; ...but keep each file's diff collapsed.
+              ;; Update the revision buffer immediately when moving between commits.
+              magit-update-other-window-delay 0)
   :hooks (magit-mode-hook (lambda ()
                             (setq magit-save-repository-buffers nil)
                             (add-to-list 'magit-no-confirm 'stage-all-changes)
