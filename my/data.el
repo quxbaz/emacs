@@ -28,6 +28,7 @@
                           "~/personal/printing/printing.org"
                           "~/personal/typing.org"
                           "~/conf/claude/CLAUDE.md"
+                          "~/conf/install/setup.org"
                           "~/conf/install/sync.org"
                           "~/conf/aspell/.aspell.en.pws"
                           "~/conf/awesome/rc.lua"
