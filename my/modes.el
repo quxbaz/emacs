@@ -158,7 +158,7 @@
             "w"   'my/key-w
             "C-o" 'magit-diff-visit-file-other-window
             "L"   'my/magit-load
-            "`"   'my/magit-quick-commit)
+            "G"   'my/magit-quick-commit)
 
 
 (my/setup mathjax
