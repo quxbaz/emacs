@@ -51,8 +51,8 @@
 
 ;; # Mini-apps
 (global-set-key (kbd "<f8>") 'my/list-packages)
-(global-set-key (kbd "<escape> n") 'my/calc)
-(global-set-key (kbd "<escape> <escape> n") 'my/calc-direct)
+(global-set-key (kbd "<escape> n") 'maf-calc)
+(global-set-key (kbd "<escape> <escape> n") 'maf-calc-direct)
 (global-set-key (kbd "<escape> p") 'ispell)
 (global-set-key (kbd "<f10>") (my/cmd (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
