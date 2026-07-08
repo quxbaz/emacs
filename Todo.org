@@ -6,7 +6,7 @@ Emacs Todo
 * tourguide
   - j/k to scroll without moving point
   - Rename to tourguide
-  - Renaem lesson-plans/ directory to tourguide-tours/
+  - Rename lesson-plans/ directory to tourguide-tours/
   - Create separate repo and apply relevant commits
   - Current guide explains from top of file to bottom.
     - This is wrong.
