@@ -3,7 +3,7 @@ Emacs Todo
 * Todo
   --
 
-* tourguide
+* tourguide (lesson)
   - j/k to scroll without moving point
   - Rename to tourguide
   - Rename lesson-plans/ directory to tourguide-tours/
