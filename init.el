@@ -78,6 +78,13 @@
 (defvar my/project-init-loaded-roots nil
   "Project roots whose project-init.el has already been loaded.")
 
+;; Init files run with default-directory set to the directory Emacs was
+;; invoked in, so this captures the startup project.
+(defvar my/project-root
+  (when-let* ((root (locate-dominating-file default-directory ".git")))
+    (expand-file-name root))
+  "Root of the git repository Emacs was started in, or nil if none.")
+
 (defun my/load-project-init ()
   (when-let* ((root (locate-dominating-file default-directory ".git"))
               (root (expand-file-name root))
