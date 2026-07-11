@@ -70,7 +70,9 @@
 ;; project-init
 ;;
 ;; If a git project's root contains a project-init.el file, load it the
-;; first time a file from that project is visited in this session.
+;; first time a file or directory from that project is visited in this
+;; session. The dired hook covers starting Emacs on a directory (emacs .),
+;; since dired buffers don't run find-file-hook.
 (defvar my/project-init-loaded-roots nil
   "Project roots whose project-init.el has already been loaded.")
 
@@ -85,6 +87,7 @@
       (message "Loaded %s" init-file))))
 
 (add-hook 'find-file-hook #'my/load-project-init)
+(add-hook 'dired-mode-hook #'my/load-project-init)
 
 ;; Autoloads
 (autoload 'sql-lisp-mode (concat user-emacs-directory "my/lib-sql.el") "A mode for SQL interaction through evaluation of Emacs Lisp forms." t)
