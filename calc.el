@@ -1,4 +1,6 @@
-;;; Mode settings stored by Calc on Wed May  6 14:51:03 2026
+;;; Mode settings stored by Calc on Mon Jul  6 17:40:58 2026
+(setq calc-graph-default-resolution 1000)
+(setq calc-gnuplot-default-device "qt")
 (setq calc-display-trail nil)
 (setq calc-symbolic-mode t)
 (setq calc-prefer-frac t)
