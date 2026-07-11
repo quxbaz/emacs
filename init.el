@@ -67,6 +67,25 @@
 ;; Per-mode configuration (settings + hooks + bindings, one block per mode)
 (load-file (concat user-emacs-directory "my/modes.el"))
 
+;; project-init
+;;
+;; If a git project's root contains a project-init.el file, load it the
+;; first time a file from that project is visited in this session.
+(defvar my/project-init-loaded-roots nil
+  "Project roots whose project-init.el has already been loaded.")
+
+(defun my/load-project-init ()
+  (when-let* ((root (locate-dominating-file default-directory ".git"))
+              (root (expand-file-name root))
+              (init-file (concat root "project-init.el")))
+    (when (and (file-exists-p init-file)
+               (not (member root my/project-init-loaded-roots)))
+      (push root my/project-init-loaded-roots)
+      (load init-file)
+      (message "Loaded %s" init-file))))
+
+(add-hook 'find-file-hook #'my/load-project-init)
+
 ;; Autoloads
 (autoload 'sql-lisp-mode (concat user-emacs-directory "my/lib-sql.el") "A mode for SQL interaction through evaluation of Emacs Lisp forms." t)
 
