@@ -138,6 +138,10 @@
   :init (setq lua-indent-level 2))
 
 
+(my/setup maf
+  :hooks (calc-mode-hook 'maf-mode))
+
+
 (my/setup magit
   :init (setq magit-section-initial-visibility-alist
               '((recent . show)
