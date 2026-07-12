@@ -5,13 +5,15 @@ Send the active region (or the line at point) plus a short annotation to a
 terminal window.
 
 The message wire builds includes the project root, the file, the line range,
-and the code itself, fenced for the buffer's language — e.g.
+where point is, and the code itself, fenced for the buffer's language — e.g.
 
 ```
 this region has a bug
 
 Project: /home/david/proj/
-File: src/a.py (lines 10-12)
+File: src/a.py
+Lines: 10-12
+Point: char 215, line 11, column 4
 
 ```python
 def f():
