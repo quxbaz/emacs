@@ -282,14 +282,18 @@ region as the search string."
     (call-interactively #'query-replace-regexp)))
 
 (defun my/dired-jump ()
-  "When in a non-dired buffer, jump to dired. If in dired, jump to Emacs directory."
+  "When in a non-dired buffer, jump to dired. If in dired, jump to the
+startup project root (`my/project-root', set when Emacs was invoked in a
+git repository), falling back to the Emacs directory. From the project
+root, jump to the Emacs directory."
   (interactive)
   (cond ((eq major-mode 'dired-mode)
-         (unless (string= default-directory user-emacs-directory)
-           (let ((previous-buffer (current-buffer)))
-             (dired user-emacs-directory)
-             ;; (kill-buffer previous-buffer)  ;; Uncomment to kill the existing buffer.
-             )))
+         (let ((project-root (bound-and-true-p my/project-root)))
+           (cond ((and project-root
+                       (not (string= default-directory project-root)))
+                  (dired project-root))
+                 ((not (string= default-directory user-emacs-directory))
+                  (dired user-emacs-directory)))))
         (t (call-interactively 'dired-jump))))
 
 (defun my/dired-up-directory ()
