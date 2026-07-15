@@ -367,10 +367,12 @@ no root is known."
   "Capture context for a dispatch.
 With an active region, capture the region text and its line range; the
 message is about that region.  Without one, capture only buffer
-identity --- the message is about the whole file or buffer.  File-backed
-buffers carry a project/branch/file reference; fileless buffers carry
-the project root and branch (if any), the buffer name, the mode, and --
-for dired -- the directory being listed."
+identity --- the message is about the whole file or buffer.  Either way,
+capture where point is (line and column), so the message says exactly
+where the user was.  File-backed buffers carry a project/branch/file
+reference; fileless buffers carry the project root and branch (if any),
+the buffer name, the mode, and -- for dired -- the directory being
+listed."
   (let* ((reg (use-region-p))
          (beg (and reg (region-beginning)))
          (end (and reg (region-end)))
@@ -385,6 +387,9 @@ for dired -- the directory being listed."
                 :rel-file (if root (file-relative-name file root) file)
                 :beg-line (and reg (line-number-at-pos beg))
                 :end-line (and reg (line-number-at-pos end))
+                :point (point)
+                :point-line (line-number-at-pos)
+                :point-col (current-column)
                 :code code
                 :lang (wire--lang)))
       (let ((root (wire--buffer-project-root)))
@@ -400,9 +405,21 @@ for dired -- the directory being listed."
               :prog (and (derived-mode-p 'prog-mode) t)
               :beg-line (and reg (line-number-at-pos beg))
               :end-line (and reg (wire--region-end-line beg end))
+              :point (point)
+              :point-line (line-number-at-pos)
+              :point-col (current-column)
               :total-lines (count-lines (point-min) (point-max))
               :code code
               :lang (wire--lang))))))
+
+(defun wire--format-point (ctx)
+  "Render the `Point:' line for CTX, without a trailing newline.
+The char position is redundant with line/column but is the form Emacs
+takes programmatically (`goto-char' and friends)."
+  (format "Point: char %d, line %d, column %d"
+          (plist-get ctx :point)
+          (plist-get ctx :point-line)
+          (plist-get ctx :point-col)))
 
 (defun wire--format-context (ctx)
   "Build the context block from CTX, adapting to the buffer kind."
@@ -413,24 +430,28 @@ for dired -- the directory being listed."
 (defun wire--format-file-context (ctx)
   "Build the context block for a file-backed buffer CTX.
 With a region, includes the line range and the fenced region; without
-one, the message is about the whole file, so only the project/branch/
-file header is emitted."
+one, the message is about the whole file, so just the project/branch/
+file header is emitted.  Both forms end with a `Point:' line saying
+where the cursor was."
   (let* ((branch (plist-get ctx :branch))
          (header (format "Project: %s\n%sFile: %s\n"
                          (plist-get ctx :project-root)
                          (if branch (format "Branch: %s\n" branch) "")
-                         (plist-get ctx :rel-file))))
+                         (plist-get ctx :rel-file)))
+         (point-line (wire--format-point ctx)))
     (if (plist-get ctx :region)
         (let* ((beg (plist-get ctx :beg-line))
                (end (plist-get ctx :end-line))
                (lines (if (= beg end)
                           (format "Line: %d" beg)
                         (format "Lines: %d-%d" beg end))))
-          (format "%s%s\n\n```%s\n%s\n```"
-                  header lines (plist-get ctx :lang) (plist-get ctx :code)))
-      ;; No region: header only.  Drop its trailing newline so the
-      ;; caller's "\n\n" leaves exactly one blank line before point.
-      (string-remove-suffix "\n" header))))
+          (format "%s%s\n%s\n\n```%s\n%s\n```"
+                  header lines point-line
+                  (plist-get ctx :lang) (plist-get ctx :code)))
+      ;; No region: header plus the point line, which carries no
+      ;; trailing newline, so the caller's "\n\n" leaves exactly one
+      ;; blank line before point.
+      (concat header point-line))))
 
 (defun wire--format-fileless-context (ctx)
   "Build the context block for a fileless buffer CTX.
@@ -440,7 +461,8 @@ directory for dired buffers, so the message says which directory it is
 about.  With a region, adds a `Focused: line(s) N of M' provenance line
 and the fenced region, using the fence language only for `prog-mode'
 buffers; without one, the message is about the whole buffer.  A `Mode:'
-line is shown whenever the language is not already carried by a fence."
+line is shown whenever the language is not already carried by a fence,
+and both forms end with a `Point:' line saying where the cursor was."
   (let* ((root (plist-get ctx :project-root))
          (branch (plist-get ctx :branch))
          (dir (plist-get ctx :dir))
@@ -453,7 +475,8 @@ line is shown whenever the language is not already carried by a fence."
                   (when branch (format "Branch: %s\n" branch))
                   (format "Buffer: %s\n" (plist-get ctx :buffer))
                   (when dir (format "Directory: %s\n" (wire--display-dir dir root)))
-                  (unless fence-lang (format "Mode: %s\n" (plist-get ctx :mode))))))
+                  (unless fence-lang (format "Mode: %s\n" (plist-get ctx :mode)))))
+         (point-line (wire--format-point ctx)))
     (if region
         (let* ((beg (plist-get ctx :beg-line))
                (end (plist-get ctx :end-line))
@@ -461,11 +484,13 @@ line is shown whenever the language is not already carried by a fence."
                (focused (if (= beg end)
                             (format "Focused: line %d of %d" beg total)
                           (format "Focused: lines %d-%d of %d" beg end total))))
-          (format "%s%s\n\n```%s\n%s\n```"
-                  header focused (or fence-lang "") (plist-get ctx :code)))
-      ;; No region: header only.  Drop its trailing newline so the
-      ;; caller's "\n\n" leaves exactly one blank line before point.
-      (string-remove-suffix "\n" header))))
+          (format "%s%s\n%s\n\n```%s\n%s\n```"
+                  header focused point-line
+                  (or fence-lang "") (plist-get ctx :code)))
+      ;; No region: header plus the point line, which carries no
+      ;; trailing newline, so the caller's "\n\n" leaves exactly one
+      ;; blank line before point.
+      (concat header point-line))))
 
 ;;;; Annotation scaffolding
 ;;
@@ -637,10 +662,11 @@ tags are dropped.  See `wire--compose-message'."
 (defun wire-dispatch ()
   "Edit and send a message about the region (or whole buffer) to Claude.
 Pops a buffer pre-filled with a context header --- project and branch,
-the file or buffer name, and, when a region is active, its line range
-and the region text fenced.  With no active region the message is about
-the whole file/buffer and no code is included.  Type the request in the
-`<prompt>' block; on send it is lifted ahead of the context so Claude
+the file or buffer name, where point is, and, when a region is active,
+its line range and the region text fenced.  With no active region the
+message is about the whole file/buffer and no code is included.  Type
+the request in the `<prompt>' block; on send it is lifted ahead of the
+context so Claude
 CLI history shows a meaningful summary line.  Point starts inside the
 prompt block.  Prompts for a target the first time, or whenever the
 previous target is gone."
