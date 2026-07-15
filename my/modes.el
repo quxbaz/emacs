@@ -67,7 +67,7 @@
             (local-set-key (kbd "M-m") (lambda () (interactive) (move-to-column 2)))))
   :bindings (:hook dired-mode-hook) dired-mode-map
             "P"        'my/dired-up-directory
-            "/"        'isearch-forward-regexp
+            "/"        'my/dired-isearch-visit
             "M"        'dired-mark-files-regexp
             "C-c C-c"  'dired-toggle-read-only
             "r"        'my/dired-do-rename-here
