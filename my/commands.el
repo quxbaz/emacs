@@ -654,6 +654,16 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 ;; # Dired
 
+(defun my/dired-do-kill-lines ()
+  "Like `dired-do-kill-lines', but if no files are marked, kill the
+line at point."
+  (interactive)
+  (if (save-excursion
+        (goto-char (point-min))
+        (re-search-forward (dired-marker-regexp) nil t))
+      (dired-do-kill-lines)
+    (dired-do-kill-lines 1)))
+
 (defun my/dired-do-rename-here ()
   "Like dired-do-rename, but restricts target to the current window."
   (interactive)
