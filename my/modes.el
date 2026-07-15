@@ -84,7 +84,6 @@
             "q"        (my/cmd (quit-window t))  ;; Kill the dired buffer instead of burying it.
             "C-r"      (my/cmd-or 'my/isearch-backward-dwim 'my/dired-resize-image)
             "<backspace>" 'my/dired-do-kill-lines
-            "f"        'find-file
             "j"        'dired-next-line
             "k"        'dired-previous-line
             "n"        nil
