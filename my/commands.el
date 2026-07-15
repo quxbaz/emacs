@@ -654,6 +654,32 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 
 ;; # Dired
 
+(defvar-local my/dired-isearch-visit--origin nil
+  "Point position before `my/dired-isearch-visit' moved to the top.")
+
+(defun my/dired-isearch-visit--end ()
+  "One-shot `isearch-mode-end-hook' for `my/dired-isearch-visit'.
+On RET, visit the entry at point. On quit (C-g), restore point."
+  (remove-hook 'isearch-mode-end-hook #'my/dired-isearch-visit--end t)
+  (cond (isearch-mode-end-hook-quit
+         (goto-char my/dired-isearch-visit--origin))
+        ((and (eq this-command 'isearch-exit)
+              isearch-success
+              (> (length isearch-string) 0))
+         (dired-find-alternate-file))))
+
+(defun my/dired-isearch-visit ()
+  "Isearch the dired buffer from the top; RET visits the match.
+Like `isearch-forward-regexp', but the search always starts from the
+beginning of the buffer, and exiting with RET on a match also visits
+the file or directory at point (via `dired-find-alternate-file',
+replacing the dired buffer). Quitting with C-g restores point."
+  (interactive)
+  (setq my/dired-isearch-visit--origin (point))
+  (goto-char (point-min))
+  (add-hook 'isearch-mode-end-hook #'my/dired-isearch-visit--end nil t)
+  (isearch-forward-regexp))
+
 (defun my/dired-do-kill-lines ()
   "Like `dired-do-kill-lines', but if no files are marked, kill the
 line at point."
