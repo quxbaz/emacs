@@ -93,7 +93,7 @@
 (setq vc-follow-symlinks t)  ;; Auto-follow symlinks without prompting.
 (setq confirm-kill-emacs 'yes-or-no-p)
 (setq backup-directory-alist `((".*" . "~/.tmp")))
-(setq auto-save-file-name-transforms `((".*" "~/.tmp" t)))
+;; Auto-save files (#foo#) use the default behavior: saved next to the visited file.
 (setq auto-save-list-file-prefix (concat "~/.tmp" ".auto-saves-"))
 ;; (setq make-backup-files nil)  ;; Temporary. Using this for work. Causing issues with watchers picking up backup files and crashing.
 ;; (setq auto-save-default nil)  ;; ^^
