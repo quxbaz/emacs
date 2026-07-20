@@ -18,7 +18,7 @@
     (require 'maf)
     ;; Persist each session's calc stack across restarts;
     ;; M-x maf-restore-stack-from loads another session's stack.
-    (maf-stack-persistence-mode 1)))
+    (maf-persist-mode 1)))
 
 ;; Load wire package if it exists.
 (let ((wire-path (concat user-emacs-directory "site-lisp/wire")))
