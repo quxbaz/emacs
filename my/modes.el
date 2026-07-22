@@ -232,6 +232,7 @@
             "C-c C-y"    'my/org-evaluate-time-range
             "C-C C-,"    'org-agenda
             "<f5>"       'org-html-export-to-html
+            "M-o"        'my/outline-toggle-all
             "C-c C-b"    'my/diff-buffer-with-file)
 
 
