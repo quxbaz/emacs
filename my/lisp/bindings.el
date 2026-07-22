@@ -75,6 +75,8 @@
   "C-c C-k" (my/with-prefix 'my/slime-eval-dwim '(16))
   "M-."     'my/mark-context
   "M-,"     'my/call-macro-dwim
+  "M-n"     'my/forward-sexp
+  "M-p"     'backward-sexp
   "C-h C-h" 'my/slime-help-dwim
   "C-h C-o" 'slime-hyperspec-lookup
   "C-c C-x" 'slime-compile-defun
