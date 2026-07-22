@@ -167,8 +167,7 @@
             "w"   'my/key-w
             "C-o" 'magit-diff-visit-file-other-window
             "L"   'my/magit-load
-            "G"   'my/magit-quick-commit
-            "I"   'magit-push-current-to-pushremote)
+            "G"   'my/magit-quick-commit)
 
 
 (my/setup mathjax
