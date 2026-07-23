@@ -143,6 +143,43 @@
   :init (setq lua-indent-level 2))
 
 
+;; Reseed the calc stack with a set of demo expression shapes — a personal
+;; testing convenience kept here, not in maf itself. The maf repo's
+;; project-init.el has its own copy for the dev instance; this is for
+;; everyday use, where project-init.el never loads. Bound to <f5> below.
+(defun my/maf-seed-calc ()
+  "Reset the calc stack to a set of demo expression shapes.
+Clears the current stack, then pushes each seed entry — a quick way
+back to a known set of shapes for casual testing.  Replaces the stack;
+the old contents remain on calc's undo list."
+  (interactive)
+  ;; calc-wrapper's epilogue renumbers and refreshes the display; raw
+  ;; pushes would render every entry as level 1.
+  (maf--with-calc-buffer
+    (calc-wrapper
+     (let ((n (calc-stack-size)))
+       (when (> n 0) (calc-pop-stack n)))
+     (mapc #'maf-push
+           '("3:4"                  ; fraction
+             "2.5"                  ; float
+             "x"                    ; variable
+             "(a + b) (2 c - d)"    ; nested expressions
+             "2 x - 3 < 7"          ; inequality
+             "f(x) = x^2 + 1"       ; function
+             "sin(2 x + 1)"         ; trig
+             "[a, b, c]"            ; vector
+             "[1 .. 3]"             ; interval
+             "6 x + 12"             ; expression
+             "1 / (x^2 - 1)"        ; rational function
+             "6 x + 12 = 18 y + 6"  ; equation
+             )))))
+
+(my/setup maf
+  :hooks (calc-mode-hook 'maf-mode)
+  :bindings (:after maf) maf-mode-map
+            "<f5>" 'my/maf-seed-calc)
+
+
 (my/setup magit
   :init (setq magit-section-initial-visibility-alist
               '((recent . show)
@@ -163,8 +200,7 @@
             "w"   'my/key-w
             "C-o" 'magit-diff-visit-file-other-window
             "L"   'my/magit-load
-            "G"   'my/magit-quick-commit
-            "I"   'magit-push-current-to-pushremote)
+            "G"   'my/magit-quick-commit)
 
 
 (my/setup mathjax
@@ -229,6 +265,7 @@
             "C-c C-y"    'my/org-evaluate-time-range
             "C-C C-,"    'org-agenda
             "<f5>"       'org-html-export-to-html
+            "M-o"        'my/outline-toggle-all
             "C-c C-b"    'my/diff-buffer-with-file)
 
 

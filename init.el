@@ -12,10 +12,13 @@
 
 ;; Local packages
 ;; Load maf package if it exists.
-;; (let ((maf-path (concat user-emacs-directory "site-lisp/maf")))
-;;   (when (file-exists-p (concat maf-path "/maf.el"))
-;;     (add-to-list 'load-path maf-path)
-;;     (require 'maf)))
+(let ((maf-path (concat user-emacs-directory "site-lisp/maf")))
+  (when (file-exists-p (concat maf-path "/maf.el"))
+    (add-to-list 'load-path maf-path)
+    (require 'maf)
+    ;; Persist each session's calc stack across restarts;
+    ;; M-x maf-restore-stack-from loads another session's stack.
+    (maf-persist-mode 1)))
 
 ;; Load wire package if it exists.
 (let ((wire-path (concat user-emacs-directory "site-lisp/wire")))
@@ -66,8 +69,6 @@
 (load-file (concat user-emacs-directory "my/kmacros.el"))
 ;; Per-mode configuration (settings + hooks + bindings, one block per mode)
 (load-file (concat user-emacs-directory "my/modes.el"))
-;; Calc
-(load-file (concat user-emacs-directory "my/calc/index.el"))
 
 ;; project-init
 ;;

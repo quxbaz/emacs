@@ -231,7 +231,7 @@
 
             ;; Math operations
             (keymap-set calc-edit-mode-map "J" (my/cmd (insert "*")))
-            (keymap-set calc-edit-mode-map "'" 'my/calc-edit-square-dwim)
+            (keymap-set calc-edit-mode-map ":" 'my/calc-edit-square-dwim)
             (keymap-set calc-edit-mode-map "W" 'my/calc-edit-square-dwim)
             (keymap-set calc-edit-mode-map "\"" 'my/calc-edit-cube-dwim)
             (keymap-set calc-edit-mode-map "\\" 'my/calc-edit-sqrt-dwim)
