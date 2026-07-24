@@ -85,9 +85,7 @@
             "C-r"      (my/cmd-or 'my/isearch-backward-dwim 'my/dired-resize-image)
             "<backspace>" 'my/dired-do-kill-lines
             "j"        'dired-next-line
-            "k"        'dired-previous-line
-            "n"        nil
-            "p"        nil)
+            "k"        'dired-previous-line)
 
 
 (my/setup edebug
