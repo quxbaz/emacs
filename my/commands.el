@@ -876,6 +876,31 @@ change is a rename, git's 'renamed:    old -> new' format."
      (t
       (user-error "my/magit-quick-commit: no modified files")))))
 
+(defun my/magit-top-level-sections ()
+  "Return the top-level sections of the current magit buffer.
+These are the major headings: \"Untracked files\", \"Unstaged changes\",
+\"Recent commits\", etc."
+  (and (bound-and-true-p magit-root-section)
+       (oref magit-root-section children)))
+
+(defun my/magit-section-forward-top-level ()
+  "Move to the beginning of the next top-level section."
+  (interactive)
+  (if-let ((next (seq-find (lambda (s) (> (oref s start) (point)))
+                           (my/magit-top-level-sections))))
+      (magit-section-goto next)
+    (user-error "No next top-level section")))
+
+(defun my/magit-section-backward-top-level ()
+  "Move to the beginning of the current or the previous top-level section.
+When point is already at the beginning of a top-level section, move to
+the previous one."
+  (interactive)
+  (if-let ((prev (seq-find (lambda (s) (< (oref s start) (point)))
+                           (reverse (my/magit-top-level-sections)))))
+      (magit-section-goto prev)
+    (user-error "No previous top-level section")))
+
 
 ;; php, web-mode
 

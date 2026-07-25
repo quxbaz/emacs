@@ -198,7 +198,10 @@ the old contents remain on calc's undo list."
             "w"   'my/key-w
             "C-o" 'magit-diff-visit-file-other-window
             "L"   'my/magit-load
-            "G"   'my/magit-quick-commit)
+            "G"   'my/magit-quick-commit
+            ;; Jump between major headings instead of same-level siblings.
+            "M-n" 'my/magit-section-forward-top-level
+            "M-p" 'my/magit-section-backward-top-level)
 
 
 (my/setup mathjax
