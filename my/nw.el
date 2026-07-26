@@ -141,6 +141,22 @@ so the sendable key has to be translated into the bound one.")
 ;; C-c e n is <escape> n, C-c e C-c e i is <escape> <escape> i.
 (define-key input-decode-map (kbd "C-c e") [escape])
 
+;; Inside a multiplexer the protocol is out of reach: tmux does not implement
+;; the kitty keyboard protocol (3.4 has no notion of it), so kkp's query goes
+;; unanswered and Escape is the meta prefix again no matter what the outer
+;; terminal can do. tmux can be told to send something else for that one key,
+;; though, and CSI 27 u is what the protocol itself sends for Escape -- so
+;; decoding it here costs nothing and makes the two paths agree.
+;;
+;; The tmux side lives in ~/conf/tmux/tmux.conf. It rewrites Escape to CSI 27 u
+;; in Emacs panes only, so everything else in the session keeps a plain Escape,
+;; and prefix + e toggles even that off for an Emacs that does not load this
+;; file. It also sets extended-keys, which is how the ctrl-punct keys (C-; C-,
+;; C-. C-<return> C-<tab>) get through at all: Emacs turns on modifyOtherKeys by
+;; itself under TERM=tmux* and TERM=screen*, but tmux forwards those keys only
+;; when the option is on.
+(define-key input-decode-map "\e[27u" [escape])
+
 
 ;; # Visuals
 ;; ## Theme
