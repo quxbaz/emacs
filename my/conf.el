@@ -71,15 +71,19 @@
 ;; Under the daemon there's no frame at init time, so `default' has no usable
 ;; color and the mode errors when it auto-sets faces. Defer enabling until a
 ;; graphical frame exists.
-(setq highlight-indent-guides-method 'bitmap)
-(defun my/enable-highlight-indent-guides (&optional frame)
-  (when (display-graphic-p frame)
-    (remove-hook 'after-make-frame-functions #'my/enable-highlight-indent-guides)
-    (with-selected-frame frame
-      (highlight-indent-guides-mode t))))
-(if (daemonp)
-    (add-hook 'after-make-frame-functions #'my/enable-highlight-indent-guides)
-  (highlight-indent-guides-mode t))
+;; A terminal frame has neither bitmaps nor a colored `default' face at this
+;; point, so this whole block is graphical-only; my/nw.el sets up the character
+;; method instead.
+(when window-system
+  (setq highlight-indent-guides-method 'bitmap)
+  (defun my/enable-highlight-indent-guides (&optional frame)
+    (when (display-graphic-p frame)
+      (remove-hook 'after-make-frame-functions #'my/enable-highlight-indent-guides)
+      (with-selected-frame frame
+        (highlight-indent-guides-mode t))))
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions #'my/enable-highlight-indent-guides)
+    (highlight-indent-guides-mode t)))
 
 
 ;; # Search

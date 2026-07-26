@@ -2,7 +2,11 @@
 
 
 ;; # Set theme and font.
-(load-theme 'modus-vivendi t)
+;; A terminal session loads doom-outrun-electric instead (my/nw.el), which makes
+;; the two kinds of session easy to tell apart. Skipping this one keeps that to a
+;; single load-theme: disabling a theme after loading it can leave faces behind.
+(when window-system
+  (load-theme 'modus-vivendi t))
 ;; (set-face-attribute 'default nil :font "Monaco-10")
 ;; Set the font via default-frame-alist so it applies to every frame,
 ;; including ones the daemon creates for emacsclient (set-face-attribute at
@@ -11,7 +15,9 @@
 ;; (set-face-attribute 'default nil :font "Monaco-11:pixelsize=15")
 ;; The default-frame-alist font is set in early-init.el (before the first frame)
 ;; to avoid a startup resize; this also applies it to the default face.
-(set-face-attribute 'default nil :font my/default-font)
+;; A terminal frame takes its font from the terminal emulator, so skip it there.
+(when window-system
+  (set-face-attribute 'default nil :font my/default-font))
 
 
 ;; # Colors

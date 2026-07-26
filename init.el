@@ -69,6 +69,11 @@
 (load-file (concat user-emacs-directory "my/kmacros.el"))
 ;; Per-mode configuration (settings + hooks + bindings, one block per mode)
 (load-file (concat user-emacs-directory "my/modes.el"))
+;; No-window (terminal) configuration, layered on top of everything above.
+;; Only loaded when running without a window system: emacs -nw, a Linux
+;; console, or over ssh.
+(unless window-system
+  (load-file (concat user-emacs-directory "my/nw.el")))
 
 ;; project-init
 ;;
