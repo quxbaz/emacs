@@ -222,22 +222,49 @@ so the sendable key has to be translated into the bound one.")
 ;;    Copy and paste both work. This is the case when the terminal runs inside
 ;;    X or Wayland, e.g. emacs -nw in kitty.
 ;; 2. OSC 52, an escape sequence handing the text to the terminal emulator,
-;;    which puts it on the clipboard on our behalf. This covers ssh and the
-;;    bare console: no display server needed, but it is copy-only, and the
-;;    terminal has to permit it (kitty allows writes by default; see
-;;    clipboard_control). Pasting back is the terminal's own paste key, which
-;;    arrives as ordinary input.
+;;    which puts it on the clipboard on our behalf. This covers ssh: no display
+;;    server needed, but it is copy-only, and the terminal has to implement it
+;;    (kitty allows writes by default; see clipboard_control). Pasting back is
+;;    the terminal's own paste key, which arrives as ordinary input.
+;;
+;; A Linux virtual console has neither: no display server to talk to and no OSC
+;; 52 in console_codes(4). There the clipboard stays Emacs-internal.
 (defun my/nw-osc52-copy (text)
   "Hand TEXT to the terminal emulator's clipboard using OSC 52."
   (let ((payload (base64-encode-string (encode-coding-string text 'utf-8) t)))
     (send-string-to-terminal
-     ;; tmux swallows OSC 52 unless it is wrapped in a passthrough DCS.
+     ;; tmux swallows OSC 52 unless it is wrapped in a passthrough DCS -- and
+     ;; only forwards it when allow-passthrough is on.
      (if (getenv "TMUX")
          (format "\ePtmux;\e\e]52;c;%s\a\e\\" payload)
        (format "\e]52;c;%s\a" payload)))))
 
-(if (and (or (getenv "DISPLAY") (getenv "WAYLAND_DISPLAY"))
-         (require 'xclip nil t)
-         xclip-method)
-    (xclip-mode 1)
-  (setq interprogram-cut-function #'my/nw-osc52-copy))
+(defun my/nw-clipboard-method ()
+  "The xclip method this session can actually use, or nil if there is none.
+Not `xclip-method' itself: that picks whichever helper turns up on PATH
+first without regard for which display server is running -- xsel ahead of
+wl-copy, though xsel only speaks to X -- and it falls back to the symbol
+`xclip' even when no such program is installed, which makes `xclip-mode'
+signal a file error as it turns on. So pick by display server, and only
+after confirming the program is there. wl-copy needs its wl-paste sibling
+too: xclip derives the paste command from the copy one by name."
+  (when (require 'xclip nil t)
+    (cond ((and (getenv "WAYLAND_DISPLAY")
+                (executable-find "wl-copy")
+                (executable-find "wl-paste"))
+           'wl-copy)
+          ((null (getenv "DISPLAY")) nil)
+          ((executable-find "xclip") 'xclip)
+          ((executable-find "xsel") 'xsel))))
+
+(let ((method (my/nw-clipboard-method)))
+  (cond (method
+         ;; The method selects the code path, `xclip-program' is the binary it
+         ;; actually runs, and the latter was computed from xclip's own choice
+         ;; when the package loaded. Setting only the method runs the wrong
+         ;; program. They are named alike, so one follows from the other.
+         (setq xclip-method method
+               xclip-program (symbol-name method))
+         (xclip-mode 1))
+        ((not (equal (tty-type) "linux"))
+         (setq interprogram-cut-function #'my/nw-osc52-copy))))
