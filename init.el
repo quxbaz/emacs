@@ -113,11 +113,13 @@
      aggressive-indent
      autopair
      corfu
+     corfu-terminal
      deadgrep
      diff-hl
      doom-themes
      highlight-indent-guides
      ivy
+     kkp
      lua-mode
      magit
      markdown-mode
@@ -127,6 +129,7 @@
      rainbow-blocks
      slime
      web-mode
+     xclip
      yasnippet
      )))
 
