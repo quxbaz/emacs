@@ -151,8 +151,10 @@ so the sendable key has to be translated into the bound one.")
 ;; ## Indent guides
 ;; The `bitmap' method needs a graphical display, and the face auto-setup reads
 ;; colors off the `default' face, which a terminal frame does not have when
-;; my/conf.el runs (the theme has not loaded yet) -- that combination is a
-;; startup error. Use the character method with an explicit face instead.
+;; my/conf.el runs (the theme has not loaded yet). That combination printed an
+;; error-shaped message at every startup and left the faces unset -- not a
+;; signal, just noise and no guides. Use the character method with an explicit
+;; face instead.
 ;; my/conf.el skips its own highlight-indent-guides block when there is no
 ;; window system.
 (setq highlight-indent-guides-method 'character)
