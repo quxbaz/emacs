@@ -121,9 +121,6 @@
 (global-set-key (kbd "M-l") 'downcase-dwim)
 (global-set-key (kbd "M-c") 'capitalize-dwim)
 
-;; ## Misc editing
-(global-set-key (kbd "C-q") 'fill-paragraph)
-
 
 ;; # Indentation
 (global-set-key (kbd "M-q") 'my/indent-block)
