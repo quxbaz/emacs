@@ -175,7 +175,7 @@ so the sendable key has to be translated into the bound one.")
   (highlight-indent-guides-mode t))
 
 ;; ## Fringes
-;; A terminal has no fringes, so anything drawn in one is invisible.  diff-hl
+;; A terminal has no fringes, so anything drawn in one is invisible. diff-hl
 ;; can draw its hunk indicators in the margin instead.
 (with-eval-after-load 'diff-hl
   (require 'diff-hl-margin)
@@ -195,7 +195,7 @@ so the sendable key has to be translated into the bound one.")
 
 ;; # Completion
 ;; corfu shows its candidate popup in a child frame, which a terminal cannot
-;; create -- global-corfu-mode is on but nothing ever appears.  corfu-terminal
+;; create -- global-corfu-mode is on but nothing ever appears. corfu-terminal
 ;; redraws the same popup as overlay text via popon.
 (when (require 'corfu-terminal nil t)
   (corfu-terminal-mode 1))
