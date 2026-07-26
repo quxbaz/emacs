@@ -46,8 +46,20 @@
 ;; rather than as the meta prefix, C-; is distinguishable from ';', and the
 ;; bindings work exactly as written. On a terminal without the protocol
 ;; global-kkp-mode quietly does nothing and the fallbacks below take over.
+;;
+;; The one thing the protocol costs: C-g goes out as an escape sequence rather
+;; than the raw quit byte, so it cannot interrupt a blocking subprocess call.
+;; kkp restores the legacy encoding for the duration of such a call, but its
+;; own option only advises `call-process', and the blocking primitives are
+;; separate C functions that do not route through it -- magit runs
+;; `process-file', wire's send path `call-process-region'. So take the option
+;; (it is read when the mode turns on, hence the order) and extend the same
+;; advice to the rest. The advice is a no-op wherever kkp is not active.
+(setq kkp-restore-legacy-keys-around-subprocesses t)
 (when (require 'kkp nil t)
-  (global-kkp-mode 1))
+  (global-kkp-mode 1)
+  (dolist (fn '(call-process-region process-file process-file-region))
+    (advice-add fn :around #'kkp-restore-legacy-keys)))
 
 
 ;; ## Fallbacks for terminals without the keyboard protocol
