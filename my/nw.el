@@ -54,12 +54,21 @@
 ;; separate C functions that do not route through it -- magit runs
 ;; `process-file', wire's send path `call-process-region'. So take the option
 ;; (it is read when the mode turns on, hence the order) and extend the same
-;; advice to the rest. The advice is a no-op wherever kkp is not active.
+;; advice to the rest, off the mode's own hook so it comes and goes with the
+;; mode the way kkp's does.
+(defun my/nw-sync-kkp-subprocess-advice ()
+  "Advise the blocking primitives kkp's own option leaves alone.
+Follows `global-kkp-mode': attached while the mode is on, removed when it
+goes off, so toggling the mode does not leave wrappers behind."
+  (dolist (fn '(call-process-region process-file process-file-region))
+    (if global-kkp-mode
+        (advice-add fn :around #'kkp-restore-legacy-keys)
+      (advice-remove fn #'kkp-restore-legacy-keys))))
+
 (setq kkp-restore-legacy-keys-around-subprocesses t)
 (when (require 'kkp nil t)
-  (global-kkp-mode 1)
-  (dolist (fn '(call-process-region process-file process-file-region))
-    (advice-add fn :around #'kkp-restore-legacy-keys)))
+  (add-hook 'global-kkp-mode-hook #'my/nw-sync-kkp-subprocess-advice)
+  (global-kkp-mode 1))
 
 
 ;; ## Fallbacks for terminals without the keyboard protocol
