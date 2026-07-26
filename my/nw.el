@@ -58,14 +58,18 @@
 ;;
 ;;   C-c c KEY  ->  C-KEY      (C-c c ; = C-;, C-c c RET = C-<return>)
 ;;   C-c a KEY  ->  C-M-KEY    (C-c a . = C-M-., "a" for alt)
-;;   C-c S KEY  ->  M-S-KEY    (C-c S RET = M-S-<return>)
+;;   C-c s KEY  ->  S-KEY      (C-c s RET = S-<return>)
+;;   C-c S KEY  ->  M-S-KEY    (C-c S RET = M-S-<return>; the shifted prefix
+;;                              is the shifted one, plus meta)
 ;;   C-c u KEY  ->  s-KEY      (C-c u n = s-n, "u" for super)
+;;   C-c e      ->  <escape>   (C-c e n = <escape> n; see below)
 ;;
-;; Note that this reserves C-c c, C-c a, C-c S and C-c u as prefixes on a
-;; terminal; typing one followed by a key with no translation leaves the keys
-;; untouched, so nothing else is shadowed.
+;; Note that this reserves C-c c, C-c a, C-c s, C-c S, C-c u and C-c e as
+;; prefixes on a terminal; typing one followed by a key with no translation
+;; leaves the keys untouched, so nothing else is shadowed.
 (defconst my/nw-modifier-prefixes
-  '(("C-c c" . "C-") ("C-c a" . "C-M-") ("C-c S" . "M-S-") ("C-c u" . "s-"))
+  '(("C-c c" . "C-") ("C-c a" . "C-M-") ("C-c s" . "S-")
+    ("C-c S" . "M-S-") ("C-c u" . "s-"))
   "Terminal-reachable prefixes standing in for modifiers a terminal drops.")
 
 (defconst my/nw-modifier-keys
@@ -105,6 +109,16 @@ so the sendable key has to be translated into the bound one.")
 (dolist (pair '(("M-RET"           . "M-<return>")
                 ("C-c c <backtab>" . "<C-iso-lefttab>")))
   (define-key input-decode-map (kbd (car pair)) (kbd (cdr pair))))
+
+;; The `<escape> ...' map needs a route of its own. Without the protocol,
+;; Escape is the meta prefix and the events it produces are meta-modified
+;; characters, never the `escape' key the map is bound on, so every binding in
+;; it is out of reach. (With the protocol, Escape reports as itself and the map
+;; works untouched -- this is purely a fallback.) Translating to the bare event
+;; rather than to a full sequence hands the rest of the lookup back to the map
+;; itself, so this one entry covers all of it, `<escape> <escape> ...' included:
+;; C-c e n is <escape> n, C-c e C-c e i is <escape> <escape> i.
+(define-key input-decode-map (kbd "C-c e") [escape])
 
 
 ;; # Visuals
