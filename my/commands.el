@@ -217,7 +217,7 @@ closing delimiter."
       (outline-minor-mode t))
   (if (not (boundp 'show-headings-only))
       (setq-local show-headings-only nil))
-  (if show-headings-only (outline-show-all) (outline-hide-body))
+  (if show-headings-only (outline-show-all) (outline-hide-sublevels 1))
   (setq-local show-headings-only (not show-headings-only)))
 
 
