@@ -67,7 +67,7 @@
 (global-set-key (kbd "M-a") 'backward-paragraph)
 (global-set-key (kbd "M-e") 'forward-paragraph)
 (global-set-key (kbd "C-\\") 'my/match-delimiter)
-(global-set-key (kbd "M-.") 'my/mark-context)
+;; (global-set-key (kbd "C-M-.") 'my/mark-context)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
 
 
@@ -186,10 +186,9 @@
 (global-set-key (kbd "C-c C-b") 'my/diff-buffer-with-file)
 ;; ## Windows
 (global-set-key (kbd "C-x C-o") 'my/other-window)
-(global-set-key (kbd "<escape> -") 'window-swap-states)
-(global-set-key (kbd "<escape> .") 'delete-window)
-;; (global-set-key (kbd "<escape> \\") 'delete-window)
-;; (global-set-key (kbd "<escape> .") 'delete-other-windows)
+(global-set-key (kbd "C--") 'window-swap-states)
+(global-set-key (kbd "C-M-.") 'delete-window)
+(global-set-key (kbd "<escape> .") 'delete-other-windows)
 (global-set-key (kbd "<escape> = ") 'balance-windows)
 ;; ## Dired
 (global-set-key (kbd "M-`") 'my/dired-jump)
