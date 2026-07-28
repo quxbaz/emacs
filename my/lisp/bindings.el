@@ -18,7 +18,7 @@
     ("C-M-i"       . dabbrev-expand)
     ("M-n"         . my/forward-sexp)
     ("M-p"         . backward-sexp)
-    ("C-M-."       . my/mark-list-command)
+    ;; ("C-M-."       . my/mark-list-command)
     ("M-w"         . my/lisp-kill-ring-save-dwim)
     ("M-<return>"  . my/duplicate-list)
     ("C-k"         . my/lisp-kill-dwim)

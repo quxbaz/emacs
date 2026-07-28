@@ -262,7 +262,7 @@ the old contents remain on calc's undo list."
             "C-,"        'my/switch-to-other-buffer
             "C-c C-v"    'my/revert-buffer
             "C-M--"      'org-insert-todo-heading
-            "C-M-."      'my/org-table-mark-field
+            ;; "C-M-."      'my/org-table-mark-field
             "C-c C-o"    'my/org-open-at-point-dwim
             "C-c C-y"    'my/org-evaluate-time-range
             "C-C C-,"    'org-agenda
