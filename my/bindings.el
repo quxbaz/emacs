@@ -134,7 +134,7 @@
 (global-set-key (kbd "C-g") 'my/quit)
 (global-set-key (kbd "C-M-<delete>") 'my/restart-emacs)
 (global-set-key (kbd "C-x C-c") 'my/kill-terminal)
-(global-set-key (kbd "C-.") 'repeat)
+(global-set-key (kbd "C-M-.") 'repeat)
 (global-set-key (kbd "<escape> <escape> i") 'my/insert-uuid)
 (global-set-key (kbd "<escape> <escape> t") 'org-time-stamp)
 (global-set-key (kbd "<escape> L") 'my/toggle-emacs-lisp-mode)
@@ -187,7 +187,7 @@
 ;; ## Windows
 (global-set-key (kbd "C-x C-o") 'my/other-window)
 (global-set-key (kbd "C--") 'window-swap-states)
-(global-set-key (kbd "C-M-.") 'delete-window)
+(global-set-key (kbd "C-.") 'delete-window)
 (global-set-key (kbd "<escape> .") 'delete-other-windows)
 (global-set-key (kbd "<escape> = ") 'balance-windows)
 ;; ## Dired
