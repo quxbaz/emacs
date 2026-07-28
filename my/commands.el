@@ -211,14 +211,38 @@ closing delimiter."
       (forward-line)))
 
 
+(defun my/outline-subtrees-shown-p ()
+  "Return non-nil if any heading's body or child line is currently visible.
+Only headings that are themselves visible count, and a childless
+heading's trailing newline does not, so a fully-folded buffer reports nil
+even when its headings have no bodies."
+  (save-excursion
+    (goto-char (point-min))
+    (catch 'shown
+      (while (re-search-forward outline-regexp nil t)
+        (let ((level (funcall outline-level))
+              (bol (line-beginning-position))
+              (eol (line-end-position)))
+          (when (and (not (outline-invisible-p bol))
+                     (< eol (point-max)))
+            (save-excursion
+              (forward-line 1)
+              (when (and (not (eobp))
+                         (not (outline-invisible-p (point)))
+                         (or (not (looking-at outline-regexp))
+                             (> (funcall outline-level) level)))
+                (throw 'shown t))))))
+      nil)))
+
 (defun my/outline-toggle-all ()
   (interactive)
   (if (not (bound-and-true-p outline-minor-mode))
       (outline-minor-mode t))
-  (if (not (boundp 'show-headings-only))
-      (setq-local show-headings-only nil))
-  (if show-headings-only (outline-show-all) (outline-hide-sublevels 1))
-  (setq-local show-headings-only (not show-headings-only)))
+  ;; Prefer hiding: only expand when everything is already folded to
+  ;; top-level headings; if any subtree is showing, collapse it.
+  (if (my/outline-subtrees-shown-p)
+      (outline-hide-sublevels 1)
+    (outline-show-all)))
 
 
 ;; # Search, replace, occur
