@@ -238,6 +238,7 @@ the old contents remain on calc's undo list."
 (my/setup org
   :init (setq org-adapt-indentation t)  ;; Indent after headings.
         (setq org-confirm-babel-evaluate nil)  ;; Evaluate code without confirmation.
+        (setq org-startup-folded 'overview)  ;; Open files folded to top-level headings.
         (custom-set-faces
          '(org-ellipsis ((t (:foreground "gray50")))))
         (setq org-ellipsis " [...]")
