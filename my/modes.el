@@ -255,6 +255,7 @@ the old contents remain on calc's undo list."
             ;; "M--" 'org-meta-return
             "M-j"        'org-meta-return
             "C-j"        'org-newline-and-indent
+            "C-k"        'my/org-kill-line-dwim
             "|"          'my/key-pipe
             "C-o"        'my/open-line
             "M-<return>" 'duplicate-dwim

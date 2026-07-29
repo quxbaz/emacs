@@ -696,6 +696,27 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (my/org-open-links-in-region (region-beginning) (region-end))
     (org-open-at-point arg)))
 
+(defun my/org-kill-line-dwim ()
+  "Kill line, but kill whole subtrees and list items from their start.
+
+With point before the stars of a heading or the bullet of a list
+item, kill that heading or item along with everything under it.
+Anywhere else, fall back to `org-kill-line'."
+  (interactive)
+  (let ((at-start (save-excursion (skip-chars-backward " \t") (bolp))))
+    (cond
+     ((and at-start (org-at-heading-p)) (org-cut-subtree))
+     ((and at-start (org-at-item-p))
+      (let* ((beg (org-in-item-p))
+             (end (org-list-get-item-end beg (save-excursion (org-list-struct)))))
+        (kill-region beg
+                     ;; The item end swallows the blank lines after it; keep them.
+                     (save-excursion
+                       (goto-char end)
+                       (skip-chars-backward " \t\n")
+                       (min end (line-beginning-position 2))))))
+     (t (org-kill-line)))))
+
 (defun my/org-open-links-in-region (beg end)
   "Open all links in region."
   (interactive "r")
