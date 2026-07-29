@@ -197,10 +197,8 @@ the old contents remain on calc's undo list."
   :bindings (:after magit) magit-mode-map
             "w"   'my/key-w
             "C-o" 'magit-diff-visit-file-other-window
-            "L"   'my/magit-load
             "G"   'my/magit-quick-commit
-            "K"   'magit-push-current-to-pushremote
-            "#"   'magit-file-untrack
+            "L"   'magit-push-current-to-pushremote
             ;; Jump between major headings instead of same-level siblings.
             "M-n" 'my/magit-section-forward-top-level
             "M-p" 'my/magit-section-backward-top-level)
