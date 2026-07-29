@@ -211,46 +211,84 @@ closing delimiter."
       (forward-line)))
 
 
-(defun my/outline-subtrees-shown-p ()
-  "Return non-nil if any heading's body or child line is currently visible.
-Only headings that are themselves visible count, and neither a childless
-heading's trailing newline nor a blank line separating two subtrees does,
-so a fully-folded buffer reports nil even when its headings have no
-bodies."
+(defun my/outline-subtrees-shown-p (&optional beg end)
+  "Return non-nil if any heading's body or child line is visible in BEG..END.
+BEG and END default to the whole buffer.  Only headings that are
+themselves visible count, and neither a childless heading's trailing
+newline nor a blank line separating two subtrees does, so a fully-folded
+region reports nil even when its headings have no bodies."
+  (let ((beg (or beg (point-min)))
+        (end (or end (point-max))))
+    (save-excursion
+      (goto-char beg)
+      (catch 'shown
+        (while (re-search-forward outline-regexp end t)
+          (let ((level (funcall outline-level))
+                (bol (line-beginning-position))
+                (eol (line-end-position)))
+            (when (and (not (outline-invisible-p bol))
+                       (< eol end))
+              (save-excursion
+                (forward-line 1)
+                ;; Org keeps the blank lines between subtrees visible even when
+                ;; folded, so they say nothing about fold state.  Skip them and
+                ;; judge by the first visible line that has content.
+                (while (and (< (point) end)
+                            (not (outline-invisible-p (point)))
+                            (looking-at-p "[ \t]*$"))
+                  (forward-line 1))
+                (when (and (< (point) end)
+                           (not (outline-invisible-p (point)))
+                           (or (not (looking-at outline-regexp))
+                               (> (funcall outline-level) level)))
+                  (throw 'shown t))))))
+        nil))))
+
+(defun my/outline-before-first-heading-p ()
+  "Return non-nil if point precedes every heading, or there are none at all."
   (save-excursion
-    (goto-char (point-min))
-    (catch 'shown
-      (while (re-search-forward outline-regexp nil t)
-        (let ((level (funcall outline-level))
-              (bol (line-beginning-position))
-              (eol (line-end-position)))
-          (when (and (not (outline-invisible-p bol))
-                     (< eol (point-max)))
-            (save-excursion
-              (forward-line 1)
-              ;; Org keeps the blank lines between subtrees visible even when
-              ;; folded, so they say nothing about fold state.  Skip them and
-              ;; judge by the first visible line that has content.
-              (while (and (not (eobp))
-                          (not (outline-invisible-p (point)))
-                          (looking-at-p "[ \t]*$"))
-                (forward-line 1))
-              (when (and (not (eobp))
-                         (not (outline-invisible-p (point)))
-                         (or (not (looking-at outline-regexp))
-                             (> (funcall outline-level) level)))
-                (throw 'shown t))))))
-      nil)))
+    (condition-case nil
+        (progn (outline-back-to-heading t) nil)
+      (error t))))
+
+(defun my/outline-outside-headings-p ()
+  "Return non-nil if point is not in any heading's text.
+True before the first heading, in a buffer with no headings, and on a
+blank line: a blank line carries no heading context -- it is usually the
+gap between two subtrees -- so it counts as being outside them all."
+  (or (my/outline-before-first-heading-p)
+      (save-excursion
+        (beginning-of-line)
+        (looking-at-p "[ \t]*$"))))
 
 (defun my/outline-toggle-all ()
+  "Toggle folding of the subtree at point, or of the buffer.
+At or inside a heading's text, fold just that heading's subtree, leaving
+point on the heading.  Outside every heading -- before the first one or on
+a blank line between subtrees -- fold the whole buffer to top-level
+headings instead.  Either way the toggle prefers hiding: it only expands
+when the subtree or buffer is already folded."
   (interactive)
   (if (not (bound-and-true-p outline-minor-mode))
       (outline-minor-mode t))
-  ;; Prefer hiding: only expand when everything is already folded to
-  ;; top-level headings; if any subtree is showing, collapse it.
-  (if (my/outline-subtrees-shown-p)
-      (outline-hide-sublevels 1)
-    (outline-show-all)))
+  (if (my/outline-outside-headings-p)
+      (if (my/outline-subtrees-shown-p)
+          (progn
+            (outline-hide-sublevels 1)
+            ;; A blank line inside a body gets folded away with the rest of it,
+            ;; so pull the cursor back out of the invisible text.
+            (when (outline-invisible-p (point))
+              (outline-previous-visible-heading 1)))
+        (outline-show-all))
+    ;; Act on the heading enclosing point, at its own level -- point may be
+    ;; anywhere in the body, and hiding would leave it stranded in invisible
+    ;; text, so move to the heading first and stay there.
+    (outline-back-to-heading t)
+    (let ((beg (point))
+          (end (save-excursion (outline-end-of-subtree) (point))))
+      (if (my/outline-subtrees-shown-p beg end)
+          (outline-hide-subtree)
+        (outline-show-subtree)))))
 
 
 ;; # Search, replace, occur
