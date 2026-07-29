@@ -213,9 +213,10 @@ closing delimiter."
 
 (defun my/outline-subtrees-shown-p ()
   "Return non-nil if any heading's body or child line is currently visible.
-Only headings that are themselves visible count, and a childless
-heading's trailing newline does not, so a fully-folded buffer reports nil
-even when its headings have no bodies."
+Only headings that are themselves visible count, and neither a childless
+heading's trailing newline nor a blank line separating two subtrees does,
+so a fully-folded buffer reports nil even when its headings have no
+bodies."
   (save-excursion
     (goto-char (point-min))
     (catch 'shown
@@ -227,6 +228,13 @@ even when its headings have no bodies."
                      (< eol (point-max)))
             (save-excursion
               (forward-line 1)
+              ;; Org keeps the blank lines between subtrees visible even when
+              ;; folded, so they say nothing about fold state.  Skip them and
+              ;; judge by the first visible line that has content.
+              (while (and (not (eobp))
+                          (not (outline-invisible-p (point)))
+                          (looking-at-p "[ \t]*$"))
+                (forward-line 1))
               (when (and (not (eobp))
                          (not (outline-invisible-p (point)))
                          (or (not (looking-at outline-regexp))
