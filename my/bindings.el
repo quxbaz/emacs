@@ -67,6 +67,7 @@
 (global-set-key (kbd "M-a") 'backward-paragraph)
 (global-set-key (kbd "M-e") 'forward-paragraph)
 (global-set-key (kbd "C-\\") 'my/match-delimiter)
+(global-set-key (kbd "M-.") 'my/mark-context)
 ;; (global-set-key (kbd "C-M-.") 'my/mark-context)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
 
