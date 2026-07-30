@@ -705,7 +705,22 @@ Anywhere else, fall back to `org-kill-line'."
   (interactive)
   (let ((at-start (save-excursion (skip-chars-backward " \t") (bolp))))
     (cond
-     ((and at-start (org-at-heading-p)) (org-cut-subtree))
+     ((and at-start (org-at-heading-p))
+      ;; `org-cut-subtree' runs to the next heading, so the blank lines
+      ;; that separated this subtree from it go too and the two sections
+      ;; close up. Count them first and put them back, the way the item
+      ;; branch below keeps its own. Cutting through org rather than
+      ;; `kill-region' keeps what `org-paste-subtree' reads to re-level
+      ;; a yank.
+      (let ((blanks 0))
+        (save-excursion
+          (goto-char (save-excursion (org-end-of-subtree t t) (point)))
+          (forward-line -1)
+          (while (and (looking-at-p "[ \t]*$") (not (bobp)))
+            (setq blanks (1+ blanks))
+            (forward-line -1)))
+        (org-cut-subtree)
+        (save-excursion (insert (make-string blanks ?\n)))))
      ((and at-start (org-at-item-p))
       (let* ((beg (org-in-item-p))
              (end (org-list-get-item-end beg (save-excursion (org-list-struct)))))
