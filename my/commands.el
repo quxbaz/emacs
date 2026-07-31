@@ -982,6 +982,16 @@ change is a rename, git's 'renamed:    old -> new' format."
      (t
       (user-error "my/magit-quick-commit: no modified files")))))
 
+(defun my/magit-copy-branch-name ()
+  "Save the branch or tag at point to the kill ring, and echo it.
+Magit's own `magit-copy-section-value' resolves a ref to its hash before
+killing it, so on a branch line it yields the commit rather than the
+name. This keeps the name."
+  (interactive)
+  (if-let ((ref (or (magit-branch-at-point) (magit-tag-at-point))))
+      (kill-new (message "%s" ref))
+    (user-error "No branch or tag at point")))
+
 (defun my/magit-top-level-sections ()
   "Return the top-level sections of the current magit buffer.
 These are the major headings: \"Untracked files\", \"Unstaged changes\",

@@ -201,7 +201,12 @@ the old contents remain on calc's undo list."
             "L"   'magit-push-current-to-pushremote
             ;; Jump between major headings instead of same-level siblings.
             "M-n" 'my/magit-section-forward-top-level
-            "M-p" 'my/magit-section-backward-top-level)
+            "M-p" 'my/magit-section-backward-top-level
+  ;; Every section in the refs buffer is a ref, so M-w copies the branch
+  ;; (or tag) at point instead of the buffer's revision. Shadows
+  ;; magit-copy-buffer-revision here only.
+  :bindings (:after magit-refs) magit-refs-mode-map
+            "M-w" 'my/magit-copy-branch-name)
 
 
 (my/setup mathjax
