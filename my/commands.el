@@ -696,41 +696,72 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (my/org-open-links-in-region (region-beginning) (region-end))
     (org-open-at-point arg)))
 
+(defun my/org--subtree-comment-tail ()
+  "Where the comment run closing off the subtree at point starts.
+Nil unless the subtree ends in one. A subtree runs to the next
+heading, so comment lines sitting between the two -- \"# LATER\" and
+its kind, marking off a section rather than saying anything about
+this subtree -- end up inside it. Only a comment proper counts:
+\"#+...\" is a keyword, and content."
+  (save-excursion
+    (let ((floor (line-beginning-position 2))
+          (run (save-excursion (org-end-of-subtree t t) (point)))
+          (comment nil))
+      (while (and (> run floor)
+                  (progn (goto-char run)
+                         (forward-line -1)
+                         (looking-at-p "^\\(#\\( \\|$\\)\\|[ \t]*$\\)")))
+        (when (looking-at-p "^#\\( \\|$\\)") (setq comment t))
+        (setq run (point)))
+      (and comment run))))
+
 (defun my/org-kill-line-dwim ()
   "Kill line, but kill whole subtrees and list items from their start.
 
 With point before the stars of a heading or the bullet of a list
 item, kill that heading or item along with everything under it.
+A run of comment lines closing off the subtree is left standing.
 Anywhere else, fall back to `org-kill-line'."
   (interactive)
   (let ((at-start (save-excursion (skip-chars-backward " \t") (bolp))))
-    (cond
-     ((and at-start (org-at-heading-p))
-      ;; `org-cut-subtree' runs to the next heading, so the blank lines
-      ;; that separated this subtree from it go too and the two sections
-      ;; close up. Count them first and put them back, the way the item
-      ;; branch below keeps its own. Cutting through org rather than
-      ;; `kill-region' keeps what `org-paste-subtree' reads to re-level
-      ;; a yank.
-      (let ((blanks 0))
-        (save-excursion
-          (goto-char (save-excursion (org-end-of-subtree t t) (point)))
-          (forward-line -1)
-          (while (and (looking-at-p "[ \t]*$") (not (bobp)))
-            (setq blanks (1+ blanks))
-            (forward-line -1)))
-        (org-cut-subtree)
-        (save-excursion (insert (make-string blanks ?\n)))))
-     ((and at-start (org-at-item-p))
-      (let* ((beg (org-in-item-p))
-             (end (org-list-get-item-end beg (save-excursion (org-list-struct)))))
-        (kill-region beg
-                     ;; The item end swallows the blank lines after it; keep them.
-                     (save-excursion
-                       (goto-char end)
-                       (skip-chars-backward " \t\n")
-                       (min end (line-beginning-position 2))))))
-     (t (org-kill-line)))))
+    (save-restriction
+      ;; Keep the kill away from that trailing comment run -- whether it
+      ;; cuts the subtree below, or, on a folded heading, falls through
+      ;; to `org-kill-line' and runs off through the hidden body. The cut
+      ;; takes whole lines and wants the run's own start as its bound;
+      ;; the line kill stops a newline short of it, or the comment ends
+      ;; up joined onto what is left of the heading.
+      (let ((tail (and (org-at-heading-p) (my/org--subtree-comment-tail))))
+        (when tail
+          (narrow-to-region (point-min)
+                            (if (and at-start (org-at-heading-p)) tail (1- tail)))))
+      (cond
+       ((and at-start (org-at-heading-p))
+        ;; `org-cut-subtree' runs to the next heading, so the blank lines
+        ;; that separated this subtree from it go too and the two sections
+        ;; close up. Count them first and put them back, the way the item
+        ;; branch below keeps its own. Cutting through org rather than
+        ;; `kill-region' keeps what `org-paste-subtree' reads to re-level
+        ;; a yank.
+        (let ((blanks 0))
+          (save-excursion
+            (goto-char (save-excursion (org-end-of-subtree t t) (point)))
+            (forward-line -1)
+            (while (and (looking-at-p "[ \t]*$") (not (bobp)))
+              (setq blanks (1+ blanks))
+              (forward-line -1)))
+          (org-cut-subtree)
+          (save-excursion (insert (make-string blanks ?\n)))))
+       ((and at-start (org-at-item-p))
+        (let* ((beg (org-in-item-p))
+               (end (org-list-get-item-end beg (save-excursion (org-list-struct)))))
+          (kill-region beg
+                       ;; The item end swallows the blank lines after it; keep them.
+                       (save-excursion
+                         (goto-char end)
+                         (skip-chars-backward " \t\n")
+                         (min end (line-beginning-position 2))))))
+       (t (org-kill-line))))))
 
 (defun my/org-open-links-in-region (beg end)
   "Open all links in region."
