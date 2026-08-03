@@ -187,7 +187,10 @@
 (global-set-key (kbd "C-c C-b") 'my/diff-buffer-with-file)
 ;; ## Windows
 (global-set-key (kbd "C-x C-o") 'my/other-window)
-(global-set-key (kbd "C--") 'window-swap-states)
+;; C-u is a command, not a prefix, so C-u C-v can't be bound as a normal
+;; sequence; universal-argument-map is the transient map active after C-u.
+;; This shadows "scroll N lines" (C-u <n> C-v), which I never use.
+(define-key universal-argument-map (kbd "C-v") 'window-swap-states)
 (global-set-key (kbd "C-.") 'delete-window)
 (global-set-key (kbd "<escape> .") 'delete-other-windows)
 (global-set-key (kbd "<escape> = ") 'balance-windows)
