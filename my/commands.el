@@ -115,7 +115,8 @@ and jumps to the first hunk."
 (defun my/split-window-right ()
   (interactive)
   (split-window-right)
-  (windmove-right))
+  (windmove-right)
+  (switch-to-buffer (other-buffer)))
 
 (defun my/ibuffer-delete-no-conf ()
   "Delete marked buffers if any are marked, otherwise delete buffer at point; no confirmation."
