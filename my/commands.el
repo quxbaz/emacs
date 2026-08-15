@@ -697,6 +697,14 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (my/org-open-links-in-region (region-beginning) (region-end))
     (org-open-at-point arg)))
 
+(defun my/org-narrow-dwim ()
+  "Narrow to the subtree at point, or to the region if one is active.
+Anywhere else, fall back to `narrow-to-region'."
+  (interactive)
+  (if (and (org-at-heading-p) (not (use-region-p)))
+      (org-narrow-to-subtree)
+    (call-interactively 'narrow-to-region)))
+
 (defun my/org--subtree-comment-tail ()
   "Where the comment run closing off the subtree at point starts.
 Nil unless the subtree ends in one. A subtree runs to the next
