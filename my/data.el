@@ -21,6 +21,7 @@
                           "~/personal/programming-notes.org"
                           "~/personal/projects.org"
                           "~/personal/promise.org"
+                          "~/personal/quotes.org"
                           "~/personal/archive/buy.org"
                           "~/personal/archive/people.org"
                           "~/personal/archive/projects.org"
