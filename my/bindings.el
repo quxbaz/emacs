@@ -8,6 +8,24 @@
 ;; * Generally, Emacs convention suggests `M` for larger actions and `C` for smaller ones.
 
 
+;; # Override map
+;;
+;; Bindings installed here beat every major- and minor-mode map, because
+;; `emulation-mode-map-alists' is consulted before both. Reserve it for keys that
+;; modes commonly claim for themselves (C-M-n is `dired-next-subdir' in Dired,
+;; `paredit-forward-up' under paredit, ...) and that you still want everywhere.
+(defvar my/override-map (make-sparse-keymap)
+  "Keymap for bindings that take priority over all other keymaps.")
+
+(define-minor-mode my/override-mode
+  "Global minor mode that activates `my/override-map'."
+  :global t
+  :keymap my/override-map)
+
+(add-to-list 'emulation-mode-map-alists `((my/override-mode . ,my/override-map)))
+(my/override-mode 1)
+
+
 ;; # Disabled keys
 (global-set-key (kbd "C-q") nil)
 (global-set-key (kbd "C-z") nil)
@@ -51,8 +69,8 @@
 
 ;; # Mini-apps
 (global-set-key (kbd "<f8>") 'my/list-packages)
-(global-set-key (kbd "C-M-n") 'maf-calc)
-(global-set-key (kbd "M-N") 'maf-calc-direct)
+(keymap-set my/override-map "C-M-n" 'maf-calc)
+(keymap-set my/override-map "M-N" 'maf-calc-direct)
 (global-set-key (kbd "<escape> p") 'ispell)
 (global-set-key (kbd "<f10>") (my/cmd (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
