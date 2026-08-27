@@ -18,7 +18,9 @@
     (require 'maf)
     ;; Persist each session's calc stack across restarts;
     ;; M-x maf-restore-stack-from loads another session's stack.
-    (maf-persist-mode 1)))
+    (maf-persist-mode 1)
+    ;; Typeset the preview panel and G peeks with RaTeX.
+    (maf-use-pretty-mode 1)))
 
 ;; Load wire package if it exists.
 (let ((wire-path (concat user-emacs-directory "site-lisp/wire")))
