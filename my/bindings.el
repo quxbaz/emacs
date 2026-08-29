@@ -208,7 +208,15 @@
 ;; C-u is a command, not a prefix, so C-u C-v can't be bound as a normal
 ;; sequence; universal-argument-map is the transient map active after C-u.
 ;; This shadows "scroll N lines" (C-u <n> C-v), which I never use.
-(define-key universal-argument-map (kbd "C-v") 'window-swap-states)
+(defun my/window-swap ()
+  "Swap the selected window's state with the next window on this frame.
+`window-swap-states' alone picks its partner from all visible frames,
+which reaches tiny child frames (e.g. maf's preview posframe) and dies
+with "too small to accommodate state"; swapping only ever means two
+windows of the frame I'm looking at."
+  (interactive)
+  (window-swap-states nil (next-window nil 'nomini)))
+(define-key universal-argument-map (kbd "C-v") 'my/window-swap)
 (global-set-key (kbd "C-.") 'delete-window)
 (global-set-key (kbd "C-M-.") 'delete-other-windows)
 (global-set-key (kbd "<escape> = ") 'balance-windows)
