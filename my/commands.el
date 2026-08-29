@@ -14,9 +14,8 @@
   (let ((find-file-hook nil)
         (vc-handled-backends nil))
     ;; The .el config files one level deep in each dir -- this opens the files
-    ;; inside my/lisp/ and my/calc/ rather than dired buffers for the dirs, and
-    ;; skips my/calc/tests/.
-    (dolist (glob '("my/*.el" "my/lisp/*.el" "my/calc/*.el"))
+    ;; inside my/lisp/ rather than a dired buffer for the dir.
+    (dolist (glob '("my/*.el" "my/lisp/*.el"))
       (dolist (f (file-expand-wildcards (expand-file-name glob user-emacs-directory) t))
         (find-file-noselect f)))
     (dolist (filepath my/init-files)
