@@ -212,7 +212,7 @@
   "Swap the selected window's state with the next window on this frame.
 `window-swap-states' alone picks its partner from all visible frames,
 which reaches tiny child frames (e.g. maf's preview posframe) and dies
-with "too small to accommodate state"; swapping only ever means two
+with \"too small to accommodate state\"; swapping only ever means two
 windows of the frame I'm looking at."
   (interactive)
   (window-swap-states nil (next-window nil 'nomini)))
