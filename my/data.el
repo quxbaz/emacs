@@ -18,7 +18,6 @@
                           "~/personal/journal.org"
                           "~/personal/main.org"
                           "~/personal/media-queue.org"
-                          "~/personal/programming-notes.org"
                           "~/personal/projects.org"
                           "~/personal/promise.org"
                           "~/personal/quotes.org"
