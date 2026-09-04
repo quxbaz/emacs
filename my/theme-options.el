@@ -4,6 +4,7 @@
 ;; Favorites
 (my/switch-theme 'doom-oceanic-next)  ;; Good evening font.
 (my/switch-theme 'modus-vivendi)
+(my/switch-theme 'doom-acario-light)  ;; Favorite light theme.
 
 ;; Dark (dark background, high contrast)
 (my/switch-theme 'doom-challenger-deep)
