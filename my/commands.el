@@ -726,7 +726,7 @@ stripped, and links replaced by their descriptions."
 
 (defun my/org-echo-heading ()
   "Echo the outline path of the heading point is under, if point moved.
-Each segment is shown with its stars, e.g. \"* Top > ** Child\"."
+Each segment is shown with its stars, e.g. \"* Top  >  ** Child\"."
   (unless (or (eq (point) my/org-echo-heading--last-point)
               (minibuffer-window-active-p (minibuffer-window))
               (org-before-first-heading-p))
@@ -736,7 +736,7 @@ Each segment is shown with its stars, e.g. \"* Top > ** Child\"."
                             (propertize (format "%s %s" (make-string (car h) ?*) (cdr h))
                                         'face (nth (% (1- (car h)) org-n-level-faces)
                                                    org-level-faces)))
-                          (my/org-echo-heading--path) " > "))))
+                          (my/org-echo-heading--path) "  >  "))))
   (setq my/org-echo-heading--last-point (point)))
 
 (define-minor-mode my/org-echo-heading-mode
