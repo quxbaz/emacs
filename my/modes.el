@@ -252,6 +252,7 @@ the old contents remain on calc's undo list."
   :after org
          (set-face-attribute 'org-block-begin-line nil :foreground (face-foreground 'org-verbatim nil t))
          (set-face-attribute 'org-block-end-line nil :foreground (face-foreground 'org-verbatim nil t))
+  :hooks (org-mode-hook 'my/org-echo-heading-mode)
   :bindings (:after org) org-mode-map
             "M-a"        'org-backward-element
             "M-e"        'org-forward-element

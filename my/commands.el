@@ -704,6 +704,48 @@ Anywhere else, fall back to `narrow-to-region'."
       (org-narrow-to-subtree)
     (call-interactively 'narrow-to-region)))
 
+(defvar-local my/org-echo-heading--last-point nil
+  "Where point was after the previous command.
+The heading is only echoed when point has moved since then, so
+messages from other commands aren't clobbered.")
+
+(defun my/org-echo-heading--path ()
+  "Outline path to the heading at point, as a list of (LEVEL . TITLE).
+TITLE has its todo keyword, priority, tags and statistics cookies
+stripped, and links replaced by their descriptions."
+  (org-with-wide-buffer
+   (let ((path '()))
+     (org-back-to-heading t)
+     (cl-loop do (push (cons (org-outline-level)
+                             (replace-regexp-in-string
+                              "[ \t]*\\[[0-9]*\\(?:%\\|/[0-9]*\\)\\][ \t]*" ""
+                              (org-link-display-format (org-get-heading t t t t))))
+                       path)
+              while (org-up-heading-safe))
+     path)))
+
+(defun my/org-echo-heading ()
+  "Echo the outline path of the heading point is under, if point moved.
+Each segment is shown with its stars, e.g. \"* Top > ** Child\"."
+  (unless (or (eq (point) my/org-echo-heading--last-point)
+              (minibuffer-window-active-p (minibuffer-window))
+              (org-before-first-heading-p))
+    (let ((message-log-max nil))  ;; Keep it out of *Messages*.
+      (message "%s"
+               (mapconcat (lambda (h)
+                            (propertize (format "%s %s" (make-string (car h) ?*) (cdr h))
+                                        'face (nth (% (1- (car h)) org-n-level-faces)
+                                                   org-level-faces)))
+                          (my/org-echo-heading--path) " > "))))
+  (setq my/org-echo-heading--last-point (point)))
+
+(define-minor-mode my/org-echo-heading-mode
+  "Echo the heading path point is under whenever point moves."
+  :lighter nil
+  (if my/org-echo-heading-mode
+      (add-hook 'post-command-hook #'my/org-echo-heading nil t)
+    (remove-hook 'post-command-hook #'my/org-echo-heading t)))
+
 (defun my/org--subtree-comment-tail ()
   "Where the comment run closing off the subtree at point starts.
 Nil unless the subtree ends in one. A subtree runs to the next
