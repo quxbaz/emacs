@@ -123,6 +123,12 @@
             "/ q" 'ibuffer-pop-filter)
 
 
+(my/setup image-mode
+  :bindings (:after image-mode) image-mode-map
+            "j" 'image-next-file
+            "k" 'image-previous-file)
+
+
 (my/setup js
   :hooks (js-mode-hook (lambda ()
                          (setq js-indent-level 2)
