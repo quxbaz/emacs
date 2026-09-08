@@ -270,6 +270,7 @@ windows of the frame I'm looking at."
 
 ;; # git, magit
 (global-set-key (kbd "C-M-SPC") 'magit-status)
+(global-set-key (kbd "S-M-SPC") 'magit-status)
 (global-set-key (kbd "<f4>") 'magit-file-checkout)
 (global-set-key (kbd "C-M-l") 'magit-blame-addition)
 (global-set-key (kbd "C-M-b") 'magit-blob-mode)
