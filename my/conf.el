@@ -88,6 +88,17 @@
 
 ;; # Search
 (setq-default isearch-lazy-highlight-initial-delay 0)
+
+(defun my/isearch-clean-overlays ()
+  "Close the fold overlays isearch opened temporarily, on every exit.
+`isearch-done' leaves this to its callers, and some of them (a mouse click
+in another window, `isearch-edit-string' and the other suspend-based
+commands, the end of a keyboard macro) never do it. The next search then
+forgets the overlays, leaving them open but still marked as folds, which
+confuses org's heading predicates."
+  (setq isearch-opened-overlays (seq-filter #'overlay-buffer isearch-opened-overlays))
+  (isearch-clean-overlays))
+(add-hook 'isearch-mode-end-hook #'my/isearch-clean-overlays)
 ;; Makes deadgrep start the search form the current directory instead of the project base.
 (defun my/get-current-dir () default-directory)
 (setq deadgrep-project-root-function #'my/get-current-dir)
