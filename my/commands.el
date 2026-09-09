@@ -269,8 +269,10 @@ a blank line between subtrees -- fold the whole buffer to top-level
 headings instead.  Either way the toggle prefers hiding: it only expands
 when the subtree or buffer is already folded."
   (interactive)
-  (if (not (bound-and-true-p outline-minor-mode))
-      (outline-minor-mode t))
+  ;; Org and outline-mode fold on their own; the minor mode only matters in
+  ;; other modes (and in org it shadows `C-c @' with its prefix map).
+  (unless (or (derived-mode-p 'outline-mode) (bound-and-true-p outline-minor-mode))
+    (outline-minor-mode t))
   (if (my/outline-outside-headings-p)
       (if (my/outline-subtrees-shown-p)
           (progn
@@ -284,11 +286,19 @@ when the subtree or buffer is already folded."
     ;; anywhere in the body, and hiding would leave it stranded in invisible
     ;; text, so move to the heading first and stay there.
     (outline-back-to-heading t)
-    (let ((beg (point))
-          (end (save-excursion (outline-end-of-subtree) (point))))
+    ;; In org, `outline-end-of-subtree' and `outline-hide-subtree' first go
+    ;; back to the heading with org's strict visibility check, which a stray
+    ;; fold marker on the heading line (e.g. an overlay isearch opened and
+    ;; never closed) sends to the previous heading. Org's own subtree
+    ;; functions take the heading at point as given.
+    (let* ((org (derived-mode-p 'org-mode))
+           (beg (point))
+           (end (save-excursion
+                  (if org (org-end-of-subtree t t) (outline-end-of-subtree))
+                  (point))))
       (if (my/outline-subtrees-shown-p beg end)
-          (outline-hide-subtree)
-        (outline-show-subtree)))))
+          (if org (org-fold-hide-subtree) (outline-hide-subtree))
+        (if org (org-fold-show-subtree) (outline-show-subtree))))))
 
 
 ;; # Search, replace, occur
