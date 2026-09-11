@@ -26,7 +26,6 @@
                           "~/personal/archive/projects.org"
                           "~/personal/printing/inventory.org"
                           "~/personal/printing/printing.org"
-                          "~/personal/projects/games/undercrawl.org"
                           "~/personal/typing.org"
                           "~/conf/claude/CLAUDE.md"
                           "~/conf/install/setup.org"
@@ -39,4 +38,5 @@
                           "~/conf/zsh/.zprofile"
                           "~/conf/zsh/.zshrc"
                           "~/conf/freecad/user.cfg"
-                          "~/work/wnmu/Todo.org"))
+                          "~/work/wnmu/Todo.org"
+                          "~/games/undercrawl/undercrawl.org"))
