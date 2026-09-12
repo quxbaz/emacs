@@ -193,7 +193,7 @@
 ;; # Buffers, windows, dired
 ;; ## Buffers
 (global-set-key (kbd "M-s") 'save-buffer)
-(global-set-key (kbd "<escape> DEL") 'kill-current-buffer)
+(global-set-key (kbd "M-K") 'kill-current-buffer)
 (global-set-key (kbd "C-,") 'my/switch-to-other-buffer)
 (global-set-key (kbd "M-SPC") 'ivy-switch-buffer)
 (global-set-key (kbd "<escape> SPC") 'ibuffer)
