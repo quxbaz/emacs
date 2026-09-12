@@ -60,11 +60,13 @@
                             (put 'dired-find-alternate-file 'disabled nil)
                             (when (file-remote-p default-directory)
                               (setq dired-listing-switches "-l"))))
-         ;; wdired (buffer-local map): rebind C-a / M-m to skip dired's permission columns.
+         ;; wdired (buffer-local map): rebind C-a / M-m to skip dired's permission columns,
+         ;; and C-RET to confirm the edit (same as C-c C-c).
          (wdired-mode-hook
           (lambda ()
             (local-set-key (kbd "C-a") (lambda () (interactive) (move-to-column 2)))
-            (local-set-key (kbd "M-m") (lambda () (interactive) (move-to-column 2)))))
+            (local-set-key (kbd "M-m") (lambda () (interactive) (move-to-column 2)))
+            (local-set-key (kbd "C-<return>") 'wdired-finish-edit)))
   :bindings (:hook dired-mode-hook) dired-mode-map
             "P"        'my/dired-up-directory
             "/"        'my/dired-isearch-visit
