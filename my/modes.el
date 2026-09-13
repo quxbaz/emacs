@@ -281,6 +281,7 @@ the old contents remain on calc's undo list."
             "C-c C-o"    'my/org-open-at-point-dwim
             "C-c C-y"    'my/org-evaluate-time-range
             "C-C C-,"    'org-agenda
+            "C-c C-."    'org-timestamp
             "<f5>"       'org-html-export-to-html
             "C-x n n"    'my/org-narrow-dwim
             "M-o"        'my/outline-toggle-all
