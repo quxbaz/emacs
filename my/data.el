@@ -43,4 +43,5 @@
                           "~/games/undercrawl/docs/art.org"
                           "~/games/undercrawl/docs/cards.org"
                           "~/games/undercrawl/docs/design.org"
-                          "~/games/undercrawl/docs/dev.org"))
+                          "~/games/undercrawl/docs/dev.org"
+                          "~/games/undercrawl/docs/mechanics.org"))
