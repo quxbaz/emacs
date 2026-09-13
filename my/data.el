@@ -39,5 +39,4 @@
                           "~/conf/zsh/.zshrc"
                           "~/conf/freecad/user.cfg"
                           "~/work/wnmu/Todo.org"
-                          ;; "~/games/undercrawl/undercrawl.org"
-                          ))
+                          "~/games/undercrawl/undercrawl.org"))
