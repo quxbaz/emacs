@@ -27,11 +27,8 @@
 
 
 ;; # TESTING: ergonomic bindings
-;; Right after a yank, C-p/C-n cycle the kill ring like M-y (older/newer).
-(defun my/yank-pop-or-error (n msg)
-  (if (eq last-command 'yank) (yank-pop n) (user-error "%s" msg)))
-(keymap-set my/override-map "C-n" (my/cmd (my/yank-pop-or-error -1 "Use C-j")))
-(keymap-set my/override-map "C-p" (my/cmd (my/yank-pop-or-error 1 "Use C-k")))
+(keymap-set my/override-map "C-n" (my/cmd (user-error "Use C-j")))
+(keymap-set my/override-map "C-p" (my/cmd (user-error "Use C-k")))
 (keymap-set my/override-map "C-y" (my/cmd (user-error "Use C-t")))
 (keymap-set my/override-map "C-j" (my/delegate-key "C-n"))
 (keymap-set my/override-map "C-k" (my/delegate-key "C-p"))
@@ -40,6 +37,25 @@
 (keymap-set my/override-map "M-T" (my/delegate-key "C-t"))
 (keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))
 (keymap-set my/override-map "C-S-k" 'erase-buffer)
+
+;; Right after a yank, C-u/C-i cycle the kill ring like M-y (older/newer).
+;; Otherwise they act as usual. C-i is the TAB character, so the physical
+;; Tab key (<tab> in a GUI) is routed around the C-i binding.
+(defun my/yank-pop-or (n fallback)
+  "Run `yank-pop' with N right after a yank, else call FALLBACK."
+  (if (eq last-command 'yank)
+      (yank-pop n)
+    (setq this-command fallback)
+    (call-interactively fallback)))
+
+(defun my/tab-binding ()
+  "The command TAB runs outside `my/override-map'."
+  (let ((my/override-mode nil))
+    (or (key-binding [tab]) (key-binding (kbd "TAB")))))
+
+(keymap-set my/override-map "C-u" (my/cmd (my/yank-pop-or 1 'universal-argument)))
+(keymap-set my/override-map "TAB" (my/cmd (my/yank-pop-or -1 (my/tab-binding))))
+(keymap-set my/override-map "<tab>" (my/cmd (let ((cmd (my/tab-binding))) (setq this-command cmd) (call-interactively cmd))))
 
 
 ;; # Disabled keys
