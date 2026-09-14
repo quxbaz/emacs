@@ -27,8 +27,11 @@
 
 
 ;; # TESTING: ergonomic bindings
-(keymap-set my/override-map "C-n" (my/cmd (user-error "Use C-j")))
-(keymap-set my/override-map "C-p" (my/cmd (user-error "Use C-k")))
+;; Right after a yank, C-p/C-n cycle the kill ring like M-y (older/newer).
+(defun my/yank-pop-or-error (n msg)
+  (if (eq last-command 'yank) (yank-pop n) (user-error "%s" msg)))
+(keymap-set my/override-map "C-n" (my/cmd (my/yank-pop-or-error -1 "Use C-j")))
+(keymap-set my/override-map "C-p" (my/cmd (my/yank-pop-or-error 1 "Use C-k")))
 (keymap-set my/override-map "C-y" (my/cmd (user-error "Use C-t")))
 (keymap-set my/override-map "C-j" (my/delegate-key "C-n"))
 (keymap-set my/override-map "C-k" (my/delegate-key "C-p"))
