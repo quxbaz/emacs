@@ -34,6 +34,7 @@
 (keymap-set my/override-map "M-k" (my/delegate-key "C-k"))
 (keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))
 (keymap-set my/override-map "C-S-k" 'erase-buffer)
+(keymap-set my/override-map "C-t" 'yank)
 
 
 ;; # Disabled keys
