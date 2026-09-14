@@ -27,8 +27,8 @@
 
 
 ;; # Testing
-(keymap-set my/override-map "C-n" (my/cmd (message "Use C-j")))
-(keymap-set my/override-map "C-p" (my/cmd (message "Use C-k")))
+(keymap-set my/override-map "C-n" (my/cmd (user-error "Use C-j")))
+(keymap-set my/override-map "C-p" (my/cmd (user-error "Use C-k")))
 (keymap-set my/override-map "C-j" (my/delegate-key "C-n"))
 (keymap-set my/override-map "C-k" (my/delegate-key "C-p"))
 (keymap-set my/override-map "M-k" (my/delegate-key "C-k"))
