@@ -38,24 +38,20 @@
 (keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))
 (keymap-set my/override-map "C-S-k" 'erase-buffer)
 
-;; Right after a yank, C-u/C-i cycle the kill ring like M-y (older/newer).
-;; Otherwise they act as usual. C-i is the TAB character, so the physical
-;; Tab key (<tab> in a GUI) is routed around the C-i binding.
-(defun my/yank-pop-or (n fallback)
-  "Run `yank-pop' with N right after a yank, else call FALLBACK."
+;; Right after a yank, C-h/C-l cycle the kill ring like M-y (older/newer).
+;; Otherwise they act as usual (help prefix and recenter).
+(defun my/yank-pop-or-key (n key)
+  "Run `yank-pop' with N right after a yank, else act as KEY normally would."
   (if (eq last-command 'yank)
       (yank-pop n)
-    (setq this-command fallback)
-    (call-interactively fallback)))
+    (let ((cmd (let ((my/override-mode nil)) (key-binding (kbd key)))))
+      (if (keymapp cmd)
+          (set-transient-map cmd)
+        (setq this-command cmd)
+        (call-interactively cmd)))))
 
-(defun my/tab-binding ()
-  "The command TAB runs outside `my/override-map'."
-  (let ((my/override-mode nil))
-    (or (key-binding [tab]) (key-binding (kbd "TAB")))))
-
-(keymap-set my/override-map "C-u" (my/cmd (my/yank-pop-or 1 'universal-argument)))
-(keymap-set my/override-map "TAB" (my/cmd (my/yank-pop-or -1 (my/tab-binding))))
-(keymap-set my/override-map "<tab>" (my/cmd (let ((cmd (my/tab-binding))) (setq this-command cmd) (call-interactively cmd))))
+(keymap-set my/override-map "C-h" (my/cmd (my/yank-pop-or-key 1 "C-h")))
+(keymap-set my/override-map "C-l" (my/cmd (my/yank-pop-or-key -1 "C-l")))
 
 
 ;; # Disabled keys
