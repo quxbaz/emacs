@@ -101,6 +101,19 @@ form that returns a command (e.g. `my/with-prefix')."
                     (lambda ()
                       (my/apply-bindings ,keymap (list ,@(nreverse pairs)))))))
 
+(defun my/delegate-key (key)
+  "Return a command that runs whatever KEY is bound to outside `my/override-map'.
+Lets an override binding stand in for KEY in every mode, even when
+KEY itself is disabled in the override map. `this-command' is set to
+the resolved command so commands that check `last-command' (e.g. the
+goal column in `previous-line') behave as if KEY had been pressed."
+  (let ((key (kbd key)))
+    (lambda ()
+      (interactive)
+      (let ((cmd (let ((my/override-mode nil)) (key-binding key))))
+        (setq this-command cmd)
+        (call-interactively cmd)))))
+
 (defmacro my/setup (name &rest clauses)
   "Configure a single mode in one form. NAME is a documentation label.
 
