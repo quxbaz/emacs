@@ -27,10 +27,12 @@
 
 
 ;; # Testing
-(keymap-set my/override-map "C-j" (kmacro "C-n"))
-(keymap-set my/override-map "C-k" (kmacro "C-p"))
-(keymap-set my/override-map "M-k" 'kill-line)
-(keymap-set my/override-map "C-M-k" 'my/kill-block)
+(keymap-set my/override-map "C-n" (my/cmd (message "Use C-j")))
+(keymap-set my/override-map "C-p" (my/cmd (message "Use C-k")))
+(keymap-set my/override-map "C-j" (my/delegate-key "C-n"))
+(keymap-set my/override-map "C-k" (my/delegate-key "C-p"))
+(keymap-set my/override-map "M-k" (my/delegate-key "C-k"))
+(keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))
 (keymap-set my/override-map "C-S-k" 'erase-buffer)
 
 
