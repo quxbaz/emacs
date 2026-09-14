@@ -5,6 +5,7 @@
                           ;; (concat user-emacs-directory "bugs.el")
                           (concat user-emacs-directory "calc.el")
                           (concat user-emacs-directory "scratch.el")
+                          (concat user-emacs-directory "my/bindings.el")
                           "~/.stumpwm.d/init.lisp"
                           "~/.stumpwm.d/setup.lisp"
                           "~/personal/ai.org"
