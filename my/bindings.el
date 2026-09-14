@@ -26,11 +26,12 @@
 (my/override-mode 1)
 
 
-;; ;; # Testing
+;; # Testing
 (keymap-set my/override-map "C-j" (kmacro "C-n"))
 (keymap-set my/override-map "C-k" (kmacro "C-p"))
 (keymap-set my/override-map "M-k" 'kill-line)
-;; (keymap-set my/override-map "M-k" 'my/kill-block)
+(keymap-set my/override-map "C-M-k" 'my/kill-block)
+(keymap-set my/override-map "C-S-k" 'erase-buffer)
 
 
 ;; # Disabled keys
