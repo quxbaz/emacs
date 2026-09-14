@@ -214,7 +214,12 @@ the old contents remain on calc's undo list."
   ;; (or tag) at point instead of the buffer's revision. Shadows
   ;; magit-copy-buffer-revision here only.
   :bindings (:after magit-refs) magit-refs-mode-map
-            "M-w" 'my/magit-copy-branch-name)
+            "M-w" 'my/magit-copy-branch-name
+  ;; Magit stamps this map onto file and hunk sections as a `keymap' text
+  ;; property, which outranks my/override-map. Unbind C-j so the override
+  ;; (next-line) wins; C-<return> still visits the file.
+  :bindings (:after magit-diff) magit-diff-section-map
+            "C-j" nil)
 
 
 (my/setup mathjax
