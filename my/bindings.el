@@ -36,7 +36,16 @@
 (keymap-set my/override-map "C-t" (my/delegate-key "C-y"))
 (keymap-set my/override-map "M-T" (my/delegate-key "C-t"))
 (keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))
-(keymap-set my/override-map "C-S-k" 'erase-buffer)
+
+;; `my/override-map' outranks every minor-mode map, so C-S-k would shadow
+;; the maf-mode-map binding on it. Let a mode map claim the key and fall
+;; back to `erase-buffer' when none does.
+(keymap-set my/override-map "C-S-k"
+            (my/cmd (let ((cmd (or (let ((my/override-mode nil))
+                                     (key-binding (kbd "C-S-k")))
+                                   'erase-buffer)))
+                      (setq this-command cmd)
+                      (call-interactively cmd))))
 
 ;; Right after a yank, C-h/C-l cycle the kill ring like M-y (older/newer).
 ;; Otherwise they act as usual (help prefix and recenter).
