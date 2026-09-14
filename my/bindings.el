@@ -26,7 +26,7 @@
 (my/override-mode 1)
 
 
-;; # Testing ergonomic bindings
+;; # TESTING: ergonomic bindings
 ;; (keymap-set my/override-map "C-n" (my/cmd (user-error "Use C-j")))
 (keymap-set my/override-map "C-p" (my/cmd (user-error "Use C-k")))
 (keymap-set my/override-map "C-n" 'scroll-up-command)
