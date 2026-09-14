@@ -27,17 +27,16 @@
 
 
 ;; # TESTING: ergonomic bindings
-;; (keymap-set my/override-map "C-n" (my/cmd (user-error "Use C-j")))
+(keymap-set my/override-map "C-n" (my/cmd (user-error "Use C-j")))
 (keymap-set my/override-map "C-p" (my/cmd (user-error "Use C-k")))
 (keymap-set my/override-map "C-y" (my/cmd (user-error "Use C-v")))
-(keymap-set my/override-map "C-n" 'scroll-up-command)
-(keymap-set my/override-map "M-n" 'scroll-down-command)
 (keymap-set my/override-map "C-j" (my/delegate-key "C-n"))
 (keymap-set my/override-map "C-k" (my/delegate-key "C-p"))
 (keymap-set my/override-map "M-k" (my/delegate-key "C-k"))
+(keymap-set my/override-map "C-t" (my/delegate-key "C-y"))
+(keymap-set my/override-map "M-T" (my/delegate-key "C-t"))
 (keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))
 (keymap-set my/override-map "C-S-k" 'erase-buffer)
-(keymap-set my/override-map "C-v" 'yank)
 
 
 ;; # Disabled keys
