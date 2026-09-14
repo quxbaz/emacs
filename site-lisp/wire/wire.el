@@ -197,7 +197,7 @@ a `user-error' if no socket is reachable."
     (let* ((table (mapcar (lambda (w) (cons (wire--label w) w)) windows))
            (choice (if (= (length table) 1)
                        (caar table)
-                     (completing-read "Claude target: " table nil t)))
+                     (completing-read "Claude target: " (mapcar #'car table) nil t)))
            (w (cdr (assoc choice table))))
       (setq wire-target (list :id (plist-get w :id)
                               :socket (plist-get w :socket)
