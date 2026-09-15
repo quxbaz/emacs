@@ -30,12 +30,12 @@
 (keymap-set my/override-map "C-n" (my/cmd (user-error "Use C-j")))
 (keymap-set my/override-map "C-p" (my/cmd (user-error "Use C-k")))
 (keymap-set my/override-map "C-y" (my/cmd (user-error "Use C-t")))
-(keymap-set my/override-map "C-j" (my/delegate-key "C-n"))
-(keymap-set my/override-map "C-k" (my/delegate-key "C-p"))
-(keymap-set my/override-map "M-k" (my/delegate-key "C-k"))
-(keymap-set my/override-map "C-t" (my/delegate-key "C-y"))
-(keymap-set my/override-map "M-T" (my/delegate-key "C-t"))
-(keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))
+(keymap-set my/override-map "C-j" (my/delegate-key "C-n"))    ;; up
+(keymap-set my/override-map "C-k" (my/delegate-key "C-p"))    ;; down
+(keymap-set my/override-map "M-k" (my/delegate-key "C-k"))    ;; kill line
+(keymap-set my/override-map "C-t" (my/delegate-key "C-y"))    ;; paste
+(keymap-set my/override-map "M-T" (my/delegate-key "C-t"))    ;; transpose
+(keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))  ;; kill block
 
 ;; `my/override-map' outranks every minor-mode map, so C-S-k would shadow
 ;; the maf-mode-map binding on it. Let a mode map claim the key and fall
