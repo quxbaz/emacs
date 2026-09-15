@@ -106,8 +106,8 @@
 
 ;; # Mini-apps
 (global-set-key (kbd "<f8>") 'my/list-packages)
-(keymap-set my/override-map "C-M-n" 'maf-calc)
-(keymap-set my/override-map "M-N" 'maf-calc-direct)
+;; (keymap-set my/override-map "C-M-n" 'maf-calc)
+;; (keymap-set my/override-map "M-N" 'maf-calc-direct)
 (global-set-key (kbd "<escape> p") 'ispell)
 (global-set-key (kbd "<f10>") (my/cmd (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
