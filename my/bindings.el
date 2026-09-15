@@ -27,7 +27,7 @@
 
 
 ;; # TESTING: ergonomic bindings
-(keymap-set my/override-map "C-y" (my/cmd (user-error "Use C-t")))
+(keymap-set my/override-map "C-y" (my/cmd (user-error "Use C-v")))
 (keymap-set my/override-map "C-j" (my/delegate-key "C-n"))    ;; up
 (keymap-set my/override-map "C-k" (my/delegate-key "C-p"))    ;; down
 (keymap-set my/override-map "M-k" (my/delegate-key "C-k"))    ;; kill line
@@ -35,6 +35,7 @@
 (keymap-set my/override-map "C-v" (my/delegate-key "C-y"))    ;; yank
 (keymap-set my/override-map "C-n" (my/delegate-key "C-v"))    ;; scroll down
 (keymap-set my/override-map "C-p" (my/delegate-key "M-v"))    ;; scroll up
+(keymap-set my/override-map "M-v" 'yank-pop)                  ;; yank-pop
 
 ;; `my/override-map' outranks every minor-mode map, so C-S-k would shadow
 ;; the maf-mode-map binding on it. Let a mode map claim the key and fall
@@ -45,21 +46,6 @@
                                    'erase-buffer)))
                       (setq this-command cmd)
                       (call-interactively cmd))))
-
-;; Right after a yank, C-h/C-l cycle the kill ring like M-y (older/newer).
-;; Otherwise they act as usual (help prefix and recenter).
-(defun my/yank-pop-or-key (n key)
-  "Run `yank-pop' with N right after a yank, else act as KEY normally would."
-  (if (eq last-command 'yank)
-      (yank-pop n)
-    (let ((cmd (let ((my/override-mode nil)) (key-binding (kbd key)))))
-      (if (keymapp cmd)
-          (set-transient-map cmd)
-        (setq this-command cmd)
-        (call-interactively cmd)))))
-
-(keymap-set my/override-map "C-h" (my/cmd (my/yank-pop-or-key 1 "C-h")))
-(keymap-set my/override-map "C-l" (my/cmd (my/yank-pop-or-key -1 "C-l")))
 
 
 ;; # Disabled keys
