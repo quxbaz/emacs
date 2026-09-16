@@ -30,11 +30,11 @@
 (keymap-set my/override-map "C-y" (my/cmd (user-error "Use C-v")))
 (keymap-set my/override-map "C-j" (my/delegate-key "C-n"))    ;; up
 (keymap-set my/override-map "C-k" (my/delegate-key "C-p"))    ;; down
+(keymap-set my/override-map "C-n" (my/delegate-key "C-v"))    ;; scroll down
+(keymap-set my/override-map "C-M-n" (my/delegate-key "M-v"))  ;; scroll up
 (keymap-set my/override-map "M-k" (my/delegate-key "C-k"))    ;; kill line
 (keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))  ;; kill block
 (keymap-set my/override-map "C-v" (my/delegate-key "C-y"))    ;; yank
-(keymap-set my/override-map "C-n" (my/delegate-key "C-v"))    ;; scroll down
-(keymap-set my/override-map "C-p" (my/delegate-key "M-v"))    ;; scroll up
 (keymap-set my/override-map "M-v" 'yank-pop)                  ;; yank-pop
 
 ;; `my/override-map' outranks every minor-mode map, so C-S-k would shadow
@@ -91,7 +91,7 @@
 
 ;; # Mini-apps
 (global-set-key (kbd "<f8>") 'my/list-packages)
-(keymap-set my/override-map "C-M-n" 'maf-calc)
+;; (keymap-set my/override-map "C-M-n" 'maf-calc)
 (keymap-set my/override-map "M-N" 'maf-calc-direct)
 (global-set-key (kbd "<escape> p") 'ispell)
 (global-set-key (kbd "<f10>") (my/cmd (list-processes) (other-window 1)))
