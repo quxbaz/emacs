@@ -27,7 +27,8 @@
 
 
 ;; # TESTING: ergonomic bindings
-(keymap-set my/override-map "C-y" (my/cmd (user-error "Use C-v")))
+(keymap-set my/override-map "C-p" (my/cmd (user-error "Null binding")))
+(keymap-set my/override-map "C-y" (my/cmd (user-error "Null binding")))
 (keymap-set my/override-map "C-j" (my/delegate-key "C-n"))    ;; up
 (keymap-set my/override-map "C-k" (my/delegate-key "C-p"))    ;; down
 (keymap-set my/override-map "C-n" (my/delegate-key "C-v"))    ;; scroll down
