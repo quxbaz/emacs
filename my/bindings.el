@@ -27,17 +27,26 @@
 
 
 ;; # TESTING: ergonomic bindings
+;;
+;; NOTE on <return> and RET
+;;
+;; The Return key sends <return>, which Emacs only translates to RET when
+;; <return> itself is unbound. Binding it here keeps the physical key on
+;; the mode's normal RET (newline, exit-minibuffer, dired-find-file, ...)
+;; while C-m alone scrolls.
+;;
 (keymap-set my/override-map "C-p" (my/cmd (user-error "Null binding")))
 (keymap-set my/override-map "C-y" (my/cmd (user-error "Null binding")))
-(keymap-set my/override-map "C-j" (my/delegate-key "C-n"))    ;; down
-(keymap-set my/override-map "C-k" (my/delegate-key "C-p"))    ;; up
-(keymap-set my/override-map "RET" (my/delegate-key "C-v"))    ;; scroll down [C-m]
-(keymap-set my/override-map "M-RET" (my/delegate-key "M-v"))  ;; scroll up [C-M-m]
-(keymap-set my/override-map "C-n" (my/delegate-key "RET"))    ;; return / newline
-(keymap-set my/override-map "M-k" (my/delegate-key "C-k"))    ;; kill line
-(keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))  ;; kill block
-(keymap-set my/override-map "C-v" (my/delegate-key "C-y"))    ;; yank
-(keymap-set my/override-map "M-v" 'yank-pop)                  ;; yank-pop
+(keymap-set my/override-map "C-j" (my/delegate-key "C-n"))       ;; down
+(keymap-set my/override-map "C-k" (my/delegate-key "C-p"))       ;; up
+(keymap-set my/override-map "RET" (my/delegate-key "C-v"))       ;; scroll down [C-m]
+(keymap-set my/override-map "<return>" (my/delegate-key "RET"))  ;; keep actual Return / Enter key as return
+(keymap-set my/override-map "M-RET" (my/delegate-key "M-v"))     ;; scroll up [C-M-m]
+(keymap-set my/override-map "C-n" (my/delegate-key "RET"))       ;; return / newline
+(keymap-set my/override-map "M-k" (my/delegate-key "C-k"))       ;; kill line
+(keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))     ;; kill block
+(keymap-set my/override-map "C-v" (my/delegate-key "C-y"))       ;; yank
+(keymap-set my/override-map "M-v" 'yank-pop)                     ;; yank-pop
 
 ;; `my/override-map' outranks every minor-mode map, so C-S-k would shadow
 ;; the maf-mode-map binding on it. Let a mode map claim the key and fall
