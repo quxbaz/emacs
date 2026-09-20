@@ -539,6 +539,26 @@ at the target line."
       (indent-for-tab-command)
       (if indent-buffer (message "Indenting buffer...done")))))
 
+(defun my/indent-rigidly-right ()
+  "Like `indent-rigidly-right', but acts on the current line if no region is active."
+  (interactive)
+  (if (use-region-p)
+      (progn
+        (indent-rigidly-right (region-beginning) (region-end))
+        ;; Keep the region active so the command can be repeated.
+        (setq deactivate-mark nil))
+    (indent-rigidly-right (line-beginning-position) (line-end-position))))
+
+(defun my/indent-rigidly-left ()
+  "Like `indent-rigidly-left', but acts on the current line if no region is active."
+  (interactive)
+  (if (use-region-p)
+      (progn
+        (indent-rigidly-left (region-beginning) (region-end))
+        ;; Keep the region active so the command can be repeated.
+        (setq deactivate-mark nil))
+    (indent-rigidly-left (line-beginning-position) (line-end-position))))
+
 (defun my/open-line ()
   "Opens a new line above and indents."
   (interactive)
