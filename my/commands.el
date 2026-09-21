@@ -726,6 +726,21 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (my/org-open-links-in-region (region-beginning) (region-end))
     (org-open-at-point arg)))
 
+;; Stock `C-c C-c' only acts on the item at point; `org-toggle-checkbox'
+;; handles a region, with the same `C-u' / `C-u C-u' meanings.
+(defun my/org-ctrl-c-ctrl-c-region ()
+  "Toggle checkboxes of the list items in the active region.
+With `C-u', toggle their presence; with `C-u C-u', set them to \"[-]\".
+For `org-ctrl-c-ctrl-c-hook': do nothing unless the region holds an item."
+  (when (and (org-region-active-p)
+             (let ((end (region-end)))
+               (save-excursion
+                 (goto-char (region-beginning))
+                 (org-list-search-forward (org-item-beginning-re) end t))))
+    (org-toggle-checkbox current-prefix-arg)
+    (setq deactivate-mark nil)  ;; Keep the region, so the toggle can be repeated.
+    t))
+
 (defun my/org-narrow-dwim ()
   "Narrow to the subtree at point, or to the region if one is active.
 Anywhere else, fall back to `narrow-to-region'."
