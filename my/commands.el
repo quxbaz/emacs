@@ -726,20 +726,54 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
       (my/org-open-links-in-region (region-beginning) (region-end))
     (org-open-at-point arg)))
 
-;; Stock `C-c C-c' only acts on the item at point; `org-toggle-checkbox'
-;; handles a region, with the same `C-u' / `C-u C-u' meanings.
-(defun my/org-ctrl-c-ctrl-c-region ()
-  "Toggle checkboxes of the list items in the active region.
-With `C-u', toggle their presence; with `C-u C-u', set them to \"[-]\".
-For `org-ctrl-c-ctrl-c-hook': do nothing unless the region holds an item."
-  (when (and (org-region-active-p)
-             (let ((end (region-end)))
-               (save-excursion
-                 (goto-char (region-beginning))
-                 (org-list-search-forward (org-item-beginning-re) end t))))
-    (org-toggle-checkbox current-prefix-arg)
-    (setq deactivate-mark nil)  ;; Keep the region, so the toggle can be repeated.
-    t))
+;; Stock `C-c C-c' only acts on the item at point, never adds a checkbox
+;; without `C-u', and gives the prefixes other meanings (`C-u' toggles
+;; presence, `C-u C-u' sets "[-]").
+(defun my/org--set-checkboxes (beg end box &optional only-missing)
+  "Set the checkbox of each list item between BEG and END to BOX.
+BOX is a string like \"[ ]\", or nil to remove the checkbox.  With
+ONLY-MISSING, leave items that already have a checkbox alone.
+Return non-nil if any item was changed."
+  (let ((end (copy-marker end))
+        changed)
+    (save-excursion
+      (goto-char beg)
+      (while (org-list-search-forward (org-item-beginning-re) end t)
+        (let* ((item (line-beginning-position))
+               (struct (org-list-struct))
+               (old-struct (copy-tree struct))
+               (cur-box (org-list-get-checkbox item struct)))
+          (unless (or (equal cur-box box) (and only-missing cur-box))
+            (org-list-set-checkbox item struct box)
+            (org-list-write-struct struct (org-list-parents-alist struct) old-struct)
+            (setq changed t))
+          (goto-char item)
+          (end-of-line))))
+    (move-marker end nil)
+    (when changed (org-update-checkbox-count-maybe))
+    changed))
+
+(defun my/org-ctrl-c-ctrl-c-checkbox ()
+  "Act on the checkboxes of the list items in the active region, or at point.
+Items lacking a checkbox get an empty one; once they all have one, toggle
+them.  With `C-u', set them to \"[-]\"; with `C-u C-u', remove them.
+For `org-ctrl-c-ctrl-c-hook': return nil when there is nothing to do here."
+  (let* ((regionp (org-region-active-p))
+         (beg (if regionp (region-beginning) (line-beginning-position)))
+         (end (if regionp (region-end) (line-end-position))))
+    (when (and (not (org-at-radio-list-p))
+               (if regionp
+                   (save-excursion
+                     (goto-char beg)
+                     (org-list-search-forward (org-item-beginning-re) end t))
+                 (org-at-item-p)))
+      (cond ((equal current-prefix-arg '(4)) (my/org--set-checkboxes beg end "[-]"))
+            ((equal current-prefix-arg '(16)) (my/org--set-checkboxes beg end nil))
+            ((my/org--set-checkboxes beg end "[ ]" t))
+            (t (org-toggle-checkbox)))
+      (when regionp
+        (setq deactivate-mark nil))  ;; Keep the region, so the key can be repeated.
+      t)))
 
 (defun my/org-narrow-dwim ()
   "Narrow to the subtree at point, or to the region if one is active.
