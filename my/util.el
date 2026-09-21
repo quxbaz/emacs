@@ -106,13 +106,26 @@ form that returns a command (e.g. `my/with-prefix')."
 Lets an override binding stand in for KEY in every mode, even when
 KEY itself is disabled in the override map. `this-command' is set to
 the resolved command so commands that check `last-command' (e.g. the
-goal column in `previous-line') behave as if KEY had been pressed."
-  (let ((key (kbd key)))
+goal column in `previous-line') behave as if KEY had been pressed.
+`last-command-event' is likewise bound to KEY's final event, since some
+commands branch on it -- e.g. calc's digit entry re-reads the terminating
+key unless it was RET or SPC, which entered the number twice.
+
+The override map stays off while the command runs, not just for the
+lookup: a command may look the key up again to fall through to the
+binding beneath it (`autopair-newline' does, from `last-command-event'),
+and would otherwise land back on the override binding of KEY. A
+minibuffer the command opens gets the override map back."
+  (let* ((key (kbd key))
+         (event (aref key (1- (length key)))))
     (lambda ()
       (interactive)
-      (let ((cmd (let ((my/override-mode nil)) (key-binding key))))
+      (let* ((my/override-mode nil)
+             (cmd (key-binding key))
+             (last-command-event event))
         (setq this-command cmd)
-        (call-interactively cmd)))))
+        (minibuffer-with-setup-hook (lambda () (setq my/override-mode t))
+          (call-interactively cmd))))))
 
 (defmacro my/setup (name &rest clauses)
   "Configure a single mode in one form. NAME is a documentation label.
