@@ -152,7 +152,8 @@
 ;; Reseed the calc stack with a set of demo expression shapes — a personal
 ;; testing convenience kept here, not in maf itself. The maf repo's
 ;; project-init.el has its own copy for the dev instance; this is for
-;; everyday use, where project-init.el never loads. Bound to <f5> below.
+;; everyday use, where project-init.el never loads. Bound to <f5> and
+;; C-S-r below.
 (defun my/maf-seed-calc ()
   "Reset the calc stack to a set of demo expression shapes.
 Clears the current stack, then pushes each seed entry — a quick way
@@ -184,6 +185,7 @@ the old contents remain on calc's undo list."
   :hooks (calc-mode-hook 'maf-mode)
   :bindings (:after maf) maf-mode-map
             "<f5>"  'my/maf-seed-calc
+            "C-S-r" 'my/maf-seed-calc
             "C-S-k" 'maf-erase
             "C-S-l" 'maf-reset-settings
             "C-S-j" 'mafcmd-coordinate-toggle)
