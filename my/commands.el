@@ -734,7 +734,9 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
 BOX is a string like \"[ ]\", or nil to remove the checkbox.  With
 ONLY-MISSING, leave items that already have a checkbox alone.
 Return non-nil if any item was changed."
-  (let ((end (copy-marker end))
+  ;; The marker must advance past a checkbox inserted right at END, as
+  ;; happens on an empty item, or the next search's bound is behind point.
+  (let ((end (copy-marker end t))
         changed)
     (save-excursion
       (goto-char beg)
@@ -769,7 +771,18 @@ For `org-ctrl-c-ctrl-c-hook': return nil when there is nothing to do here."
                  (org-at-item-p)))
       (cond ((equal current-prefix-arg '(4)) (my/org--set-checkboxes beg end "[-]"))
             ((equal current-prefix-arg '(16)) (my/org--set-checkboxes beg end nil))
-            ((my/org--set-checkboxes beg end "[ ]" t))
+            ((my/org--set-checkboxes beg end "[ ]" t)
+             ;; A checkbox added at point (as on an empty item) leaves point
+             ;; before it; move past it so typing continues the item.
+             (unless regionp
+               (save-match-data
+                 (when (and (save-excursion
+                              (beginning-of-line)
+                              (looking-at org-list-full-item-re))
+                            (match-end 3)
+                            (< (point) (match-end 3)))
+                   (goto-char (match-end 3))
+                   (skip-chars-forward " \t" (line-end-position))))))
             (t (org-toggle-checkbox)))
       (when regionp
         (setq deactivate-mark nil))  ;; Keep the region, so the key can be repeated.
