@@ -184,7 +184,9 @@ the old contents remain on calc's undo list."
   :hooks (calc-mode-hook 'maf-mode)
   :bindings (:after maf) maf-mode-map
             "<f5>"  'my/maf-seed-calc
-            "C-S-k" 'maf-erase)
+            "C-S-k" 'maf-erase
+            "C-S-l" 'maf-reset-settings
+            "C-S-j" 'mafcmd-coordinate-toggle)
 
 
 (my/setup magit
