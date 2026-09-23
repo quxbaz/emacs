@@ -27,6 +27,7 @@
                           "~/personal/archive/projects.org"
                           "~/personal/printing/inventory.org"
                           "~/personal/printing/printing.org"
+                          "~/personal/projects/software/maf-browser.org"
                           "~/personal/typing.org"
                           "~/conf/claude/CLAUDE.md"
                           "~/conf/install/setup.org"
