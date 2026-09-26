@@ -104,7 +104,7 @@
 (global-set-key (kbd "<f8>") 'my/list-packages)
 ;; (keymap-set my/override-map "C-M-n" 'maf-calc)
 (keymap-set my/override-map "M-N" 'maf-calc-direct)
-(global-set-key (kbd "<escape> p") 'ispell)
+(global-set-key (kbd "C-c c") 'ispell)
 (global-set-key (kbd "<f10>") (my/cmd (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)
@@ -132,7 +132,7 @@
 (global-set-key (kbd "l") 'my/key-l)
 (global-set-key (kbd "n") 'my/key-n)
 (global-set-key (kbd "o") 'my/key-o)
-(global-set-key (kbd "p") 'my/key-p)
+(global-set-key (kbd "c") 'my/key-c)
 (global-set-key (kbd "w") 'my/key-w)
 (global-set-key (kbd "x") 'my/key-x)
 
