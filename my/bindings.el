@@ -104,7 +104,7 @@
 (global-set-key (kbd "<f8>") 'my/list-packages)
 ;; (keymap-set my/override-map "C-M-n" 'maf-calc)
 (keymap-set my/override-map "M-N" 'maf-calc-direct)
-(global-set-key (kbd "C-c c") 'ispell)
+(global-set-key (kbd "C-c j") 'my/ispell-word-or-buffer)
 (global-set-key (kbd "<f10>") (my/cmd (list-processes) (other-window 1)))
 (global-set-key (kbd "<f11>") 'proced)
 (global-set-key (kbd "<f12>") 'calendar)

@@ -628,6 +628,13 @@ DOWN? [bool] [default = t]    If true, transposes the line downwards."
   (interactive)
   (revert-buffer t t))
 
+(defun my/ispell-word-or-buffer (arg)
+  "Spell-check the word at point. With prefix ARG, check the whole buffer."
+  (interactive "P")
+  (if arg
+      (ispell-buffer)
+    (ispell-word)))
+
 
 ;; # Math, numbers
 
