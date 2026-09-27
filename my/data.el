@@ -25,6 +25,7 @@
                           "~/personal/archive/buy.org"
                           "~/personal/archive/people.org"
                           "~/personal/archive/projects.org"
+                          "~/personal/math/tools-comp-abstract-2026.org"
                           "~/personal/printing/inventory.org"
                           "~/personal/printing/printing.org"
                           "~/personal/projects/software/maf-browser.org"
