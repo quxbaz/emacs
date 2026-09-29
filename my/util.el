@@ -115,13 +115,27 @@ The override map stays off while the command runs, not just for the
 lookup: a command may look the key up again to fall through to the
 binding beneath it (`autopair-newline' does, from `last-command-event'),
 and would otherwise land back on the override binding of KEY. A
-minibuffer the command opens gets the override map back."
+minibuffer the command opens gets the override map back.
+
+If KEY is a shifted key with no binding, fall back the way the command
+loop does: run the unshifted key's command as a shift-translated
+command, so e.g. an unbound S-<up> becomes a shift-selecting <up>."
   (let* ((key (kbd key))
-         (event (aref key (1- (length key)))))
+         (event (aref key (1- (length key))))
+         (mods (event-modifiers event))
+         (unshifted-key
+          (and (memq 'shift mods)
+               (vconcat (substring key 0 -1)
+                        (list (event-convert-list
+                               (append (remq 'shift mods)
+                                       (list (event-basic-type event)))))))))
     (lambda ()
       (interactive)
       (let* ((my/override-mode nil)
              (cmd (key-binding key))
+             (this-command-keys-shift-translated
+              (and (not cmd) unshifted-key t))
+             (cmd (or cmd (and unshifted-key (key-binding unshifted-key))))
              (last-command-event event))
         (setq this-command cmd)
         (minibuffer-with-setup-hook (lambda () (setq my/override-mode t))
