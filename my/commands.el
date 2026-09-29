@@ -272,7 +272,9 @@ From the last stop, scroll down by `my/window-stop-edge-scroll' of the
 window and land on the last stop again, or with `my/window-stop-edge-page'
 make point's line the top line. Either way, fade the lines that were
 already in view and underline the old bottom line; see
-`my/window-stop-mark'. In a minibuffer, move right a character instead."
+`my/window-stop-mark'. Once the end of the buffer is in view, scrolling
+brings in no new lines, so the marks are left as they are. In a
+minibuffer, move right a character instead."
   (interactive "^")
   (if (minibufferp)
       (right-char)
@@ -280,13 +282,14 @@ already in view and underline the old bottom line; see
                              (my/window-stop-positions))))
         (goto-char pos)
       (let ((old (point))
-            (start (window-start)))
+            (start (window-start))
+            (eob-shown (pos-visible-in-window-p (point-max))))
         (if my/window-stop-edge-page
             (recenter 0 t)  ;; Redisplay so `window-start' reflects the scroll.
           (ignore-error end-of-buffer
             (scroll-up (my/window-stop-edge-lines)))
           (move-to-window-line -1))
-        (unless (= start (window-start))
+        (unless (or eob-shown (= start (window-start)))
           (my/window-stop-mark old (window-start)
                                (save-excursion (goto-char old) (line-beginning-position 2))))))))
 
