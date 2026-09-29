@@ -202,6 +202,36 @@ point stays put and its line becomes the window's top or bottom line.
 Nil means scroll by `my/window-stop-edge-scroll' and land on the edge
 stop again.")
 
+(defface my/window-stop-seam
+  '((t :underline (:color "#2f5fb0") :extend t))
+  "Face underlining the boundary between old and newly scrolled-in lines
+after scrolling past an edge window stop.")
+
+(defvar my/window-stop-seam-overlay nil
+  "Overlay drawing the `my/window-stop-seam' line, or nil.")
+
+(defun my/window-stop-seam-clear ()
+  "Remove the seam before any command other than the window-stop ones."
+  (unless (memq this-command '(my/window-stop-next my/window-stop-previous))
+    (when my/window-stop-seam-overlay
+      (delete-overlay my/window-stop-seam-overlay))
+    (remove-hook 'pre-command-hook #'my/window-stop-seam-clear)))
+
+(defun my/window-stop-seam-show (pos)
+  "Underline the line at POS in the selected window until the next command
+that isn't a window-stop one. An underline, not an overline, since
+terminals can't draw overlines."
+  (unless (overlayp my/window-stop-seam-overlay)
+    (setq my/window-stop-seam-overlay (make-overlay 1 1))
+    (overlay-put my/window-stop-seam-overlay 'face 'my/window-stop-seam))
+  (save-excursion
+    (goto-char pos)
+    (move-overlay my/window-stop-seam-overlay
+                  (line-beginning-position) (line-beginning-position 2)
+                  (current-buffer)))
+  (overlay-put my/window-stop-seam-overlay 'window (selected-window))
+  (add-hook 'pre-command-hook #'my/window-stop-seam-clear))
+
 (defun my/window-stop-positions ()
   "Buffer positions of the start of each screen line in `my/window-stops'."
   (let ((last-row (1- (window-body-height))))
@@ -219,37 +249,48 @@ stop again.")
   "Move point to the start of the next window stop below it, without scrolling.
 From the last stop, scroll down by `my/window-stop-edge-scroll' of the
 window and land on the last stop again, or with `my/window-stop-edge-page'
-make point's line the top line. In a minibuffer, move right a character
-instead."
+make point's line the top line. Either way, underline the old bottom
+line to mark where the new lines start. In a minibuffer, move right a
+character instead."
   (interactive "^")
   (if (minibufferp)
       (right-char)
     (if-let* ((pos (seq-find (lambda (pos) (> pos (point)))
                              (my/window-stop-positions))))
         (goto-char pos)
-      (if my/window-stop-edge-page
-          (recenter 0)
-        (ignore-error end-of-buffer
-          (scroll-up (my/window-stop-edge-lines)))
-        (move-to-window-line -1)))))
+      (let ((old (point))
+            (start (window-start)))
+        (if my/window-stop-edge-page
+            (recenter 0 t)  ;; Redisplay so `window-start' reflects the scroll.
+          (ignore-error end-of-buffer
+            (scroll-up (my/window-stop-edge-lines)))
+          (move-to-window-line -1))
+        (unless (= start (window-start))
+          (my/window-stop-seam-show old))))))
 
 (defun my/window-stop-previous ()
   "Move point to the start of the previous window stop above it, without scrolling.
 From the first stop, scroll up by `my/window-stop-edge-scroll' of the
 window and land on the first stop again, or with `my/window-stop-edge-page'
-make point's line the bottom line. In a minibuffer, move left a character
-instead."
+make point's line the bottom line. Either way, underline the line above
+the old top line to mark where the new lines end. In a minibuffer, move
+left a character instead."
   (interactive "^")
   (if (minibufferp)
       (left-char)
     (if-let* ((pos (seq-find (lambda (pos) (< pos (point)))
                              (reverse (my/window-stop-positions)))))
         (goto-char pos)
-      (if my/window-stop-edge-page
-          (recenter -1)
-        (ignore-error beginning-of-buffer
-          (scroll-down (my/window-stop-edge-lines)))
-        (move-to-window-line 0)))))
+      (let ((old (point))
+            (start (window-start)))
+        (if my/window-stop-edge-page
+            (recenter -1 t)
+          (ignore-error beginning-of-buffer
+            (scroll-down (my/window-stop-edge-lines)))
+          (move-to-window-line 0))
+        (unless (= start (window-start))
+          (my/window-stop-seam-show
+           (save-excursion (goto-char old) (forward-line -1) (point))))))))
 
 (defun my/match-outside-delimiter ()
   "Moves point between the left of opening delimiter and the right of the
