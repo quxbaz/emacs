@@ -185,6 +185,9 @@ N defaults to `my/scroll-lines'."
     (setq this-command 'next-line)
     (call-interactively #'next-line)))
 
+;; Bound to plain <left>/<right>. The minibuffer maps (and ivy's, which
+;; doesn't inherit them) leave the arrows to the global map, so the
+;; commands fall back to char motion there.
 (defvar my/window-stops '(0 0.25 0.5 0.75 1.0)
   "Fractions of the window height that `my/window-stop-next' and
 `my/window-stop-previous' move point between.")
@@ -201,22 +204,28 @@ N defaults to `my/scroll-lines'."
 (defun my/window-stop-next ()
   "Move point to the start of the next window stop below it, without scrolling.
 Past the last stop, scroll a page instead: point's line becomes the top
-line of the window and point stays put."
+line of the window and point stays put. In a minibuffer, move right a
+character instead."
   (interactive "^")
-  (if-let* ((pos (seq-find (lambda (pos) (> pos (point)))
-                           (my/window-stop-positions))))
-      (goto-char pos)
-    (recenter 0)))
+  (if (minibufferp)
+      (right-char)
+    (if-let* ((pos (seq-find (lambda (pos) (> pos (point)))
+                             (my/window-stop-positions))))
+        (goto-char pos)
+      (recenter 0))))
 
 (defun my/window-stop-previous ()
   "Move point to the start of the previous window stop above it, without scrolling.
 Past the first stop, scroll a page instead: point's line becomes the
-bottom line of the window and point stays put."
+bottom line of the window and point stays put. In a minibuffer, move
+left a character instead."
   (interactive "^")
-  (if-let* ((pos (seq-find (lambda (pos) (< pos (point)))
-                           (reverse (my/window-stop-positions)))))
-      (goto-char pos)
-    (recenter -1)))
+  (if (minibufferp)
+      (left-char)
+    (if-let* ((pos (seq-find (lambda (pos) (< pos (point)))
+                             (reverse (my/window-stop-positions)))))
+        (goto-char pos)
+      (recenter -1))))
 
 (defun my/match-outside-delimiter ()
   "Moves point between the left of opening delimiter and the right of the

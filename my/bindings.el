@@ -134,8 +134,8 @@
 (global-set-key (kbd "S-<up>") 'my/select-line-up)
 (global-set-key (kbd "S-<down>") 'my/select-line-down)
 ;; Jump point between the window's top, quarters, center and bottom lines.
-(global-set-key (kbd "C-<left>") 'my/window-stop-previous)
-(global-set-key (kbd "C-<right>") 'my/window-stop-next)
+(global-set-key (kbd "<left>") 'my/window-stop-previous)
+(global-set-key (kbd "<right>") 'my/window-stop-next)
 
 
 ;; dwim region commands
