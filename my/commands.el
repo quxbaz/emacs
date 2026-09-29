@@ -196,6 +196,12 @@ N defaults to `my/scroll-lines'."
   "Fraction of the window height to scroll when moving past the last or
 first window stop.")
 
+(defvar my/window-stop-edge-page nil
+  "Non-nil means moving past the last or first window stop scrolls a page:
+point stays put and its line becomes the window's top or bottom line.
+Nil means scroll by `my/window-stop-edge-scroll' and land on the edge
+stop again.")
+
 (defun my/window-stop-positions ()
   "Buffer positions of the start of each screen line in `my/window-stops'."
   (let ((last-row (1- (window-body-height))))
@@ -212,32 +218,38 @@ first window stop.")
 (defun my/window-stop-next ()
   "Move point to the start of the next window stop below it, without scrolling.
 From the last stop, scroll down by `my/window-stop-edge-scroll' of the
-window and land on the last stop again. In a minibuffer, move right a
-character instead."
+window and land on the last stop again, or with `my/window-stop-edge-page'
+make point's line the top line. In a minibuffer, move right a character
+instead."
   (interactive "^")
   (if (minibufferp)
       (right-char)
     (if-let* ((pos (seq-find (lambda (pos) (> pos (point)))
                              (my/window-stop-positions))))
         (goto-char pos)
-      (ignore-error end-of-buffer
-        (scroll-up (my/window-stop-edge-lines)))
-      (move-to-window-line -1))))
+      (if my/window-stop-edge-page
+          (recenter 0)
+        (ignore-error end-of-buffer
+          (scroll-up (my/window-stop-edge-lines)))
+        (move-to-window-line -1)))))
 
 (defun my/window-stop-previous ()
   "Move point to the start of the previous window stop above it, without scrolling.
 From the first stop, scroll up by `my/window-stop-edge-scroll' of the
-window and land on the first stop again. In a minibuffer, move left a
-character instead."
+window and land on the first stop again, or with `my/window-stop-edge-page'
+make point's line the bottom line. In a minibuffer, move left a character
+instead."
   (interactive "^")
   (if (minibufferp)
       (left-char)
     (if-let* ((pos (seq-find (lambda (pos) (< pos (point)))
                              (reverse (my/window-stop-positions)))))
         (goto-char pos)
-      (ignore-error beginning-of-buffer
-        (scroll-down (my/window-stop-edge-lines)))
-      (move-to-window-line 0))))
+      (if my/window-stop-edge-page
+          (recenter -1)
+        (ignore-error beginning-of-buffer
+          (scroll-down (my/window-stop-edge-lines)))
+        (move-to-window-line 0)))))
 
 (defun my/match-outside-delimiter ()
   "Moves point between the left of opening delimiter and the right of the
