@@ -143,6 +143,30 @@ and jumps to the first hunk."
         ((and (looking-at "\"") (looking-back " ")) (forward-sexp) (backward-char 1))
         (t (backward-up-list 1 t t))))
 
+(defvar my/scroll-lines 4
+  "Default number of lines `my/scroll-lines-down' and `my/scroll-lines-up' scroll.")
+
+;; `scroll-preserve-screen-position' is t globally, which only keeps point's
+;; screen row when a scroll would push it off-screen; a few-line scroll needs
+;; `always'. The `scroll-command' property keeps the column steady across
+;; repeated presses.
+(defun my/scroll-lines-down (&optional n)
+  "Scroll the view down N lines, keeping point at the same screen position.
+N defaults to `my/scroll-lines'."
+  (interactive "P")
+  (let ((scroll-preserve-screen-position 'always))
+    (scroll-up-command (if n (prefix-numeric-value n) my/scroll-lines))))
+
+(defun my/scroll-lines-up (&optional n)
+  "Scroll the view up N lines, keeping point at the same screen position.
+N defaults to `my/scroll-lines'."
+  (interactive "P")
+  (let ((scroll-preserve-screen-position 'always))
+    (scroll-down-command (if n (prefix-numeric-value n) my/scroll-lines))))
+
+(put 'my/scroll-lines-down 'scroll-command t)
+(put 'my/scroll-lines-up 'scroll-command t)
+
 (defun my/match-outside-delimiter ()
   "Moves point between the left of opening delimiter and the right of the
 closing delimiter."
