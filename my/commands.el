@@ -308,6 +308,38 @@ already in view and underline the line above the old top line; see
           (my/window-stop-mark (save-excursion (goto-char old) (forward-line -1) (point))
                                old end))))))
 
+(defun my/scroll-page-marked (key down)
+  "Page-scroll by running KEY's binding outside `my/override-map', then mark
+the scroll with `my/window-stop-mark': fade the lines that stay in view
+and underline the boundary. DOWN non-nil means KEY scrolls toward the
+end of the buffer."
+  (let ((cmd this-command)
+        (start (window-start))
+        (end (window-end nil t)))
+    (call-interactively (my/delegate-key key))
+    ;; `my/delegate-key' sets `this-command' to KEY's command; restore ours so
+    ;; the marks clear on any other command, including the opposite scroll.
+    (setq this-command cmd)
+    (unless (= start (window-start))
+      (if down
+          (my/window-stop-mark (1- end) (min (window-start) end) end)
+        (my/window-stop-mark (save-excursion (goto-char start) (forward-line -1) (point))
+                             start end)))))
+
+(defun my/scroll-page-down ()
+  "Scroll a page down like C-v, marking the lines that stay in view."
+  (interactive)
+  (my/scroll-page-marked "C-v" t))
+
+(defun my/scroll-page-up ()
+  "Scroll a page up like M-v, marking the lines that stay in view."
+  (interactive)
+  (my/scroll-page-marked "M-v" nil))
+
+;; Keep point's screen position across repeated presses, like C-v/M-v.
+(put 'my/scroll-page-down 'scroll-command t)
+(put 'my/scroll-page-up 'scroll-command t)
+
 (defun my/match-outside-delimiter ()
   "Moves point between the left of opening delimiter and the right of the
 closing delimiter."
