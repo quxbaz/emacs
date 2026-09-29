@@ -318,8 +318,12 @@ already in view and underline the line above the old top line; see
           (my/window-stop-mark (save-excursion (goto-char old) (forward-line -1) (point))
                                old end))))))
 
+(defvar my/scroll-page-fraction 0.5
+  "Fraction of the window height `my/scroll-page-down'/`-up' scroll.")
+
 (defun my/scroll-page-marked (key down)
-  "Page-scroll by running KEY's binding outside `my/override-map', then mark
+  "Scroll `my/scroll-page-fraction' of the window by running KEY's binding
+outside `my/override-map' with that many lines as its argument, then mark
 the scroll with `my/window-stop-mark': fade the lines that stay in view
 and underline the boundary. Point lands on the window's center line, the
 same line as the 50% window stop. DOWN non-nil means KEY scrolls toward
@@ -327,7 +331,9 @@ the end of the buffer."
   (let ((cmd this-command)
         (start (window-start))
         (end (window-end nil t)))
-    (call-interactively (my/delegate-key key))
+    (let ((current-prefix-arg
+           (max 1 (round (* my/scroll-page-fraction (window-body-height))))))
+      (call-interactively (my/delegate-key key)))
     ;; `my/delegate-key' sets `this-command' to KEY's command; restore ours so
     ;; the marks clear on any other command, including the opposite scroll.
     (setq this-command cmd)
@@ -339,12 +345,12 @@ the end of the buffer."
                              start end)))))
 
 (defun my/scroll-page-down ()
-  "Scroll a page down like C-v, marking the lines that stay in view."
+  "Scroll part of a page down like C-v, marking the lines that stay in view."
   (interactive)
   (my/scroll-page-marked "C-v" t))
 
 (defun my/scroll-page-up ()
-  "Scroll a page up like M-v, marking the lines that stay in view."
+  "Scroll part of a page up like M-v, marking the lines that stay in view."
   (interactive)
   (my/scroll-page-marked "M-v" nil))
 
