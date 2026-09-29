@@ -185,6 +185,33 @@ N defaults to `my/scroll-lines'."
     (setq this-command 'next-line)
     (call-interactively #'next-line)))
 
+(defvar my/window-stops '(0 0.25 0.5 0.75 1.0)
+  "Fractions of the window height that `my/window-stop-next' and
+`my/window-stop-previous' move point between.")
+
+(defun my/window-stop-positions ()
+  "Buffer positions of the start of each screen line in `my/window-stops'."
+  (let ((last-row (1- (window-body-height))))
+    (save-excursion
+      (mapcar (lambda (f)
+                (move-to-window-line (round (* f last-row)))
+                (point))
+              my/window-stops))))
+
+(defun my/window-stop-next ()
+  "Move point to the start of the next window stop below it, without scrolling."
+  (interactive "^")
+  (goto-char (or (seq-find (lambda (pos) (> pos (point)))
+                           (my/window-stop-positions))
+                 (point))))
+
+(defun my/window-stop-previous ()
+  "Move point to the start of the previous window stop above it, without scrolling."
+  (interactive "^")
+  (goto-char (or (seq-find (lambda (pos) (< pos (point)))
+                           (reverse (my/window-stop-positions)))
+                 (point))))
+
 (defun my/match-outside-delimiter ()
   "Moves point between the left of opening delimiter and the right of the
 closing delimiter."
