@@ -44,6 +44,8 @@
 (keymap-set my/override-map "M-RET" (my/delegate-key "M-v"))     ;; scroll up [C-M-m]
 (keymap-set my/override-map "S-<down>" (my/delegate-key "C-v"))  ;; scroll down
 (keymap-set my/override-map "S-<up>" (my/delegate-key "M-v"))    ;; scroll up
+(keymap-set my/override-map "C-<down>" (my/delegate-key "S-<down>"))  ;; mode's S-<down> (org timestamps, maf brackets)
+(keymap-set my/override-map "C-<up>" (my/delegate-key "S-<up>"))      ;; mode's S-<up>
 (keymap-set my/override-map "C-n" (my/delegate-key "RET"))       ;; return / newline
 (keymap-set my/override-map "M-k" (my/delegate-key "C-k"))       ;; kill line
 (keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))     ;; kill block
