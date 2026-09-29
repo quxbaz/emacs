@@ -79,12 +79,9 @@
 
 ;; project-init
 ;;
-;; If a git project's root contains a project-init.el file, load it the
-;; first time a file or directory from that project is visited in this
-;; session. The dired hook covers starting Emacs on a directory (emacs .),
-;; since dired buffers don't run find-file-hook.
-(defvar my/project-init-loaded-roots nil
-  "Project roots whose project-init.el has already been loaded.")
+;; If the git project Emacs was started in has a project-init.el at its
+;; root, load it once at startup. Visiting other projects later never
+;; loads theirs.
 
 ;; Init files run with default-directory set to the directory Emacs was
 ;; invoked in, so this captures the startup project.
@@ -93,18 +90,16 @@
     (expand-file-name root))
   "Root of the git repository Emacs was started in, or nil if none.")
 
+;; Run from `emacs-startup-hook' so the whole config is loaded and the
+;; startup buffers (command-line files, `initial-buffer-choice') are up.
 (defun my/load-project-init ()
-  (when-let* ((root (locate-dominating-file default-directory ".git"))
-              (root (expand-file-name root))
+  (when-let* ((root my/project-root)
               (init-file (concat root "project-init.el")))
-    (when (and (file-exists-p init-file)
-               (not (member root my/project-init-loaded-roots)))
-      (push root my/project-init-loaded-roots)
+    (when (file-exists-p init-file)
       (load init-file)
       (message "Loaded %s" init-file))))
 
-(add-hook 'find-file-hook #'my/load-project-init)
-(add-hook 'dired-mode-hook #'my/load-project-init)
+(add-hook 'emacs-startup-hook #'my/load-project-init)
 
 ;; Autoloads
 (autoload 'sql-lisp-mode (concat user-emacs-directory "my/lib-sql.el") "A mode for SQL interaction through evaluation of Emacs Lisp forms." t)
