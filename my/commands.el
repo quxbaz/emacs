@@ -318,7 +318,7 @@ already in view and underline the line above the old top line; see
           (my/window-stop-mark (save-excursion (goto-char old) (forward-line -1) (point))
                                old end))))))
 
-(defvar my/scroll-page-fraction 0.5
+(defvar my/scroll-page-fraction 0.75
   "Fraction of the window height `my/scroll-page-down'/`-up' scroll.")
 
 (defun my/scroll-page-marked (key down)
