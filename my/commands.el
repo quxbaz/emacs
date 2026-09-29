@@ -170,7 +170,7 @@ N defaults to `my/scroll-lines'."
 ;; <up>/<down> are bound to the scroll commands above, and an unbound
 ;; S-<up>/S-<down> shift-translates to them, so it would scroll too. These
 ;; keep the global Shift+arrow on its usual line motion that extends the
-;; selection, which C-<up>/C-<down> reach through `my/delegate-key'.
+;; selection.
 (defun my/select-line-up ()
   "Move up a line, extending the shift-selection."
   (interactive)

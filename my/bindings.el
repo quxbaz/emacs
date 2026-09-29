@@ -42,10 +42,6 @@
 (keymap-set my/override-map "RET" (my/delegate-key "C-v"))       ;; scroll down [C-m]
 (keymap-set my/override-map "<return>" (my/delegate-key "RET"))  ;; keep actual Return / Enter key as return
 (keymap-set my/override-map "M-RET" (my/delegate-key "M-v"))     ;; scroll up [C-M-m]
-(keymap-set my/override-map "S-<down>" (my/delegate-key "C-v"))  ;; scroll down
-(keymap-set my/override-map "S-<up>" (my/delegate-key "M-v"))    ;; scroll up
-(keymap-set my/override-map "C-<down>" (my/delegate-key "S-<down>"))  ;; mode's S-<down> (org timestamps, maf brackets)
-(keymap-set my/override-map "C-<up>" (my/delegate-key "S-<up>"))      ;; mode's S-<up>
 (keymap-set my/override-map "C-n" (my/delegate-key "RET"))       ;; return / newline
 (keymap-set my/override-map "M-k" (my/delegate-key "C-k"))       ;; kill line
 (keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))     ;; kill block
@@ -129,10 +125,13 @@
 ;; the override map, so modes that bind arrows (minibuffer history, maf) keep them.
 (global-set-key (kbd "<up>") 'my/scroll-lines-up)
 (global-set-key (kbd "<down>") 'my/scroll-lines-down)
-;; S-<up>/S-<down> themselves scroll via the override map; these are what
-;; C-<up>/C-<down> delegate to where no mode binds Shift+arrow.
+;; An unbound S-<up>/S-<down> would shift-translate to the scrolling arrows
+;; above; keep them on line motion that extends the selection.
 (global-set-key (kbd "S-<up>") 'my/select-line-up)
 (global-set-key (kbd "S-<down>") 'my/select-line-down)
+;; Page scroll.
+(global-set-key (kbd "C-<left>") 'scroll-down-command)
+(global-set-key (kbd "C-<right>") 'scroll-up-command)
 ;; Jump point between the window's top, quarters, center and bottom lines.
 (global-set-key (kbd "<left>") 'my/window-stop-previous)
 (global-set-key (kbd "<right>") 'my/window-stop-next)
