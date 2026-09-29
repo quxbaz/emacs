@@ -207,30 +207,39 @@ stop again.")
   "Face underlining the boundary between old and newly scrolled-in lines
 after scrolling past an edge window stop.")
 
-(defvar my/window-stop-seam-overlay nil
-  "Overlay drawing the `my/window-stop-seam' line, or nil.")
+(defface my/window-stop-old
+  '((((background dark)) :foreground "gray35")
+    (t :foreground "gray65"))
+  "Face fading the lines that were already in view before scrolling past
+an edge window stop, so the newly scrolled-in lines stand out.")
 
-(defun my/window-stop-seam-clear ()
-  "Remove the seam before any command other than the window-stop ones."
+(defvar my/window-stop-marks nil
+  "Overlays marking the last edge window-stop scroll (seam and fade).")
+
+(defun my/window-stop-marks-clear ()
+  "Remove the marks before any command other than the window-stop ones."
   (unless (memq this-command '(my/window-stop-next my/window-stop-previous))
-    (when my/window-stop-seam-overlay
-      (delete-overlay my/window-stop-seam-overlay))
-    (remove-hook 'pre-command-hook #'my/window-stop-seam-clear)))
+    (mapc #'delete-overlay my/window-stop-marks)
+    (setq my/window-stop-marks nil)
+    (remove-hook 'pre-command-hook #'my/window-stop-marks-clear)))
 
-(defun my/window-stop-seam-show (pos)
-  "Underline the line at POS in the selected window until the next command
-that isn't a window-stop one. An underline, not an overline, since
-terminals can't draw overlines."
-  (unless (overlayp my/window-stop-seam-overlay)
-    (setq my/window-stop-seam-overlay (make-overlay 1 1))
-    (overlay-put my/window-stop-seam-overlay 'face 'my/window-stop-seam))
-  (save-excursion
-    (goto-char pos)
-    (move-overlay my/window-stop-seam-overlay
-                  (line-beginning-position) (line-beginning-position 2)
-                  (current-buffer)))
-  (overlay-put my/window-stop-seam-overlay 'window (selected-window))
-  (add-hook 'pre-command-hook #'my/window-stop-seam-clear))
+(defun my/window-stop-mark (seam old-beg old-end)
+  "Mark an edge window-stop scroll in the selected window: underline the
+line at SEAM and fade the lines from OLD-BEG to OLD-END, which were in
+view before the scroll. The marks last until the next command that
+isn't a window-stop one. An underline, not an overline, since terminals
+can't draw overlines."
+  (mapc #'delete-overlay my/window-stop-marks)
+  (let ((seam-ov (save-excursion
+                   (goto-char seam)
+                   (make-overlay (line-beginning-position) (line-beginning-position 2))))
+        (old-ov (make-overlay old-beg old-end)))
+    (overlay-put seam-ov 'face 'my/window-stop-seam)
+    (overlay-put old-ov 'face 'my/window-stop-old)
+    (setq my/window-stop-marks (list seam-ov old-ov))
+    (dolist (ov my/window-stop-marks)
+      (overlay-put ov 'window (selected-window))))
+  (add-hook 'pre-command-hook #'my/window-stop-marks-clear))
 
 (defun my/window-stop-positions ()
   "Buffer positions of the start of each screen line in `my/window-stops'."
@@ -249,9 +258,9 @@ terminals can't draw overlines."
   "Move point to the start of the next window stop below it, without scrolling.
 From the last stop, scroll down by `my/window-stop-edge-scroll' of the
 window and land on the last stop again, or with `my/window-stop-edge-page'
-make point's line the top line. Either way, underline the old bottom
-line to mark where the new lines start. In a minibuffer, move right a
-character instead."
+make point's line the top line. Either way, fade the lines that were
+already in view and underline the old bottom line; see
+`my/window-stop-mark'. In a minibuffer, move right a character instead."
   (interactive "^")
   (if (minibufferp)
       (right-char)
@@ -266,15 +275,16 @@ character instead."
             (scroll-up (my/window-stop-edge-lines)))
           (move-to-window-line -1))
         (unless (= start (window-start))
-          (my/window-stop-seam-show old))))))
+          (my/window-stop-mark old (window-start)
+                               (save-excursion (goto-char old) (line-beginning-position 2))))))))
 
 (defun my/window-stop-previous ()
   "Move point to the start of the previous window stop above it, without scrolling.
 From the first stop, scroll up by `my/window-stop-edge-scroll' of the
 window and land on the first stop again, or with `my/window-stop-edge-page'
-make point's line the bottom line. Either way, underline the line above
-the old top line to mark where the new lines end. In a minibuffer, move
-left a character instead."
+make point's line the bottom line. Either way, fade the lines that were
+already in view and underline the line above the old top line; see
+`my/window-stop-mark'. In a minibuffer, move left a character instead."
   (interactive "^")
   (if (minibufferp)
       (left-char)
@@ -282,15 +292,16 @@ left a character instead."
                              (reverse (my/window-stop-positions)))))
         (goto-char pos)
       (let ((old (point))
-            (start (window-start)))
+            (start (window-start))
+            (end (window-end nil t)))
         (if my/window-stop-edge-page
             (recenter -1 t)
           (ignore-error beginning-of-buffer
             (scroll-down (my/window-stop-edge-lines)))
           (move-to-window-line 0))
         (unless (= start (window-start))
-          (my/window-stop-seam-show
-           (save-excursion (goto-char old) (forward-line -1) (point))))))))
+          (my/window-stop-mark (save-excursion (goto-char old) (forward-line -1) (point))
+                               old end))))))
 
 (defun my/match-outside-delimiter ()
   "Moves point between the left of opening delimiter and the right of the
