@@ -42,8 +42,8 @@
 (keymap-set my/override-map "RET" (my/delegate-key "C-v"))       ;; scroll down [C-m]
 (keymap-set my/override-map "<return>" (my/delegate-key "RET"))  ;; keep actual Return / Enter key as return
 (keymap-set my/override-map "M-RET" (my/delegate-key "M-v"))     ;; scroll up [C-M-m]
-(keymap-set my/override-map "S-<down>" 'my/scroll-lines-down)    ;; scroll down a few lines
-(keymap-set my/override-map "S-<up>" 'my/scroll-lines-up)        ;; scroll up a few lines
+(keymap-set my/override-map "S-<down>" (my/delegate-key "C-v"))  ;; scroll down
+(keymap-set my/override-map "S-<up>" (my/delegate-key "M-v"))    ;; scroll up
 (keymap-set my/override-map "C-<down>" (my/delegate-key "S-<down>"))  ;; mode's S-<down> (org timestamps, maf brackets)
 (keymap-set my/override-map "C-<up>" (my/delegate-key "S-<up>"))      ;; mode's S-<up>
 (keymap-set my/override-map "C-n" (my/delegate-key "RET"))       ;; return / newline
@@ -125,6 +125,14 @@
 (global-set-key (kbd "M-.") 'my/mark-context)
 ;; (global-set-key (kbd "C-M-.") 'my/mark-context)
 (global-set-key (kbd "M-h") 'my/mark-paragraph)
+;; Arrows scroll a few lines instead of moving by one. In the global map, not
+;; the override map, so modes that bind arrows (minibuffer history, maf) keep them.
+(global-set-key (kbd "<up>") 'my/scroll-lines-up)
+(global-set-key (kbd "<down>") 'my/scroll-lines-down)
+;; S-<up>/S-<down> themselves scroll via the override map; these are what
+;; C-<up>/C-<down> delegate to where no mode binds Shift+arrow.
+(global-set-key (kbd "S-<up>") 'my/select-line-up)
+(global-set-key (kbd "S-<down>") 'my/select-line-down)
 
 
 ;; dwim region commands

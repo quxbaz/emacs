@@ -153,19 +153,37 @@ and jumps to the first hunk."
 (defun my/scroll-lines-down (&optional n)
   "Scroll the view down N lines, keeping point at the same screen position.
 N defaults to `my/scroll-lines'."
-  (interactive "P")
+  (interactive "^P")
   (let ((scroll-preserve-screen-position 'always))
     (scroll-up-command (if n (prefix-numeric-value n) my/scroll-lines))))
 
 (defun my/scroll-lines-up (&optional n)
   "Scroll the view up N lines, keeping point at the same screen position.
 N defaults to `my/scroll-lines'."
-  (interactive "P")
+  (interactive "^P")
   (let ((scroll-preserve-screen-position 'always))
     (scroll-down-command (if n (prefix-numeric-value n) my/scroll-lines))))
 
 (put 'my/scroll-lines-down 'scroll-command t)
 (put 'my/scroll-lines-up 'scroll-command t)
+
+;; <up>/<down> are bound to the scroll commands above, and an unbound
+;; S-<up>/S-<down> shift-translates to them, so it would scroll too. These
+;; keep the global Shift+arrow on its usual line motion that extends the
+;; selection, which C-<up>/C-<down> reach through `my/delegate-key'.
+(defun my/select-line-up ()
+  "Move up a line, extending the shift-selection."
+  (interactive)
+  (let ((this-command-keys-shift-translated t))
+    (setq this-command 'previous-line)  ;; Keep the goal column across presses.
+    (call-interactively #'previous-line)))
+
+(defun my/select-line-down ()
+  "Move down a line, extending the shift-selection."
+  (interactive)
+  (let ((this-command-keys-shift-translated t))
+    (setq this-command 'next-line)
+    (call-interactively #'next-line)))
 
 (defun my/match-outside-delimiter ()
   "Moves point between the left of opening delimiter and the right of the
