@@ -199,18 +199,24 @@ N defaults to `my/scroll-lines'."
               my/window-stops))))
 
 (defun my/window-stop-next ()
-  "Move point to the start of the next window stop below it, without scrolling."
+  "Move point to the start of the next window stop below it, without scrolling.
+Past the last stop, scroll a page instead: point's line becomes the top
+line of the window and point stays put."
   (interactive "^")
-  (goto-char (or (seq-find (lambda (pos) (> pos (point)))
-                           (my/window-stop-positions))
-                 (point))))
+  (if-let* ((pos (seq-find (lambda (pos) (> pos (point)))
+                           (my/window-stop-positions))))
+      (goto-char pos)
+    (recenter 0)))
 
 (defun my/window-stop-previous ()
-  "Move point to the start of the previous window stop above it, without scrolling."
+  "Move point to the start of the previous window stop above it, without scrolling.
+Past the first stop, scroll a page instead: point's line becomes the
+bottom line of the window and point stays put."
   (interactive "^")
-  (goto-char (or (seq-find (lambda (pos) (< pos (point)))
-                           (reverse (my/window-stop-positions)))
-                 (point))))
+  (if-let* ((pos (seq-find (lambda (pos) (< pos (point)))
+                           (reverse (my/window-stop-positions)))))
+      (goto-char pos)
+    (recenter -1)))
 
 (defun my/match-outside-delimiter ()
   "Moves point between the left of opening delimiter and the right of the
