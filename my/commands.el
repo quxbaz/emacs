@@ -219,10 +219,17 @@ an edge window stop, so the newly scrolled-in lines stand out.")
 (defvar my/window-stop-marks-command nil
   "The window-stop command that made `my/window-stop-marks'.")
 
+(defvar my/window-stop-marks-clear-on-line-scroll nil
+  "Non-nil means <up>/<down> (`my/scroll-lines-up'/`-down') clear the
+window-stop marks like any other command. Nil keeps them.")
+
 (defun my/window-stop-marks-clear ()
   "Remove the marks before any command other than the window-stop one
-that made them, so moving in the opposite direction clears them too."
-  (unless (eq this-command my/window-stop-marks-command)
+that made them, so moving in the opposite direction clears them too.
+Line scrolls keep them unless `my/window-stop-marks-clear-on-line-scroll'."
+  (unless (or (eq this-command my/window-stop-marks-command)
+              (and (not my/window-stop-marks-clear-on-line-scroll)
+                   (memq this-command '(my/scroll-lines-up my/scroll-lines-down))))
     (mapc #'delete-overlay my/window-stop-marks)
     (setq my/window-stop-marks nil)
     (remove-hook 'pre-command-hook #'my/window-stop-marks-clear)))
