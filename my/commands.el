@@ -216,9 +216,13 @@ an edge window stop, so the newly scrolled-in lines stand out.")
 (defvar my/window-stop-marks nil
   "Overlays marking the last edge window-stop scroll (seam and fade).")
 
+(defvar my/window-stop-marks-command nil
+  "The window-stop command that made `my/window-stop-marks'.")
+
 (defun my/window-stop-marks-clear ()
-  "Remove the marks before any command other than the window-stop ones."
-  (unless (memq this-command '(my/window-stop-next my/window-stop-previous))
+  "Remove the marks before any command other than the window-stop one
+that made them, so moving in the opposite direction clears them too."
+  (unless (eq this-command my/window-stop-marks-command)
     (mapc #'delete-overlay my/window-stop-marks)
     (setq my/window-stop-marks nil)
     (remove-hook 'pre-command-hook #'my/window-stop-marks-clear)))
@@ -226,9 +230,9 @@ an edge window stop, so the newly scrolled-in lines stand out.")
 (defun my/window-stop-mark (seam old-beg old-end)
   "Mark an edge window-stop scroll in the selected window: underline the
 line at SEAM and fade the lines from OLD-BEG to OLD-END, which were in
-view before the scroll. The marks last until the next command that
-isn't a window-stop one. An underline, not an overline, since terminals
-can't draw overlines."
+view before the scroll. The marks last until the next command other
+than the current one, so moving in the opposite direction clears them.
+An underline, not an overline, since terminals can't draw overlines."
   (mapc #'delete-overlay my/window-stop-marks)
   (let ((seam-ov (save-excursion
                    (goto-char seam)
@@ -236,7 +240,8 @@ can't draw overlines."
         (old-ov (make-overlay old-beg old-end)))
     (overlay-put seam-ov 'face 'my/window-stop-seam)
     (overlay-put old-ov 'face 'my/window-stop-old)
-    (setq my/window-stop-marks (list seam-ov old-ov))
+    (setq my/window-stop-marks (list seam-ov old-ov)
+          my/window-stop-marks-command this-command)
     (dolist (ov my/window-stop-marks)
       (overlay-put ov 'window (selected-window))))
   (add-hook 'pre-command-hook #'my/window-stop-marks-clear))
