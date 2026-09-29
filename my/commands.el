@@ -321,8 +321,9 @@ already in view and underline the line above the old top line; see
 (defun my/scroll-page-marked (key down)
   "Page-scroll by running KEY's binding outside `my/override-map', then mark
 the scroll with `my/window-stop-mark': fade the lines that stay in view
-and underline the boundary. DOWN non-nil means KEY scrolls toward the
-end of the buffer."
+and underline the boundary. Point lands on the window's center line, the
+same line as the 50% window stop. DOWN non-nil means KEY scrolls toward
+the end of the buffer."
   (let ((cmd this-command)
         (start (window-start))
         (end (window-end nil t)))
@@ -330,6 +331,7 @@ end of the buffer."
     ;; `my/delegate-key' sets `this-command' to KEY's command; restore ours so
     ;; the marks clear on any other command, including the opposite scroll.
     (setq this-command cmd)
+    (move-to-window-line (round (* 0.5 (1- (window-body-height)))))
     (unless (= start (window-start))
       (if down
           (my/window-stop-mark (1- end) (min (window-start) end) end)
