@@ -42,6 +42,8 @@
 (keymap-set my/override-map "RET" (my/delegate-key "C-v"))       ;; scroll down [C-m]
 (keymap-set my/override-map "<return>" (my/delegate-key "RET"))  ;; keep actual Return / Enter key as return
 (keymap-set my/override-map "M-RET" (my/delegate-key "M-v"))     ;; scroll up [C-M-m]
+(keymap-set my/override-map "M-<right>" (my/delegate-key "C-v")) ;; scroll down (over org-metaright)
+(keymap-set my/override-map "M-<left>" (my/delegate-key "M-v"))  ;; scroll up (over org-metaleft)
 (keymap-set my/override-map "C-n" (my/delegate-key "RET"))       ;; return / newline
 (keymap-set my/override-map "M-k" (my/delegate-key "C-k"))       ;; kill line
 (keymap-set my/override-map "C-M-k" (my/delegate-key "M-k"))     ;; kill block
@@ -129,9 +131,6 @@
 ;; above; keep them on line motion that extends the selection.
 (global-set-key (kbd "S-<up>") 'my/select-line-up)
 (global-set-key (kbd "S-<down>") 'my/select-line-down)
-;; Page scroll.
-(global-set-key (kbd "C-<left>") 'scroll-down-command)
-(global-set-key (kbd "C-<right>") 'scroll-up-command)
 ;; Jump point between the window's top, quarters, center and bottom lines.
 (global-set-key (kbd "<left>") 'my/window-stop-previous)
 (global-set-key (kbd "<right>") 'my/window-stop-next)

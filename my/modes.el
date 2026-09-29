@@ -296,6 +296,8 @@ the old contents remain on calc's undo list."
             "<f5>"       'org-html-export-to-html
             "C-x n n"    'my/org-narrow-dwim
             "M-o"        'my/outline-toggle-all
+            "C-<left>"   'org-metaleft   ;; M-<left>/M-<right> page-scroll via the override map.
+            "C-<right>"  'org-metaright
             "C-c C-b"    'my/diff-buffer-with-file)
 
 
