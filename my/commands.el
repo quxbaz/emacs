@@ -234,21 +234,28 @@ Line scrolls keep them unless `my/window-stop-marks-clear-on-line-scroll'."
     (setq my/window-stop-marks nil)
     (remove-hook 'pre-command-hook #'my/window-stop-marks-clear)))
 
+(defvar my/window-stop-fade nil
+  "Non-nil means `my/window-stop-mark' also fades the lines that were in
+view before the scroll, with the `my/window-stop-old' face.")
+
 (defun my/window-stop-mark (seam old-beg old-end)
   "Mark an edge window-stop scroll in the selected window: underline the
-line at SEAM and fade the lines from OLD-BEG to OLD-END, which were in
-view before the scroll. The marks last until the next command other
-than the current one, so moving in the opposite direction clears them.
-An underline, not an overline, since terminals can't draw overlines."
+line at SEAM and, if `my/window-stop-fade', fade the lines from OLD-BEG
+to OLD-END, which were in view before the scroll. The marks last until
+the next command other than the current one, so moving in the opposite
+direction clears them. An underline, not an overline, since terminals
+can't draw overlines."
   (mapc #'delete-overlay my/window-stop-marks)
   (let ((seam-ov (save-excursion
                    (goto-char seam)
-                   (make-overlay (line-beginning-position) (line-beginning-position 2))))
-        (old-ov (make-overlay old-beg old-end)))
+                   (make-overlay (line-beginning-position) (line-beginning-position 2)))))
     (overlay-put seam-ov 'face 'my/window-stop-seam)
-    (overlay-put old-ov 'face 'my/window-stop-old)
-    (setq my/window-stop-marks (list seam-ov old-ov)
+    (setq my/window-stop-marks (list seam-ov)
           my/window-stop-marks-command this-command)
+    (when my/window-stop-fade
+      (let ((old-ov (make-overlay old-beg old-end)))
+        (overlay-put old-ov 'face 'my/window-stop-old)
+        (push old-ov my/window-stop-marks)))
     (dolist (ov my/window-stop-marks)
       (overlay-put ov 'window (selected-window))))
   (add-hook 'pre-command-hook #'my/window-stop-marks-clear))
