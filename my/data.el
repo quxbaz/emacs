@@ -28,7 +28,6 @@
                           "~/personal/math/tools-comp-abstract-2026.org"
                           "~/personal/printing/inventory.org"
                           "~/personal/printing/printing.org"
-                          "~/personal/projects/software/maf-browser.org"
                           "~/personal/typing.org"
                           "~/conf/claude/CLAUDE.md"
                           "~/conf/install/setup.org"
@@ -48,4 +47,5 @@
                           "~/games/undercrawl/docs/design.org"
                           "~/games/undercrawl/docs/dev.org"
                           "~/games/undercrawl/docs/editor.org"
-                          "~/games/undercrawl/docs/mechanics.org"))
+                          "~/games/undercrawl/docs/mechanics.org"
+                          "~/lab/maf-web/docs/maf-web.org"))
