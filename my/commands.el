@@ -1087,6 +1087,43 @@ Each segment is shown with its stars, e.g. \"* Top > ** Child\"."
       (add-hook 'post-command-hook #'my/org-echo-heading nil t)
     (remove-hook 'post-command-hook #'my/org-echo-heading t)))
 
+(defface my/org-today
+  '((t :background "yellow" :foreground "black"))
+  "Face highlighting timestamps of today's date.")
+
+(defvar-local my/org-today--date nil
+  "The date, as YYYY-MM-DD, the buffer's today highlighting was made for.")
+
+(defun my/org-today--match (limit)
+  "Font-lock matcher for a timestamp of today's date before LIMIT.
+Matches active and inactive stamps, with or without a time, e.g.
+\"<2026-10-01 Thu>\" or \"[2026-10-01 Thu 09:30]\"."
+  (setq my/org-today--date (format-time-string "%F"))
+  (re-search-forward (concat "[<[]" my/org-today--date "\\(?: [^]>\n]*\\)?[]>]")
+                     limit t))
+
+(defun my/org-today-refresh (window)
+  "Rehighlight WINDOW's buffer if the date changed since it was highlighted.
+Emacs sessions outlive days, so a buffer fontified yesterday would keep
+yesterday's date highlighted."
+  (with-current-buffer (window-buffer window)
+    (unless (equal my/org-today--date (format-time-string "%F"))
+      (font-lock-flush))))
+
+(define-minor-mode my/org-today-mode
+  "Highlight timestamps of today's date."
+  :lighter nil
+  (let ((keywords '((my/org-today--match 0 'my/org-today prepend))))
+    (if my/org-today-mode
+        (progn
+          (font-lock-add-keywords nil keywords 'append)
+          (add-hook 'window-buffer-change-functions #'my/org-today-refresh nil t)
+          (add-hook 'window-selection-change-functions #'my/org-today-refresh nil t))
+      (font-lock-remove-keywords nil keywords)
+      (remove-hook 'window-buffer-change-functions #'my/org-today-refresh t)
+      (remove-hook 'window-selection-change-functions #'my/org-today-refresh t))
+    (font-lock-flush)))
+
 (defun my/org--subtree-comment-tail ()
   "Where the comment run closing off the subtree at point starts.
 Nil unless the subtree ends in one. A subtree runs to the next
