@@ -143,7 +143,7 @@ and jumps to the first hunk."
         ((and (looking-at "\"") (looking-back " ")) (forward-sexp) (backward-char 1))
         (t (backward-up-list 1 t t))))
 
-(defvar my/scroll-lines 2
+(defvar my/scroll-lines 1
   "Default number of lines `my/scroll-lines-down' and `my/scroll-lines-up' scroll.")
 
 ;; `scroll-preserve-screen-position' is t globally, which only keeps point's
