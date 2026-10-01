@@ -284,7 +284,7 @@ the old contents remain on calc's undo list."
             "|"          'my/key-pipe
             "C-o"        'my/open-line
             "M-<return>" 'duplicate-dwim
-            "M-q"        'fill-paragraph
+            "M-q"        'my/org-fill-paragraph
             "C-,"        'my/switch-to-other-buffer
             "C-c C-v"    'my/revert-buffer
             "C-M--"      'org-insert-todo-heading

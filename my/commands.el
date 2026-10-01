@@ -1017,6 +1017,26 @@ For `org-ctrl-c-ctrl-c-hook': return nil when there is nothing to do here."
         (setq deactivate-mark nil))  ;; Keep the region, so the key can be repeated.
       t)))
 
+(defun my/org-fill-paragraph (&optional justify)
+  "Fill the element at point, or only the lines of the active region.
+With a region, `org-fill-paragraph' fills every paragraph the region
+touches, out to its full extent; narrowing to the region's lines first
+leaves the rest of those paragraphs alone. With a prefix argument,
+justify as well."
+  (interactive (progn (barf-if-buffer-read-only)
+                      (list (when current-prefix-arg 'full))))
+  (if (use-region-p)
+      (let ((beg (save-excursion (goto-char (region-beginning)) (line-beginning-position)))
+            (end (save-excursion (goto-char (region-end))
+                                 ;; A region ending at bol doesn't take in that line.
+                                 (if (and (bolp) (> (point) (region-beginning)))
+                                     (point)
+                                   (line-end-position)))))
+        (save-restriction
+          (narrow-to-region beg end)
+          (org-fill-paragraph justify t)))
+    (org-fill-paragraph justify)))
+
 (defun my/org-narrow-dwim ()
   "Narrow to the subtree at point, or to the region if one is active.
 Anywhere else, fall back to `narrow-to-region'."
