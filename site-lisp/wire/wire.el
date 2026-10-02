@@ -38,6 +38,7 @@
 ;;   C-c y s                     ; pick which Claude window to target
 ;;   mark a region (or not), C-c y y
 ;;   edit the pre-filled message, C-c C-c or C-RET   ; send (C-c C-k cancels)
+;;   M-p / M-n in that buffer    ; cycle previously sent prompts
 ;;   C-c y SPC                   ; focus the target's kitty window
 ;;
 ;; Default keys under `wire-mode', prefix C-c y: y (dispatch), s
@@ -91,6 +92,12 @@ prompt early; a separate carriage return submits it."
 A plist of the form (:id ID :socket SOCKET :label LABEL), where ID is
 the kitty window id, SOCKET is the `unix:PATH' that owns it, and LABEL
 is a human description.  Session-only.")
+
+(defvar wire-prompt-history nil
+  "Prompts previously sent from the annotation buffer, newest first.
+Only the `<prompt>' contents are recorded, not the context block.
+\\<wire-annotation-mode-map>Cycle through it with \\[wire-annotation-previous-prompt] \
+and \\[wire-annotation-next-prompt].  Length is capped by `history-length'.")
 
 ;;;; kitty remote control
 
@@ -590,6 +597,8 @@ manual kill alike."
     (define-key map (kbd "C-c C-c") #'wire-annotation-confirm)
     (define-key map (kbd "C-<return>") #'wire-annotation-confirm)
     (define-key map (kbd "C-c C-k") #'wire-annotation-abort)
+    (define-key map (kbd "M-p") #'wire-annotation-previous-prompt)
+    (define-key map (kbd "M-n") #'wire-annotation-next-prompt)
     map)
   "Keymap for `wire-annotation-mode'.")
 
@@ -640,10 +649,13 @@ The `<prompt>' contents lead the message; the target banner and prompt
 tags are dropped.  See `wire--compose-message'."
   (interactive)
   (let ((text (wire--compose-message (buffer-string)))
-        (target wire--pending-target))
+        (target wire--pending-target)
+        (prompt (wire--prompt-text)))
     (when (string-empty-p text)
       (user-error "wire: nothing to send"))
     (wire--send target text)
+    (when (and prompt (not (string-empty-p prompt)))
+      (add-to-history 'wire-prompt-history prompt))
     (let ((label (plist-get target :label)))
       (kill-buffer (current-buffer))
       ;; Offer a one-key follow-up: SPC visits the target just sent to.
@@ -655,6 +667,76 @@ tags are dropped.  See `wire--compose-message'."
   (interactive)
   (kill-buffer (current-buffer))
   (message "wire: cancelled"))
+
+;;;; Prompt history
+
+(defvar-local wire--history-index nil
+  "Position in `wire-prompt-history' shown in the prompt block.
+Nil while the prompt block holds the user's own draft.")
+
+(defvar-local wire--history-draft nil
+  "Prompt block contents saved when history cycling began.")
+
+(defun wire--prompt-bounds ()
+  "Return (BEG . END) of the text inside the `<prompt>' block, or nil.
+The newlines just inside the tags are excluded, so replacing the
+region keeps the tags on lines of their own."
+  (save-excursion
+    (goto-char (point-max))
+    (when (search-backward "</prompt>" nil t)
+      (let ((end (point)))
+        (when (search-backward "<prompt>" nil t)
+          (let ((beg (match-end 0)))
+            (when (eq (char-after beg) ?\n)
+              (setq beg (1+ beg)))
+            (when (and (> end beg) (eq (char-before end) ?\n))
+              (setq end (1- end)))
+            (cons beg (max beg end))))))))
+
+(defun wire--prompt-text ()
+  "Return the trimmed `<prompt>' contents, or nil if there is no block."
+  (let ((bounds (wire--prompt-bounds)))
+    (when bounds
+      (string-trim
+       (buffer-substring-no-properties (car bounds) (cdr bounds))))))
+
+(defun wire--replace-prompt (text)
+  "Replace the `<prompt>' contents with TEXT and leave point at its end."
+  (let ((bounds (or (wire--prompt-bounds)
+                    (user-error "wire: no <prompt> block"))))
+    (goto-char (car bounds))
+    (delete-region (car bounds) (cdr bounds))
+    (insert text)))
+
+(defun wire-annotation-previous-prompt (n)
+  "Replace the `<prompt>' contents with the Nth previous prompt.
+The first step saves the current contents as a draft, which
+\\[wire-annotation-next-prompt] restores after the newest entry."
+  (interactive "p")
+  (let ((target (+ (or wire--history-index -1) n)))
+    (cond ((null wire-prompt-history)
+           (user-error "wire: no prompt history"))
+          ((>= target (length wire-prompt-history))
+           (user-error "wire: beginning of prompt history"))
+          ((< target -1)
+           (user-error "wire: end of prompt history")))
+    (unless wire--history-index
+      (let ((bounds (wire--prompt-bounds)))
+        (setq wire--history-draft
+              (and bounds (buffer-substring (car bounds) (cdr bounds))))))
+    (if (= target -1)
+        (progn (wire--replace-prompt (or wire--history-draft ""))
+               (setq wire--history-index nil))
+      (wire--replace-prompt (nth target wire-prompt-history))
+      (setq wire--history-index target))))
+
+(defun wire-annotation-next-prompt (n)
+  "Replace the `<prompt>' contents with the Nth next (newer) prompt.
+Stepping past the newest entry restores the draft."
+  (interactive "p")
+  (unless wire--history-index
+    (user-error "wire: end of prompt history"))
+  (wire-annotation-previous-prompt (- n)))
 
 ;;;; Main command
 

@@ -85,7 +85,8 @@ Typical flow:
 4. A `*wire annotation*` buffer pops up **pre-filled with the full message** —
    project, file, line range and the fenced code block. Point starts at the
    top, ready for a note. Edit anything you like; the buffer is sent verbatim.
-   `C-c C-c` sends, `C-c C-k` cancels.
+   `C-c C-c` sends, `C-c C-k` cancels; `M-p` / `M-n` cycle previously sent prompts
+   inside the `<prompt>` block.
 
 Right after a dispatch, `SPC` focuses the target's kitty window — a one-key
 shortcut active only until the next keypress (the same as `wire-visit-target` /
