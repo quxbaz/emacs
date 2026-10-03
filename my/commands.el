@@ -773,14 +773,25 @@ at the target line."
   (call-interactively 'yank))
 
 (defun my/kill-line-to-other-window ()
-  "Kill from point through the line's newline and yank it at point in the other window."
+  "Kill from point through the line's newline and yank it at point in the other window.
+In org, from the start of a heading or list item, kill the whole subtree
+or item instead, as `my/org-kill-line-dwim' does."
   (interactive)
-  (let ((win (next-window nil 'nomini))
-        (end (min (1+ (line-end-position)) (point-max))))
+  (let ((win (next-window nil 'nomini)))
     (when (eq win (selected-window))
       (user-error "No other window"))
-    (let ((text (buffer-substring (point) end)))
-      (kill-region (point) end)
+    (let ((text
+           (if (and (derived-mode-p 'org-mode)
+                    (save-excursion (skip-chars-backward " \t") (bolp))
+                    (or (org-at-heading-p) (org-at-item-p)))
+               ;; A kill right after another appends to it; start a fresh
+               ;; entry so the kill ring's head is just this text.
+               (let ((last-command nil))
+                 (my/org-kill-line-dwim)
+                 (current-kill 0))
+             (let ((end (min (1+ (line-end-position)) (point-max))))
+               (prog1 (buffer-substring (point) end)
+                 (kill-region (point) end))))))
       ;; Selecting the window inserts at its own point and leaves that point
       ;; after the text, so repeated kills land in order.
       (with-selected-window win
