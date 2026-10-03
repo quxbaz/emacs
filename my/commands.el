@@ -1491,6 +1491,27 @@ change is a rename, git's 'renamed:    old -> new' format."
      (t
       (user-error "my/magit-quick-commit: no modified files")))))
 
+(defun my/commit-current-file ()
+  "Save and commit the visited file alone, with no prompts.
+Uses the same 'modified:   filename' message as `my/magit-quick-commit'.
+A path-limited commit leaves anything else that is staged untouched."
+  (interactive)
+  (require 'magit)
+  (let ((file buffer-file-name)
+        (top (magit-toplevel)))
+    (unless file (user-error "Buffer is not visiting a file"))
+    (unless top (user-error "Not in a git repository"))
+    (when (buffer-modified-p) (save-buffer))
+    (let* ((default-directory top)
+           (rel (file-relative-name file top)))
+      (if (and (magit-file-tracked-p rel)
+               (magit-git-success "diff" "--quiet" "HEAD" "--" rel))
+          (message "No changes to %s" rel)
+        (magit-run-git "add" "--" rel)
+        (if (zerop (magit-run-git "commit" "-m" (format "modified:   %s" rel) "--" rel))
+            (message "Committed %s" rel)
+          (user-error "Commit of %s failed; see `magit-process-buffer'" rel))))))
+
 (defun my/magit-copy-branch-name ()
   "Save the branch or tag at point to the kill ring, and echo it.
 Magit's own `magit-copy-section-value' resolves a ref to its hash before
