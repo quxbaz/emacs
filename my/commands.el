@@ -772,6 +772,20 @@ at the target line."
       (delete-region (region-beginning) (region-end)))
   (call-interactively 'yank))
 
+(defun my/kill-line-to-other-window ()
+  "Kill from point through the line's newline and yank it at point in the other window."
+  (interactive)
+  (let ((win (next-window nil 'nomini))
+        (end (min (1+ (line-end-position)) (point-max))))
+    (when (eq win (selected-window))
+      (user-error "No other window"))
+    (let ((text (buffer-substring (point) end)))
+      (kill-region (point) end)
+      ;; Selecting the window inserts at its own point and leaves that point
+      ;; after the text, so repeated kills land in order.
+      (with-selected-window win
+        (insert-for-yank text)))))
+
 (defun my/kill-block (arg)
   (interactive "p")
   (save-excursion
