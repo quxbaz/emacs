@@ -433,6 +433,14 @@ closing delimiter."
       (forward-line)))
 
 
+(defun my/outline-folded-p (&optional pos)
+  "Return non-nil if POS (default point) is hidden by outline folding.
+`outline-invisible-p' only recognizes outline's own `invisible' value,
+so it misses org's folds, which carry org's fold spec instead."
+  (if (derived-mode-p 'org-mode)
+      (org-fold-folded-p pos 'headline)
+    (outline-invisible-p pos)))
+
 (defun my/outline-subtrees-shown-p (&optional beg end)
   "Return non-nil if any heading's body or child line is visible in BEG..END.
 BEG and END default to the whole buffer.  Only headings that are
@@ -448,7 +456,7 @@ region reports nil even when its headings have no bodies."
           (let ((level (funcall outline-level))
                 (bol (line-beginning-position))
                 (eol (line-end-position)))
-            (when (and (not (outline-invisible-p bol))
+            (when (and (not (my/outline-folded-p bol))
                        (< eol end))
               (save-excursion
                 (forward-line 1)
@@ -456,11 +464,11 @@ region reports nil even when its headings have no bodies."
                 ;; folded, so they say nothing about fold state.  Skip them and
                 ;; judge by the first visible line that has content.
                 (while (and (< (point) end)
-                            (not (outline-invisible-p (point)))
+                            (not (my/outline-folded-p (point)))
                             (looking-at-p "[ \t]*$"))
                   (forward-line 1))
                 (when (and (< (point) end)
-                           (not (outline-invisible-p (point)))
+                           (not (my/outline-folded-p (point)))
                            (or (not (looking-at outline-regexp))
                                (> (funcall outline-level) level)))
                   (throw 'shown t))))))
@@ -501,7 +509,7 @@ when the subtree or buffer is already folded."
             (outline-hide-sublevels 1)
             ;; A blank line inside a body gets folded away with the rest of it,
             ;; so pull the cursor back out of the invisible text.
-            (when (outline-invisible-p (point))
+            (when (my/outline-folded-p (point))
               (outline-previous-visible-heading 1)))
         (outline-show-all))
     ;; Act on the heading enclosing point, at its own level -- point may be
