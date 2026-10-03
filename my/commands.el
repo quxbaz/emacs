@@ -491,44 +491,61 @@ gap between two subtrees -- so it counts as being outside them all."
         (beginning-of-line)
         (looking-at-p "[ \t]*$"))))
 
+(defvar-local my/outline-toggle-return nil
+  "Where `my/outline-toggle-all' last folded from, as (LANDING . ORIGIN).
+LANDING is where the fold left point and ORIGIN where point was before.")
+
 (defun my/outline-toggle-all ()
   "Toggle folding of the subtree at point, or of the buffer.
 At or inside a heading's text, fold just that heading's subtree, leaving
 point on the heading.  Outside every heading -- before the first one or on
 a blank line between subtrees -- fold the whole buffer to top-level
 headings instead.  Either way the toggle prefers hiding: it only expands
-when the subtree or buffer is already folded."
+when the subtree or buffer is already folded.  Expanding with point still
+where the fold left it returns point to where it was before the fold."
   (interactive)
   ;; Org and outline-mode fold on their own; the minor mode only matters in
   ;; other modes (and in org it shadows `C-c @' with its prefix map).
   (unless (or (derived-mode-p 'outline-mode) (bound-and-true-p outline-minor-mode))
     (outline-minor-mode t))
-  (if (my/outline-outside-headings-p)
-      (if (my/outline-subtrees-shown-p)
-          (progn
-            (outline-hide-sublevels 1)
-            ;; A blank line inside a body gets folded away with the rest of it,
-            ;; so pull the cursor back out of the invisible text.
-            (when (my/outline-folded-p (point))
-              (outline-previous-visible-heading 1)))
-        (outline-show-all))
-    ;; Act on the heading enclosing point, at its own level -- point may be
-    ;; anywhere in the body, and hiding would leave it stranded in invisible
-    ;; text, so move to the heading first and stay there.
-    (outline-back-to-heading t)
-    ;; In org, `outline-end-of-subtree' and `outline-hide-subtree' first go
-    ;; back to the heading with org's strict visibility check, which a stray
-    ;; fold marker on the heading line (e.g. an overlay isearch opened and
-    ;; never closed) sends to the previous heading. Org's own subtree
-    ;; functions take the heading at point as given.
-    (let* ((org (derived-mode-p 'org-mode))
-           (beg (point))
-           (end (save-excursion
-                  (if org (org-end-of-subtree t t) (outline-end-of-subtree))
-                  (point))))
-      (if (my/outline-subtrees-shown-p beg end)
-          (if org (org-fold-hide-subtree) (outline-hide-subtree))
-        (if org (org-fold-show-subtree) (outline-show-subtree))))))
+  (let* ((start (point))
+         (back (and my/outline-toggle-return
+                    (= start (car my/outline-toggle-return))
+                    (cdr my/outline-toggle-return)))
+         (hid
+          (if (my/outline-outside-headings-p)
+              (if (my/outline-subtrees-shown-p)
+                  (progn
+                    (outline-hide-sublevels 1)
+                    ;; A blank line inside a body gets folded away with the rest
+                    ;; of it, so pull the cursor back out of the invisible text.
+                    (when (my/outline-folded-p (point))
+                      (outline-previous-visible-heading 1))
+                    t)
+                (outline-show-all)
+                nil)
+            ;; Act on the heading enclosing point, at its own level -- point may
+            ;; be anywhere in the body, and hiding would leave it stranded in
+            ;; invisible text, so move to the heading first and stay there.
+            (outline-back-to-heading t)
+            ;; In org, `outline-end-of-subtree' and `outline-hide-subtree' first
+            ;; go back to the heading with org's strict visibility check, which
+            ;; a stray fold marker on the heading line (e.g. an overlay isearch
+            ;; opened and never closed) sends to the previous heading. Org's own
+            ;; subtree functions take the heading at point as given.
+            (let* ((org (derived-mode-p 'org-mode))
+                   (beg (point))
+                   (end (save-excursion
+                          (if org (org-end-of-subtree t t) (outline-end-of-subtree))
+                          (point))))
+              (if (my/outline-subtrees-shown-p beg end)
+                  (progn (if org (org-fold-hide-subtree) (outline-hide-subtree)) t)
+                (if org (org-fold-show-subtree) (outline-show-subtree))
+                nil)))))
+    (setq my/outline-toggle-return
+          (and hid (/= (point) start) (cons (point-marker) (copy-marker start))))
+    (when (and back (not hid))
+      (goto-char back))))
 
 
 ;; # Search, replace, occur
