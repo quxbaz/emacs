@@ -270,6 +270,7 @@ the old contents remain on calc's undo list."
   :after org
          (set-face-attribute 'org-block-begin-line nil :foreground (face-foreground 'org-verbatim nil t))
          (set-face-attribute 'org-block-end-line nil :foreground (face-foreground 'org-verbatim nil t))
+         (modify-syntax-entry ?` "\"" org-mode-syntax-table)  ;; Make autopair pair backticks, like "quotes".
   :hooks (org-mode-hook 'my/org-echo-heading-mode)
          (org-mode-hook 'my/org-today-mode)
          (org-ctrl-c-ctrl-c-hook 'my/org-ctrl-c-ctrl-c-checkbox)
