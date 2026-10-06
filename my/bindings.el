@@ -228,7 +228,7 @@
 (global-set-key (kbd "M-F") 'find-file-other-window)
 (global-set-key (kbd "C-c p") 'find-file-at-point)
 (global-set-key (kbd "C-Q") 'read-only-mode)
-(global-set-key (kbd "C-S-l") 'my/commit-current-file)
+(global-set-key (kbd "M-L") 'my/commit-current-file)
 
 
 ;; # Projects
