@@ -159,10 +159,14 @@ N defaults to `my/scroll-lines'."
 
 (defun my/scroll-lines-up (&optional n)
   "Scroll the view up N lines, keeping point at the same screen position.
-N defaults to `my/scroll-lines'."
+N defaults to `my/scroll-lines'. Once the view is at the top of the
+buffer, move point up N lines instead."
   (interactive "^P")
-  (let ((scroll-preserve-screen-position 'always))
-    (scroll-down-command (if n (prefix-numeric-value n) my/scroll-lines))))
+  (let ((n (if n (prefix-numeric-value n) my/scroll-lines))
+        (scroll-preserve-screen-position 'always))
+    (condition-case nil
+        (scroll-down-command n)
+      (beginning-of-buffer (line-move (- n))))))
 
 (put 'my/scroll-lines-down 'scroll-command t)
 (put 'my/scroll-lines-up 'scroll-command t)
