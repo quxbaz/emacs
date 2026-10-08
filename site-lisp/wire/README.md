@@ -76,6 +76,7 @@ tmux) is required rather than poking `/proc/<pid>/fd/0`.
 | `wire-list-instances`  | `C-c y l`   | Echo the Claude windows kitty can see         |
 | `wire-visit-target`    | `C-c y SPC` | Focus the target's kitty window               |
 | `wire-doctor`          | `C-c y d`   | Diagnose the kitty/remote-control setup       |
+| `wire-send-region`     | `C-RET`     | Send the active region at once, no annotation |
 
 Typical flow:
 

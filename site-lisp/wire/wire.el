@@ -38,11 +38,13 @@
 ;;   C-c y s                     ; pick which Claude window to target
 ;;   mark a region (or not), C-c y y
 ;;   edit the pre-filled message, C-c C-c or C-RET   ; send (C-c C-k cancels)
+;;   mark a region, C-RET        ; send it immediately, no annotation buffer
 ;;   M-p / M-n in that buffer    ; cycle previously sent prompts
 ;;   C-c y SPC                   ; focus the target's kitty window
 ;;
 ;; Default keys under `wire-mode', prefix C-c y: y (dispatch), s
-;; (select-target), l (list instances), SPC (visit target).
+;; (select-target), l (list instances), SPC (visit target).  C-RET with an
+;; active region runs `wire-send-region'.
 ;;
 ;; See QUICKSTART.md for a fuller walk-through.
 
@@ -779,6 +781,32 @@ previous target is gone."
       (pop-to-buffer buf))))
 
 ;;;###autoload
+(defun wire-send-region ()
+  "Send the active region to Claude straight away, with no annotation.
+The message is the same context block `wire-dispatch' would pre-fill,
+sent as-is.  Prompts for a target only the first time, or whenever the
+previous target is gone."
+  (interactive)
+  (unless (use-region-p)
+    (user-error "wire: no active region"))
+  (let ((target (wire--ensure-target))
+        (ctx (wire--context-at-point)))
+    (unless target (user-error "wire: no target selected"))
+    (deactivate-mark)
+    (wire--send target (wire--format-context ctx))
+    (set-transient-map wire-post-dispatch-map)
+    (message "wire: sent region to Claude [%s]  (SPC: visit target)"
+             (plist-get target :label))))
+
+(defun wire--send-region-filter (cmd)
+  "Return CMD when the region is active outside an annotation buffer.
+Used as a `menu-item' filter so C-RET falls through to its usual
+binding when there is no region."
+  (and (use-region-p)
+       (not (derived-mode-p 'wire-annotation-mode))
+       cmd))
+
+;;;###autoload
 (defun wire-visit-target ()
   "Focus the terminal window of the current Claude target.
 Raises the kitty window (and its tab) running the selected Claude
@@ -806,6 +834,10 @@ gone."
     (define-key map (kbd "C-c y l") #'wire-list-instances)
     (define-key map (kbd "C-c y SPC") #'wire-visit-target)
     (define-key map (kbd "C-c y d") #'wire-doctor)
+    ;; Only while a region is active; otherwise C-RET keeps its meaning.
+    (define-key map (kbd "C-<return>")
+                `(menu-item "" wire-send-region
+                            :filter wire--send-region-filter))
     map)
   "Keymap for `wire-mode'.")
 

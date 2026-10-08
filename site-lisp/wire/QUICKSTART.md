@@ -25,6 +25,7 @@ Verify the setup with `M-x wire-doctor`.
 | `C-c y l`   | `wire-list-instances` | List the Claude windows kitty sees |
 | `C-c y SPC` | `wire-visit-target`   | Focus the target's kitty window    |
 | `C-c y d`   | `wire-doctor`         | Diagnose the wire/kitty setup      |
+| `C-RET`     | `wire-send-region`    | Send the active region, no prompt  |
 
 In the `*wire annotation*` buffer: `C-c C-c` or `C-RET` sends, `C-c C-k` cancels, and `M-p` / `M-n` cycle the `<prompt>` text through previously sent prompts.
 
