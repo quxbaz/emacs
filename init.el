@@ -20,7 +20,11 @@
     ;; M-x maf-restore-stack-from loads another session's stack.
     (maf-persist-mode 1)
     ;; Typeset the preview panel and G peeks with RaTeX.
-    (maf-use-pretty-mode 1)))
+    (maf-use-pretty-mode 1)
+    ;; Desmos plotting on g o: a personal module, kept out of maf
+    ;; (unlicensed API).
+    (load (concat user-emacs-directory "my/maf-desmos") nil t)
+    (maf-use-desmos-mode 1)))
 
 ;; Load wire package if it exists.
 (let ((wire-path (concat user-emacs-directory "site-lisp/wire")))
