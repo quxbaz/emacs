@@ -158,8 +158,6 @@
 (global-set-key (kbd "C-y") 'my/yank)
 (global-set-key (kbd "C-M-o") 'my/kill-line-to-other-window)
 (global-set-key [\S-insert] 'clipboard-yank)
-(global-set-key (kbd "M-u") 'undo)
-(global-unset-key (kbd "C-/"))
 (global-set-key (kbd "C-M-/") 'undo-only)
 ;; ## Creation, duplication, opening
 (global-set-key (kbd "C-o") 'my/open-line)
@@ -183,7 +181,7 @@
 ;; ## Case
 ;; DWIM commands act on the region when active, else on the word at point,
 ;; so they cover the upcase/downcase-word and -region cases in one binding.
-(global-set-key (kbd "M-U") 'upcase-dwim)
+(global-set-key (kbd "M-u") 'upcase-dwim)
 (global-set-key (kbd "M-l") 'downcase-dwim)
 (global-set-key (kbd "M-c") 'capitalize-dwim)
 
