@@ -17,6 +17,7 @@
                           "~/personal/game-dev.org"
                           "~/personal/ideas.org"
                           "~/personal/journal.org"
+                          "~/personal/lathe.org"
                           "~/personal/main.org"
                           "~/personal/media-queue.org"
                           "~/personal/projects.org"
